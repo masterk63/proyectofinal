@@ -1,0 +1,21 @@
+{
+    "remotePath": "/var/www/proyectofinal",
+    "host": "rickybruno.sytes.net",
+    "username": "root",
+    "password": "soporteit",
+    "port": 22,
+    "secure": false,
+    "protocol": "sftp",
+    "uploadOnSave": true,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "passphrase": null,
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store",
+        "./pfback/vendor",
+        "./front/node_modules"     
+    ]
+}
