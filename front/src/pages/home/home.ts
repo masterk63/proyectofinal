@@ -117,7 +117,7 @@ public pathForImage(img) {
 
 public uploadImage() {
   // Destination URL
-  var url = "http://rickybruno.sytes.net/proyectofinal/back/public/subirfoto";
+  var url = "http://rickybruno.sytes.net/proyectofinal/back/public/subirFoto";
  
   // File for Upload
   var targetPath = this.pathForImage(this.lastImage);
@@ -149,7 +149,5 @@ public uploadImage() {
     this.presentToast('Error while uploading file.');
   });
 }
-
-    
  
 }

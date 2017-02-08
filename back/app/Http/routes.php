@@ -16,12 +16,12 @@ Route::get('/', function () {
 });
 
 
-Route::post('/subirFoto', function () {
-    //I am storing the image in the public/images folder 
-    $destinationPath = 'fotos/';
+// Route::post('/subirFoto', function () {
+//     //I am storing the image in the public/images folder 
+//     $destinationPath = 'fotos/';
 
-    $newImageName='MyImage.jpg';
+//     $newImageName='MyImage.jpg';
     
-    Input::file('file')->move($destinationPath,$newImageName); 
-});
+//     Input::file('file')->move($destinationPath,$newImageName); 
+// });
 
