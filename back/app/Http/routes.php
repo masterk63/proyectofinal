@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::post('/subirFoto', function () {
+    //I am storing the image in the public/images folder 
+    $destinationPath = 'fotos/';
+
+    $newImageName='MyImage.jpg';
+    
+    Input::file('file')->move($destinationPath,$newImageName); 
+});
+

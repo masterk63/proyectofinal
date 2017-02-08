@@ -15,7 +15,9 @@
         "\\.vscode",
         "\\.git",
         "\\.DS_Store",
-        "./pfback/vendor",
-        "./front/node_modules"     
+        "/back/vendor",
+        "/front/node_modules",
+        "/front/platforms",
+        "/front/plugins"       
     ]
 }
