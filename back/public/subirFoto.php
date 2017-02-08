@@ -1,13 +1,13 @@
 <?php
-// header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: *');
 $target_path = "fotos/";
  
 $target_path = $target_path . basename( $_FILES['file']['name']);
  
 if (move_uploaded_file($_FILES['file']['tmp_name'], $target_path)) {
-    echo "Upload and move success";
+    echo "Imagen Subida Correctamente";
 } else {
 echo $target_path;
-    echo "There was an error uploading the file, please try again!";
+    echo "Error al Subir Imagen.";
 }
 ?>
