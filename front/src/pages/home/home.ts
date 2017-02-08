@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {Camera} from "ionic-native";
+
  
 @Component({
     templateUrl: 'home.html'
@@ -29,5 +30,6 @@ export class HomePage {
             console.log("ERROR -> " + JSON.stringify(error));
         });
     }
+    
  
 }

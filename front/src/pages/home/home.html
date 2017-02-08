@@ -4,13 +4,14 @@
             Ionic 2 Camera
         </ion-title>
         <ion-buttons end>
-            <button (click)="takePicture()">
-                <ion-icon name="camera"></ion-icon>
-            </button>
+            
         </ion-buttons>
     </ion-navbar>
 </ion-header>
  
 <ion-content padding>
     <img src="{{ base64Image }}" />
+    <button (click)="takePicture()">
+                <ion-icon name="camera"></ion-icon>
+    </button>
 </ion-content>  
