@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 //ActionSheetController menu de opciones nativas.
 //ToastController modal nativo
 import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
@@ -6,12 +6,17 @@ import { Camera, File, Transfer, FilePath } from 'ionic-native';
 
 declare var cordova: any;
 
+
 @Component({
-    templateUrl: 'home.html'
+    selector: 'home-page',
+    templateUrl: 'home.html',
 })
 
 export class HomePage {
     
+    
+
+
     listaFotos = [];
     public base64Image: string;
     lastImage: string = null;
@@ -26,6 +31,9 @@ export class HomePage {
 
                 }
         
+  
+
+    
 
     public presentActionSheet() {
         let actionSheet = this.actionSheetCtrl.create({
