@@ -14,9 +14,6 @@ declare var cordova: any;
 
 export class HomePage {
     
-    
-
-
     listaFotos = [];
     public base64Image: string;
     lastImage: string = null;
@@ -27,15 +24,13 @@ export class HomePage {
                 public actionSheetCtrl: ActionSheetController, 
                 public toastCtrl: ToastController, 
                 public platform: Platform, 
-                public loadingCtrl: LoadingController) {
+                public loadingCtrl: LoadingController
+                ){
 
                 }
         
   
-
-    
-
-    public presentActionSheet() {
+   public presentActionSheet() {
         let actionSheet = this.actionSheetCtrl.create({
             title: 'Subir Imagen desde',
             buttons: [
