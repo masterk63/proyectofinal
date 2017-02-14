@@ -33,7 +33,8 @@ export class HomePage {
                 }
 
     openModal(caminofoto) {
-        console.log("click modal");
+        console.log("caminofoto: ");
+        console.log(caminofoto);
         let modal = this.modalCtrl.create(ModalPage, {foto: caminofoto});
         modal.present();
     }
