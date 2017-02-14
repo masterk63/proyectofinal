@@ -1,8 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 //ActionSheetController menu de opciones nativas.
 //ToastController modal nativo
-import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
+import { ModalController, ViewController, NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
 import { Camera, File, Transfer, FilePath } from 'ionic-native';
+
+import { ModalPage } from '../modal/modal';
 
 declare var cordova: any;
 
@@ -24,10 +26,17 @@ export class HomePage {
                 public actionSheetCtrl: ActionSheetController, 
                 public toastCtrl: ToastController, 
                 public platform: Platform, 
-                public loadingCtrl: LoadingController
+                public loadingCtrl: LoadingController,
+                public modalCtrl: ModalController
                 ){
 
                 }
+
+    openModal(caminofoto) {
+        console.log("click modal");
+        let modal = this.modalCtrl.create(ModalPage, {foto: caminofoto});
+        modal.present();
+    }
         
   
    public presentActionSheet() {

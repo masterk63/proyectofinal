@@ -4,13 +4,15 @@ import { MyApp } from './app.component';
 import { MapasjsPage } from '../pages/mapasjs/mapasjs';
 import { MapasnativoPage } from '../pages/mapasnativo/mapasnativo';
 import { HomePage } from '../pages/home/home';
+import { ModalPage } from '../pages/modal/modal';
 
 @NgModule({
   declarations: [
     MyApp,
     MapasjsPage,
     MapasnativoPage,
-    HomePage
+    HomePage,
+    ModalPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -20,7 +22,8 @@ import { HomePage } from '../pages/home/home';
     MyApp,
     MapasjsPage,
     MapasnativoPage,
-    HomePage
+    HomePage,
+    ModalPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

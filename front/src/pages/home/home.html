@@ -10,10 +10,14 @@
 </ion-header>
  
 <ion-content padding>
+  
     <button style="border: 2px solid #73AD21; height: 100px; width: 100px;" (click)="presentActionSheet()">
       <ion-icon style="font-size: 50px;" name="add-circle"></ion-icon>
     </button>
     <ion-item *ngFor="let foto of listaFotos; let i = index" >
+          <a ion-item (click)="openModal(pathForImage(foto))">
+            Ver foto
+        </a>
            <img src="{{pathForImage(foto)}}" style="width: 100%" [hidden]="lastImage === null">
     </ion-item>
   <h3 [hidden]="lastImage !== null">Seleccione una imagen</h3>

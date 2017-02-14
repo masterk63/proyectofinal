@@ -23,7 +23,7 @@ export class MyApp {
     this.pages = [
       { title: 'Mapas JS', component: MapasjsPage },
       { title: 'Mapas Nativo', component: MapasnativoPage },
-      { title: 'Camara', component: HomePage }
+      { title: 'Camara', component: HomePage },
     ];
 
   }
