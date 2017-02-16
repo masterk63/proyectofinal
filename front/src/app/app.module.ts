@@ -5,6 +5,8 @@ import { MapasjsPage } from '../pages/mapasjs/mapasjs';
 import { MapasnativoPage } from '../pages/mapasnativo/mapasnativo';
 import { HomePage } from '../pages/home/home';
 import { ModalPage } from '../pages/modal/modal';
+import { Todos } from '../providers/todos';
+import { ClouDOPage } from '../pages/clou-do/clou-do';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { ModalPage } from '../pages/modal/modal';
     MapasjsPage,
     MapasnativoPage,
     HomePage,
-    ModalPage
+    ModalPage,
+    ClouDOPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -23,8 +26,9 @@ import { ModalPage } from '../pages/modal/modal';
     MapasjsPage,
     MapasnativoPage,
     HomePage,
-    ModalPage
+    ModalPage,
+    ClouDOPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos]
 })
 export class AppModule {}

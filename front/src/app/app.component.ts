@@ -4,6 +4,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { MapasjsPage } from '../pages/mapasjs/mapasjs';
 import { MapasnativoPage } from '../pages/mapasnativo/mapasnativo';
 import { HomePage } from '../pages/home/home';
+import { ClouDOPage } from '../pages/clou-do/clou-do';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class MyApp {
       { title: 'Mapas JS', component: MapasjsPage },
       { title: 'Mapas Nativo', component: MapasnativoPage },
       { title: 'Camara', component: HomePage },
+      { title: 'ClouDO', component: ClouDOPage }
     ];
 
   }

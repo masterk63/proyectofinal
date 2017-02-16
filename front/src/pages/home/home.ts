@@ -4,6 +4,8 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ModalController, ViewController, NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
 import { Camera, File, Transfer, FilePath } from 'ionic-native';
 
+
+
 import { ModalPage } from '../modal/modal';
 
 declare var cordova: any;
