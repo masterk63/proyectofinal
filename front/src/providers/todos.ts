@@ -27,7 +27,7 @@ export class Todos {
  
     this.db = new PouchDB('proyectofinal');
  
-    this.remote = 'http://http://rickybruno.sytes.net:5984/proyectofinal';
+    this.remote = 'http://rickybruno.sytes.net:5984/proyectofinal';
  
     let options = {
       live: true,
