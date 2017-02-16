@@ -9,18 +9,30 @@
   </ion-navbar>
 </ion-header>
  
-<ion-content padding>
+<ion-content padding  class="home-page">
   
     <button style="border: 2px solid #73AD21; height: 100px; width: 100px;" (click)="presentActionSheet()">
       <ion-icon style="font-size: 50px;" name="add-circle"></ion-icon>
     </button>
-    <ion-item *ngFor="let foto of listaFotos; let i = index" >
+    <!--<ion-item *ngFor="let foto of listaFotos; let i = index" >
           <a ion-item (click)="openModal(pathForImage(foto))">
             Ver foto
         </a>
            <img src="{{pathForImage(foto)}}" style="width: 100%" [hidden]="lastImage === null">
-    </ion-item>
+    </ion-item>-->
   <h3 [hidden]="lastImage !== null">Seleccione una imagen</h3>
+
+  <ion-slides pager>
+    <ion-slide *ngFor="let foto of listaFotos; let i = index">
+      <ion-toolbar>
+        <ion-buttons end>
+          <button ion-button color="primary">Skip</button>
+        </ion-buttons>
+      </ion-toolbar>
+      <img src="{{pathForImage(foto)}}" class="slide-image"/>
+      <h2 class="slide-title" [innerHTML]="foto: {{i}}"></h2>
+    </ion-slide>
+  </ion-slides>
 
 
 </ion-content>
