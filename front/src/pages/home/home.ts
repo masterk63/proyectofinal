@@ -3,7 +3,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 //ToastController modal nativo
 import { ModalController, ViewController, NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
 import { Camera, File, Transfer, FilePath } from 'ionic-native';
-
+import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 
 
 import { ModalPage } from '../modal/modal';

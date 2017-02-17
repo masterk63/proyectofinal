@@ -5,10 +5,10 @@ import { Geolocation } from 'ionic-native';
 declare var google;
  
 @Component({
-  selector: 'home-page',
-  templateUrl: 'home.html'
+  selector: 'mapajshtml',
+  templateUrl: 'mapajshtml.html'
 })
-export class HomePage {
+export class Mapajshtml {
  
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -39,19 +39,18 @@ export class HomePage {
       console.log('More or less ' + crd.accuracy + ' meters.');
 
       let latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-      this.centro = latLng;
       let mapOptions = {
         center: latLng,
         zoom: 15, 
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
   
-      this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+      var mapa = new google.maps.Map(document.getElementById('map'), mapOptions);
 
       let marker = new google.maps.Marker({
-      map: this.map,
+      map: mapa,
       animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
+      position: mapa.getCenter()
     });
   
       let content = "<h4>Information!</h4>";            
