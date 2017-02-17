@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,NgZone } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Todos } from '../../providers/todos';
@@ -14,11 +14,13 @@ export class ClouDOPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public todoService: Todos, 
-              public alertCtrl: AlertController) {}
+              public alertCtrl: AlertController,
+              private _zone: NgZone) {}
 
   ionViewDidLoad() {
-     this.todoService.getTodos().then((data) => {
-      this.todos = data;
+    //Zone Run Refresaca la pagina
+     this.todoService.getTodos().subscribe((data) => {
+      this._zone.run(() => this.todos = data);
     });
   }
 
