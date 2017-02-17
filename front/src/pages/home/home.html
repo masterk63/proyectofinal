@@ -23,7 +23,8 @@
         
       
           <ion-scroll scrollX="true">
-            <img *ngFor="let foto of listaFotos; let i = index"  src="{{pathForImage(foto)}}"  class="image-list-thumb"/>
+            <img *ngFor="let foto of imagenes; let i = index"  src="{{foto.src}}"  class="image-list-thumb"/>
+            <!--<img *ngFor="let foto of listaFotos; let i = index"  src="{{pathForImage(foto)}}"  class="image-list-thumb"/>-->
           </ion-scroll>
 
 

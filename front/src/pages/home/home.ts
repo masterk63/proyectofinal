@@ -89,11 +89,13 @@ public takePicture(sourceType) {
     // Create options for the Camera Dialog
     var options = {
         quality: 100,
-        allowEdit: false,
+        allowEdit: true,
         sourceType: sourceType,
         saveToPhotoAlbum: false,
-        correctOrientation: true
-    };
+        correctOrientation: true,
+        targetWidth: 1080,
+        targetHeight: 1080
+        };
 
     // Get the data of an image
     Camera.getPicture(options).then((imagePath) => {
