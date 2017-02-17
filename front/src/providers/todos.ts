@@ -63,6 +63,8 @@ export class Todos {
  
       this.db.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
         this.handleChange(change);
+        console.log('cambio detectado');
+         console.log(change);
       });
  
     }).catch((error) => {
