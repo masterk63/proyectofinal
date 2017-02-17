@@ -3,7 +3,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 //ToastController modal nativo
 import { ModalController, ViewController, NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
 import { Camera, File, Transfer, FilePath } from 'ionic-native';
-
+import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 
 
 import { ModalPage } from '../modal/modal';
@@ -29,7 +29,7 @@ export class HomePage {
                 public toastCtrl: ToastController, 
                 public platform: Platform, 
                 public loadingCtrl: LoadingController,
-                public modalCtrl: ModalController
+                public modalCtrl: ModalController,
                 ){
                     this.imagenes = [{
                         src: '../assets/img/1.jpg'
@@ -51,6 +51,11 @@ export class HomePage {
                         src: '../assets/img/1.jpg'
                     }];
                 }
+
+
+    ionViewDidLoad(){
+    
+    }
 
     openModal(caminofoto) {
         console.log("caminofoto: ");

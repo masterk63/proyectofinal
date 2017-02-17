@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ModalPage } from '../pages/modal/modal';
 import { Todos } from '../providers/todos';
 import { ClouDOPage } from '../pages/clou-do/clou-do';
+import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ClouDOPage } from '../pages/clou-do/clou-do';
     MapasnativoPage,
     HomePage,
     ModalPage,
-    ClouDOPage
+    ClouDOPage,
+    Mapajshtml
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -27,7 +29,8 @@ import { ClouDOPage } from '../pages/clou-do/clou-do';
     MapasnativoPage,
     HomePage,
     ModalPage,
-    ClouDOPage
+    ClouDOPage,
+    Mapajshtml
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos]
 })
