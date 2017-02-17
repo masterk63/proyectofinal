@@ -22,7 +22,7 @@ export class Mapajshtml {
     this.loadMap();
   }
  
-  loadMap(){
+ public loadMap(){
 
     var options = {
     enableHighAccuracy: true,

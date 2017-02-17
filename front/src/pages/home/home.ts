@@ -29,7 +29,7 @@ export class HomePage {
                 public toastCtrl: ToastController, 
                 public platform: Platform, 
                 public loadingCtrl: LoadingController,
-                public modalCtrl: ModalController
+                public modalCtrl: ModalController,
                 ){
                     this.imagenes = [{
                         src: '../assets/img/1.jpg'
@@ -51,6 +51,11 @@ export class HomePage {
                         src: '../assets/img/1.jpg'
                     }];
                 }
+
+
+    ionViewDidLoad(){
+    
+    }
 
     openModal(caminofoto) {
         console.log("caminofoto: ");
