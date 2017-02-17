@@ -1,18 +1,4 @@
-// import { Injectable } from '@angular/core';
-// import { Http } from '@angular/http';
-// import 'rxjs/add/operator/map';
-
-
-// @Injectable()
-// export class Todos {
-
-//   constructor(public http: Http) {
-//     console.log('Hello Todos Provider');
-//   }
-
-// }
-
-
+import {Observable} from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import PouchDB from 'pouchdb';
  
@@ -27,7 +13,7 @@ export class Todos {
  
     this.db = new PouchDB('proyectofinal');
  
-    this.remote = 'http://192.168.1.14:5984/proyectofinal/';
+    this.remote = 'http://rickybruno.sytes.net:5984/proyectofinal/';
  
     let options = {
       live: true,
@@ -42,11 +28,11 @@ export class Todos {
   getTodos() {
 
      if (this.data) {
-      return Promise.resolve(this.data);
+      return Observable.create(observer => {
+            observer.next(this.data);
+        });
     }
- 
-  return new Promise(resolve => {
- 
+  return Observable.create(observer => {    
     this.db.allDocs({
  
       include_docs: true
@@ -59,12 +45,11 @@ export class Todos {
         this.data.push(row.doc);
       });
  
-      resolve(this.data);
+      observer.next(this.data);
  
       this.db.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
         this.handleChange(change);
-        console.log('cambio detectado');
-         console.log(change);
+        observer.next(this.data);
       });
  
     }).catch((error) => {
