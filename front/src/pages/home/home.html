@@ -19,7 +19,7 @@
             Ver foto
         </a>-->
 
-        <div class="item item-divider">
+        <!--<div class="item item-divider">
           <i class="ion-images"></i>
           My Images
         </div>
@@ -28,7 +28,15 @@
           <ion-scroll scrollX="true">
             <img *ngFor="let foto of listaFotos; let i = index"  src="{{pathForImage(foto)}}"  class="image-list-thumb"/>
           </ion-scroll>
-        </a>
+        </a>-->
+
+  <ion-scroll scrollX="true">
+ 	  <img *ngFor="let f of imagenes" src="{{f.src}}" height="200px"/>
+   </ion-scroll>
+
+
+<!--
+   <button (click)="addPhoto()">Add Photo</button>-->
 
       <!--<ion-list>
         <ion-item *ngFor="let foto of listaFotos; let i = index" >

@@ -17,7 +17,7 @@ declare var cordova: any;
 })
 
 export class HomePage {
-    
+    imagenes = [];
     listaFotos = [];
     public base64Image: string;
     lastImage: string = null;
@@ -31,7 +31,25 @@ export class HomePage {
                 public loadingCtrl: LoadingController,
                 public modalCtrl: ModalController
                 ){
-
+                    this.imagenes = [{
+                        src: '../assets/img/1.jpg'
+                    },{
+                        src: '../assets/img/2.jpg'
+                    },{
+                        src: '../assets/img/3.jpg'
+                    },{
+                        src: '../assets/img/1.jpg'
+                    },{
+                        src: '../assets/img/1.jpg'
+                    },{
+                        src: '../assets/img/1.jpg'
+                    },{
+                        src: '../assets/img/1.jpg'
+                    },{
+                        src: '../assets/img/1.jpg'
+                    },{
+                        src: '../assets/img/1.jpg'
+                    }];
                 }
 
     openModal(caminofoto) {
