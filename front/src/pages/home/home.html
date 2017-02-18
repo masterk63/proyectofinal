@@ -10,42 +10,39 @@
 </ion-header>
  
 <ion-content padding  class="home-page">
-   
-    <button style="border: 2px solid #73AD21; height: 100px; width: 100px;" (click)="presentActionSheet()">
-      <ion-icon style="font-size: 50px;" name="add-circle"></ion-icon>
-    </button>
-    
-          <!--<a ion-item (click)="openModal(pathForImage(foto))">
-            Ver foto
-        </a>-->
+    <mapajshtml></mapajshtml>
 
-       
-        
+    <div class="contenedor">
+      <button style="border: 2px solid #73AD21; height: 100px; width: 100px;" (click)="presentActionSheet()">
+        <ion-icon style="font-size: 50px;" name="add-circle"></ion-icon>
+      </button>
       
-          <ion-scroll scrollX="true">
-            <!--<img *ngFor="let foto of imagenes; let i = index"  src="{{foto.src}}"  (click)="abrirImagen(this.foto.src)" class="image-list-thumb"/>-->
-            <img *ngFor="let foto of listaFotos; let i = index"  src="{{pathForImage(foto)}}" (click)="abrirImagen(pathForImage(this.foto))" class="image-list-thumb"/>
-          </ion-scroll>
+      <!--<a ion-item (click)="openModal(pathForImage(foto))">
+      Ver foto
+      </a>-->
 
+      <ion-scroll scrollX="true">
+      <!--<img *ngFor="let foto of imagenes; let i = index"  src="{{foto.src}}"  (click)="abrirImagen(this.foto.src)" class="image-list-thumb"/>-->
+        <img *ngFor="let foto of listaFotos; let i = index"  src="{{pathForImage(foto)}}" (click)="abrirImagen(pathForImage(this.foto))" class="image-list-thumb"/>
+      </ion-scroll>
 
-
-<!--
-   <button (click)="addPhoto()">Add Photo</button>-->
+      <!--
+      <button (click)="addPhoto()">Add Photo</button>-->
 
       <!--<ion-list>
-        <ion-item *ngFor="let foto of listaFotos; let i = index" >
-        <ion-thumbnail item-left>
-          <img src="{{pathForImage(foto)}}" style="max-width: 160px" [hidden]="lastImage === null">
-        </ion-thumbnail>
-        <h2>Foto {{i}}</h2>
-        <p>Bicho</p>
-        <button ion-button clear item-right>View</button>
-        </ion-item>
+      <ion-item *ngFor="let foto of listaFotos; let i = index" >
+      <ion-thumbnail item-left>
+      <img src="{{pathForImage(foto)}}" style="max-width: 160px" [hidden]="lastImage === null">
+      </ion-thumbnail>
+      <h2>Foto {{i}}</h2>
+      <p>Bicho</p>
+      <button ion-button clear item-right>View</button>
+      </ion-item>
       </ion-list>-->
-           
-  <h3 [hidden]="lastImage !== null">Seleccione una imagen</h3>
+            
+      <!--<h3 [hidden]="lastImage !== null">Seleccione una imagen</h3>-->
 
-
+    </div>
 </ion-content>
  
 <ion-footer>
