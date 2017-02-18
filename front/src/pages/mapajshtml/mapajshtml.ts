@@ -3,22 +3,19 @@ import { NavController } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 
 declare var google;
- 
+
+
 @Component({
   selector: 'mapajshtml',
   templateUrl: 'mapajshtml.html'
 })
 export class Mapajshtml {
  
-  @ViewChild('map') mapElement: ElementRef;
-  map: any;
-  centro: any;
-
   constructor(public navCtrl: NavController) {
     
   }
  
-  ionViewDidLoad(){
+  ngOnInit(){
     this.loadMap();
   }
  
@@ -40,6 +37,11 @@ export class Mapajshtml {
 
       let latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
       let mapOptions = {
+        scrollwheel: false,
+        navigationControl: false,
+        mapTypeControl: false,
+        scaleControl: false,
+        draggable: false,
         center: latLng,
         zoom: 15, 
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -48,45 +50,26 @@ export class Mapajshtml {
       var mapa = new google.maps.Map(document.getElementById('map'), mapOptions);
 
       let marker = new google.maps.Marker({
-      map: mapa,
-      animation: google.maps.Animation.DROP,
-      position: mapa.getCenter()
-    });
+        map: mapa,
+        animation: google.maps.Animation.DROP,
+        position: mapa.getCenter()
+      });
   
-      let content = "<h4>Information!</h4>";            
+      let content = "<h4>Information!</h4>";  
+
+      let infoWindow = new google.maps.InfoWindow({
+        content: content
+      });
+    
+      google.maps.event.addListener(marker, 'click', () => {
+        infoWindow.open(mapa, marker);
+      });          
       };
 
     function error(err) {
-    console.warn('ERROR(' + err.code + '): ' + err.message);
+      console.warn('ERROR(' + err.code + '): ' + err.message);
     };
 
     navigator.geolocation.getCurrentPosition(success, error, options); 
   }
-
-  addMarker(){
- 
-  let marker = new google.maps.Marker({
-    map: this.map,
-    animation: google.maps.Animation.DROP,
-    position: this.centro
-  });
- 
-  let content = "<h4>Information!</h4>";          
- 
-  this.addInfoWindow(marker, content);
- 
-}
-
-  addInfoWindow(marker, content){
-  
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    });
-  
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    });
-  
-  }
-
 }
