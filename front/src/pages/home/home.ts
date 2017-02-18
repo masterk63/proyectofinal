@@ -8,6 +8,8 @@ import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 
 import { ModalPage } from '../modal/modal';
 
+import { PhotoViewer } from 'ionic-native';
+
 declare var cordova: any;
 
 
@@ -57,6 +59,10 @@ export class HomePage {
     
     }
 
+    abrirImagen(camino){
+        PhotoViewer.show('camino');
+    }
+
     openModal(caminofoto) {
         console.log("caminofoto: ");
         console.log(caminofoto);
@@ -94,11 +100,13 @@ public takePicture(sourceType) {
     // Create options for the Camera Dialog
     var options = {
         quality: 100,
-        allowEdit: false,
+        allowEdit: true,
         sourceType: sourceType,
         saveToPhotoAlbum: false,
-        correctOrientation: true
-    };
+        correctOrientation: true,
+        targetWidth: 1080,
+        targetHeight: 1080
+        };
 
     // Get the data of an image
     Camera.getPicture(options).then((imagePath) => {

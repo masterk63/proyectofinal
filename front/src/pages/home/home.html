@@ -10,7 +10,7 @@
 </ion-header>
  
 <ion-content padding  class="home-page">
-    <mapajshtml></mapajshtml>
+   
     <button style="border: 2px solid #73AD21; height: 100px; width: 100px;" (click)="presentActionSheet()">
       <ion-icon style="font-size: 50px;" name="add-circle"></ion-icon>
     </button>
@@ -23,7 +23,8 @@
         
       
           <ion-scroll scrollX="true">
-            <img *ngFor="let foto of listaFotos; let i = index"  src="{{pathForImage(foto)}}"  class="image-list-thumb"/>
+            <!--<img *ngFor="let foto of imagenes; let i = index"  src="{{foto.src}}"  (click)="abrirImagen(this.foto.src)" class="image-list-thumb"/>-->
+            <img *ngFor="let foto of listaFotos; let i = index"  src="{{pathForImage(foto)}}" (click)="abrirImagen(pathForImage(this.foto))" class="image-list-thumb"/>
           </ion-scroll>
 
 

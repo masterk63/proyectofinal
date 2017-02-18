@@ -2,11 +2,18 @@
 
     ion-scroll {
         white-space: nowrap;
-        height: 250px;
+        height: 170px;
+        background-color: beige;
     }
 
     h3{
         background: beige;
+    }
+
+    .image-list-thumb{
+         height: 135px;
+         width: 135px;
+         margin-left: 3px;
     }
  
 }
