@@ -8,6 +8,8 @@ import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 
 import { ModalPage } from '../modal/modal';
 
+import { PhotoViewer } from 'ionic-native';
+
 declare var cordova: any;
 
 
@@ -55,6 +57,10 @@ export class HomePage {
 
     ionViewDidLoad(){
     
+    }
+
+    abrirImagen(camino){
+        PhotoViewer.show('camino');
     }
 
     openModal(caminofoto) {
