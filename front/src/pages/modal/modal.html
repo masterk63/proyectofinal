@@ -1,29 +1,19 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Description
-      <ion-buttons start>
-        <button (click)="dismiss()">
-        <ion-icon name="close"></ion-icon>
-      </button>
-    </ion-buttons>
-    </ion-title>
 
-  </ion-toolbar>
 
 </ion-header>
 
 <ion-content>
 
-    <img src="{{foto1}}" style="width: 100%" >
 
-  <ion-list>
-      <ion-item>
-        <ion-avatar item-left>
-        </ion-avatar>
-        <h2>Probando{{hola}}</h2>
-        
-      </ion-item>
+<div class="modal image-modal transparent" (press)="dismiss()">
+  <ion-slides pager="true">
+    <ion-slide *ngFor="let f of foto; let i = index">
+      <!--<div class="image" style="background-image: url( {{f.src}} )"></div>-->
+      <img class="image" src="{{f.src}}">
+    </ion-slide>
+  </ion-slides>
+  </div>
 
-  </ion-list>
+    <!--<img src="{{foto}}" style="width: 100%" >-->
 </ion-content>

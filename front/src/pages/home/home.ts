@@ -38,17 +38,17 @@ export class HomePage {
                     },{
                         src: '../assets/img/2.jpg'
                     },{
-                        src: '../assets/img/3.jpg'
+                        src: '../assets/img/1.jpg'
+                    },{
+                        src: '../assets/img/2.jpg'
                     },{
                         src: '../assets/img/1.jpg'
                     },{
-                        src: '../assets/img/1.jpg'
+                        src: '../assets/img/2.jpg'
                     },{
                         src: '../assets/img/1.jpg'
                     },{
-                        src: '../assets/img/1.jpg'
-                    },{
-                        src: '../assets/img/1.jpg'
+                        src: '../assets/img/2.jpg'
                     },{
                         src: '../assets/img/1.jpg'
                     }];
@@ -64,14 +64,16 @@ export class HomePage {
     }
 
     openSlide(caminofoto) {
-        let slide = this.modalCtrl.create(ModalPage, {foto: caminofoto});
+        let slide = this.modalCtrl.create(ModalPage,{foto: caminofoto});
         slide.present();
     }
 
-    openModal(caminofoto) {
-        console.log("caminofoto: ");
-        console.log(caminofoto);
-        let modal = this.modalCtrl.create(ModalPage, {foto: caminofoto});
+    openModal(pics) {
+        // let pathOfPics = [];
+        // for (let p of pics) {
+        //     pathOfPics.push(this.pathForImage(p));
+        // }
+        let modal = this.modalCtrl.create(ModalPage, {foto: pics});
         modal.present();
     }
         

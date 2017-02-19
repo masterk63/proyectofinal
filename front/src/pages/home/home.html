@@ -12,24 +12,26 @@
 <ion-content padding  class="home-page">
     <mapajshtml></mapajshtml>
 
-    <ion-slides pager="true">
+    <!--<ion-slides pager="true">
   <ion-slide *ngFor="let foto of imagenes; let i = index">
     <img src="{{foto.src}}" (click)="openSlide(this.foto.src)">
   </ion-slide>
-</ion-slides>
+</ion-slides>-->
 
     <div class="contenedor">
-      <button style="border: 2px solid #73AD21; height: 100px; width: 100px;" (click)="presentActionSheet()">
+      <!--<button style="border: 2px solid #73AD21; height: 100px; width: 100px;" (click)="presentActionSheet()">
         <ion-icon style="font-size: 50px;" name="add-circle"></ion-icon>
-      </button>
+      </button>-->
       
       <!--<a ion-item (click)="openModal(pathForImage(foto))">
       Ver foto
       </a>-->
 
       <ion-scroll scrollX="true">
+        <img *ngFor="let foto of imagenes; let i = index" src="{{foto.src}}" (click)="openModal(imagenes)"
+        style="width:150px">
       <!--<img *ngFor="let foto of imagenes; let i = index"  src="{{foto.src}}"  (click)="abrirImagen(this.foto.src)" class="image-list-thumb"/>-->
-        <img *ngFor="let foto of listaFotos; let i = index"  src="{{pathForImage(foto)}}" (click)="abrirImagen(pathForImage(foto))" class="image-list-thumb"/>
+        <!--<img *ngFor="let foto of listaFotos; let i = index"  src="{{pathForImage(foto)}}" (click)="abrirImagen(pathForImage(foto))" class="image-list-thumb"/>-->
       </ion-scroll>
 
       <!--
