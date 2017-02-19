@@ -7,6 +7,7 @@ import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 
 
 import { ModalPage } from '../modal/modal';
+import { SlidePage } from '../pages/slide/slide';
 
 import { PhotoViewer } from 'ionic-native';
 
@@ -24,7 +25,6 @@ export class HomePage {
     public base64Image: string;
     lastImage: string = null;
     loading: Loading;
-    
 
     constructor(public navCtrl: NavController, 
                 public actionSheetCtrl: ActionSheetController, 
@@ -61,6 +61,11 @@ export class HomePage {
 
     abrirImagen(camino){
         PhotoViewer.show('camino');
+    }
+
+    openSlide(caminofoto) {
+        let slide = this.modalCtrl.create(ModalPage, {foto: caminofoto});
+        slide.present();
     }
 
     openModal(caminofoto) {
