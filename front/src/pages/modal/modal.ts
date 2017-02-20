@@ -1,11 +1,10 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Directive, Component, ViewChild, ElementRef } from '@angular/core';
 import { ModalController, NavParams, ViewController, NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
 import { Camera, File, Transfer, FilePath } from 'ionic-native';
 
-
 @Component({
   selector: 'page-modal',
-  templateUrl: 'modal.html'
+  templateUrl: 'modal.html',
 })
 
 export class ModalPage {

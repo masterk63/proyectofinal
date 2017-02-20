@@ -9,6 +9,7 @@ import { Todos } from '../providers/todos';
 import { ClouDOPage } from '../pages/clou-do/clou-do';
 import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 import { SlidePage } from '../pages/slide/slide';
+import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SlidePage } from '../pages/slide/slide';
     ModalPage,
     ClouDOPage,
     Mapajshtml,
-    SlidePage
+    SlidePage,
+    SwipeVertical //OJO, Swipe Vertical es una directiva, solo va aqui y se importa arriba, no va abajo en bootstrap!
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -33,7 +35,7 @@ import { SlidePage } from '../pages/slide/slide';
     ModalPage,
     ClouDOPage,
     Mapajshtml,
-    SlidePage
+    SlidePage,
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos]
 })
