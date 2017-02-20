@@ -6,7 +6,7 @@
 <ion-content>
 
 <!--esto iria dentro del div para usar directivas: swipe-vertical [swipeUp]="mySwipeAction()" -->
-<div class="modal image-modal transparent" (press)="dismiss()" swipe-vertical (swipeUp)="mySwipeAction()">
+<div class="modal image-modal transparent" (press)="dismiss()" swipe-vertical (onSwipeUp)="onSwipeUp($event)" (onSwipeDown)="onSwipeDown($event)">
   <ion-slides pager="true">
     <ion-slide *ngFor="let f of foto; let i = index">
       <!--<div class="image" style="background-image: url( {{f.src}} )"></div>-->

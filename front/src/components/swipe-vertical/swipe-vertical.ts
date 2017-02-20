@@ -39,8 +39,4 @@ export class SwipeVertical implements OnInit, OnDestroy {
         this.swipeGesture.destroy();
     }
 
-    mySwipeAction(){
-        console.log("hola swipe");
-    }
-
 }
