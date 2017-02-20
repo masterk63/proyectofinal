@@ -6,14 +6,13 @@
 <ion-content>
 
 <!--esto iria dentro del div para usar directivas: swipe-vertical [swipeUp]="mySwipeAction()" -->
-<div class="modal image-modal transparent" (press)="dismiss()" swipe-vertical (onSwipeUp)="onSwipeUp($event)" (onSwipeDown)="onSwipeDown($event)">
+<div class="modal image-modal transparent" swipe-vertical (onSwipeUp)="onSwipeUp($event)" (onSwipeDown)="onSwipeDown($event)">
+  <div class="cerrar" [class.mostrar]="isActive"><ion-icon (click)="dismiss()" name="close"></ion-icon></div>
   <ion-slides pager="true">
-    <ion-slide *ngFor="let f of foto; let i = index">
-      <!--<div class="image" style="background-image: url( {{f.src}} )"></div>-->
-      <img class="image" src="{{f.src}}">
+    <ion-slide *ngFor="let f of foto; let i = index">   
+      <img (click)="show()" class="image" src="{{f.src}}">                   
     </ion-slide>
   </ion-slides>
-  </div>
-
-    <!--<img src="{{foto}}" style="width: 100%" >-->
+  
+</div>
 </ion-content>

@@ -2,8 +2,7 @@
 
     ion-scroll {
         white-space: nowrap;
-        height: 170px;
-        background-color: beige;
+        height: 150px;
     }
 
     h3{
@@ -19,5 +18,18 @@
          width: 135px;
          margin-left: 3px;
     }
+
+    .scroll-content {
+        border-radius: 8px;
+    }
+
+    ion-scroll img{
+        margin-right: 2px;
+    }
+
+    .borrar{
+        
+    }
+        
  
 }

@@ -11,6 +11,7 @@ import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
 export class ModalPage {
 
   foto: any;
+  isActive  = false;
 
   constructor(public platform: Platform,
     public params: NavParams,
@@ -31,5 +32,9 @@ export class ModalPage {
 	onSwipeDown(e) {
 	  this.viewCtrl.dismiss();
 	}
+
+  show(){
+    this.isActive = !this.isActive;
+  }
 
 }

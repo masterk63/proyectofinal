@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.0.0",
+    "ionic-gulp-image-task": "^1.0.1",
     "typescript": "2.0.9"
   },
   "cordovaPlugins": [
