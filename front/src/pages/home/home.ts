@@ -6,6 +6,7 @@ import { Camera, File, Transfer, FilePath } from 'ionic-native';
 import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 
 
+
 import { ModalPage } from '../modal/modal';
 import { SlidePage } from '../pages/slide/slide';
 
@@ -33,7 +34,27 @@ export class HomePage {
                 public loadingCtrl: LoadingController,
                 public modalCtrl: ModalController,
                 ){
-                    this.imagenes = [{
+                    if(this.platform.is('android') || this.platform.is('ios')){
+                        this.imagenes = [{
+                        src: '../www/assets/img/1.jpg'
+                    },{
+                        src: '../www/assets/img/2.jpg'
+                    },{
+                        src: '../www/assets/img/1.jpg'
+                    },{
+                        src: '../www/assets/img/2.jpg'
+                    },{
+                        src: '../www/assets/img/1.jpg'
+                    },{
+                        src: '../www/assets/img/2.jpg'
+                    },{
+                        src: '../www/assets/img/1.jpg'
+                    },{
+                        src: '../www/assets/img/2.jpg'
+                    },];
+                        
+                    }else{
+                        this.imagenes = [{
                         src: '../assets/img/1.jpg'
                     },{
                         src: '../assets/img/2.jpg'
@@ -52,6 +73,7 @@ export class HomePage {
                     },{
                         src: '../assets/img/1.jpg'
                     }];
+                    }
                 }
 
 
@@ -68,12 +90,12 @@ export class HomePage {
         slide.present();
     }
 
-    openModal(pics) {
+    openModal(pics,i) {
         // let pathOfPics = [];
         // for (let p of pics) {
         //     pathOfPics.push(this.pathForImage(p));
         // }
-        let modal = this.modalCtrl.create(ModalPage, {foto: pics});
+        let modal = this.modalCtrl.create(ModalPage, {foto: pics,index: i});
         modal.present();
     }
         

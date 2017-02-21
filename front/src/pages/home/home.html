@@ -13,7 +13,7 @@
     <mapajshtml></mapajshtml>
     <div class="contenedor">
       <ion-scroll scrollX="true">
-        <img *ngFor="let foto of imagenes; let i = index" src="{{foto.src}}" (click)="openModal(imagenes)"
+        <img *ngFor="let foto of imagenes; let i = index" src="{{foto.src}}" (click)="openModal(imagenes,i)"
         style="width:150px">
       <!--<img *ngFor="let foto of imagenes; let i = index"  src="{{foto.src}}"  (click)="abrirImagen(this.foto.src)" class="image-list-thumb"/>-->
         <!--<img *ngFor="let foto of listaFotos; let i = index"  src="{{pathForImage(foto)}}" (click)="abrirImagen(pathForImage(foto))" class="image-list-thumb"/>-->

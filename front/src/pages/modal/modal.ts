@@ -1,7 +1,10 @@
-import { Directive, Component, ViewChild, ElementRef } from '@angular/core';
-import { ModalController, NavParams, ViewController, NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
+import { Directive, Component, ViewChild, ElementRef, } from '@angular/core';
+import { ModalController, NavParams, 
+ViewController, NavController, ActionSheetController, ToastController, Platform,
+ LoadingController, Loading,Slides } from 'ionic-angular';
 import { Camera, File, Transfer, FilePath } from 'ionic-native';
 import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
+
 
 @Component({
   selector: 'page-modal',
@@ -9,20 +12,32 @@ import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
 })
 
 export class ModalPage {
-
   foto: any;
+  index: any;
   isActive  = false;
+
+  @ViewChild(Slides) slides: Slides;
 
   constructor(public platform: Platform,
     public params: NavParams,
     public viewCtrl: ViewController) 
     { 
-    this.foto = params.get("foto");
+      this.foto = params.get("foto");
+      this.index = params.get("index");
     }
 
-  hola ="hola modal";
+    ionViewDidLoad(){
+     
+    }
+
+
+
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  goToSlide() {
+    this.slides.slideTo(2, 500);
   }
 
   onSwipeUp(e) {
