@@ -11,7 +11,7 @@
  
 <ion-content padding  class="home-page">
     <mapajshtml></mapajshtml>
-    <div class="contenedor">
+    <h2 id="modals" class="section-header">Fotos <a style="float: right;">Agregar <ion-icon name="add"></ion-icon></a></h2>
       <ion-scroll scrollX="true">
         <img *ngFor="let foto of imagenes; let i = index" src="{{foto.src}}" (click)="openModal(imagenes,i)"
         style="width:150px">
@@ -19,7 +19,7 @@
         <!--<img *ngFor="let foto of listaFotos; let i = index"  src="{{pathForImage(foto)}}" (click)="abrirImagen(pathForImage(foto))" class="image-list-thumb"/>-->
       </ion-scroll>
 
-    </div>
+
 </ion-content>
  
 <ion-footer>
