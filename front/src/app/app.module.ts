@@ -10,6 +10,7 @@ import { ClouDOPage } from '../pages/clou-do/clou-do';
 import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 import { SlidePage } from '../pages/slide/slide';
 import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
+import { Camara } from '../providers/camara';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,6 @@ import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
     Mapajshtml,
     SlidePage,
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara]
 })
 export class AppModule {}

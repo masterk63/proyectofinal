@@ -10,7 +10,7 @@
   <div class="cerrar" [class.mostrar]="isActive"><ion-icon (click)="dismiss()" name="close"></ion-icon></div>
   <ion-slides pager="true" zoom="true" initialSlide="{{index}}">
     <ion-slide *ngFor="let f of foto; let i = index">   
-      <img (click)="show()" class="image" src="{{f.src}}">                   
+      <img (click)="show()" class="image" src="{{f}}">                   
     </ion-slide>
   </ion-slides>
   
