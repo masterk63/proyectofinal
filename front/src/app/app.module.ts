@@ -11,6 +11,7 @@ import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 import { SlidePage } from '../pages/slide/slide';
 import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
 import { Camara } from '../providers/camara';
+import { Localsave } from '../providers/localsave';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,6 @@ import { Camara } from '../providers/camara';
     Mapajshtml,
     SlidePage,
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave]
 })
 export class AppModule {}

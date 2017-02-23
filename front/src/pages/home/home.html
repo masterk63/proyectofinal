@@ -9,27 +9,31 @@
   </ion-navbar>
 </ion-header>
  
-<ion-content padding  class="home-page">
+<ion-content style="overflow-y: scroll;" class="home-page">
     <mapajshtml></mapajshtml>
     <h2 id="modals" class="section-header">Fotos <a style="float: right;">Agregar <ion-icon name="add"></ion-icon></a></h2>
-      <ion-scroll scrollX="true">
+      <ion-scroll scrollX="tsrue">
         <!--<img *ngFor="let foto of imagenes; let i = index" src="{{foto.src}}" (click)="openModal(imagenes,i)"
         style="width:150px">-->
         <img *ngFor="let foto of listaFotos; let i = index"  src="{{this.camaraCtrl.pathForImage(foto)}}" (click)="openModal(listaFotos,i)" style="width:150px"/>
       </ion-scroll>
-
-
+      <button ion-button icon-left (click)="this.localSaveCtrl.crear(this.todo)">
+        <ion-icon name="camera"></ion-icon>Agregar
+      </button>
+      <p *ngFor="let l of listaDBlocal; let i = index">
+        {{l.title}}
+      </p>
 </ion-content>
  
 <ion-footer>
-  <ion-toolbar color="primary">
+  <!--<ion-toolbar color="primary">
     <ion-buttons>
       <button ion-button icon-left (click)="presentActionSheet()">
         <ion-icon name="camera"></ion-icon>Seleccionar
       </button>
-      <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
+      <button ion-button icon-left (click)="this.camaraCtrl.uploadImage()" [disabled]="lastImage === null">
         <ion-icon name="cloud-upload"></ion-icon>Subir
       </button>
     </ion-buttons>
-  </ion-toolbar>
+  </ion-toolbar>-->
 </ion-footer>

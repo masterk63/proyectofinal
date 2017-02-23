@@ -6,6 +6,8 @@ import { Camera, File, Transfer, FilePath } from 'ionic-native';
 import { Mapjshtml } from '../pages/mapajshtml/mapajshtml';
 import { ModalPage } from '../modal/modal';
 import { Camara } from '../../providers/camara';
+import { Localsave } from '../../providers/localsave';
+
 
 @Component({
     selector: 'home-page',
@@ -15,6 +17,8 @@ import { Camara } from '../../providers/camara';
 export class HomePage {
     imagenes = [];
     listaFotos = [];
+    todo = "hola";
+    listaDBlocal:any;
 
     constructor(public navCtrl: NavController, 
                 public actionSheetCtrl: ActionSheetController, 
@@ -22,9 +26,15 @@ export class HomePage {
                 public platform: Platform, 
                 public loadingCtrl: LoadingController,
                 public modalCtrl: ModalController,
-                public camaraCtrl:Camara
+                public camaraCtrl:Camara,
+                public localSaveCtrl:Localsave
                 ){
+                    this.localSaveCtrl.getTodos().then((data) => {
+                        this.listaDBlocal = data;
+                    });
+
                     
+
                     if(this.platform.is('android') || this.platform.is('ios')){
                         this.imagenes = [{
                         src: '../www/assets/img/1.jpg'
