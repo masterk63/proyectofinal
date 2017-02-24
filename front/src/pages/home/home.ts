@@ -8,6 +8,7 @@ import { ModalPage } from '../modal/modal';
 import { Camara } from '../../providers/camara';
 import { Localsave } from '../../providers/localsave';
 
+var base64Temp = '';
 
 @Component({
     selector: 'home-page',
@@ -19,7 +20,8 @@ export class HomePage {
     listaFotos = [];
     todo = "hola";
     listaDBlocal:any;
-    imagenenBase64:String;
+    public imagenenBase64: string;
+
 
     constructor(public navCtrl: NavController, 
                 public actionSheetCtrl: ActionSheetController, 
@@ -137,9 +139,10 @@ export class HomePage {
 
 getConvertion(){
     this.toDataUrl('../assets/img/1.jpg', function(base64Img) {
-  console.log(base64Img);
-  this.imagenenBase64 = base64Img;
-});
+        base64Temp = base64Img;
+    });
+    this.imagenenBase64 = base64Temp;
+    console.log(this.imagenenBase64);
 }
 
  
