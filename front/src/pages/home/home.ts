@@ -8,8 +8,6 @@ import { ModalPage } from '../modal/modal';
 import { Camara } from '../../providers/camara';
 import { Localsave } from '../../providers/localsave';
 
-var base64Temp = '';
-
 @Component({
     selector: 'home-page',
     templateUrl: 'home.html',
@@ -18,10 +16,9 @@ var base64Temp = '';
 export class HomePage {
     imagenes = [];
     listaFotos = [];
-    todo = "hola";
+    listaFotosbase64 = [];
     listaDBlocal:any;
-    public imagenenBase64: string;
-
+    imagenenBase64 = '';
 
     constructor(public navCtrl: NavController, 
                 public actionSheetCtrl: ActionSheetController, 
@@ -34,66 +31,33 @@ export class HomePage {
                 ){
                     this.localSaveCtrl.getTodos().then((data) => {
                         this.listaDBlocal = data;
+                        for(let i of this.listaDBlocal){
+                            if(i._id==="31D90722-47F4-90CD-92A0-D8C952AD07DA"){
+                                console.log(i._attachments['meowth.jpg'].data);
+                                this.listaFotosbase64.push("data:image/jpeg;base64," + i._attachments['meowth.jpg'].data);
+                            }
+                            
+                        }
+                        
                     });
 
                     
-
                     if(this.platform.is('android') || this.platform.is('ios')){
-                        this.imagenes = [{
-                        src: '../www/assets/img/1.jpg'
-                    },{
-                        src: '../www/assets/img/2.jpg'
-                    },{
-                        src: '../www/assets/img/1.jpg'
-                    },{
-                        src: '../www/assets/img/2.jpg'
-                    },{
-                        src: '../www/assets/img/1.jpg'
-                    },{
-                        src: '../www/assets/img/2.jpg'
-                    },{
-                        src: '../www/assets/img/1.jpg'
-                    },{
-                        src: '../www/assets/img/2.jpg'
-                    },];
-                        
+                        this.imagenes = [{src: '../www/assets/img/1.jpg'},{src: '../www/assets/img/2.jpg'}];
                     }else{
-                        this.imagenes = [{
-                        src: '../assets/img/1.jpg'
-                    },{
-                        src: '../assets/img/2.jpg'
-                    },{
-                        src: '../assets/img/1.jpg'
-                    },{
-                        src: '../assets/img/2.jpg'
-                    },{
-                        src: '../assets/img/1.jpg'
-                    },{
-                        src: '../assets/img/2.jpg'
-                    },{
-                        src: '../assets/img/1.jpg'
-                    },{
-                        src: '../assets/img/2.jpg'
-                    },{
-                        src: '../assets/img/1.jpg'
-                    }];
+                        this.imagenes = [{src: '../assets/img/1.jpg'},{src: '../assets/img/2.jpg'}];
                     }
                 }
 
 
     ionViewDidLoad() {
-    //Zone Run Refresaca la pagina
-        this.camaraCtrl.getFotos().subscribe((data) => {
-        this.listaFotos = data;
+        this.camaraCtrl.getPics64().subscribe((data) => {
+            this.listaFotosbase64 = data;
         });
     }
 
     openModal(pics,i) {
-        let pathOfPics = [];
-        for (let p of pics) {
-            pathOfPics.push(this.camaraCtrl.pathForImage(p));
-        }
-        let modal = this.modalCtrl.create(ModalPage, {foto: pathOfPics,index: i});
+        let modal = this.modalCtrl.create(ModalPage, {foto: pics,index: i});
         modal.present();
     }
         
@@ -111,7 +75,7 @@ export class HomePage {
                 {
                     text: 'Camara',
                     handler: () => {
-                        this.camaraCtrl.takePicture(Camera.PictureSourceType.CAMERA);
+                        this.camaraCtrl.takePicture64();
                     }
                 },
                 {
@@ -122,28 +86,4 @@ export class HomePage {
         });
         actionSheet.present();
     }
-
- toDataUrl(url, callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.onload = function() {
-    var reader = new FileReader();
-    reader.onloadend = function() {
-      callback(reader.result);
-    }
-    reader.readAsDataURL(xhr.response);
-  };
-  xhr.open('GET', url);
-  xhr.responseType = 'blob';
-  xhr.send();
-}
-
-getConvertion(){
-    this.toDataUrl('../assets/img/1.jpg', function(base64Img) {
-        base64Temp = base64Img;
-    });
-    this.imagenenBase64 = base64Temp;
-    console.log(this.imagenenBase64);
-}
-
- 
 }

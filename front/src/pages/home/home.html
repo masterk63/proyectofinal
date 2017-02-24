@@ -15,17 +15,15 @@
       <ion-scroll scrollX="tsrue">
         <!--<img *ngFor="let foto of imagenes; let i = index" src="{{foto.src}}" (click)="openModal(imagenes,i)"
         style="width:150px">-->
-        <img *ngFor="let foto of listaFotos; let i = index"  src="{{this.camaraCtrl.pathForImage(foto)}}" (click)="openModal(listaFotos,i)" style="width:150px"/>
+        <!--<img *ngFor="let foto of listaFotos; let i = index"  src="{{this.camaraCtrl.pathForImage(foto)}}" (click)="openModal(listaFotos,i)" style="width:150px"/>-->
+        <img *ngFor="let foto of listaFotosbase64; let i = index"  [src]="foto" (click)="openModal(listaFotosbase64,i)" style="width:150px"/>
       </ion-scroll>
-      <button ion-button icon-left (click)="this.localSaveCtrl.crear(this.todo)">
+      <button ion-button icon-left (click)="this.localSaveCtrl.crear()">
         <ion-icon name="camera"></ion-icon>Agregar
       </button>
-      <button ion-button icon-left (click)="this.getConvertion()">
-        <ion-icon name="camera"></ion-icon>Convertir
-      </button>
+  
 
-      <img src='../assets/img/1.jpg'>
-      <img [src]="imagenenBase64" *ngIf="imagenenBase64" />
+      
 
       <p *ngFor="let l of listaDBlocal; let i = index">
         {{l.title}}

@@ -11,6 +11,7 @@ declare var cordova: any;
 export class Camara {
     imagenes = [];
     listaFotos = [];
+    listaFotosbase64 = [];
     public base64Image: string;
     lastImage: string = null;
     loading: Loading;
@@ -19,10 +20,33 @@ export class Camara {
                 public toastCtrl: ToastController, 
                 public platform: Platform, 
                 public loadingCtrl: LoadingController) {
-    console.log('Hello Camara Provider');
   }
 
-  public takePicture(sourceType) {
+  //Esto Funciona de 10
+  takePicture64(){
+        Camera.getPicture({
+            destinationType: Camera.DestinationType.DATA_URL,
+            targetWidth: 1000,
+            targetHeight: 1000,
+            correctOrientation: true,
+        }).then((imageData) => {
+            // imageData is a base64 encoded string
+            this.base64Image = "data:image/jpeg;base64," + imageData;
+            this.listaFotosbase64.push(this.base64Image);
+        }, (err) => {
+            console.log(err);
+        });
+        this.getPics64();
+    }
+
+    getPics64(){
+        return Observable.create(observer => {
+            observer.next(this.listaFotosbase64);
+        });
+    }
+
+    //Aleternativa para sacar fotos con URL, y subir la foto un servidor
+    public takePicture(sourceType) {
     // Create options for the Camera Dialog
     var options = {
         quality: 100,
@@ -55,6 +79,8 @@ export class Camara {
           this.presentToast('Error al seleccionar foto.');
       });
   }
+
+    
 
     // Create a new name for the image
     private createFileName() {
@@ -135,5 +161,30 @@ export class Camara {
             observer.next(this.listaFotos);
         });
     }
+
+
+    //toDataUrl y getConvertion sirve para pasar una foto
+    // expesifcando el URL a encode64
+    toDataUrl(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+        callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+    }
+
+    getConvertion(){
+        this.toDataUrl('../assets/img/1.jpg', function(base64Img) {
+            console.log(base64Img);
+        });
+    }
+
+    
 
 }
