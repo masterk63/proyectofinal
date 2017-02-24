@@ -19,6 +19,7 @@ export class HomePage {
     listaFotos = [];
     todo = "hola";
     listaDBlocal:any;
+    imagenenBase64:String;
 
     constructor(public navCtrl: NavController, 
                 public actionSheetCtrl: ActionSheetController, 
@@ -120,8 +121,26 @@ export class HomePage {
         actionSheet.present();
     }
 
+ toDataUrl(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      callback(reader.result);
+    }
+    reader.readAsDataURL(xhr.response);
+  };
+  xhr.open('GET', url);
+  xhr.responseType = 'blob';
+  xhr.send();
+}
 
-
+getConvertion(){
+    this.toDataUrl('../assets/img/1.jpg', function(base64Img) {
+  console.log(base64Img);
+  this.imagenenBase64 = base64Img;
+});
+}
 
  
 }

@@ -15,10 +15,15 @@ export class Localsave {
     this.db = new PouchDB('proyectofinal');
   }
  
-  public crear(todo){
+  public crear(todo,img){
     this.db.post({
-      title: todo
-    }).then(function (response) {
+      title: todo,
+      _attachments: {
+        'meowth.png': {
+      content_type: 'image/png',
+      data: img
+    }
+    }}).then(function (response) {
       // handle response
     }).catch(function (err) {
       console.log(err);

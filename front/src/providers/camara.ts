@@ -28,6 +28,7 @@ export class Camara {
         quality: 100,
         allowEdit: true,
         sourceType: sourceType,
+        destinationType: 1,
         saveToPhotoAlbum: false,
         correctOrientation: true,
         targetWidth: 1080,

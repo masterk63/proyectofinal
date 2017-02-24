@@ -20,13 +20,20 @@
       <button ion-button icon-left (click)="this.localSaveCtrl.crear(this.todo)">
         <ion-icon name="camera"></ion-icon>Agregar
       </button>
+      <button ion-button icon-left (click)="this.getConvertion()">
+        <ion-icon name="camera"></ion-icon>Convertir
+      </button>
+
+      <img src='../assets/img/1.jpg'>
+      <img src='{{imagenenBase64}}'>
+
       <p *ngFor="let l of listaDBlocal; let i = index">
         {{l.title}}
       </p>
 </ion-content>
  
 <ion-footer>
-  <!--<ion-toolbar color="primary">
+  <ion-toolbar color="primary">
     <ion-buttons>
       <button ion-button icon-left (click)="presentActionSheet()">
         <ion-icon name="camera"></ion-icon>Seleccionar
@@ -35,5 +42,5 @@
         <ion-icon name="cloud-upload"></ion-icon>Subir
       </button>
     </ion-buttons>
-  </ion-toolbar>-->
+  </ion-toolbar>
 </ion-footer>
