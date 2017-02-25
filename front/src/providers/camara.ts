@@ -9,10 +9,8 @@ declare var cordova: any;
 
 @Injectable()
 export class Camara {
-    imagenes = [];
     listaFotos = [];
     listaFotosbase64 = [];
-    public base64Image: string;
     lastImage: string = null;
     loading: Loading;
 
@@ -31,8 +29,7 @@ export class Camara {
             correctOrientation: true,
         }).then((imageData) => {
             // imageData is a base64 encoded string
-            this.base64Image = "data:image/jpeg;base64," + imageData;
-            this.listaFotosbase64.push(this.base64Image);
+            this.listaFotosbase64.push(imageData);
         }, (err) => {
             console.log(err);
         });

@@ -31,13 +31,14 @@ export class HomePage {
                 ){
                     this.localSaveCtrl.getTodos().then((data) => {
                         this.listaDBlocal = data;
-                        for(let i of this.listaDBlocal){
-                            if(i._id==="31D90722-47F4-90CD-92A0-D8C952AD07DA"){
-                                console.log(i._attachments['meowth.jpg'].data);
-                                this.listaFotosbase64.push("data:image/jpeg;base64," + i._attachments['meowth.jpg'].data);
-                            }
+                         
+                                //console.log(JSON.stringify(this.listaDBlocal));
+                        // for(let i of this.listaDBlocal){
+                                
+                        //         //this.listaFotosbase64.push("data:image/jpeg;base64," + i._attachments['meowth.jpg'].data);
+                      
                             
-                        }
+                        // }
                         
                     });
 
@@ -60,6 +61,12 @@ export class HomePage {
         let modal = this.modalCtrl.create(ModalPage, {foto: pics,index: i});
         modal.present();
     }
+
+    agregaraDB(){
+        var id = this.localSaveCtrl.crear();
+        console.log(id);
+    }
+    
         
   
    public presentActionSheet() {
