@@ -31,14 +31,17 @@ export class HomePage {
                 ){
                     this.localSaveCtrl.getTodos().then((data) => {
                         this.listaDBlocal = data;
-                         
-                                //console.log(JSON.stringify(this.listaDBlocal));
-                        // for(let i of this.listaDBlocal){
-                                
-                        //         //this.listaFotosbase64.push("data:image/jpeg;base64," + i._attachments['meowth.jpg'].data);
-                      
-                            
-                        // }
+                        //console.log(JSON.stringify(this.listaDBlocal));
+                        for(let i of this.listaDBlocal){
+                                if(i._id==="2017-02-25T22:30:24.494Z"){
+                                    console.log(Object.keys(i._attachments).length); 
+                                    for(var j=0;j<Object.keys(i._attachments).length;j++){
+                                        //console.log(i._attachments['meowth'+j+'.png'].data);
+                                        this.listaFotosbase64.push(i._attachments['foto'+(j+1)+'.png'].data);
+                                    }
+                                    
+                                }   
+                        }
                         
                     });
 
@@ -62,10 +65,7 @@ export class HomePage {
         modal.present();
     }
 
-    agregaraDB(){
-        var id = this.localSaveCtrl.crear();
-        console.log(id);
-    }
+   
     
         
   

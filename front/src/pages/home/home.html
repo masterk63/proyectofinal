@@ -27,7 +27,7 @@
       <button ion-button icon-left (click)="presentActionSheet()">
         <ion-icon name="camera"></ion-icon>Seleccionar
       </button>
-      <button ion-button icon-left (click)="agregaraDB()" [disabled]="listaFotosbase64 === null">
+      <button ion-button icon-left (click)="this.localSaveCtrl.crear(this.listaFotosbase64);" [disabled]="listaFotosbase64 === null">
         <ion-icon name="cloud-upload"></ion-icon>Crear Proyecto
       </button>
       <button ion-button icon-left (click)="this.localSaveCtrl.destruirDB()">
