@@ -24,6 +24,10 @@ export class MapasnativoPage {
             this.loadMap();
         });
     }
+
+    //  ngOnInit(){
+    //     this.loadMap();
+    //   }
  
     loadMap(){
  
