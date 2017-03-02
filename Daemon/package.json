@@ -1,0 +1,22 @@
+{
+  "name": "couchdb-to-mysql",
+  "version": "0.0.2",
+  "description": "sync between couchdb and mysql",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ordepdev/converter.git"
+  },
+  "main": "index.js",
+  "keywords": [
+    "sync",
+    "couchdb",
+    "mysql"
+  ],
+  "author": "ordepdev",
+  "license": "MIT",
+  "dependencies": {
+    "follow": "^0.11.4",
+    "nano": "^6.0.2",
+    "mysql": "^2.5.4"
+  }
+}
