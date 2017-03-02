@@ -21,3 +21,20 @@ cvr.on('deleted', function (change) {
     var query = this.config.queries.delete;
     this.mysql.query(query, change.id); 
 });
+
+
+cvr.on('updated', function (change) {
+    console.log('actualizando');
+    var self = this;
+    var query = this.config.queries.update;
+    this.database.get(change.id, function (err, res) {
+        if (err) throw err;
+        // console.log(JSON.stringify(res));
+        //Aca esta la magia modificar doc para lo que se necesario.
+         var doc = { foto : res.title,idFotos : res._id };
+         
+         self.mysql.query(query, doc,function (err) {
+             if (err) throw err;
+        });
+    });
+});

@@ -1,21 +1,21 @@
 {
     "couch" : {
-        "host" : "rickybruno.sytes.net",
+        "host" : "192.168.1.12",
         "port" : "5984",
         "database" : "proyectofinal"
     },
 
     "mySQL" : {
-        "host" : "rickybruno.sytes.net",
+        "host" : "192.168.1.12",
         "port" : "3306",
-        "user" : "gb",
-        "password" : "soporteit",
+        "user" : "root",
+        "password" : "",
         "database" : "proyectofinal"
     },
 
     "queries" : {
         "insert" : "insert into fotos set ?",
-        "update" : "",
+        "update" : "update fotos set foto = ? where idFotos = ?",
         "delete" : "delete from fotos where idFotos = ?"
     }
 }
