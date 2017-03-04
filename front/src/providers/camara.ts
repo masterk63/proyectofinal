@@ -13,7 +13,7 @@ export class Camara {
     listaFotosbase64 = [];
     lastImage: string = null;
     loading: Loading;
-
+    foto:any;
   constructor(public http: Http,
                 public toastCtrl: ToastController, 
                 public platform: Platform, 
@@ -22,18 +22,19 @@ export class Camara {
 
   //Esto Funciona de 10
   takePicture64(){
-        Camera.getPicture({
+        return new Promise((resolve, reject) => {
+            Camera.getPicture({
             destinationType: Camera.DestinationType.DATA_URL,
             targetWidth: 1000,
             targetHeight: 1000,
             correctOrientation: true,
-        }).then((imageData) => {
-            // imageData is a base64 encoded string
-            this.listaFotosbase64.push(imageData);
-        }, (err) => {
-            console.log(err);
+             }).then((imageData) => {
+                 console.log(imageData);
+                resolve(imageData);
+            }, (err) => {
+                console.log(err);
+            });
         });
-        this.getPics64();
     }
 
     getPics64(){
