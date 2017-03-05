@@ -30,7 +30,7 @@ export class Camara {
             allowEdit : true,
             correctOrientation: true,
              }).then((imageData) => {
-                console.log(imageData);
+                //console.log(imageData);
                 resolve(imageData);
             }, (err) => {
                 console.log(err);

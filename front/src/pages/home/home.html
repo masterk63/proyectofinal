@@ -12,7 +12,7 @@
 <ion-content style="overflow-y: scroll;">
 <!--<div style="width: 100%;height: 200px;background-image: url('data:image/png;base64,')"></div>-->
 
-  <img [src]="'data:image/jpeg;base64,'+fotoPaisaje" *ngIf="fotoPaisaje">
+  <img [src]="'data:image/jpeg;base64,'+fotoPaisaje" *ngIf="fotoPaisaje" (click)="openModal(fotoPaisaje)">
 
   <div class="padding" *ngIf="!fotoPaisaje">
     <button class="uploadPicture" (click)="takefotoPaisaje()">
@@ -31,7 +31,7 @@
   </div>
   
 
-<img [src]="'data:image/jpeg;base64,'+fotoMuestra" *ngIf="fotoMuestra" (click)="openModal(fotoMuestra)">
+<img [src]="'data:image/jpeg;base64,'+fotoMuestra" *ngIf="fotoMuestra" >
 
   <div class="padding" *ngIf="!fotoMuestra">
     <button class="uploadPicture" style="height: 300px;" (click)="takefotoMuestra()">

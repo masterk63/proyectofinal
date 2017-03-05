@@ -23,7 +23,6 @@ export class ModalPage {
     public viewCtrl: ViewController) 
     { 
       this.foto = params.get("foto");
-      console.log(this.foto);
     }
 
     ionViewDidLoad(){
