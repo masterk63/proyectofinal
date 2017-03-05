@@ -5,26 +5,8 @@
         height: 150px;
     }
 
-    h3{
-        background: beige;
-    }
-
-    .image-list-thumb{
-         height: 135px;
-         width: 135px;
-         margin-left: 3px;
-    }
-
-    ion-scroll img{
-        margin-right: 2px;
-    }
-
     .padding{
         padding: 4%;
-    }
-
-    .borrar{
-        
     }
     
     h2{
@@ -81,6 +63,16 @@
 
     textarea{
         height: 100px;
+    }
+
+    .imagen{
+        height: auto;
+        background-size: 100% 100%;
+        max-height: 420px;
+        width: 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
     
         

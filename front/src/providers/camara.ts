@@ -25,12 +25,12 @@ export class Camara {
         return new Promise((resolve, reject) => {
             Camera.getPicture({
             destinationType: Camera.DestinationType.DATA_URL,
-            targetWidth: 1280,
-            targetHeight: 720,
+            targetWidth: 1920,
+            targetHeight: 1080,
             allowEdit : true,
             correctOrientation: true,
              }).then((imageData) => {
-                //console.log(imageData);
+                console.log(imageData);
                 resolve(imageData);
             }, (err) => {
                 console.log(err);
