@@ -58,8 +58,9 @@ export class HomePage {
         // });
     }
 
-    openModal(pics,i) {
-        let modal = this.modalCtrl.create(ModalPage, {foto: pics,index: i});
+    openModal(pic) {
+        console.log('en model');
+        let modal = this.modalCtrl.create(ModalPage, {foto: pic});
         modal.present();
     }
 

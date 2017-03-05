@@ -23,7 +23,7 @@ export class ModalPage {
     public viewCtrl: ViewController) 
     { 
       this.foto = params.get("foto");
-      this.index = params.get("index");
+      console.log(this.foto);
     }
 
     ionViewDidLoad(){
@@ -34,10 +34,6 @@ export class ModalPage {
 
   dismiss() {
     this.viewCtrl.dismiss();
-  }
-
-  goToSlide() {
-    this.slides.slideTo(2, 500);
   }
 
   onSwipeUp(e) {

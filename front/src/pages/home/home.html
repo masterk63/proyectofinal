@@ -31,7 +31,7 @@
   </div>
   
 
-<img [src]="'data:image/jpeg;base64,'+fotoMuestra" *ngIf="fotoMuestra">
+<img [src]="'data:image/jpeg;base64,'+fotoMuestra" *ngIf="fotoMuestra" (click)="openModal(fotoMuestra)">
 
   <div class="padding" *ngIf="!fotoMuestra">
     <button class="uploadPicture" style="height: 300px;" (click)="takefotoMuestra()">
