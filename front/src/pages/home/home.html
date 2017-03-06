@@ -11,34 +11,46 @@
  
 <ion-content style="overflow-y: scroll;">
 
-    <div class="imagen" [ngStyle]="{'background-image':'url('+fotoPaisaje+')'}" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">
-      <img [src]="fotoPaisaje" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)" style="visibility: hidden">
+    <div class="imagen" [ngStyle]="{'background-image':'url('+fotoPaisajeURL+')'}" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">
+      <img [src]="'data:image/jpeg;base64,'+fotoPaisaje" style="visibility: hidden">
     </div>
-    
-    <!--<img [src]="'data:image/jpeg;base64,'+fotoPaisaje" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">-->
-    <div class="padding" *ngIf="!fotoPaisaje">
-      <button class="uploadPicture" (click)="takefotoPaisaje()">
-        <ion-icon name="camera"></ion-icon>
-        <p><ion-icon name="md-add-circle"></ion-icon> Foto del Paisaje</p> 
-      </button>
-    </div>
-    
-    <div class="padding">
-      <div class="mapa"> 
-        <div class="mapaConteiner">
-          <mapajshtml></mapajshtml>
-        </div>
-        <p>Ubicacion Actual</p> 
-      </div>
-    </div>
-    
-    <img [src]="'data:image/jpeg;base64,'+fotoMuestra" *ngIf="fotoMuestra" (click)="mostrarFoto(fotoMuestra)">
 
-    <div class="padding" *ngIf="!fotoMuestra">
-      <button class="uploadPicture" style="height: 300px;" (click)="takefotoMuestra()">
-        <ion-icon name="camera"></ion-icon>
-        <p><ion-icon name="md-add-circle"></ion-icon> Foto de la Muestra</p> 
-      </button>
+    
+    <div class="contenedor">
+      <div class="padding" *ngIf="!fotoPaisaje">
+        <button class="uploadPicture" style="height: 228px;" (click)="takefotoPaisaje()">
+          <ion-icon name="camera"></ion-icon>
+          <p><ion-icon name="md-add-circle"></ion-icon> Foto del Paisaje</p> 
+        </button>
+      </div>
+      
+      <div class="padding">
+        <div class="mapa" style="height:228px;"> 
+          <div class="mapaConteiner">
+            <mapajshtml></mapajshtml>
+          </div>
+          <p>Ubicacion Actual</p> 
+        </div>
+      </div>
+      
+       <div class="padding" *ngIf="fotoMuestra">
+         <div class="mapa" > 
+          <div class="imagen" style="border-top-left-radius: 10px;border-top-right-radius: 10px;" 
+          [ngStyle]="{'background-image':'url('+fotoMuestraURL+')'}"  (click)="mostrarFoto(fotoMuestra)">
+            <img [src]="'data:image/jpeg;base64,'+fotoMuestra"  style="visibility: hidden">
+          </div>
+          <p>Foto Muestra</p> 
+        </div>
+      </div>
+      
+
+
+      <div class="padding" *ngIf="!fotoMuestra">
+        <button class="uploadPicture" style="height: 228px;" (click)="takefotoMuestra()">
+          <ion-icon name="camera"></ion-icon>
+          <p><ion-icon name="md-add-circle"></ion-icon> Foto de la Muestra</p> 
+        </button>
+      </div>
     </div>
  
 </ion-content>
