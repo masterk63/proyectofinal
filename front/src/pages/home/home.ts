@@ -87,6 +87,19 @@ export class HomePage {
         let picture = 'data:image/jpeg;base64,'+pic;
         PhotoViewer.show(picture);
     }
+
+    test(del){
+        console.log(del);
+        if(del==='paisaje'){
+            this.fotoPaisaje = null;
+            this.fotoPaisajeURL= 'data:image/jpeg;base64,';
+        }
+        else{
+            this.fotoMuestra = null;
+            this.fotoMuestraURL= 'data:image/jpeg;base64,';
+        }
+        
+    }
         
   
    public presentActionSheet() {

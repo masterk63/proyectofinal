@@ -10,7 +10,7 @@
 </ion-header>
  
 <ion-content style="overflow-y: scroll;">
-
+    <button class="delFoto" *ngIf="fotoPaisaje" (click)="test('paisaje')"><ion-icon style="margin-right: 2px" name="trash"></ion-icon>Eliminar</button>
     <div class="imagen" [ngStyle]="{'background-image':'url('+fotoPaisajeURL+')'}" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">
       <img [src]="'data:image/jpeg;base64,'+fotoPaisaje" style="visibility: hidden">
     </div>
@@ -39,7 +39,7 @@
           [ngStyle]="{'background-image':'url('+fotoMuestraURL+')'}"  (click)="mostrarFoto(fotoMuestra)">
             <img [src]="'data:image/jpeg;base64,'+fotoMuestra"  style="visibility: hidden">
           </div>
-          <p>Foto Muestra</p> 
+          <p>Foto Muestra <button (click)="test('muestra')" style="background: transparent;font-size: 1em;color: #757575;"><ion-icon style="margin-left: 2px;" name="trash"></ion-icon></button></p> 
         </div>
       </div>
       
