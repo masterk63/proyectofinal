@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { FormGroup, FormControl } from '@angular/forms';
+
 
 /*
   Generated class for the Paso2 page.
@@ -13,10 +15,24 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class Paso2Page {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  langs;
+  langs2;
+  langForm;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+     this.langForm = new FormGroup({
+      "langs": new FormControl(),
+      "langs2": new FormControl()
+    });
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Paso2Page');
+  }
+
+doSubmit(event) {
+    console.log('Submitting form', this.langForm.value);
+    event.preventDefault();
   }
 
 }
