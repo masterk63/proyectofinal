@@ -8,6 +8,7 @@ import { ModalPage } from '../modal/modal';
 import { Camara } from '../../providers/camara';
 import { Localsave } from '../../providers/localsave';
 import { PhotoViewer } from 'ionic-native';
+import { Paso2Page } from '../paso2/paso2';
 
 @Component({
     selector: 'home-page',
@@ -50,8 +51,10 @@ export class HomePage {
                     // }else{
                     //     this.imagenes = [{src: '../assets/img/1.jpg'},{src: '../assets/img/2.jpg'}];
                     // }
+
                 }
 
+    
 
     ionViewDidLoad() {
         // this.camaraCtrl.getPics64().subscribe((data) => {
@@ -101,5 +104,9 @@ export class HomePage {
             ]
         });
         actionSheet.present();
+    }
+
+    public paso2(){
+        this.navCtrl.push(Paso2Page);
     }
 }

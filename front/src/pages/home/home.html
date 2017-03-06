@@ -40,28 +40,23 @@
         <p><ion-icon name="md-add-circle"></ion-icon> Foto de la Muestra</p> 
       </button>
     </div>
+
+    
  
 </ion-content>
 
-
-<!--<mapajshtml></mapajshtml>
-    <h2 id="modals" class="section-header">Fotos <a style="float: right;">Agregar <ion-icon name="add"></ion-icon></a></h2>
+    <!--<h2 id="modals" class="section-header">Fotos <a style="float: right;">Agregar <ion-icon name="add"></ion-icon></a></h2>
       <ion-scroll scrollX="true">
         <img *ngFor="let foto of listaFotosbase64; let i = index"  [src]="'data:image/jpeg;base64,'+foto" (click)="openModal(listaFotosbase64,i)" style="width:150px"/>
-      </ion-scroll>
+      </ion-scroll>-->
 
 <ion-footer>
   <ion-toolbar color="primary">
     <ion-buttons>
-      <button ion-button icon-left (click)="presentActionSheet()">
+      <!--<button ion-button icon-left (click)="presentActionSheet()">
         <ion-icon name="camera"></ion-icon>Seleccionar
-      </button>
-      <button ion-button icon-left (click)="this.localSaveCtrl.crear(this.listaFotosbase64);" [disabled]="listaFotosbase64 === null">
-        <ion-icon name="cloud-upload"></ion-icon>Crear Proyecto
-      </button>
-      <button ion-button icon-left (click)="this.localSaveCtrl.destruirDB()">
-        <ion-icon name="trash"></ion-icon>Delete DB
-      </button>
+      </button>-->
+      <button ion-button block style="float: right" (click)="paso2()">Siguiente<ion-icon style="margin-left: 10%; font-size: 2em;" name="arrow-dropright-circle"></ion-icon></button>
     </ion-buttons>
   </ion-toolbar>
-</ion-footer>-->
+</ion-footer>
