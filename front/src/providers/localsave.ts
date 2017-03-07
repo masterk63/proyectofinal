@@ -15,29 +15,50 @@ export class Localsave {
 
   constructor(public http: Http) {
     this.db = new PouchDB('proyectofinal');
-
+    this.remote = 'http://192.168.1.12:5984/proyectofinal';
+ 
+    let options = {
+      live: true,
+      retry: true,
+      continuous: true
+    };
+ 
+    this.db.sync(this.remote, options);
   }
  
-  public crear(pics){
+  public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros){
     var id = new Date().toISOString();
     var i = 1;
     var doc = {
       "_id": id,
-      "_attachments": {},
-      "title": 'fotosMuestra',
+      "_attachments": {
+          'fotoPaisaje.png': {
+            content_type: 'image/png',
+            data: fotoPaisaje
+          },
+          'fotoMuestra.png': {
+            content_type: 'image/png',
+            data: fotoMuestra
+          },
+        },
+      "patudos":patudos,
+      "elmidos":elmidos,
+      "plecopteros":plecopteros,
+      "tricopteros":tricopteros,
     };
-    for(let pic of pics){
-      doc._attachments['foto'+i+'.png']={content_type: 'image/png',data:pic};
-      i++;
-    }
+
+  
     this.db.put(doc).then(function (response) {
       console.log(JSON.stringify(response));
     }).catch(function (err) {
       console.log(err);
     });
 
-//console.log(JSON.stringify(arrayFotos[0]));
-      // this.db.putAttachment(id, 'myattachment.png', fotos[0], 'image/png');
+  // "_attachments": {},
+    // for(let pic of pics){
+    //   doc._attachments['foto'+i+'.png']={content_type: 'image/png',data:pic};
+    //   i++;
+    // }
   }
 
 

@@ -14,8 +14,7 @@
     },
 
     "queries" : {
-        "insert" : "insert into fotos set ?",
-        "update" : "update fotos set foto = ? where idFotos = ?",
-        "delete" : "delete from fotos where idFotos = ?"
+        "insert" : "insert into registros set ?"
+
     }
 }

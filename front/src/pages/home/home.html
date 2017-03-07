@@ -9,7 +9,7 @@
   </ion-navbar>
 </ion-header>
  
-<ion-content has-header="true" has-footer="true"  overflow-scroll="true">
+<ion-content class="scroll-content ionic-scroll  has-header">
   
     <button class="delFoto" *ngIf="fotoPaisaje" (click)="test('paisaje')"><ion-icon style="margin-right: 2px" name="trash"></ion-icon>Eliminar</button>
     <div class="imagen" [ngStyle]="{'background-image':'url('+fotoPaisajeURL+')'}" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">
