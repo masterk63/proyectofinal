@@ -12,12 +12,11 @@
 
 </ion-header>
 
-
+<form (submit)="doSubmit($event)" [formGroup]="coincidencia">
 <ion-content class="scroll-content ionic-scroll  has-header" padding>
 
 
-<form (submit)="doSubmit($event)" [formGroup]="coincidencia">
- <button ion-button type="submit">Aceptar</button>
+
 <ion-grid>
   <ion-row responsive-sm>
     <ion-col col-6 col-lg>
@@ -115,10 +114,34 @@
       </ion-card>
     </ion-col>
   </ion-row>
+
+  <ion-row responsive-sm>
+    <ion-col col-6 col-lg>
+        <ion-list formControlName="observaciones">
+          <ion-item>
+            <ion-label color="primary" floating>Observaciones</ion-label>
+            <ion-textarea></ion-textarea>
+          </ion-item>
+        </ion-list>
+   </ion-col>
+  </ion-row>
 </ion-grid>
 
 
 
-</form>
+
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <!--<button ion-button icon-left (click)="presentActionSheet()">
+        <ion-icon name="camera"></ion-icon>Seleccionar
+      </button>-->
+            <button ion-button block style="float: right" type="submit">Aceptar<ion-icon style="margin-left: 10%; font-size: 2em;" name="cloud-upload"></ion-icon></button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
+</form>

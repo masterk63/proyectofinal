@@ -6,6 +6,7 @@ import { Camera, File, Transfer, FilePath } from 'ionic-native';
 import { Mapjshtml } from '../pages/mapajshtml/mapajshtml';
 import { ModalPage } from '../modal/modal';
 import { Camara } from '../../providers/camara';
+import { Ubicacion } from '../../providers/ubicacion';
 import { Localsave } from '../../providers/localsave';
 import { PhotoViewer } from 'ionic-native';
 import { Paso2Page } from '../paso2/paso2';
@@ -24,6 +25,9 @@ export class HomePage {
     fotoMuestra:any;
     fotoMuestraURL = 'data:image/jpeg;base64,';
     listaDBlocal:any;
+    latitud:any;
+    longitud:any;
+    coordenadas: any;
     imagenenBase64 = '';
 
     constructor(public navCtrl: NavController, 
@@ -33,6 +37,7 @@ export class HomePage {
                 public loadingCtrl: LoadingController,
                 public modalCtrl: ModalController,
                 public camaraCtrl:Camara,
+                public ubicacionCtrl:Ubicacion,
                 public localSaveCtrl:Localsave
                 ){
                     // this.localSaveCtrl.getTodos().then((data) => {
@@ -64,6 +69,7 @@ export class HomePage {
         // this.camaraCtrl.getPics64().subscribe((data) => {
         //     this.listaFotosbase64 = data;
         // });
+        this.ubicacion();
     }
 
     openModal(pic) {
@@ -133,7 +139,20 @@ export class HomePage {
         
         this.navCtrl.push(Paso2Page,{
             foto1: this.fotoPaisaje,
-            foto2: this.fotoMuestra
+            foto2: this.fotoMuestra,
+            latitud: this.latitud,
+            longitud: this.longitud
         });
     }
+
+    ubicacion(){
+        console.log("provider ubicacion");
+       this.ubicacionCtrl.obtenerCoordenadas().then((data) => 
+       {
+           this.coordenadas = data;
+           this.latitud = this.coordenadas.latitude;
+           this.longitud = this.coordenadas.longitude;
+        }); 
+        
+   }
 }
