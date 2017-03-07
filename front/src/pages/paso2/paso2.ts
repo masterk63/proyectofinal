@@ -39,11 +39,19 @@ export class Paso2Page {
     console.log('ionViewDidLoad Paso2Page');
   }
 
-doSubmit() {
-    console.log('Submitting form', this.coincidencia.value);
+doSubmit(event) {
+    // console.log('Submitting form', this.coincidencia.value);
+    console.log('Elimido');
+    console.log( this.coincidencia.value.elmido);
+    console.log('Patudo');
+    console.log(this.coincidencia.value.patudo);
+    console.log('plecoptero');
+    console.log(this.coincidencia.value.plecoptero);
+    console.log('tricoptero');
+    console.log( this.coincidencia.value.tricoptero);
     console.log("foto paisaje: ");
     console.log(this.fotoPaisaje);
-     console.log("foto muestra: ");
+    console.log("foto muestra: ");
     console.log(this.fotoMuestra);
     event.preventDefault();
     

@@ -15,7 +15,7 @@
 
 <ion-content padding>
 
-<form (ngSubmit)="doSubmit()" [formGroup]="coincidencia">
+<form (submit)="doSubmit($event)" [formGroup]="coincidencia">
  <button ion-button type="submit">Aceptar</button>
 <ion-grid>
   <ion-row responsive-sm>
