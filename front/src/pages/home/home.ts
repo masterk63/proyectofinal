@@ -54,7 +54,7 @@ export class HomePage {
                     //     this.imagenes = [{src: '../assets/img/1.jpg'},{src: '../assets/img/2.jpg'}];
                     // }
 
-                    this.navCtrl.push(Paso2Page);
+                    
 
                 }
 
@@ -130,6 +130,10 @@ export class HomePage {
     }
 
     public paso2(){
-        this.navCtrl.push(Paso2Page);
+        
+        this.navCtrl.push(Paso2Page,{
+            foto1: this.fotoPaisaje,
+            foto2: this.fotoMuestra
+        });
     }
 }

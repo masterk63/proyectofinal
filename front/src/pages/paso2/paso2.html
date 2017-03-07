@@ -15,8 +15,8 @@
 
 <ion-content padding>
 
-<form (submit)="doSubmit($event)" [formGroup]="langForm">
- <button type="submit">Aceptar</button>
+<form (ngSubmit)="doSubmit()" [formGroup]="coincidencia">
+ <button ion-button type="submit">Aceptar</button>
 <ion-grid>
   <ion-row responsive-sm>
     <ion-col col-6 col-lg>
@@ -28,14 +28,14 @@
             </ion-card-title>
           <p>
             ¿Se encuentra este bicho?
-            <ion-list radio-group formControlName="langs">
+            <ion-list radio-group formControlName="elmido">
               <ion-item>
                 <ion-label>Si</ion-label>
-                <ion-radio value="elmidosSi"></ion-radio>
+                <ion-radio value="si"></ion-radio>
               </ion-item>
               <ion-item>
                 <ion-label>No</ion-label>
-                <ion-radio value="elmidosNo"></ion-radio>
+                <ion-radio value="no"></ion-radio>
               </ion-item>
              </ion-list>
           </p>
@@ -51,14 +51,14 @@
             </ion-card-title>
           <p>
             ¿Se encuentra este bicho?
-             <ion-list radio-group formControlName="langs2">
+             <ion-list radio-group formControlName="patudo">
               <ion-item>
                 <ion-label>Si</ion-label>
-                <ion-radio value="patudoSi"></ion-radio>
+                <ion-radio value="si"></ion-radio>
               </ion-item>
               <ion-item>
                 <ion-label>No</ion-label>
-                <ion-radio value="patudoNo"></ion-radio>
+                <ion-radio value="no"></ion-radio>
               </ion-item>
             </ion-list>
           </p>
@@ -72,10 +72,20 @@
         <img class="bichos" src="assets/img/Plecoptero.jpg"/>
         <ion-card-content>
           <ion-card-title>
-           Elmidos
+           Plecoptero
             </ion-card-title>
           <p>
-            The most popular industria
+            ¿Se encuentra este bicho?
+            <ion-list radio-group formControlName="plecoptero">
+              <ion-item>
+                <ion-label>Si</ion-label>
+                <ion-radio value="si"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>No</ion-label>
+                <ion-radio value="no"></ion-radio>
+              </ion-item>
+             </ion-list>
           </p>
         </ion-card-content>
       </ion-card>
@@ -85,10 +95,20 @@
         <img class="bichos" src="assets/img/Tricoptero.jpg"/>
         <ion-card-content>
           <ion-card-title>
-           Elmidos
+           Tricoptero
             </ion-card-title>
           <p>
-            The most popular industria
+            ¿Se encuentra este bicho?
+            <ion-list radio-group formControlName="tricoptero">
+              <ion-item>
+                <ion-label>Si</ion-label>
+                <ion-radio value="si"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>No</ion-label>
+                <ion-radio value="no"></ion-radio>
+              </ion-item>
+             </ion-list>
           </p>
         </ion-card-content>
       </ion-card>
