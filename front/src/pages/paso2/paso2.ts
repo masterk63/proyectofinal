@@ -40,9 +40,6 @@ export class Paso2Page {
   }
 
 doSubmit(event) {
-<<<<<<< HEAD
-    console.log('Formulario', JSON.stringify(this.coincidencia.value));
-=======
     // console.log('Submitting form', this.coincidencia.value);
     console.log('Elimido');
     console.log( this.coincidencia.value.elmido);
@@ -52,7 +49,6 @@ doSubmit(event) {
     console.log(this.coincidencia.value.plecoptero);
     console.log('tricoptero');
     console.log( this.coincidencia.value.tricoptero);
->>>>>>> f6dc58c774b4fec016f1628b517d60183d557f43
     console.log("foto paisaje: ");
     console.log(this.fotoPaisaje);
     console.log("foto muestra: ");
