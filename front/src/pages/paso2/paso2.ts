@@ -23,6 +23,9 @@ export class Paso2Page {
   coincidencia;
   fotoPaisaje;
   fotoMuestra;
+  latitud;
+  longitud;
+  observaciones;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -31,10 +34,13 @@ export class Paso2Page {
       "elmidos": new FormControl(),
       "patudos": new FormControl(),
       "plecopteros": new FormControl(),
-      "tricopteros": new FormControl()
+      "tricopteros": new FormControl(),
+      "observaciones": new FormControl(),
     });
     this.fotoPaisaje=this.navParams.get('foto1');
     this.fotoMuestra=this.navParams.get('foto2');
+    this.latitud=this.navParams.get('latitud');
+    this.longitud=this.navParams.get('longitud');
 
   }
 

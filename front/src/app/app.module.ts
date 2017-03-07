@@ -13,6 +13,7 @@ import { Paso2Page } from '../pages/paso2/paso2';
 import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
 import { Camara } from '../providers/camara';
 import { Localsave } from '../providers/localsave';
+import { Ubicacion } from '../providers/ubicacion';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,6 @@ import { Localsave } from '../providers/localsave';
     SlidePage,
     Paso2Page,
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave, Ubicacion]
 })
 export class AppModule {}
