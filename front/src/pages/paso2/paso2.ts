@@ -39,8 +39,8 @@ export class Paso2Page {
     console.log('ionViewDidLoad Paso2Page');
   }
 
-doSubmit() {
-    console.log('Submitting form', this.coincidencia.value);
+doSubmit(event) {
+    console.log('Formulario', JSON.stringify(this.coincidencia.value));
     console.log("foto paisaje: ");
     console.log(this.fotoPaisaje);
      console.log("foto muestra: ");

@@ -13,9 +13,9 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="scroll-content ionic-scroll  has-header" padding>
 
-<form (ngSubmit)="doSubmit()" [formGroup]="coincidencia">
+<form (ngSubmit)="doSubmit($event)" [formGroup]="coincidencia">
  <button ion-button type="submit">Aceptar</button>
 <ion-grid>
   <ion-row responsive-sm>
