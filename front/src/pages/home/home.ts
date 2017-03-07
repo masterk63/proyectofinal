@@ -54,7 +54,7 @@ export class HomePage {
                     //     this.imagenes = [{src: '../assets/img/1.jpg'},{src: '../assets/img/2.jpg'}];
                     // }
 
-
+                    
 
                 }
 
