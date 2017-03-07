@@ -15,23 +15,36 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class Paso2Page {
 
-  langs;
-  langs2;
-  langForm;
+  elmido;
+  patudo;
+  plecoptero;
+  tricoptero;
+  coincidencia;
+  fotoPaisaje;
+  fotoMuestra;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-     this.langForm = new FormGroup({
-      "langs": new FormControl(),
-      "langs2": new FormControl()
+     this.coincidencia = new FormGroup({
+      "elmido": new FormControl(),
+      "patudo": new FormControl(),
+      "plecoptero": new FormControl(),
+      "tricoptero": new FormControl()
     });
+    this.fotoPaisaje=this.navParams.get('foto1');
+    this.fotoMuestra=this.navParams.get('foto2');
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Paso2Page');
   }
 
-doSubmit(event) {
-    console.log('Submitting form', this.langForm.value);
+doSubmit() {
+    console.log('Submitting form', this.coincidencia.value);
+    console.log("foto paisaje: ");
+    console.log(this.fotoPaisaje);
+     console.log("foto muestra: ");
+    console.log(this.fotoMuestra);
     event.preventDefault();
   }
 
