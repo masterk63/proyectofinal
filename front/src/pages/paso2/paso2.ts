@@ -46,6 +46,7 @@ doSubmit() {
      console.log("foto muestra: ");
     console.log(this.fotoMuestra);
     event.preventDefault();
+    
   }
 
 }
