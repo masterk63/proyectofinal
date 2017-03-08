@@ -42,23 +42,23 @@ cvr.on('created', function (change) {
             // };
 
 
-            var fecha='"2017-03-08 16:25:48"';
+            var fecha='"'+res.fecha+'"';
             var latitud=res.latitud;
             var longitud=res.longitud;
             var fotoPaisajeConcat='"'+fotoPaisajebd+'"';
             var fotoMuestraConcat='"'+fotoMuestrabd+'"';
-            var observacion='"'+res.observacion+'"';
+            var observaciones='"'+res.observaciones+'"';
             var idUsuario=1;
-            var ciudad="san miguel de tucuman";
-            var provincia="Tucuman";
-            var pais="Argentina";
+            var ciudad='"san miguel de tucuman"';
+            var provincia='"Tucuman"';
+            var pais='"Argentina"';
             var elmidos='"'+res.elmidos+'"';
             var patudos='"'+res.patudos+'"';
             var plecopteros='"'+res.plecopteros+'"';
             var tricopteros='"'+res.tricopteros+'"';
             
 
-            self.mysql.query('CALL registro_nuevo_completo('+fecha+','+latitud+','+longitud+','+fotoPaisajeConcat+','+fotoMuestraConcat+','+observacion+','+idUsuario+','+ciudad+','+provincia+','+pais+','+elmidos+','+patudos+','+plecopteros+','+tricopteros+')',function(err,rows) {
+            self.mysql.query('CALL registro_nuevo_completo('+fecha+','+latitud+','+longitud+','+fotoPaisajeConcat+','+fotoMuestraConcat+','+observaciones+','+idUsuario+','+ciudad+','+provincia+','+pais+','+elmidos+','+patudos+','+plecopteros+','+tricopteros+')',function(err,rows) {
                 if(err){
                     console.log(err);
                 } 
