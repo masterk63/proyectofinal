@@ -32,7 +32,6 @@ export class Ubicacion {
             console.log('Longitude: ' + crd.longitude);
             console.log('More or less ' + crd.accuracy + ' meters.');
             resolve(crd);
-            
           };
 
           function error(err) {

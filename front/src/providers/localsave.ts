@@ -26,7 +26,7 @@ export class Localsave {
     this.db.sync(this.remote, options);
   }
  
-  public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros){
+  public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud){
     var id = new Date().toISOString();
     var i = 1;
     var doc = {
@@ -45,6 +45,8 @@ export class Localsave {
       "elmidos":elmidos,
       "plecopteros":plecopteros,
       "tricopteros":tricopteros,
+      "latitud":latitud,
+      "longitud":longitud
     };
 
   

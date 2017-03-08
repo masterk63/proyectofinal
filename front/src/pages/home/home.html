@@ -11,7 +11,7 @@
  
 <ion-content class="scroll-content ionic-scroll  has-header">
   
-    <button class="delFoto" *ngIf="fotoPaisaje" (click)="test('paisaje')"><ion-icon style="margin-right: 2px" name="trash"></ion-icon>Eliminar</button>
+    <button class="delFoto" *ngIf="fotoPaisaje" (click)="deleteFoto('paisaje')"><ion-icon style="margin-right: 2px" name="trash"></ion-icon>Eliminar</button>
     <div class="imagen" [ngStyle]="{'background-image':'url('+fotoPaisajeURL+')'}" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">
       <img [src]="'data:image/jpeg;base64,'+fotoPaisaje" style="visibility: hidden">
     </div>
@@ -28,7 +28,7 @@
       <div class="padding">
         <div class="mapa" style="height:228px;"> 
           <div class="mapaConteiner">
-            <mapajshtml></mapajshtml>
+            <mapajshtml [latitud]="this.latitud" [longitud]="this.longitud"></mapajshtml>
           </div>
           <p>Ubicacion Actual</p> 
         </div>
@@ -40,7 +40,7 @@
           [ngStyle]="{'background-image':'url('+fotoMuestraURL+')'}"  (click)="mostrarFoto(fotoMuestra)">
             <img [src]="'data:image/jpeg;base64,'+fotoMuestra"  style="visibility: hidden">
           </div>
-          <p>Foto Muestra <button (click)="test('muestra')" style="background: transparent;font-size: 1em;color: #757575;"><ion-icon style="margin-left: 2px;" name="trash"></ion-icon></button></p> 
+          <p>Foto Muestra <button (click)="deleteFoto('muestra')" style="background: transparent;font-size: 1em;color: #757575;"><ion-icon style="margin-left: 2px;" name="trash"></ion-icon></button></p> 
         </div>
       </div>
       

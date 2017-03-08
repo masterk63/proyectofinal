@@ -29,24 +29,28 @@ cvr.on('created', function (change) {
             if (err) throw err;
             
             //Aca esta la magia modificar doc para lo que se necesario.
-            var doc = { 
-                idRegistro : 2,
-                latitud: 65.4545,
-                longitud:-55.24,
-                fotoPaisaje: fotoPaisajebd,
-                fotoMuestra: fotoMuestrabd,
-                observacion: 'test de comentario',
-                valido:1,
-                pendiente:0,
-                idUsuario : 1,
-                idUbicacion: 1,
-            };
-            self.mysql.query(query, doc, function (err) {
+            // var doc = { 
+            //     fecha : '2017-03-08 16:25:25',
+            //     latitud: 65.4545,
+            //     longitud:-55.24,
+            //     fotoPaisaje: fotoPaisajebd,
+            //     fotoMuestra: fotoMuestrabd,
+            //     observacion: 'test de comentario',
+            //     ciudad:'San M',
+            //     provinccia:'Tucuman',
+            //     pais : 'Argentina',
+            // };
+              self.mysql.query('CALL registro_nuevo_completo("2017-03-08 16:25:48",65.4545,-55.24,'+'"'+fotoPaisajebd+'"'+','+'"'+fotoMuestrabd+'"'+',"test de comentario","San M","Tucuman","Argentina")',function(err,rows) {
                 if(err){
                     console.log(err);
-                }
-                
+                } 
             });
+            // self.mysql.query(query, doc, function (err) {
+            //     if(err){
+            //         console.log(err);
+            //     }
+                
+            // });
     });
         });
     });

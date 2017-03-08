@@ -11,6 +11,8 @@ import { Localsave } from '../../providers/localsave';
 import { PhotoViewer } from 'ionic-native';
 import { Paso2Page } from '../paso2/paso2';
 
+
+
 @Component({
     selector: 'home-page',
     templateUrl: 'home.html',
@@ -40,6 +42,7 @@ export class HomePage {
                 public ubicacionCtrl:Ubicacion,
                 public localSaveCtrl:Localsave
                 ){
+                    this.ubicacion();
                     // this.localSaveCtrl.getTodos().then((data) => {
                     //     this.listaDBlocal = data;
                     //     //console.log(JSON.stringify(this.listaDBlocal));
@@ -58,9 +61,6 @@ export class HomePage {
                     // }else{
                     //     this.imagenes = [{src: '../assets/img/1.jpg'},{src: '../assets/img/2.jpg'}];
                     // }
-
-                    
-
                 }
 
     
@@ -69,7 +69,6 @@ export class HomePage {
         // this.camaraCtrl.getPics64().subscribe((data) => {
         //     this.listaFotosbase64 = data;
         // });
-        this.ubicacion();
     }
 
     openModal(pic) {
@@ -96,8 +95,7 @@ export class HomePage {
         PhotoViewer.show(picture);
     }
 
-    test(del){
-        console.log(del);
+    deleteFoto(del){
         if(del==='paisaje'){
             this.fotoPaisaje = null;
             this.fotoPaisajeURL= 'data:image/jpeg;base64,';
@@ -105,8 +103,7 @@ export class HomePage {
         else{
             this.fotoMuestra = null;
             this.fotoMuestraURL= 'data:image/jpeg;base64,';
-        }
-        
+        }  
     }
         
   
@@ -153,6 +150,5 @@ export class HomePage {
            this.latitud = this.coordenadas.latitude;
            this.longitud = this.coordenadas.longitude;
         }); 
-        
    }
 }
