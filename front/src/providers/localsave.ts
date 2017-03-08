@@ -28,7 +28,7 @@ export class Localsave {
  
   public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud,observaciones){
     var fecha = new Date();
-    var id = fecha.toISOString();
+    var id = new Date().toISOString();
     var i = 1;
     var doc = {
       "_id": id,
