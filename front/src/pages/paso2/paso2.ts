@@ -53,7 +53,8 @@ doSubmit(event) {
     let plecopteros = this.coincidencia.value.plecopteros;
     let tricopteros = this.coincidencia.value.tricopteros;
     let patudos = this.coincidencia.value.patudos;
-    this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud);
+    let observaciones = this.coincidencia.value.observaciones;
+    this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones);
     event.preventDefault();
   }
 

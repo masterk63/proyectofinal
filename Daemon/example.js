@@ -40,7 +40,25 @@ cvr.on('created', function (change) {
             //     provinccia:'Tucuman',
             //     pais : 'Argentina',
             // };
-              self.mysql.query('CALL registro_nuevo_completo("2017-03-08 16:25:48",65.4545,-55.24,'+'"'+fotoPaisajebd+'"'+','+'"'+fotoMuestrabd+'"'+',"test de comentario","San M","Tucuman","Argentina")',function(err,rows) {
+
+
+            var fecha='"2017-03-08 16:25:48"';
+            var latitud=res.latitud;
+            var longitud=res.longitud;
+            var fotoPaisajeConcat='"'+fotoPaisajebd+'"';
+            var fotoMuestraConcat='"'+fotoMuestrabd+'"';
+            var observacion='"'+res.observacion+'"';
+            var idUsuario=1;
+            var ciudad="san miguel de tucuman";
+            var provincia="Tucuman";
+            var pais="Argentina";
+            var elmidos='"'+res.elmidos+'"';
+            var patudos='"'+res.patudos+'"';
+            var plecopteros='"'+res.plecopteros+'"';
+            var tricopteros='"'+res.tricopteros+'"';
+            
+
+            self.mysql.query('CALL registro_nuevo_completo('+fecha+','+latitud+','+longitud+','+fotoPaisajeConcat+','+fotoMuestraConcat+','+observacion+','+idUsuario+','+ciudad+','+provincia+','+pais+','+elmidos+','+patudos+','+plecopteros+','+tricopteros+')',function(err,rows) {
                 if(err){
                     console.log(err);
                 } 
