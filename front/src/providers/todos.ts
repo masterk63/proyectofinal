@@ -21,24 +21,31 @@ export class Todos {
       continuous: true
     };
  
-    this.db.sync(this.remote, options);
- 
+    this.db.replicate.to(this.remote, options);
+    
+    this.db.replicate.from(this.remote, {
+      live: true,
+      retry: true,
+      continuous: true,
+        doc_ids: ['ricky']
+      });
   }
  
   getTodos() {
-
-     if (this.data) {
-      return Observable.create(observer => {
-            observer.next(this.data);
-        });
-    }
+    console.log("getTodos!");
+    //  if (this.data) {
+    //   return Observable.create(observer => {
+    //         observer.next(this.data);
+    //     });
+    // }
+   
   return Observable.create(observer => {    
     this.db.allDocs({
  
       include_docs: true
  
     }).then((result) => {
- 
+      console.log(result);
       this.data = [];
  
       let docs = result.rows.map((row) => {

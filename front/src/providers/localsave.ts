@@ -23,7 +23,7 @@ export class Localsave {
       continuous: true
     };
  
-    this.db.sync(this.remote, options);
+    this.db.replicate.to(this.remote, options);
   }
  
   public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud,observaciones){
