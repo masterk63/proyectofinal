@@ -5,7 +5,13 @@ var express       = require('express'),
     cookieParser  = require('cookie-parser'),
     bodyParser    = require('body-parser'),
     session       = require('express-session'),
+    cors          = require('cors'),
     engine        = require('ejs-locals');
+
+    var env    = process.env.NODE_ENV || 'auth',
+                configAuth = require('./config/' + env + '.js');
+    var JwtStrategy = require('passport-jwt').Strategy;
+    var ExtractJwt = require('passport-jwt').ExtractJwt;
 
 var routes = require('./routes/index');
 
@@ -20,6 +26,8 @@ var env    = process.env.NODE_ENV || 'development',
 
 
 var User = require('./models/user');
+
+
 
 
 passport.serializeUser(function(user, done) {
@@ -50,6 +58,31 @@ passport.use(new LocalStrategy(
   }
 ));
 
+var jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeader(),
+    secretOrKey: configAuth.secret
+};
+ 
+ 
+passport.use(new JwtStrategy(jwtOptions, function(payload, done){
+ 
+    User.findById(payload._id, function(err, user){
+ 
+        if(err){
+            return done(err, false);
+        }
+ 
+        if(user){
+            done(null, user);
+        } else {
+            done(null, false);
+        }
+ 
+    });
+ 
+}));
+
+
 var app = express();
 
 // view engine setup
@@ -61,6 +94,7 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(cors());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
