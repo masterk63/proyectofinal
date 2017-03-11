@@ -14,6 +14,9 @@ import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
 import { Camara } from '../providers/camara';
 import { Localsave } from '../providers/localsave';
 import { Ubicacion } from '../providers/ubicacion';
+import { SignupPage } from '../pages/signup-page/signup-page';
+import { Auth } from '../providers/auth';
+import { Storage } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { Ubicacion } from '../providers/ubicacion';
     Mapajshtml,
     SlidePage,
     Paso2Page,
+    SignupPage,
     SwipeVertical //OJO, Swipe Vertical es una directiva, solo va aqui y se importa arriba, no va abajo en bootstrap!
   ],
   imports: [
@@ -42,7 +46,8 @@ import { Ubicacion } from '../providers/ubicacion';
     Mapajshtml,
     SlidePage,
     Paso2Page,
+    SignupPage,
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave, Ubicacion]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave, Ubicacion,Auth,Storage]
 })
 export class AppModule {}

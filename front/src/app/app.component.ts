@@ -6,6 +6,8 @@ import { MapasnativoPage } from '../pages/mapasnativo/mapasnativo';
 import { HomePage } from '../pages/home/home';
 import { ClouDOPage } from '../pages/clou-do/clou-do';
 import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
+import { SignupPage } from '../pages/signup-page/signup-page';
+
 
 
 @Component({
@@ -27,7 +29,8 @@ export class MyApp {
       { title: 'Mapas Nativo', component: MapasnativoPage },
       { title: 'Camara', component: HomePage },
       { title: 'ClouDO', component: ClouDOPage },
-      { title: 'MapaHTML', component: Mapajshtml }
+      { title: 'MapaHTML', component: Mapajshtml },
+      { title: 'SignupPage', component: SignupPage },
     ];
 
   }
