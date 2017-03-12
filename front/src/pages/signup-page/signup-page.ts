@@ -23,7 +23,7 @@ export class SignupPage {
     this.showLoader();
  
     let details = {
-        name: this.email,
+        username: this.email,
         password: this.password,
         role: this.role
     };

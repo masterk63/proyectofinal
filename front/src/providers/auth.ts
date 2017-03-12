@@ -24,7 +24,7 @@ export class Auth {
             let headers = new Headers();
             headers.append('Authorization', this.token);
  
-            this.http.get('http://localhost:3000/api/auth/protected', {headers: headers})
+            this.http.get('http://192.168.1.145:3000/api/auth/protected', {headers: headers})
                 .subscribe(res => {
                     resolve(res);
                 }, (err) => {
@@ -44,7 +44,7 @@ export class Auth {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
  
-        this.http.post('http://localhost:3000/api/auth/register', JSON.stringify(details), {headers: headers})
+        this.http.post('http://192.168.1.145:3000/api/auth/register', JSON.stringify(details), {headers: headers})
           .subscribe(res => {
  
             let data = res.json();
@@ -68,16 +68,16 @@ export class Auth {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
  
-        this.http.post('http://localhost:3000/api/auth/login', JSON.stringify(credentials), {headers: headers})
+        this.http.post('http://192.168.1.145:3000/api/auth/login', JSON.stringify(credentials), {headers: headers})
           .subscribe(res => {
  
             let data = res.json();
-            // this.token = data.token;
-            // this.storage.set('token', data.token);
+            this.token = data.token;
+            this.storage.set('token', data.token);
             console.log(data);
             resolve(data);
             
-            // resolve(res.json());
+            resolve(res.json());
           }, (err) => {
             reject(err);
           });

@@ -15,7 +15,7 @@ export class Localsave {
 
   constructor(public http: Http) {
     this.db = new PouchDB('proyectofinal');
-    this.remote = 'http://192.168.1.12:5984/proyectofinal';
+    this.remote = 'http://192.168.1.145:5984/proyectofinal';
  
     let options = {
       live: true,
