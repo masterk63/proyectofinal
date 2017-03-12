@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ClouDOPage } from '../pages/clou-do/clou-do';
 import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 import { SignupPage } from '../pages/signup-page/signup-page';
+import { LoginPage } from '../pages/login-page/login-page';
 
 
 
@@ -16,7 +17,7 @@ import { SignupPage } from '../pages/signup-page/signup-page';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = LoginPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -31,6 +32,7 @@ export class MyApp {
       { title: 'ClouDO', component: ClouDOPage },
       { title: 'MapaHTML', component: Mapajshtml },
       { title: 'SignupPage', component: SignupPage },
+      { title: 'LoginPage', component: LoginPage },
     ];
 
   }

@@ -10,6 +10,8 @@ import { Ubicacion } from '../../providers/ubicacion';
 import { Localsave } from '../../providers/localsave';
 import { PhotoViewer } from 'ionic-native';
 import { Paso2Page } from '../paso2/paso2';
+import { Auth } from '../../providers/auth';
+import { LoginPage } from '../login-page/login-page';
 
 
 
@@ -39,6 +41,7 @@ export class HomePage {
                 public loadingCtrl: LoadingController,
                 public modalCtrl: ModalController,
                 public camaraCtrl:Camara,
+                public authService: Auth,
                 public ubicacionCtrl:Ubicacion,
                 public localSaveCtrl:Localsave
                 ){
@@ -151,4 +154,9 @@ export class HomePage {
            this.longitud = this.coordenadas.longitude;
         }); 
    }
+
+   logout(){
+    this.authService.logout();
+    this.navCtrl.setRoot(LoginPage);
+  }
 }
