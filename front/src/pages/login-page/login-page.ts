@@ -3,6 +3,8 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { HomePage } from '../home/home';
 import { SignupPage } from '../signup-page/signup-page';
+import { Storage } from '@ionic/storage';
+import { IntroPage } from '../intro/intro';
  
 @Component({
   selector: 'login-page',
@@ -14,11 +16,18 @@ export class LoginPage {
     password: string;
     loading: any;
  
-    constructor(public navCtrl: NavController, public authService: Auth, public loadingCtrl: LoadingController) {
+    constructor(public navCtrl: NavController, public authService: Auth, public loadingCtrl: LoadingController, public storage: Storage) {
  
     }
  
     ionViewDidLoad() {
+        //descomentar para pagina introductoria
+            // this.storage.get('intro-donea').then(done => {
+            // if (!done) {
+            // this.storage.set('intro-donea', true);
+            // this.navCtrl.setRoot(IntroPage);
+            // }
+            // });
  
         this.showLoader();
  

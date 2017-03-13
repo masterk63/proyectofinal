@@ -8,8 +8,8 @@ import { ClouDOPage } from '../pages/clou-do/clou-do';
 import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 import { SignupPage } from '../pages/signup-page/signup-page';
 import { LoginPage } from '../pages/login-page/login-page';
-
-
+import { IntroPage } from '../pages/intro/intro';
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,11 +17,11 @@ import { LoginPage } from '../pages/login-page/login-page';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = IntroPage;//aqui poner la pagina de LOGIN como root
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, public storage: Storage) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
