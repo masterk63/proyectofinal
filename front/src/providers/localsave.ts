@@ -3,19 +3,21 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import PouchDB from 'pouchdb';
+import { Storage } from '@ionic/storage';
 
-
+var db;
 
 @Injectable()
 export class Localsave {
 
-  db: any;
+  
   remote: any;
   data: any;
+  idUsuario:any;
 
-  constructor(public http: Http) {
-    this.db = new PouchDB('proyectofinal');
-    this.remote = 'http://192.168.1.145:5984/proyectofinal';
+  constructor(public http: Http,public storage: Storage) {
+    db = new PouchDB('proyectofinal');
+    this.remote = 'http://192.168.1.11:5984/proyectofinal';
  
     let options = {
       live: true,
@@ -23,41 +25,69 @@ export class Localsave {
       continuous: true
     };
  
-    this.db.replicate.to(this.remote, options);
+    db.replicate.to(this.remote, options);
   }
  
-  public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud,observaciones){
-    var fecha = new Date();
-    var id = new Date().toISOString();
-    var i = 1;
-    var doc = {
-      "_id": id,
-      "_attachments": {
-          'fotoPaisaje.png': {
-            content_type: 'image/png',
-            data: fotoPaisaje
-          },
-          'fotoMuestra.png': {
-            content_type: 'image/png',
-            data: fotoMuestra
-          },
-        },
-      "patudos":patudos,
-      "elmidos":elmidos,
-      "plecopteros":plecopteros,
-      "tricopteros":tricopteros,
-      "latitud":latitud,
-      "longitud":longitud,
-      "observaciones":observaciones,
-      "fecha":fecha
-    };
 
-  
-    this.db.put(doc).then(function (response) {
-      console.log(JSON.stringify(response));
-    }).catch(function (err) {
-      console.log(err);
-    });
+  public noExiste(id,fn){
+    db.get(id).then(function (configDoc) {
+        fn('0');
+      }).catch(function (err) {
+          fn('1');
+      });
+  }
+
+  public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud,observaciones){
+    this.storage.get('idUsuario').then((value) => {
+      this.idUsuario = value;
+      var fecha = new Date();
+      var id = this.idUsuario;
+      var doc = {
+        "_id": id,
+        "registros":[], 
+      };
+      var registro = {
+        "_attachments": {
+            'fotoPaisaje.png': {
+              content_type: 'image/png',
+              data: fotoPaisaje
+            },
+            'fotoMuestra.png': {
+              content_type: 'image/png',
+              data: fotoMuestra
+            },
+          },
+        "patudos":patudos,
+        "elmidos":elmidos,
+        "plecopteros":plecopteros,
+        "tricopteros":tricopteros,
+        "latitud":latitud,
+        "longitud":longitud,
+        "observaciones":observaciones,
+        "fecha":fecha
+      };
+
+
+      this.noExiste(doc._id,function(noTa){
+          if(noTa === '1'){
+            doc.registros.push(registro);
+            db.put(doc).then(function (response) {
+              console.log(JSON.stringify(response));
+            }).catch(function (err) {
+              console.log(err);
+            });
+          }
+          else{
+            console.log('intentado acualizar');
+            db.upsert(doc._id, doc.registros.push(registro)).then(function () {
+              console.log('listo');
+            }).catch(function (err) {
+              // error (not a 404 or 409)
+            });
+          }
+      });
+  });
+        
 
   // "_attachments": {},
     // for(let pic of pics){
@@ -72,7 +102,7 @@ export class Localsave {
 
   public getTodos(){
   return new Promise (resolve => {
-    this.db.allDocs({
+    db.allDocs({
       include_docs: true,
       attachments: true
     }).then(function (result) {
@@ -85,7 +115,7 @@ export class Localsave {
 }
 
   public destruirDB(){
-    this.db.destroy().then(function () {
+    db.destroy().then(function () {
       console.log('DB Hecha Mierda');
     }).catch(function (err) {
       console.log('No se pudo Romper');
