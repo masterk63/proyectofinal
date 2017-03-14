@@ -15,31 +15,48 @@ export class Localsave {
   data: any;
   idUsuario:any;
 
+
   constructor(public http: Http,public storage: Storage) {
-    db = new PouchDB('proyectofinal');
-    this.remote = 'http://192.168.1.11:5984/proyectofinal';
- 
-    let options = {
+     db = new PouchDB('proyectofinal'); 
+    this.storage.get('idUsuario').then((value) => {
+      this.idUsuario = value;
+     
+      this.remote = 'http://192.168.1.11:5984/proyectofinal';
+
+      let options = {
       live: true,
       retry: true,
       continuous: true
-    };
- 
-    db.replicate.to(this.remote, options);
+      };
+
+      db.replicate.to(this.remote, options);
+
+      db.replicate.from(this.remote, {
+        live: true,
+        retry: true,
+        continuous: true,
+        doc_ids: [this.idUsuario]
+      });
+    });
+    
   }
  
 
   public noExiste(id,fn){
     db.get(id).then(function (configDoc) {
-        fn('0');
+        fn(configDoc);
       }).catch(function (err) {
           fn('1');
       });
   }
 
+  public myDeltaFunction(doc) {
+    return doc;
+  }
+
+
   public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud,observaciones){
-    this.storage.get('idUsuario').then((value) => {
-      this.idUsuario = value;
+
       var fecha = new Date();
       var id = this.idUsuario;
       var doc = {
@@ -79,14 +96,16 @@ export class Localsave {
           }
           else{
             console.log('intentado acualizar');
-            db.upsert(doc._id, doc.registros.push(registro)).then(function () {
+            noTa.registros.push(registro);
+            db.put(noTa).then(function () {
               console.log('listo');
             }).catch(function (err) {
+              console.log(err);
               // error (not a 404 or 409)
             });
           }
       });
-  });
+  
         
 
   // "_attachments": {},

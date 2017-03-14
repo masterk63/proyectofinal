@@ -5,6 +5,7 @@ import { HomePage } from '../home/home';
 import { SignupPage } from '../signup-page/signup-page';
 import { Storage } from '@ionic/storage';
 import { IntroPage } from '../intro/intro';
+import { MisRegistrosPage } from '../mis-registros/mis-registros';
  
 @Component({
   selector: 'login-page',
@@ -35,7 +36,7 @@ export class LoginPage {
         this.authService.checkAuthentication().then((res) => {
             console.log("Already authorized");
             this.loading.dismiss();
-            this.navCtrl.setRoot(HomePage);
+            this.navCtrl.setRoot(MisRegistrosPage);
         }, (err) => {
             console.log("Not already authorized");
             this.loading.dismiss();

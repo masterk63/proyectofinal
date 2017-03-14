@@ -33,11 +33,11 @@ export class Todos {
  
   getTodos() {
     console.log("getTodos!");
-    //  if (this.data) {
-    //   return Observable.create(observer => {
-    //         observer.next(this.data);
-    //     });
-    // }
+     if (this.data) {
+      return Observable.create(observer => {
+            observer.next(this.data);
+        });
+    }
    
   return Observable.create(observer => {    
     this.db.allDocs({
