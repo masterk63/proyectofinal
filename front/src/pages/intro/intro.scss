@@ -1,13 +1,24 @@
 .ios, .md {
  
   page-intro {
-      .swiper-pagination-bullet-active {
-    background: #A713E8;
-  }
+
+    .swiper-pagination-bullet-active {
+        background: white;
+    }
+
+    background-color: #d14836 !important;
  
-    // ion-slide {
-    //   background-color: #32db64;
-    // }
+    ion-slide {
+      background-color: #d14836 !important;
+    }
+
+    ion-content{
+      color: white;
+    }
+
+    .ion-page .show-page{
+      margin-left: -15 !important;
+    }
  
     // ion-slide img {
     //   height: 70vh !important;

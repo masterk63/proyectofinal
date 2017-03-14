@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoginPage } from '../login-page/login-page'; 
+import { HomePage } from '../home/home'; 
  
 @Component({
   selector: 'page-intro',
@@ -19,7 +20,7 @@ export class IntroPage {
   }
 
   navHome() {
-    this.navCtrl.setRoot(LoginPage);
+    this.navCtrl.setRoot(HomePage);
   }
  
   ionViewDidLoad() {
