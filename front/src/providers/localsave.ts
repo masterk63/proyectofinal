@@ -29,7 +29,19 @@ export class Localsave {
       continuous: true
       };
 
-      db.replicate.to(this.remote, options);
+      db.replicate.to(this.remote, options).on('paused', (err) =>{
+        console.log('paused');
+        if (err) {
+          console.log(`No connection! ${err}`);
+        }
+        // replication was paused, usually because of a lost connection
+      }).on('change', (change)=>{
+        console.log('cambio detectado');
+      }).on('active', (info)=>{
+        console.log('volvi perras');
+      }).on('error', (err)=>{
+        console.log('todo roto');
+      });
 
       db.replicate.from(this.remote, {
         live: true,
@@ -37,6 +49,7 @@ export class Localsave {
         continuous: true,
         doc_ids: [this.idUsuario]
       });
+
     });
     
   }
