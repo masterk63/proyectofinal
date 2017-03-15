@@ -2,24 +2,37 @@
   <div class="overlay">
   <ion-slides pager="true" parallax="true" >
     <ion-slide>
-      <img src="assets/img/Elmidos.jpg">
-      <h1>Bienvenidos a Agüita</h1>
+      
+      <i primary class="fa fa-tint" style="font-size: 7em;"></i>
+      <h1>BIENVENIDOS A AGÜITA</h1>
       <p>Gracias por confiar en nosotros</p>
     </ion-slide>
 
     <ion-slide>
-      <i primary class="fa fa-map-o" style="font-size: 200px;"></i>
-      <img src="assets/img/Elmidos.jpg">
-      <h1>Antes de empezar a usar la aplicacion:</h1>
-      <p>Descarga los mapas wey!</p>
+      <i primary class="fa fa-bug" style="font-size: 7em;"></i>
+      <h1>¿AGUA CONTAMINADA?</h1>
+      <p>Con nuestra aplicación, ud. podra<br>
+      registrar sus muestras de los bichos<br>
+      encontrados en cualquier lugar</p>
     </ion-slide>
 
     <ion-slide>
-      <img src="assets/img/Elmidos.jpg">
-      <h1>Empieza ahora!</h1>
-      <button style="background-color: white;" ion-button outline small (click)="navHome()">
-        Usar la aplicacion
+      <i primary class="fa fa-map-o" style="font-size: 7em;"></i>
+      <!--<img src="assets/img/Elmidos.jpg">-->
+      <h1>¡IMPORTANTE!</h1>
+      <p>Para una mejor experiencia al usar la<br>
+           aplicacion, recomendamos seguir el<br>
+                siguiente tutorial para<br>
+                   descargar los mapas<br></p>
+      <button ion-button outline small style="color: white; border-color: white; font-size: 1.3em;" (click)="tutorial()">
+        TUTORIAL
       </button>
+      <p style="margin-top: 13%;">        
+        <a style="color: white; font-size: 1em; text-decoration: underline;"  (click)="login()">
+          REGISTRARSE / INICIAR SESIÓN
+        </a>
+      </p>
+
     </ion-slide>
   </ion-slides>
   </div>

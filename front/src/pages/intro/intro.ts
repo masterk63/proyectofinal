@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { LoginPage } from '../login-page/login-page'; 
 import { HomePage } from '../home/home';
+import { TutorialPage } from '../tutorial/tutorial';
+
 
 @Component({
   selector: 'page-intro',
@@ -28,16 +30,20 @@ export class IntroPage {
     }else if(this.width > 600){
       this.tam="100% 100%";
     }
-     
-                    if(this.plt.is('android') || this.plt.is('ios')){
-                        this.fotoIntro = "../www/assets/img/cascadaRioNoque.jpg";
-                    }else{
-                        this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
-                    }
+    //  this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
+    if(this.plt.is('android') || this.plt.is('ios')){
+        this.fotoIntro = "../www/assets/img/cascadaRioNoque.jpg";
+    }else{
+        this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
+    }
   }
 
-  navHome() {
-    this.navCtrl.setRoot(HomePage);
+  tutorial() {
+    this.navCtrl.push(TutorialPage);
+  }
+
+  login() {
+    this.navCtrl.setRoot(LoginPage);
   }
  
   ionViewDidLoad() {
