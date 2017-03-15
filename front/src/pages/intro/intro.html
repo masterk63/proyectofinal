@@ -1,6 +1,6 @@
-<ion-content padding>
+<ion-content padding [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }" >
+  <div class="overlay">
   <ion-slides pager="true" parallax="true" >
-
     <ion-slide>
       <img src="assets/img/Elmidos.jpg">
       <h1>Bienvenidos a Agüita</h1>
@@ -21,6 +21,6 @@
         Usar la aplicacion
       </button>
     </ion-slide>
-
   </ion-slides>
+  </div>
 </ion-content>
