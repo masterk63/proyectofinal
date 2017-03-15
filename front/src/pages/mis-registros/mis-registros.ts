@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Localsave } from '../../providers/localsave';
+import {File, Transfer, FilePath } from 'ionic-native';
 
 @Component({
   selector: 'page-mis-registros',
