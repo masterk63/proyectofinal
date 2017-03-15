@@ -21,7 +21,7 @@ export class Localsave {
     this.storage.get('idUsuario').then((value) => {
       this.idUsuario = value;
      
-      this.remote = 'http://192.168.1.11:5984/proyectofinal';
+      this.remote = 'http://rickybruno.sytes.net:5984/proyectofinal';
 
       let options = {
       live: true,
