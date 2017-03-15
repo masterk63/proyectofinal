@@ -15,6 +15,7 @@
 
 
 <ion-content padding class="card-background-page">
+  <button ion-button icon-only (click)="this.localSaveCtrl.destruirDB()"><ion-icon name="trash"></ion-icon></button>
   <ion-card *ngFor="let reg of registros">
     <div class="overlay"> </div>
     <img src="http://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png"/>

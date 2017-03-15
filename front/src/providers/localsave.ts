@@ -5,7 +5,9 @@ import {Observable} from 'rxjs/Observable';
 import PouchDB from 'pouchdb';
 import { Storage } from '@ionic/storage';
 
+declare var google;
 var db;
+var geocoder = new google.maps.Geocoder;
 
 @Injectable()
 export class Localsave {
@@ -37,6 +39,7 @@ export class Localsave {
         // replication was paused, usually because of a lost connection
       }).on('change', (change)=>{
         console.log('cambio detectado');
+        this.geoInvImgMap(change);
       }).on('active', (info)=>{
         console.log('volvi perras');
       }).on('error', (err)=>{
@@ -54,6 +57,65 @@ export class Localsave {
     
   }
  
+ public geoInvImgMap(change){
+
+//    mapstrings = ['mapstring1', 'mapstring2', 'mapstring3'];
+
+// geocoder.getLatLng(mapstrings.shift(), function lambda(point) {
+//    if(point) {
+//         // success
+//         map.setCenter(point, 13);
+//         map.setZoom(7);
+//         map.addOverlay(new GMarker(point));
+//     }
+//     else if(mapstrings.length > 0) {
+//         // Previous mapstring failed... try next mapstring
+//         geocoder.getLatLng(mapstrings.shift(), lambda);
+//     }
+//     else {
+//         // Take special action if no mapstring succeeds?
+//     }
+// })
+    let i=0;
+    let hayQuePedirAlgo = 0;
+    for(let reg of change.docs[0].registros){
+      if(reg.ciudad === null){
+        this.geocodeLatLng(reg.latitud,reg.longitud,function(resultado){
+          let ciudad = resultado[0].long_name;
+          let provinica = resultado[2].long_name;
+          let pais = resultado[3].long_name;
+          change.docs[0].registros[i].ciudad = ciudad;
+          change.docs[0].registros[i].provinica = provinica;
+          change.docs[0].registros[i].pais = pais;
+          hayQuePedirAlgo++;
+        });
+      }
+      i++;
+    }
+    if(hayQuePedirAlgo != 0){
+        db.put(change.docs[0]).then(function () {
+          console.log('listo');
+        }).catch(function (err) {
+          console.log(err);
+          // error (not a 404 or 409)
+        });
+    }
+ }
+
+ public geocodeLatLng(latitud,longitud,fn) {
+  var latlng = {lat: latitud, lng: longitud};
+  geocoder.geocode({'location': latlng}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      if (results[1]) {
+        fn(results[1].address_components);
+      } else {
+        console.log('No results found');
+      }
+    } else {
+     console.log('Geocoder failed due to: ' + status);
+    }
+  });
+}
 
   public noExiste(id,fn){
     db.get(id).then(function (configDoc) {
@@ -94,7 +156,10 @@ export class Localsave {
         "latitud":latitud,
         "longitud":longitud,
         "observaciones":observaciones,
-        "fecha":fecha
+        "fecha":fecha,
+        "ciudad":null,
+        "provincia":null,
+        "pais":null,
       };
 
 
