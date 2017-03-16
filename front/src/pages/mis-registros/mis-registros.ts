@@ -24,12 +24,11 @@ export class MisRegistrosPage {
               }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MisRegistrosPage');
+    
   }
 
-    logout(){
+  logout(){
     this.authService.logout();
     this.navCtrl.setRoot(LoginPage);
   }
-
 }

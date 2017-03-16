@@ -14,14 +14,40 @@
 </ion-header>
 
 
-<ion-content padding class="card-background-page">
+<ion-content class="scroll-content ionic-scroll  has-header">
+ 
   <button ion-button icon-only (click)="this.localSaveCtrl.destruirDB()"><ion-icon name="trash"></ion-icon></button>
+
   <ion-card *ngFor="let reg of registros">
-    <div class="overlay"> </div>
-    <img src="http://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png"/>
-    <div class="card-title">São Paulo</div>
-    <div class="card-subtitle">41 Listings</div>
-   
-  </ion-card>
+    <img [src]="'data:image/jpeg;base64,'+reg._attachments['fotoMapa.png'].data">
+  <ion-fab right top>
+    <button ion-fab>
+      <ion-icon name="pin"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-item>
+    <ion-icon name="football" item-left large></ion-icon>
+    <h2>Museum of Football</h2>
+    <p>11 N. Way St, Madison, WI 53703</p>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="wine" item-left large ></ion-icon>
+    <h2>Institute of Fine Cocktails</h2>
+    <p>14 S. Hop Avenue, Madison, WI 53703</p>
+  </ion-item>
+
+  <ion-item>
+    <span item-left>18 min</span>
+    <span item-left>(2.6 mi)</span>
+    <button ion-button icon-left clear item-right>
+      <ion-icon name="navigate"></ion-icon>
+      Start
+    </button>
+  </ion-item>
+
+</ion-card>
   
+
 </ion-content>

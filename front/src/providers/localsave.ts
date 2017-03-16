@@ -9,8 +9,22 @@ declare var google;
 var db;
 var geocoder = new google.maps.Geocoder;
 
+
+function imgURLtoBase64(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      callback(reader.result);
+    }
+    reader.readAsDataURL(xhr.response);
+  };
+  xhr.open('GET', url);
+  xhr.responseType = 'blob';
+  xhr.send();
+}
+
 var obtenerDireccion = function (registros,tam,hayQuePedirAlgo,fn) {
-  console.log('entre');
   if(tam < 0){
     let respuesta=[registros,hayQuePedirAlgo];
     fn(respuesta);
@@ -43,6 +57,25 @@ var obtenerDireccion = function (registros,tam,hayQuePedirAlgo,fn) {
   }
 }
 
+
+var obtenerFotoMapa = function (registros,tam,fn) {
+   if(tam < 0){
+    fn(registros);
+   }else{
+      if(registros[tam]._attachments['fotoMapa.png'].data === null){
+        let position = registros[tam].latitud+','+registros[tam].longitud;
+        let mapaURL = 'https://maps.googleapis.com/maps/api/staticmap?center='+position+'&zoom=16&size=640x400&markers=color:red%7Clabel:%7C'+position+'&key=AIzaSyCmp-2Bj3yexAf_L5HN6G7TOzgIh_mKe7I';
+        console.log(mapaURL);
+        imgURLtoBase64(mapaURL, function(base64Img) {
+          let imagenDB = base64Img.split('data:image/png;base64,');
+          registros[tam]._attachments['fotoMapa.png'].data = imagenDB[1];
+          return obtenerFotoMapa(registros,tam-1,fn);
+        });
+      }else{
+        return obtenerFotoMapa(registros,tam-1,fn);
+      }
+   }
+}
 @Injectable()
 export class Localsave {
 
@@ -53,7 +86,7 @@ export class Localsave {
 
 
   constructor(public http: Http,public storage: Storage) {
-     db = new PouchDB('proyectofinal'); 
+    db = new PouchDB('proyectofinal'); 
     this.storage.get('idUsuario').then((value) => {
       this.idUsuario = value;
      
@@ -98,12 +131,16 @@ export class Localsave {
     let registros = change.docs[0].registros;
     obtenerDireccion(registros,tam,hayQuePedirAlgo,function(respuesta){
         if(respuesta[1] != 0){
-          change.docs[0].registros = respuesta[0];
-          db.put(change.docs[0]).then(function () {
-            console.log('registos actualizados con reverse');
-          }).catch(function (err) {
-            console.log(err);
-            // error (not a 404 or 409)
+          let tam2 = respuesta[0].length;
+          tam2 = tam2 -1 ;
+          obtenerFotoMapa(respuesta[0],tam2,function(repuesta2){
+            change.docs[0].registros = repuesta2;
+            db.put(change.docs[0]).then(function () {
+              console.log('registos actualizados con reverse');
+            }).catch(function (err) {
+              console.log(err);
+              // error (not a 404 or 409)
+            });
           });
         }
     });
@@ -141,6 +178,10 @@ export class Localsave {
             'fotoMuestra.png': {
               content_type: 'image/png',
               data: fotoMuestra
+            },
+            'fotoMapa.png': {
+              content_type: 'image/png',
+              data: null
             },
           },
         "patudos":patudos,
@@ -187,10 +228,6 @@ export class Localsave {
     // }
   }
 
-
- 
-  
-
   public getTodos(){
   return new Promise (resolve => {
     db.allDocs({
@@ -212,4 +249,5 @@ export class Localsave {
       console.log('No se pudo Romper');
     })
   }
+
 }
