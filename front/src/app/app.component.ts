@@ -10,6 +10,7 @@ import { SignupPage } from '../pages/signup-page/signup-page';
 import { MisRegistrosPage } from '../pages/mis-registros/mis-registros';
 import { LoginPage } from '../pages/login-page/login-page';
 import { IntroPage } from '../pages/intro/intro';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -18,7 +19,7 @@ import { Storage } from '@ionic/storage';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;//aqui poner la pagina de LOGIN como root
+  rootPage: any = MisRegistrosPage;//aqui poner la pagina de LOGIN como root
 
   pages: Array<{title: string, component: any}>;
 
@@ -35,7 +36,8 @@ export class MyApp {
       { title: 'SignupPage', component: SignupPage },
       { title: 'LoginPage', component: LoginPage },
       { title: 'MisRegistros', component: MisRegistrosPage },
-      { title: 'Login', component: IntroPage },
+      { title: 'Introduccion', component: IntroPage },
+      { title: 'Tutorial', component: TutorialPage },
     ];
 
   }

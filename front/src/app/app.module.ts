@@ -18,6 +18,7 @@ import { LoginPage } from '../pages/login-page/login-page';
 import { SignupPage } from '../pages/signup-page/signup-page';
 import { MisRegistrosPage } from '../pages/mis-registros/mis-registros';
 import { IntroPage } from '../pages/intro/intro';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Auth } from '../providers/auth';
 import { Storage } from '@ionic/storage';
 
@@ -36,6 +37,7 @@ import { Storage } from '@ionic/storage';
     MisRegistrosPage,
     LoginPage,
     IntroPage,
+    TutorialPage,
     SwipeVertical //OJO, Swipe Vertical es una directiva, solo va aqui y se importa arriba, no va abajo en bootstrap!
   ],
   imports: [
@@ -56,6 +58,7 @@ import { Storage } from '@ionic/storage';
     SignupPage,
     MisRegistrosPage,
     IntroPage,
+    TutorialPage,
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave, Ubicacion,Auth,Storage]
 })

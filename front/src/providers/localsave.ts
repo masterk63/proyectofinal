@@ -5,7 +5,43 @@ import {Observable} from 'rxjs/Observable';
 import PouchDB from 'pouchdb';
 import { Storage } from '@ionic/storage';
 
+declare var google;
 var db;
+var geocoder = new google.maps.Geocoder;
+
+var obtenerDireccion = function (registros,tam,hayQuePedirAlgo,fn) {
+  console.log('entre');
+  if(tam < 0){
+    let respuesta=[registros,hayQuePedirAlgo];
+    fn(respuesta);
+  }else{
+    if(registros[tam].ciudad === null){
+       var latlng = {lat: registros[tam].latitud, lng: registros[tam].longitud};
+       geocoder.geocode({'location': latlng}, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results[1]) {
+            let resultado = results[1].address_components;
+            let ciudad = resultado[0].long_name;
+            let provinica = resultado[2].long_name;
+            let pais = resultado[3].long_name;
+            registros[tam].ciudad = ciudad;
+            registros[tam].provincia = provinica;
+            registros[tam].pais = pais;
+            console.log(results[1].formatted_address);
+          } else {
+            console.log('No results found');
+          }
+        } else {
+        console.log('Geocoder failed due to: ' + status);
+      }
+        return obtenerDireccion(registros,tam-1,hayQuePedirAlgo+1,fn);
+      });
+      
+    }else{
+      return obtenerDireccion(registros,tam-1,hayQuePedirAlgo,fn);
+    }
+  }
+}
 
 @Injectable()
 export class Localsave {
@@ -21,7 +57,7 @@ export class Localsave {
     this.storage.get('idUsuario').then((value) => {
       this.idUsuario = value;
      
-      this.remote = 'http://192.168.1.11:5984/proyectofinal';
+      this.remote = 'http://rickybruno.sytes.net:5984/proyectofinal';
 
       let options = {
       live: true,
@@ -29,7 +65,20 @@ export class Localsave {
       continuous: true
       };
 
-      db.replicate.to(this.remote, options);
+      db.replicate.to(this.remote, options).on('paused', (err) =>{
+        console.log('paused');
+        if (err) {
+          console.log(`No connection! ${err}`);
+        }
+        // replication was paused, usually because of a lost connection
+      }).on('change', (change)=>{
+        console.log('cambio detectado');
+        this.geoInvImgMap(change);
+      }).on('active', (info)=>{
+        console.log('volvi perras');
+      }).on('error', (err)=>{
+        console.log('todo roto');
+      });
 
       db.replicate.from(this.remote, {
         live: true,
@@ -37,9 +86,29 @@ export class Localsave {
         continuous: true,
         doc_ids: [this.idUsuario]
       });
+
     });
     
   }
+ 
+ public geoInvImgMap(change){
+    let tam = change.docs[0].registros.length;
+    tam = tam -1 ;
+    let hayQuePedirAlgo = 0;
+    let registros = change.docs[0].registros;
+    obtenerDireccion(registros,tam,hayQuePedirAlgo,function(respuesta){
+        if(respuesta[1] != 0){
+          change.docs[0].registros = respuesta[0];
+          db.put(change.docs[0]).then(function () {
+            console.log('registos actualizados con reverse');
+          }).catch(function (err) {
+            console.log(err);
+            // error (not a 404 or 409)
+          });
+        }
+    });
+ }
+
  
 
   public noExiste(id,fn){
@@ -81,7 +150,10 @@ export class Localsave {
         "latitud":latitud,
         "longitud":longitud,
         "observaciones":observaciones,
-        "fecha":fecha
+        "fecha":fecha,
+        "ciudad":null,
+        "provincia":null,
+        "pais":null,
       };
 
 
