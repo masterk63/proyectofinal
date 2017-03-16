@@ -9,6 +9,40 @@ declare var google;
 var db;
 var geocoder = new google.maps.Geocoder;
 
+var obtenerDireccion = function (registros,tam,hayQuePedirAlgo,fn) {
+  console.log('entre');
+  if(tam < 0){
+    let respuesta=[registros,hayQuePedirAlgo];
+    fn(respuesta);
+  }else{
+    if(registros[tam].ciudad === null){
+       var latlng = {lat: registros[tam].latitud, lng: registros[tam].longitud};
+       geocoder.geocode({'location': latlng}, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results[1]) {
+            let resultado = results[1].address_components;
+            let ciudad = resultado[0].long_name;
+            let provinica = resultado[2].long_name;
+            let pais = resultado[3].long_name;
+            registros[tam].ciudad = ciudad;
+            registros[tam].provincia = provinica;
+            registros[tam].pais = pais;
+            console.log(results[1].formatted_address);
+          } else {
+            console.log('No results found');
+          }
+        } else {
+        console.log('Geocoder failed due to: ' + status);
+      }
+        return obtenerDireccion(registros,tam-1,hayQuePedirAlgo+1,fn);
+      });
+      
+    }else{
+      return obtenerDireccion(registros,tam-1,hayQuePedirAlgo,fn);
+    }
+  }
+}
+
 @Injectable()
 export class Localsave {
 
@@ -58,40 +92,15 @@ export class Localsave {
   }
  
  public geoInvImgMap(change){
-
-//    mapstrings = ['mapstring1', 'mapstring2', 'mapstring3'];
-
-// geocoder.getLatLng(mapstrings.shift(), function lambda(point) {
-//    if(point) {
-//         // success
-//         map.setCenter(point, 13);
-//         map.setZoom(7);
-//         map.addOverlay(new GMarker(point));
-//     }
-//     else if(mapstrings.length > 0) {
-//         // Previous mapstring failed... try next mapstring
-//         geocoder.getLatLng(mapstrings.shift(), lambda);
-//     }
-//     else {
-//         // Take special action if no mapstring succeeds?
-//     }
-// })
-    let i=0;
+    let tam = change.docs[0].registros.length;
+    tam = tam -1 ;
     let hayQuePedirAlgo = 0;
-    for(let reg of change.docs[0].registros){
-      if(reg.ciudad === null){
-        this.geocodeLatLng(reg.latitud,reg.longitud,function(resultado){
-          let ciudad = resultado[0].long_name;
-          let provinica = resultado[2].long_name;
-          let pais = resultado[3].long_name;
-          change.docs[0].registros[i].ciudad = ciudad;
-          change.docs[0].registros[i].provinica = provinica;
-          change.docs[0].registros[i].pais = pais;
-          hayQuePedirAlgo++;
-        });
-      }
-      i++;
-    }
+    let registros = change.docs[0].registros;
+    obtenerDireccion(registros,tam,hayQuePedirAlgo,function(respuesta){
+        console.log(respuesta);
+    });
+    
+   
     if(hayQuePedirAlgo != 0){
         db.put(change.docs[0]).then(function () {
           console.log('listo');
@@ -102,20 +111,7 @@ export class Localsave {
     }
  }
 
- public geocodeLatLng(latitud,longitud,fn) {
-  var latlng = {lat: latitud, lng: longitud};
-  geocoder.geocode({'location': latlng}, function(results, status) {
-    if (status === google.maps.GeocoderStatus.OK) {
-      if (results[1]) {
-        fn(results[1].address_components);
-      } else {
-        console.log('No results found');
-      }
-    } else {
-     console.log('Geocoder failed due to: ' + status);
-    }
-  });
-}
+ 
 
   public noExiste(id,fn){
     db.get(id).then(function (configDoc) {
