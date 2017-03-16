@@ -97,18 +97,16 @@ export class Localsave {
     let hayQuePedirAlgo = 0;
     let registros = change.docs[0].registros;
     obtenerDireccion(registros,tam,hayQuePedirAlgo,function(respuesta){
-        console.log(respuesta);
+        if(respuesta[1] != 0){
+          change.docs[0].registros = respuesta[0];
+          db.put(change.docs[0]).then(function () {
+            console.log('registos actualizados con reverse');
+          }).catch(function (err) {
+            console.log(err);
+            // error (not a 404 or 409)
+          });
+        }
     });
-    
-   
-    if(hayQuePedirAlgo != 0){
-        db.put(change.docs[0]).then(function () {
-          console.log('listo');
-        }).catch(function (err) {
-          console.log(err);
-          // error (not a 404 or 409)
-        });
-    }
  }
 
  
