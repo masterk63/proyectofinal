@@ -16,7 +16,7 @@
   
     <button class="delFoto" *ngIf="fotoPaisaje" (click)="deleteFoto('paisaje')"><ion-icon style="margin-right: 2px" name="trash"></ion-icon>Eliminar</button>
     <div class="imagen" [ngStyle]="{'background-image':'url('+fotoPaisajeURL+')'}" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">
-      <img [src]="'data:image/jpeg;base64,'+fotoPaisaje" style="visibility: hidden">
+      <img [src]="imgBase64" style="visibility: hidden">
     </div>
 
     
