@@ -3,8 +3,14 @@
   page-tutorial {
 
     .swiper-pagination-bullet-active {
-        background: white;
+        background: white !important;
     }
+
+    .swiper-pagination-bullet {
+        background: red;
+    }
+
+    
 
     // background-color: #d14836 !important;
  
