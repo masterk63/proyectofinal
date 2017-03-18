@@ -1,0 +1,20 @@
+Autentificacion con google y facebook
+restailing login
+modificar el usuario para el form
+modificar script que copia a mysql completo con usuario y todo
+corregir la intro del div negro y los puntitos del page del tutorial
+corregir los scrollers en las paginas!
+tterminar de dar estilo a mis registros
+modal para los bichos
+consultar y mostrar mapas con todos los registros
+panel de administrador para validar registros
+crear los daemon en el sever
+introducir mapas nativos
+no permitir avanzar a la pagina si no obtuvo la geolocalizacion
+no poder ingresar a login si ya essta logueado, solo mostrar LOGOUT
+
+y bueno-.. consultas en MYSQL
+
+el login con recuyperacion d contraseña.. que envie los mails, las contraseñas van encriptadas en todas las base de datos
+hacer el toast "subiendo registros"
+
