@@ -18,8 +18,12 @@ export class MisRegistrosPage {
               public navParams: NavParams,
               public localSaveCtrl:Localsave) {
                 this.localSaveCtrl.getTodos().then((data) => {
-                  this.registros = data[0].registros;
-                  console.log(this.registros);
+                  try{
+                    this.registros = data[0].registros;
+                    console.log(this.registros);
+                  }catch(e){
+                    console.log('no hay registros');
+                  }
                 });
               }
 
