@@ -15,10 +15,8 @@
 <ion-content class="scroll-content ionic-scroll  has-header">
   
     <button class="delFoto" *ngIf="fotoPaisaje" (click)="deleteFoto('paisaje')"><ion-icon style="margin-right: 2px" name="trash"></ion-icon>Eliminar</button>
-    <div class="imagen" [ngStyle]="{'background-image':'url('+fotoPaisajeURL+')'}" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">
-      <img [src]="imgBase64" style="visibility: hidden">
-    </div>
-
+    
+    <img [src]="fotoPaisajeURLSafe" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">
     
     <div class="contenedor">
       <div class="padding" *ngIf="!fotoPaisaje">
@@ -39,10 +37,7 @@
       
        <div class="padding" *ngIf="fotoMuestra">
          <div class="mapa" > 
-          <div class="imagen" style="border-top-left-radius: 10px;border-top-right-radius: 10px;" 
-          [ngStyle]="{'background-image':'url('+fotoMuestraURL+')'}"  (click)="mostrarFoto(fotoMuestra)">
-            <img [src]="'data:image/jpeg;base64,'+fotoMuestra"  style="visibility: hidden">
-          </div>
+            <img [src]="fotoMuestraURLSafe" (click)="mostrarFoto(fotoMuestra)" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
           <p>Foto Muestra <button (click)="deleteFoto('muestra')" style="background: transparent;font-size: 1em;color: #757575;"><ion-icon style="margin-left: 2px;" name="trash"></ion-icon></button></p> 
         </div>
       </div>
