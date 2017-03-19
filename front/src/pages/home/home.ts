@@ -12,7 +12,7 @@ import { PhotoViewer } from 'ionic-native';
 import { Paso2Page } from '../paso2/paso2';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
-
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -42,11 +42,13 @@ export class HomePage {
                 public modalCtrl: ModalController,
                 public camaraCtrl:Camara,
                 public authService: Auth,
+                private sanitizer:DomSanitizer,
                 public ubicacionCtrl:Ubicacion,
                 public localSaveCtrl:Localsave
                 ){
                     this.ubicacion();
-                    // this.localSaveCtrl.getTodos().then((data) => {
+
+                                    // this.localSaveCtrl.getTodos().then((data) => {
                     //     this.listaDBlocal = data;
                     //     //console.log(JSON.stringify(this.listaDBlocal));
                     //     // for(let i of this.listaDBlocal){
@@ -73,6 +75,11 @@ export class HomePage {
         //     this.listaFotosbase64 = data;
         // });
     }
+    
+    get imgBase64() {
+  return this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,$fotoPaisaje');
+}
+    
 
     openModal(pic) {
         let modal = this.modalCtrl.create(ModalPage, {foto: pic});

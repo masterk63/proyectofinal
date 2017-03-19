@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,NgZone } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Localsave } from '../../providers/localsave';
 import {File, Transfer, FilePath } from 'ionic-native';
@@ -16,20 +16,24 @@ export class MisRegistrosPage {
   constructor(public navCtrl: NavController, 
               public authService: Auth,
               public navParams: NavParams,
-              public localSaveCtrl:Localsave) {
-                this.localSaveCtrl.getTodos().then((data) => {
-                  this.registros = data[0].registros;
-                  console.log(this.registros);
+              public localSaveCtrl:Localsave,
+              private _zone: NgZone) {
+                this.localSaveCtrl.getTodos().subscribe((data) => {
+                  try{
+                    this._zone.run(() => this.registros = data);
+                    console.log(this.registros);
+                  }catch(e){
+                    console.log('no hay registros');
+                  }
                 });
               }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MisRegistrosPage');
+    
   }
 
-    logout(){
+  logout(){
     this.authService.logout();
     this.navCtrl.setRoot(LoginPage);
   }
-
 }
