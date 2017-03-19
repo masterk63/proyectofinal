@@ -25,9 +25,13 @@ export class Paso2Page {
   fotoPaisaje;
   fotoMuestra;
   fotoElmido;
+  realElmido;
   fotoPatudo;
+  realPatudo;
   fotoPlecoptero;
+  realPlecoptero;
   fotoTricoptero;
+  realTricoptero;
   latitud;
   longitud;
   observaciones;
@@ -50,7 +54,9 @@ export class Paso2Page {
     this.latitud=this.navParams.get('latitud');
     this.longitud=this.navParams.get('longitud');
 
-    // if(this.plt.is('android') || this.plt.is('ios')){
+//FOTOS PARA PASO 2 RADIO BUTTON
+
+    //  if(this.plt.is('android') || this.plt.is('ios')){
     //       this.fotoElmido = "../www/assets/img/Elmidos.jpg";
     //   }else{
     //       this.fotoElmido = "../assets/img/Elmidos.jpg";
@@ -74,11 +80,46 @@ export class Paso2Page {
     //       this.fotoTricoptero = "../assets/img/Tricoptero.jpg";
     //   }
 
+    //  if(this.plt.is('android') || this.plt.is('ios')){
+    //       this.fotoElmido = "../www/assets/img/Elmidos.jpg";
+    //   }else{
+    //       this.fotoElmido = "../assets/img/Elmidos.jpg";
+    //   }
+
+// FOTOS REALES PARA MODAL!
+
+      // if(this.plt.is('android') || this.plt.is('ios')){
+      //     this.realElmido = "../www/assets/img/fElmido.jpg";
+      // }else{
+      //     this.realElmido = "../assets/img/fElmido.jpg";
+      // }
+
+      // if(this.plt.is('android') || this.plt.is('ios')){
+      //     this.realPatudo = "../www/assets/img/fPatudo.jpg";
+      // }else{
+      //     this.realPatudo = "../assets/img/fPatudo.jpg";
+      // }
+
+      // if(this.plt.is('android') || this.plt.is('ios')){
+      //     this.realPlecoptero = "../www/assets/img/fPlecoptero.jpg";
+      // }else{
+      //     this.realPlecoptero = "../assets/img/fPlecoptero.jpg";
+      // }
+
+      // if(this.plt.is('android') || this.plt.is('ios')){
+      //     this.realTricoptero = "../www/assets/img/fTricoptero.jpg";
+      // }else{
+      //     this.realTricoptero = "../assets/img/fTricoptero.jpg";
+      // }
+
      this.fotoElmido = "../assets/img/Elmidos.jpg";
      this.fotoPatudo = "../assets/img/Patudo.jpg";
      this.fotoPlecoptero = "../assets/img/Plecoptero.jpg";
      this.fotoTricoptero = "../assets/img/Tricoptero.jpg";
-
+     this.realElmido = "../assets/img/fElmido.jpg";
+     this.realPatudo = "../assets/img/fPatudo.jpg";
+     this.realPlecoptero = "../assets/img/fPlecoptero.jpg";
+     this.realTricoptero = "../assets/img/fTricoptero.jpg";
 
   }
 
