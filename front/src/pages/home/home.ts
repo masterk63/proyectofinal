@@ -21,9 +21,6 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 
 export class HomePage {
-    imagenes = [];
-    listaFotos = [];
-    listaFotosbase64 = [];
     fotoPaisajeURL = 'data:image/jpeg;base64,';
     fotoPaisaje:any;
     fotoMuestra:any;
@@ -33,6 +30,8 @@ export class HomePage {
     longitud:any;
     coordenadas: any;
     imagenenBase64 = '';
+    fotoPaisajeURLSafe:any;
+    fotoMuestraURLSafe:any;
 
     constructor(public navCtrl: NavController, 
                 public actionSheetCtrl: ActionSheetController, 
@@ -46,40 +45,16 @@ export class HomePage {
                 public ubicacionCtrl:Ubicacion,
                 public localSaveCtrl:Localsave
                 ){
-                    this.ubicacion();
-
-                                    // this.localSaveCtrl.getTodos().then((data) => {
-                    //     this.listaDBlocal = data;
-                    //     //console.log(JSON.stringify(this.listaDBlocal));
-                    //     // for(let i of this.listaDBlocal){
-                    //     //             for(var j=0;j<Object.keys(i._attachments).length;j++){
-                    //     //                 //console.log(i._attachments['meowth'+j+'.png'].data);
-                    //     //                 this.listaFotosbase64.push(i._attachments['foto'+(j+1)+'.png'].data);
-                    //     //             }        
-                    //     // }
-                        
-                    // });
-
-                    
-                    // if(this.platform.is('android') || this.platform.is('ios')){
-                    //     this.imagenes = [{src: '../www/assets/img/1.jpg'},{src: '../www/assets/img/2.jpg'}];
-                    // }else{
-                    //     this.imagenes = [{src: '../assets/img/1.jpg'},{src: '../assets/img/2.jpg'}];
-                    // }
+                    this.ubicacion();                    
                 }
 
     
 
     ionViewDidLoad() {
-        // this.camaraCtrl.getPics64().subscribe((data) => {
-        //     this.listaFotosbase64 = data;
-        // });
+
     }
     
-    get imgBase64() {
-  return this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,$fotoPaisaje');
-}
-    
+
 
     openModal(pic) {
         let modal = this.modalCtrl.create(ModalPage, {foto: pic});
@@ -89,14 +64,15 @@ export class HomePage {
    takefotoPaisaje(){
        this.camaraCtrl.takePicture64().then((data) => 
        {this.fotoPaisaje = data;
-       this.fotoPaisajeURL = this.fotoPaisajeURL + this.fotoPaisaje;}); 
-       
+       this.fotoPaisajeURL = this.fotoPaisajeURL + this.fotoPaisaje;
+       this.fotoPaisajeURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL );}); 
    }
 
     takefotoMuestra(){
        this.camaraCtrl.takePicture64().then((data) => 
        {this.fotoMuestra = data;
-       this.fotoMuestraURL = this.fotoMuestraURL + this.fotoMuestra;});
+       this.fotoMuestraURL = this.fotoMuestraURL + this.fotoMuestra;
+       this.fotoMuestraURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL );});
        
    }
     
