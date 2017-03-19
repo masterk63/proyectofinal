@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Platform, ModalController, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Localsave } from '../../providers/localsave';
+import { ModalPage } from '../modal/modal';
 
 
 /*
@@ -23,13 +24,20 @@ export class Paso2Page {
   coincidencia;
   fotoPaisaje;
   fotoMuestra;
+  fotoElmido;
+  fotoPatudo;
+  fotoPlecoptero;
+  fotoTricoptero;
   latitud;
   longitud;
   observaciones;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              public localSaveCtrl:Localsave) {
+              public localSaveCtrl:Localsave,
+              public modalCtrl: ModalController,
+              public plt: Platform
+    ){
      this.coincidencia = new FormGroup({
       "elmidos": new FormControl(),
       "patudos": new FormControl(),
@@ -41,6 +49,36 @@ export class Paso2Page {
     this.fotoMuestra=this.navParams.get('foto2');
     this.latitud=this.navParams.get('latitud');
     this.longitud=this.navParams.get('longitud');
+
+    // if(this.plt.is('android') || this.plt.is('ios')){
+    //       this.fotoElmido = "../www/assets/img/Elmidos.jpg";
+    //   }else{
+    //       this.fotoElmido = "../assets/img/Elmidos.jpg";
+    //   }
+
+    //   if(this.plt.is('android') || this.plt.is('ios')){
+    //       this.fotoPatudo = "../www/assets/img/Patudo.jpg";
+    //   }else{
+    //       this.fotoPatudo = "../assets/img/Patudo.jpg";
+    //   }
+
+    //   if(this.plt.is('android') || this.plt.is('ios')){
+    //       this.fotoPlecoptero = "../www/assets/img/Plecoptero.jpg";
+    //   }else{
+    //       this.fotoPlecoptero = "../assets/img/Plecoptero.jpg";
+    //   }
+
+    //   if(this.plt.is('android') || this.plt.is('ios')){
+    //       this.fotoTricoptero = "../www/assets/img/Tricoptero.jpg";
+    //   }else{
+    //       this.fotoTricoptero = "../assets/img/Tricoptero.jpg";
+    //   }
+
+     this.fotoElmido = "../assets/img/Elmidos.jpg";
+     this.fotoPatudo = "../assets/img/Patudo.jpg";
+     this.fotoPlecoptero = "../assets/img/Plecoptero.jpg";
+     this.fotoTricoptero = "../assets/img/Tricoptero.jpg";
+
 
   }
 
@@ -57,5 +95,10 @@ doSubmit(event) {
     this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones);
     event.preventDefault();
   }
+
+    openModal(pic) {
+        let modal = this.modalCtrl.create(ModalPage, {foto: pic});
+        modal.present();
+    }
 
 }
