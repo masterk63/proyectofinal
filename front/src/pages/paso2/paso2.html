@@ -15,7 +15,8 @@
   <ion-row responsive-sm>
     <ion-col col-6 col-lg>
       <ion-card>
-        <img class="bichos" [src]="fotoElmido" (click)="openModal(realElmido)"/>
+        <!--Para llevar un string a una funcion solo poner '', como en openModal 'elmido'-->
+        <img class="bichos" [src]="fotoElmido" (click)="openModal(realElmido,'elmido')"/>
         <ion-card-content>
           <ion-card-title>
            Elmidos

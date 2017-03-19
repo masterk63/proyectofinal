@@ -8,12 +8,16 @@
 <!--esto iria dentro del div para usar directivas: swipe-vertical [swipeUp]="mySwipeAction()" -->
 <div class="modal image-modal transparent" swipe-vertical (onSwipeUp)="onSwipeUp($event)" (onSwipeDown)="onSwipeDown($event)">
   <div class="cerrar" [class.mostrar]="isActive"><ion-icon (click)="dismiss()" name="close"></ion-icon></div>
-  <ion-slides pager="true" zoom="true">
+  <!--<ion-slides pager="true" zoom="true">
     <ion-slide>   
-      <!--<img (click)="show()" class="image" [src]="'data:image/jpeg;base64,'+foto">                   -->
+      <img (click)="show()" class="image" [src]="'data:image/jpeg;base64,'+foto">                   
     <img (click)="show()" class="image" [src]="foto"> 
     </ion-slide>
-  </ion-slides>
+  </ion-slides>-->
   
+<img (click)="show()" class="image" [src]="foto"> 
+<p>{{titulo}}</p>
+<p>{{descripcion}}</p>
+
 </div>
 </ion-content>

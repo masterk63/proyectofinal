@@ -137,8 +137,8 @@ doSubmit(event) {
     event.preventDefault();
   }
 
-    openModal(pic) {
-        let modal = this.modalCtrl.create(ModalPage, {foto: pic});
+    openModal(pic,name) {
+        let modal = this.modalCtrl.create(ModalPage, {foto: pic, nombre: name});
         modal.present();
     }
 

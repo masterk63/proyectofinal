@@ -13,6 +13,9 @@ import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
 
 export class ModalPage {
   foto: any;
+  nombre: any;
+  titulo: any;
+  descripcion: any;
   index: any;
   isActive  = false;
 
@@ -23,9 +26,15 @@ export class ModalPage {
     public viewCtrl: ViewController) 
     { 
       this.foto = params.get("foto");
+      this.nombre = params.get("nombre");
     }
 
     ionViewDidLoad(){
+
+      if(this.nombre === "elmido"){
+        this.titulo = "EMILDOS!!!!";
+        this.descripcion = "son unos bichos raros";
+      }
      
     }
 
