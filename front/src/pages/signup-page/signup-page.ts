@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { Platform, NavController, LoadingController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { HomePage } from '../home/home';
  
@@ -13,9 +13,31 @@ export class SignupPage {
   email: string;
   password: string;
   loading:any;
+  sliderOptions: any;
+  tam: any;
+  width: any;
+  fotoIntro: any;
 
-  constructor(public navCtrl: NavController, public authService: Auth, public loadingCtrl: LoadingController) {
- 
+  constructor(public navCtrl: NavController, public plt: Platform, public authService: Auth, public loadingCtrl: LoadingController) {
+     this.sliderOptions = {
+      pager: true
+    };
+    this.width=plt.width();
+    if(this.width <= 320){
+      this.tam="170% 100%";
+    }else if(this.width <= 450){
+      this.tam="140% 100%";
+    }else if(this.width <= 600){
+      this.tam="110% 100%";
+    }else if(this.width > 600){
+      this.tam="100% 100%";
+    }
+     this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
+    // if(this.plt.is('android') || this.plt.is('ios')){
+    //     this.fotoIntro = "../www/assets/img/cascadaRioNoque.jpg";
+    // }else{
+    //     this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
+    // }
   }
  
   register(){
@@ -46,5 +68,9 @@ export class SignupPage {
     this.loading.present();
  
   }
+
+      volver(){
+        this.navCtrl.pop();
+    }
  
 }

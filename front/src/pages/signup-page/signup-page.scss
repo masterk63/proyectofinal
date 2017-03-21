@@ -2,50 +2,31 @@
  
     signup-page {
  
-        ion-content {
-            background-color: map-get($colors, secondary);
-        }
- 
-        scroll-content {
-            display: flex;
-            flex-direction: column;
-        }
- 
-        ion-item {
-            border-radius: 30px !important;
-            padding-left: 10px !important;
-            margin-bottom: 10px;
-            background-color: #f6f6f6;
-            opacity: 0.7;
-            font-size: 0.9em;
-        }
- 
-        ion-list {
-            margin: 0;
-        }
- 
-        .heading-text {
-            flex: 1;
-            align-items: center;
-            text-align: center;
-        }
- 
-        .heading-text h3 {
-            color: #fff;
-        }
- 
- 
-        .account-form {
-            flex: 1;
-        }
- 
-        .continue-button {
+        .overlay{
+            position: fixed;
             width: 100%;
-            border-radius: 30px;
-            margin-top: 30px;
-            font-size: 0.9em;
-            background-color: transparent;
-            border: 1px solid #fff;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 20;
+            top: 0;
+            left: 0;
+        }
+
+        ion-content{
+            // background-image: url("../assets/img/cascadaRioNoque.jpg");
+            background-position: center;
+            color: white;
+        }
+
+        ion-icon{
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .volver{
+            font-weight: bolder;
+            font-size: 1.2em;
+            color: white;
         }
  
     }

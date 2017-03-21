@@ -1,39 +1,36 @@
-<ion-header>
-    <ion-navbar color="secondary">
-        <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-        <ion-title>Shared Todos</ion-title>
-    </ion-navbar>
-</ion-header>
- 
-<ion-content>
- 
-    <ion-row class="login-form">
-        <ion-col>
-            <ion-list inset>
- 
-              <ion-item>
-                <ion-label><ion-icon name="person"></ion-icon></ion-label>
-                <ion-input [(ngModel)]="email" placeholder="email" type="text"></ion-input>
-              </ion-item>
- 
-              <ion-item>
-                <ion-label><ion-icon name="lock"></ion-icon></ion-label>
-                <ion-input [(ngModel)]="password" placeholder="password" type="password"></ion-input>
-              </ion-item>
- 
-            </ion-list>
- 
-            <button ion-button full (click)="login()" color="primary" class="login-button">Login</button>
- 
-        </ion-col>
-    </ion-row>
- 
-    <ion-row>
-        <ion-col>
-            <button ion-button (click)="launchSignup()" class="create-account">Create an Account</button>
-        </ion-col>
-    </ion-row>
- 
+
+<ion-content padding [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }" >
+    <div class="overlay">
+        <h1 style="text-align: center; margin: 10%;">AGÜITA</h1>
+        <div style="width: 100%;">
+          <div style="float:left; width: 50%; margin-bottom: 3%;">
+            <a class="pIzq">
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
+          <div style="float:left; width: 50%; margin-bottom: 3%;">
+            <a class="pDer" (click)="crearCuenta()">
+              Crear una cuenta
+            </a>
+          </div>
+        </div>   
+        
+        <ion-list padding>
+            <ion-item>
+                <ion-input [(ngModel)]="username" type="text" placeholder="Usuario"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input [(ngModel)]="password" type="password" placeholder="Contraseña"></ion-input>
+            </ion-item>
+        </ion-list>
+
+        <button ion-button (click)="login()" color="primary" full >Iniciar sesión</button>       
+        <button full class="loginBtn loginBtn--facebook">
+          Ingresar con Facebok
+        </button>
+        <button full class="loginBtn loginBtn--google">
+          Ingresar con Google
+        </button> 
+
+    </div>
 </ion-content>
