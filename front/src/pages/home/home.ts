@@ -4,6 +4,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ModalController, ViewController, NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
 import { Camera, File, Transfer, FilePath } from 'ionic-native';
 import { Mapjshtml } from '../pages/mapajshtml/mapajshtml';
+import { MapasnativoPage } from '../pages/mapasnativo/mapasnativo';
 import { ModalPage } from '../modal/modal';
 import { Camara } from '../../providers/camara';
 import { Ubicacion } from '../../providers/ubicacion';
@@ -15,9 +16,11 @@ import { LoginPage } from '../login-page/login-page';
 import {DomSanitizer} from '@angular/platform-browser';
 
 
+
 @Component({
     selector: 'home-page',
     templateUrl: 'home.html',
+    
 })
 
 export class HomePage {
@@ -54,8 +57,6 @@ export class HomePage {
 
     }
     
-
-
     openModal(pic) {
         let modal = this.modalCtrl.create(ModalPage, {foto: pic});
         modal.present();
@@ -129,7 +130,6 @@ export class HomePage {
     }
 
     ubicacion(){
-        console.log("provider ubicacion");
        this.ubicacionCtrl.obtenerCoordenadas().then((data) => 
        {
            this.coordenadas = data;
@@ -137,7 +137,7 @@ export class HomePage {
            this.longitud = this.coordenadas.longitude;
         }); 
    }
-
+   
    logout(){
     this.authService.logout();
     this.navCtrl.setRoot(LoginPage);
