@@ -1,19 +1,13 @@
-<!--
-  Generated template for the Paso2 page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>paso2</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>
+     PASO 2
+    </ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <form (submit)="doSubmit($event)" [formGroup]="coincidencia">
-<ion-content class="scroll-content ionic-scroll  has-header" padding>
+<ion-content class="scroll-content ionic-scroll  has-header" style="margin-top: 55px;">
 
 
 
@@ -21,7 +15,8 @@
   <ion-row responsive-sm>
     <ion-col col-6 col-lg>
       <ion-card>
-        <img class="bichos" src="assets/img/Elmidos.jpg"/>
+        <!--Para llevar un string a una funcion solo poner '', como en openModal 'elmido'-->
+        <img class="bichos" [src]="fotoElmido" (click)="openModal(realElmido,'elmido')"/>
         <ion-card-content>
           <ion-card-title>
            Elmidos
@@ -44,7 +39,7 @@
     </ion-col>
     <ion-col >
       <ion-card>
-        <img class="bichos" src="assets/img/Patudo.jpg"/>
+        <img class="bichos" [src]="fotoPatudo" (click)="openModal(realPatudo,'patudo')"/>
         <ion-card-content>
           <ion-card-title>
            Patudo
@@ -69,7 +64,7 @@
   <ion-row responsive-sm>
     <ion-col col-6 col-lg>
       <ion-card>
-        <img class="bichos" src="assets/img/Plecoptero.jpg"/>
+        <img class="bichos" [src]="fotoPlecoptero" (click)="openModal(realPlecoptero,'plecoptero')"/>
         <ion-card-content>
           <ion-card-title>
            Plecoptero
@@ -92,7 +87,7 @@
     </ion-col>
     <ion-col >
       <ion-card>
-        <img class="bichos" src="assets/img/Tricoptero.jpg"/>
+        <img class="bichos" [src]="fotoTricoptero" (click)="openModal(realTricoptero,'tricoptero')"/>
         <ion-card-content>
           <ion-card-title>
            Tricoptero

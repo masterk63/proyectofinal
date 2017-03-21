@@ -8,7 +8,7 @@ import { Storage } from '@ionic/storage';
 declare var google;
 var db;
 var geocoder = new google.maps.Geocoder;
-
+var registrosLocales;
 
 function imgURLtoBase64(url, callback) {
   var xhr = new XMLHttpRequest();
@@ -229,13 +229,25 @@ export class Localsave {
   }
 
   public getTodos(){
-  return new Promise (resolve => {
+
+    if (registrosLocales) {
+      return Observable.create(observer => {
+            observer.next(registrosLocales);
+        });
+    }
+
+  return Observable.create(observer => { 
     db.allDocs({
       include_docs: true,
       attachments: true
     }).then(function (result) {
-      var docs = result.rows.map(function (row) { return row.doc; });  
-      resolve(docs)
+      var docs = result.rows.map(function (row) { return row.doc; }); 
+      registrosLocales = docs[0].registros;
+      observer.next(registrosLocales);
+      db.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
+        registrosLocales = change.doc.registros;
+        observer.next(registrosLocales);
+      });
     }).catch(function (err) {
       console.log(err);
     });

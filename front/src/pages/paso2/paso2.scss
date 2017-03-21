@@ -1,5 +1,16 @@
-.bichos{
-    max-width: 200px;
-    max-height: 200px;
-    margin: 0 auto;
+.ios, .md {
+
+    page-paso2 {
+
+        ion-scroll {
+            white-space: nowrap;
+            height: 150px;
+        }
+
+        .bichos{
+            max-width: 200px;
+            max-height: 200px;
+            margin: 0 auto;
+        }
+    }
 }

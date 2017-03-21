@@ -20,14 +20,14 @@ export class MapasnativoPage {
   map: GoogleMap;
  
     constructor(public navCtrl: NavController, public platform: Platform) {
-        platform.ready().then(() => {
-            this.loadMap();
-        });
+        // platform.ready().then(() => {
+        //     this.loadMap();
+        // });
     }
 
-    //  ngOnInit(){
-    //     this.loadMap();
-    //   }
+     ngOnInit(){
+        this.loadMap();
+      }
  
     loadMap(){
  
