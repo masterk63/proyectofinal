@@ -13,7 +13,9 @@
 </ion-header>
  
 <ion-content class="scroll-content ionic-scroll  has-header">
-  
+    <div style="height: 30%"> 
+      <page-mapasnativo [latitud]="this.latitud" [longitud]="this.longitud"> </page-mapasnativo>
+    </div>
     <button class="delFoto" *ngIf="fotoPaisaje" (click)="deleteFoto('paisaje')"><ion-icon style="margin-right: 2px" name="trash"></ion-icon>Eliminar</button>
     
     <img [src]="fotoPaisajeURLSafe" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">
@@ -29,7 +31,8 @@
       <div class="padding">
         <div class="mapa" style="height:228px;"> 
           <div class="mapaConteiner">
-            <mapajshtml [latitud]="this.latitud" [longitud]="this.longitud"></mapajshtml>
+            
+            <!--<mapajshtml [latitud]="this.latitud" [longitud]="this.longitud"></mapajshtml>-->
           </div>
           <p>Ubicacion Actual</p> 
         </div>

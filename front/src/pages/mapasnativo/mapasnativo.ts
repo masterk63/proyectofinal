@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { NavController, NavParams } from 'ionic-angular';
 import {
@@ -16,7 +16,9 @@ import {
   templateUrl: 'mapasnativo.html'
 })
 export class MapasnativoPage {
-
+@Input() latitud;
+@Input() longitud;
+ 
   map: GoogleMap;
  
     constructor(public navCtrl: NavController, public platform: Platform) {
@@ -25,31 +27,32 @@ export class MapasnativoPage {
         // });
     }
 
-     ngOnInit(){
-        this.loadMap();
-      }
+  ngOnChanges(){
+    
+    this.loadMap();
+  }
  
     loadMap(){
  
-        let location = new GoogleMapsLatLng(-34.9290,138.6010);
- 
+        let location = new GoogleMapsLatLng(this.latitud,this.longitud);
+        console.log(location);
         this.map = new GoogleMap('map', {
           'backgroundColor': 'white',
           'controls': {
             'compass': true,
             'myLocationButton': true,
             'indoorPicker': true,
-            'zoom': true
+            'zoom': false
           },
           'gestures': {
-            'scroll': true,
-            'tilt': true,
-            'rotate': true,
-            'zoom': true
+            'scroll': false,
+            'tilt': false,
+            'rotate': false,
+            'zoom': false
           },
           'camera': {
             'latLng': location,
-            'tilt': 30,
+            'tilt': 0,
             'zoom': 15,
             'bearing': 50
           }
