@@ -12,12 +12,15 @@
   </ion-navbar>
 </ion-header>
  
+
+
 <div style="height: 30%;margin-top: 15%;"> 
-      <page-mapasnativo [latitud]="this.latitud" [longitud]="this.longitud"> </page-mapasnativo>
-    </div>
+    <page-mapasnativo [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="muestroMapaNativo"> </page-mapasnativo>
+    <mapajshtml [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="!muestroMapaNativo"></mapajshtml>
+</div>
 
 <ion-content style="margin-top: 62%;" class="scroll-content ionic-scroll  has-header">
-    
+  
     <button class="delFoto" *ngIf="fotoPaisaje" (click)="deleteFoto('paisaje')"><ion-icon style="margin-right: 2px" name="trash"></ion-icon>Eliminar</button>
     
     <img [src]="fotoPaisajeURLSafe" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">

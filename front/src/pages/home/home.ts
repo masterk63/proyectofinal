@@ -35,6 +35,7 @@ export class HomePage {
     imagenenBase64 = '';
     fotoPaisajeURLSafe:any;
     fotoMuestraURLSafe:any;
+    muestroMapaNativo = false;
 
     constructor(public navCtrl: NavController, 
                 public actionSheetCtrl: ActionSheetController, 
@@ -48,7 +49,10 @@ export class HomePage {
                 public ubicacionCtrl:Ubicacion,
                 public localSaveCtrl:Localsave
                 ){
-                    this.ubicacion();                    
+                    this.ubicacion();
+                    if(this.platform.is('android') || this.platform.is('ios')){
+                        this.muestroMapaNativo = true;
+                    }              
                 }
 
     
