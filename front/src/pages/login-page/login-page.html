@@ -24,13 +24,19 @@
             </ion-item>
         </ion-list>
 
-        <button ion-button (click)="login()" color="primary" full >Iniciar sesión</button>       
-        <button full class="loginBtn loginBtn--facebook">
-          Ingresar con Facebok
+        <button ion-button full color="white" (click)="login()">Iniciar sesión</button>    
+
+          <p class="entreLineas"><span style="color: lightgray">o directamente</span></p>
+
+        <button ion-button full style="background-color: #1b4d7f;">
+          <i class="fa fa-facebook"></i>
+            &emsp;Iniciar sesión con Facebook
         </button>
-        <button full class="loginBtn loginBtn--google">
-          Ingresar con Google
-        </button> 
+                <button ion-button full style="background-color: #d14836;">
+          <i class="fa fa-google-plus"></i>
+            &emsp;Iniciar sesión con Google
+        </button>
+       
 
     </div>
 </ion-content>
