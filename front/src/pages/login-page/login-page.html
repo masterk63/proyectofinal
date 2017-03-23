@@ -15,7 +15,7 @@
           </div>
         </div>   
         
-        <ion-list padding>
+        <ion-list style="padding: 5%">
             <ion-item>
                 <ion-input [(ngModel)]="username" type="text" placeholder="Usuario"></ion-input>
             </ion-item>
@@ -24,18 +24,21 @@
             </ion-item>
         </ion-list>
 
-        <button ion-button full color="white" (click)="login()">Iniciar sesión</button>    
+        <button ion-button style="display: block; width: 90%; margin: 0 auto; font-family: 'Oswald', sans-serif;" color="white" (click)="login()">Iniciar sesión</button>    
 
-          <p class="entreLineas"><span style="color: lightgray">o directamente</span></p>
+          <p class="entreLineas"><span style="color: lightgray">o ingresa con</span></p>
+          
+        <div style="width: 100%;float: left;display: block;">
+          <button ion-button full class="logFace" style="font-family: 'Oswald', sans-serif;">
+            <i class="fa fa-facebook"></i>
+              &emsp;Facebook
+          </button>
+          <button ion-button full class="logGoogle" style="font-family: 'Oswald', sans-serif;">
+            <i class="fa fa-google-plus"></i>
+              &emsp;Google
+          </button>
+        </div>
 
-        <button ion-button full style="background-color: #1b4d7f;">
-          <i class="fa fa-facebook"></i>
-            &emsp;Iniciar sesión con Facebook
-        </button>
-                <button ion-button full style="background-color: #d14836;">
-          <i class="fa fa-google-plus"></i>
-            &emsp;Iniciar sesión con Google
-        </button>
        
 
     </div>
