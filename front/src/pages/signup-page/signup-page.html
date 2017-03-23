@@ -2,33 +2,47 @@
 <ion-content padding [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }" >
     <div class="overlay">
         <button class="volver" ion-button clear (click)="volver()"><ion-icon name="arrow-back"></ion-icon>&emsp;Volver</button>
-        <ion-list padding>
+
+        <ion-list style="padding: 5%">
+            <ion-item>
+                <ion-input [(ngModel)]="nombre" type="text" placeholder="Nombre"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input [(ngModel)]="apellido" type="text" placeholder="Apellido"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input [(ngModel)]="residencia" type="text" placeholder="Residencia (Ej: Tafi Viejo)"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input [(ngModel)]="institucion" type="text" placeholder="Institucion (Ej: UNT)"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input [(ngModel)]="grado" type="text" placeholder="Grado (Ej: 8vo año)"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input [(ngModel)]="mail" type="text" placeholder="Correo electronico"></ion-input>
+            </ion-item>
             <ion-item>
                 <ion-input [(ngModel)]="username" type="text" placeholder="Usuario"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input [(ngModel)]="password" type="password" placeholder="Contraseña"></ion-input>
+                <ion-input [type]="verPass" [(ngModel)]="password" placeholder="Contraseña"></ion-input>
             </ion-item>
-            <ion-item>
-                <ion-label><ion-icon name="mail"></ion-icon></ion-label>
-                <ion-input [(ngModel)]="email" placeholder="Email" type="email"></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label><ion-icon name="lock"></ion-icon></ion-label>
-                <ion-input [(ngModel)]="password" placeholder="Password" type="password"></ion-input>
-            </ion-item>
-
-            <ion-item>
+            <button [style.backgroundColor]="isActive? 'red':'white'" ion-button style="display: block; width: 45%; margin-left: auto; font-family: 'Oswald', sans-serif;" color="white" (click)="verPassword()" >
+                {{tituloBoton}}
+            </button>
+            <!--<ion-item>
                 <ion-label>Role</ion-label>
                 <ion-select [(ngModel)]="role">
                     <ion-option value="reader">Reader</ion-option>
                     <ion-option value="creator">Creator</ion-option>
                     <ion-option value="editor">Editor</ion-option>
                 </ion-select>
-            </ion-item>
+            </ion-item>-->
         </ion-list>
-        <button ion-button (click)="register()" class="continue-button">Register</button>
-             <button ion-button (click)="volver()">volver</button>
+        <button ion-button style="display: block; width: 90%; margin: 0 auto; font-family: 'Oswald', sans-serif;" color="white" (click)="register()">
+            Registrarse
+        </button>
+
     </div>
 </ion-content>

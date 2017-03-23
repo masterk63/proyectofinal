@@ -17,6 +17,9 @@ export class SignupPage {
   tam: any;
   width: any;
   fotoIntro: any;
+  verPass = "password";
+  tituloBoton = "Mostrar contraseña";
+  isActive=false;
 
   constructor(public navCtrl: NavController, public plt: Platform, public authService: Auth, public loadingCtrl: LoadingController) {
      this.sliderOptions = {
@@ -44,6 +47,8 @@ export class SignupPage {
  
     this.showLoader();
  
+
+
     let details = {
         username: this.email,
         password: this.password,
@@ -71,6 +76,17 @@ export class SignupPage {
 
       volver(){
         this.navCtrl.pop();
+    }
+
+    verPassword(){
+      this.isActive = !this.isActive;
+      if(this.verPass === "text"){
+        this.verPass = "password"
+        this.tituloBoton="Mostrar contraseña";
+      }else{
+        this.verPass = "text"
+        this.tituloBoton="Ocultar contraseña";
+      }
     }
  
 }
