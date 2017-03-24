@@ -9,9 +9,17 @@ import { HomePage } from '../home/home';
 })
 export class SignupPage {
  
-  role: string;
-  email: string;
-  password: string;
+// Objeto usuario
+    mail: string;
+    username: string;
+    password: string;
+    nombre: string;
+    apellido: string;
+    institucion: string;
+    grado: string;
+    residencia: string;
+    rol: string;
+
   loading:any;
   sliderOptions: any;
   tam: any;
@@ -22,9 +30,6 @@ export class SignupPage {
   isActive=false;
 
   constructor(public navCtrl: NavController, public plt: Platform, public authService: Auth, public loadingCtrl: LoadingController) {
-     this.sliderOptions = {
-      pager: true
-    };
     this.width=plt.width();
     if(this.width <= 320){
       this.tam="170% 100%";
@@ -46,13 +51,16 @@ export class SignupPage {
   register(){
  
     this.showLoader();
- 
-
-
     let details = {
-        username: this.email,
-        password: this.password,
-        role: this.role
+          mail: this.mail,
+          username: this.username,
+          password: this.password,
+          nombre: this.nombre,
+          apellido: this.apellido,
+          institucion: this.institucion,
+          grado: this.grado,
+          residencia: this.residencia,
+          role: this.rol
     };
  
     this.authService.createAccount(details).then((result) => {

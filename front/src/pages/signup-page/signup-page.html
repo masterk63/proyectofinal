@@ -26,11 +26,11 @@
                 <ion-input [(ngModel)]="username" type="text" placeholder="Usuario"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input [type]="verPass" [(ngModel)]="password" placeholder="Contraseña"></ion-input>
+                <ion-input [(ngModel)]="password" [type]="verPass" placeholder="Contraseña"></ion-input>
             </ion-item>
-            <button [style.backgroundColor]="isActive? 'red':'white'" ion-button style="display: block; width: 45%; margin-left: auto; font-family: 'Oswald', sans-serif;" color="white" (click)="verPassword()" >
-                {{tituloBoton}}
-            </button>
+            <a [style.color]="isActive? '#d14836':'white'" style="font-size: 1em; text-decoration: underline;"  (click)="verPassword()">
+                 {{tituloBoton}}
+            </a>
             <!--<ion-item>
                 <ion-label>Role</ion-label>
                 <ion-select [(ngModel)]="role">

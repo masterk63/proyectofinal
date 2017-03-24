@@ -12,7 +12,6 @@ var User = module.exports = resourceful.define('user', function () {
   this.string('grado');
   this.string('residencia');
   this.string('rol');
-
   this.timestamps();
 
 });
