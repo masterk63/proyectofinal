@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, NavController, LoadingController } from 'ionic-angular';
+import { ToastController, Platform, NavController, LoadingController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { HomePage } from '../home/home';
 import { SignupPage } from '../signup-page/signup-page';
@@ -22,7 +22,13 @@ export class LoginPage {
     width: any;
     fotoIntro: any;
  
-    constructor(public navCtrl: NavController, public plt: Platform, public authService: Auth, public loadingCtrl: LoadingController, public storage: Storage) {
+    constructor(public navCtrl: NavController, 
+                public plt: Platform, 
+                public authService: Auth, 
+                public loadingCtrl: LoadingController, 
+                public storage: Storage,
+                private toastCtrl: ToastController
+                ){
  
     this.sliderOptions = {
       pager: true
@@ -80,6 +86,7 @@ export class LoginPage {
  
         this.authService.login(credentials).then((result) => {
             this.loading.dismiss();
+            this.presentToast();
             this.navCtrl.setRoot(HomePage);
         }, (err) => {
             this.loading.dismiss();
@@ -100,6 +107,20 @@ export class LoginPage {
  
         this.loading.present();
  
+    }
+
+    presentToast() {
+    let toast = this.toastCtrl.create({
+        message: 'Ha iniciado sesion de manera correcta',
+        duration: 4000,
+        position: 'top'
+    });
+
+    toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+    });
+
+    toast.present();
     }
  
 }
