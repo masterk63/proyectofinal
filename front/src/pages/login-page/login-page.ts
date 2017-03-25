@@ -87,7 +87,7 @@ export class LoginPage {
         this.authService.login(credentials).then((result) => {
             this.loading.dismiss();
             this.presentToast();
-            this.navCtrl.setRoot(HomePage);
+            this.navCtrl.setRoot(MisRegistrosPage);
         }, (err) => {
             this.loading.dismiss();
             console.log(err);

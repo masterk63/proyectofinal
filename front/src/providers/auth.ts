@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
- 
+import { Localsave } from '../providers/localsave';
+
 @Injectable()
 export class Auth {
  
   public token: any;
  
-  constructor(public http: Http, public storage: Storage) {
- 
-  }
+  constructor(public http: Http, 
+              public storage: Storage,
+              public localSaveCtrl:Localsave) {}
  
   checkAuthentication(){
  
@@ -87,8 +88,12 @@ export class Auth {
   }
  
   logout(){
-    this.storage.set('token', '');
-    this.storage.set('idUsuario', '');
+    return new Promise((resolve, reject) => {
+      this.storage.set('token', '');
+      this.storage.set('idUsuario', '');
+      this.localSaveCtrl.destruirDB();
+            resolve(42);
+    });
   }
  
 }

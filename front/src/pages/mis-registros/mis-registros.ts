@@ -33,7 +33,10 @@ export class MisRegistrosPage {
   }
 
   logout(){
-    this.authService.logout();
-    this.navCtrl.setRoot(LoginPage);
+    console.log('saliendo logout');
+    this.authService.logout().then(()=>{
+      console.log('listo borrado, dirijiendo a registrar');
+      this.navCtrl.setRoot(LoginPage);
+    });
   }
 }
