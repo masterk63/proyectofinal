@@ -19,12 +19,8 @@ export class MisRegistrosPage {
               public localSaveCtrl:Localsave,
               private _zone: NgZone) {
                 this.localSaveCtrl.getTodos().subscribe((data) => {
-                  try{
                     this._zone.run(() => this.registros = data);
                     console.log(this.registros);
-                  }catch(e){
-                    console.log('no hay registros');
-                  }
                 });
               }
 

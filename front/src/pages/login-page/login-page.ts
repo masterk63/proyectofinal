@@ -6,6 +6,7 @@ import { SignupPage } from '../signup-page/signup-page';
 import { Storage } from '@ionic/storage';
 import { IntroPage } from '../intro/intro';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
+import { Localsave } from '../../providers/localsave';
  
 @Component({
   selector: 'login-page',
@@ -25,7 +26,8 @@ export class LoginPage {
     constructor(public navCtrl: NavController, 
                 public plt: Platform, 
                 public authService: Auth, 
-                public loadingCtrl: LoadingController, 
+                public loadingCtrl: LoadingController,
+                public localSaveCtrl:Localsave,
                 public storage: Storage,
                 private toastCtrl: ToastController
                 ){
@@ -87,6 +89,7 @@ export class LoginPage {
         this.authService.login(credentials).then((result) => {
             this.loading.dismiss();
             this.presentToast();
+            this.localSaveCtrl.init();
             this.navCtrl.setRoot(MisRegistrosPage);
         }, (err) => {
             this.loading.dismiss();

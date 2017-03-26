@@ -83,13 +83,17 @@ export class Localsave {
   remote: any;
   data: any;
   idUsuario:any;
-
+  public registrosObersables:Observable<Array<any>>;
 
   constructor(public http: Http,public storage: Storage) {
-    db = new PouchDB('proyectofinal'); 
+    this.init();
+  }
+
+  init(){
+    db = new PouchDB('proyectofinal');
     this.storage.get('idUsuario').then((value) => {
       this.idUsuario = value;
-     
+
       this.remote = 'http://rickybruno.sytes.net:5984/proyectofinal';
 
       let options = {
@@ -118,11 +122,13 @@ export class Localsave {
         retry: true,
         continuous: true,
         doc_ids: [this.idUsuario]
+      }).on('change', (change)=>{
+        console.log('cambio detectado desde el servidor');
+       
       });
-
     });
-    
-  }
+}
+
  
  public geoInvImgMap(change){
     let tam = change.docs[0].registros.length;
@@ -231,9 +237,9 @@ export class Localsave {
   public getTodos(){
 
     if (registrosLocales) {
-      return Observable.create(observer => {
-            observer.next(registrosLocales);
-        });
+      this.registrosObersables = new Observable(observer => {
+        observer.next(registrosLocales);
+      });
     }
 
   return Observable.create(observer => { 
@@ -243,7 +249,7 @@ export class Localsave {
     }).then(function (result) {
       var docs = result.rows.map(function (row) { return row.doc; }); 
       registrosLocales = docs[0].registros;
-      observer.next(registrosLocales);
+       observer.next(registrosLocales);
       db.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
         registrosLocales = change.doc.registros;
         observer.next(registrosLocales);
@@ -257,6 +263,7 @@ export class Localsave {
   public destruirDB(){
     db.destroy().then(function () {
       console.log('DB Hecha Mierda');
+      registrosLocales = null;
     }).catch(function (err) {
       console.log('No se pudo Romper');
     })

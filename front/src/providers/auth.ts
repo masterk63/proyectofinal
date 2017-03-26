@@ -77,8 +77,6 @@ export class Auth {
             this.storage.set('token', data.token);
             this.storage.set('idUsuario', data.user._id);
             resolve(data);
-            
-            resolve(res.json());
           }, (err) => {
             reject(err);
           });
