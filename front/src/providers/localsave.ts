@@ -248,8 +248,10 @@ export class Localsave {
       attachments: true
     }).then(function (result) {
       var docs = result.rows.map(function (row) { return row.doc; }); 
-      registrosLocales = docs[0].registros;
-       observer.next(registrosLocales);
+      if(docs.length != 0){
+        registrosLocales = docs[0].registros;
+        observer.next(registrosLocales);
+      }
       db.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
         registrosLocales = change.doc.registros;
         observer.next(registrosLocales);
