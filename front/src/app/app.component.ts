@@ -19,7 +19,7 @@ import { Storage } from '@ionic/storage';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = MisRegistrosPage;//aqui poner la pagina de LOGIN como root
+  rootPage: any = LoginPage;//aqui poner la pagina de LOGIN como root
 
   pages: Array<{title: string, component: any}>;
 
