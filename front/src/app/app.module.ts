@@ -21,6 +21,8 @@ import { IntroPage } from '../pages/intro/intro';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Auth } from '../providers/auth';
 import { Storage } from '@ionic/storage';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,7 @@ import { Storage } from '@ionic/storage';
     IntroPage,
     TutorialPage,
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave, Ubicacion,Auth,Storage]
+  providers: [StatusBar,
+              SplashScreen,{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave, Ubicacion,Auth,Storage]
 })
 export class AppModule {}
