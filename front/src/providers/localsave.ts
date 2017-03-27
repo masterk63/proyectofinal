@@ -5,11 +5,14 @@ import {Observable} from 'rxjs/Observable';
 import PouchDB from 'pouchdb';
 import { Storage } from '@ionic/storage';
 
+//Variable global de Google definida en su js
 declare var google;
-var db;
 var geocoder = new google.maps.Geocoder;
+//Variable global para nuestros metodos
+var db;
 var registrosLocales;
 
+//Convertir imagenURL de internet a base64
 function imgURLtoBase64(url, callback) {
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
@@ -24,6 +27,10 @@ function imgURLtoBase64(url, callback) {
   xhr.send();
 }
 
+//funcion que se define en una variable porque, de esa manera
+// puedo llamarlo recursivamente. (registros,tam,hayQuePedirAlgo,fn)
+// fn, es una funcion de callBack, donde la uso para devolver un 
+//parametro asincronico
 var obtenerDireccion = function (registros,tam,hayQuePedirAlgo,fn) {
   if(tam < 0){
     let respuesta=[registros,hayQuePedirAlgo];
@@ -58,6 +65,8 @@ var obtenerDireccion = function (registros,tam,hayQuePedirAlgo,fn) {
 }
 
 
+//Obitne Fotos de los mapas con google Statics Maps 
+// uso tambien fn callBack
 var obtenerFotoMapa = function (registros,tam,fn) {
    if(tam < 0){
     fn(registros);
@@ -76,10 +85,10 @@ var obtenerFotoMapa = function (registros,tam,fn) {
       }
    }
 }
+
+
 @Injectable()
 export class Localsave {
-
-  
   remote: any;
   data: any;
   idUsuario:any;
@@ -89,6 +98,8 @@ export class Localsave {
     this.init();
   }
 
+  // No defino esto en el constructor porque necesito instancialo
+  // antes, en otra clase.
   init(){
     db = new PouchDB('proyectofinal');
     this.storage.get('idUsuario').then((value) => {
@@ -102,6 +113,7 @@ export class Localsave {
       continuous: true
       };
 
+      //obtengo todo los eventos de la base de datos
       db.replicate.to(this.remote, options).on('paused', (err) =>{
         console.log('paused');
         if (err) {
@@ -121,52 +133,48 @@ export class Localsave {
         live: true,
         retry: true,
         continuous: true,
-        doc_ids: [this.idUsuario]
-      }).on('change', (change)=>{
-        console.log('cambio detectado desde el servidor');
-       
-      });
+        doc_ids: [this.idUsuario]});
     });
 }
 
- 
- public geoInvImgMap(change){
-    let tam = change.docs[0].registros.length;
-    tam = tam -1 ;
-    let hayQuePedirAlgo = 0;
-    let registros = change.docs[0].registros;
-    obtenerDireccion(registros,tam,hayQuePedirAlgo,function(respuesta){
-        if(respuesta[1] != 0){
-          let tam2 = respuesta[0].length;
-          tam2 = tam2 -1 ;
-          obtenerFotoMapa(respuesta[0],tam2,function(repuesta2){
-            change.docs[0].registros = repuesta2;
-            db.put(change.docs[0]).then(function () {
-              console.log('registos actualizados con reverse');
-            }).catch(function (err) {
-              console.log(err);
-              // error (not a 404 or 409)
-            });
+// Cada vez que dectecta un cambo se llama a esta funcion
+public geoInvImgMap(change){
+  let tam = change.docs[0].registros.length;
+  tam = tam -1 ;
+  let hayQuePedirAlgo = 0;
+  let registros = change.docs[0].registros;
+  obtenerDireccion(registros,tam,hayQuePedirAlgo,function(respuesta){
+      // En respuesta[1] esta la varialbe 'hayQuePedirAlgo'
+      // que me dice si tengo que entrar a recorrer la segunda funcion
+      // evita lopps infinitos.
+      if(respuesta[1] != 0){
+        let tam2 = respuesta[0].length;
+        tam2 = tam2 -1 ;
+        obtenerFotoMapa(respuesta[0],tam2,function(repuesta2){
+          change.docs[0].registros = repuesta2;
+          db.put(change.docs[0]).then(function () {
+            console.log('registos actualizados con reverse');
+          }).catch(function (err) {
+            console.log(err);
+            // error (not a 404 or 409)
           });
-        }
-    });
- }
+        });
+      }
+  });
+}
 
  
+// Se fija si el registro existe, si no existe lo crea
+// si existe, lo devuelve, de esa manera se actualiza
+public noExiste(id,fn){
+  db.get(id).then(function (configDoc) {
+      fn(configDoc);
+    }).catch(function (err) {
+        fn('1');
+    });
+}
 
-  public noExiste(id,fn){
-    db.get(id).then(function (configDoc) {
-        fn(configDoc);
-      }).catch(function (err) {
-          fn('1');
-      });
-  }
-
-  public myDeltaFunction(doc) {
-    return doc;
-  }
-
-
+  // Crear un nuevo  registro
   public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud,observaciones){
 
       var fecha = new Date();
@@ -234,14 +242,19 @@ export class Localsave {
     // }
   }
 
+
+  //Obtener los registros de la base de datos Locales
   public getTodos(){
 
+    //Si ya se consulto se devuelve, sin consultar nuevamente la base 
+    // de datos
     if (registrosLocales) {
       this.registrosObersables = new Observable(observer => {
         observer.next(registrosLocales);
       });
     }
 
+    // Consulte la base de Datos
   return Observable.create(observer => { 
     db.allDocs({
       include_docs: true,
@@ -262,6 +275,7 @@ export class Localsave {
   });
 }
 
+  // Destruye la base datos, y limpia el array de registrosLocales
   public destruirDB(){
     db.destroy().then(function () {
       console.log('DB Hecha Mierda');
