@@ -60,7 +60,7 @@ export class SignupPage {
           institucion: this.institucion,
           grado: this.grado,
           residencia: this.residencia,
-          role: this.rol
+          rol: "usuario"
     };
  
     this.authService.createAccount(details).then((result) => {
