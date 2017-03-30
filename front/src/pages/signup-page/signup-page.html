@@ -23,10 +23,10 @@
                 <ion-input [(ngModel)]="mail" type="text" placeholder="Correo electronico"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input [(ngModel)]="username" type="text" placeholder="Usuario"></ion-input>
+                <ion-input [(ngModel)]="usuario" type="text" placeholder="Usuario"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input [(ngModel)]="password" [type]="verPass" placeholder="Contraseña"></ion-input>
+                <ion-input [(ngModel)]="contrasenia" [type]="verPass" placeholder="Contraseña"></ion-input>
             </ion-item>
             <a [style.color]="isActive? '#d14836':'white'" style="font-size: 1em; text-decoration: underline;"  (click)="verPassword()">
                  {{tituloBoton}}
