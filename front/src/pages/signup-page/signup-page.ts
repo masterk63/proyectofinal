@@ -11,8 +11,8 @@ export class SignupPage {
  
 // Objeto usuario
     mail: string;
-    username: string;
-    password: string;
+    usuario: string;
+    contrasenia: string;
     nombre: string;
     apellido: string;
     institucion: string;
@@ -53,14 +53,14 @@ export class SignupPage {
     this.showLoader();
     let details = {
           mail: this.mail,
-          username: this.username,
-          password: this.password,
+          usuario: this.usuario,
+          contrasenia: this.contrasenia,
           nombre: this.nombre,
           apellido: this.apellido,
           institucion: this.institucion,
           grado: this.grado,
           residencia: this.residencia,
-          role: this.rol
+          rol: "usuario"
     };
  
     this.authService.createAccount(details).then((result) => {

@@ -1,12 +1,18 @@
 {
-    "couch" : {
-        "host" : "192.168.1.12",
+    "couchRegistros" : {
+        "host" : "rickybruno.sytes.net",
         "port" : "5984",
         "database" : "proyectofinal"
     },
 
+    "couchUsuarios" : {
+        "host" : "rickybruno.sytes.net",
+        "port" : "5984",
+        "database" : "passport-test"
+    },
+
     "mySQL" : {
-        "host" : "192.168.1.12",
+        "host" : "rickybruno.sytes.net",
         "port" : "3306",
         "user" : "root",
         "password" : "",

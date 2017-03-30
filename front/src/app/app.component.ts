@@ -12,18 +12,18 @@ import { LoginPage } from '../pages/login-page/login-page';
 import { IntroPage } from '../pages/intro/intro';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Storage } from '@ionic/storage';
+import { Auth } from '../providers/auth';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
-  rootPage: any = LoginPage;//aqui poner la pagina de LOGIN como root
-
+  // rootPage: any = LoginPage;//aqui poner la pagina de LOGIN como root
+  rootPage: any;
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public storage: Storage) {
+  constructor(public platform: Platform, public storage: Storage,public authService: Auth) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -48,7 +48,19 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
-    });
+       // Or to get a key/value pair
+      this.storage.get('token').then((token) => {
+         console.log('token is', token);
+         if(token === ''){
+           this.rootPage = LoginPage;
+         }else{
+           this.rootPage = MisRegistrosPage;
+         }
+       }).catch((err)=>{ 
+            console.log(err);
+       });
+     });
+    
   }
 
   openPage(page) {
