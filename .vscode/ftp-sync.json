@@ -18,6 +18,7 @@
         "/back/vendor",
         "/front/node_modules",
         "/front/platforms",
-        "/front/plugins"       
+        "/front/plugins",
+        "/passport-couchdb-master/node_modules"  
     ]
 }
