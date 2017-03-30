@@ -13,7 +13,7 @@ import { Localsave } from '../../providers/localsave';
   templateUrl: 'login-page.html'
 })
 export class LoginPage {
- 
+    mostrarOnoMostrar = true;
     email: string;
     username: string;
     password: string;
@@ -52,7 +52,11 @@ export class LoginPage {
     //     this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
     // }
 
-    }
+}
+
+ shouldShow(){
+    return true;
+  }
  
     ionViewDidLoad() {
         //descomentar para pagina introductoria
