@@ -16,6 +16,8 @@ function foto2(self,change,fotoMuestra,fn){
         fn(body.toString('base64'));
     });
 }
+
+//CHANGE solo tiene el id y la rev del documento en cuestion
 cvr.on('regCreado', function (change) {
     console.log("reg creado");
     console.log(change);
@@ -56,15 +58,52 @@ cvr.on('usrActualizado', function (change) {
     console.log(change);
 });
 
-cvr.on('updated', function (change) {
+cvr.on('regActualizado', function (change) {
     console.log('Registros');
     var self = this;
     var query = this.config.queries.insert;
     console.log(change);
-    // self.database.get(change.id, function (err, res) {
-    //     if (err) throw err;
-    //     console.log(res);
-    // });
+    self.databaseRegistros.get(change.id, function (err, res) {
+        if (err) throw err;
+        if(res.registros[res.registros.length-1].pais === '' || res.registros[res.registros.length-1].pais === null){
+            console.log("no tiene localizacion inversa");
+        }else{
+            console.log("ya hay localizacion, ingresando a MYSQL")
+            self.mysql.query('SELECT COUNT(*) AS cantidad FROM registros WHERE idUsuario="'+res._id+'"',function(err,fila) {
+                if(err){
+                    console.log(err);
+                }
+                let indice = fila[0].cantidad;//desde el indice empezamos a agregar a mysql
+                for(indice;indice<res.registros.length;indice++){
+                    var fecha='"'+res.registros[indice].fecha+'"';
+                    var latitud=res.registros[indice].latitud;
+                    var longitud=res.registros[indice].longitud;
+                    var fotoPaisajeConcat='"'+res.registros[indice]._attachments["fotoPaisaje.png"].data+'"';
+                    var fotoMuestraConcat='"'+res.registros[indice]._attachments["fotoMuestra.png"].data+'"';
+                    var fotoMapaConcat='"'+res.registros[indice]._attachments["fotoMapa.png"].data+'"';
+                    var observaciones='"'+res.registros[indice].observaciones+'"';
+                    var idUsuario='"'+res._id+'"';
+                    var ciudad='"'+res.registros[indice].ciudad+'"';
+                    var provincia='"'+res.registros[indice].provincia+'"';
+                    var pais='"'+res.registros[indice].pais+'"';
+                    var elmidos='"'+res.registros[indice].elmidos+'"';
+                    var patudos='"'+res.registros[indice].patudos+'"';
+                    var plecopteros='"'+res.registros[indice].plecopteros+'"';
+                    var tricopteros='"'+res.registros[indice].tricopteros+'"';
+
+                    self.mysql.query('CALL registro_nuevo_completo('+fecha+','+latitud+','+longitud+','+fotoPaisajeConcat+','+fotoMuestraConcat+','+fotoMapaConcat+','+observaciones+','+idUsuario+','+ciudad+','+provincia+','+pais+','+elmidos+','+patudos+','+plecopteros+','+tricopteros+')',function(err,rows) {
+                        if(err){
+                            console.log(err);
+                        } 
+                    });
+                }
+            });
+        }
+        
+    });
+
+
+
 
     
     // foto1(self,change,function(fotoMuestrabd){
