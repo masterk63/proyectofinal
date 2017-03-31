@@ -53,8 +53,8 @@ export class SignupPage {
     this.showLoader();
     let details = {
           mail: this.mail,
-          usuario: this.usuario,
-          contrasenia: this.contrasenia,
+          username: this.usuario,
+          password: this.contrasenia,
           nombre: this.nombre,
           apellido: this.apellido,
           institucion: this.institucion,
