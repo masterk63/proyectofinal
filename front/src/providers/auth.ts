@@ -49,11 +49,12 @@ export class Auth {
           .subscribe(res => {
  
             let data = res.json();
-            console.log(data.token);
-            this.token = data.token;
-            this.storage.set('token', data.token);
+            if(data.codigo > 0){
+              console.log(data.token);
+              this.token = data.token;
+              this.storage.set('token', data.token);
+            }
             resolve(data);
- 
           }, (err) => {
             reject(err);
           });
