@@ -13,6 +13,7 @@ export class Auth {
               public storage: Storage,
               public localSaveCtrl:Localsave) {}
  
+  //verifica con el token si el usuario existe en la base de datos
   checkAuthentication(){
  
     return new Promise((resolve, reject) => {
@@ -73,7 +74,7 @@ export class Auth {
  
         this.http.post('http://rickybruno.sytes.net:3000/api/auth/login', JSON.stringify(credentials), {headers: headers})
           .subscribe(res => {
- 
+            
             let data = res.json();
             this.token = data.token;
             this.storage.set('token', data.token);
