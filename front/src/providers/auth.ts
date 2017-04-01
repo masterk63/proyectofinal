@@ -14,6 +14,7 @@ export class Auth {
               public localSaveCtrl:Localsave) {}
  
   //verifica con el token si el usuario existe en la base de datos
+  //dfdf
   checkAuthentication(){
  
     return new Promise((resolve, reject) => {
