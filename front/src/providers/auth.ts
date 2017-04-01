@@ -53,6 +53,7 @@ export class Auth {
               console.log(data.token);
               this.token = data.token;
               this.storage.set('token', data.token);
+              this.storage.set('idUsuario', data.user._id);
             }
             resolve(data);
           }, (err) => {

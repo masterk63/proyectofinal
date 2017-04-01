@@ -37,17 +37,18 @@ cvr.on('usrCreado', function (change) {
         console.log(res); 
         var idUsuario='"'+res._id+'"';
         var mail='"'+res.mail+'"';
-        var usuario='"'+res.usuario+'"';
-        var contrasenia='"'+res.contrasenia+'"';
+        var username='"'+res.username+'"';
+        var password='"'+res.password+'"';
         var nombre='"'+res.nombre+'"';
         var apellido='"'+res.apellido+'"';
         var institucion='"'+res.institucion+'"';
         var grado='"'+res.grado+'"';
         var residencia='"'+res.residencia+'"';
-        self.mysql.query('CALL usuario_nuevo('+idUsuario+','+mail+','+usuario+','+contrasenia+','+nombre+','+apellido+','+institucion+','+grado+','+residencia+')',function(err,rows) {
+        self.mysql.query('CALL usuario_nuevo('+idUsuario+','+mail+','+username+','+password+','+nombre+','+apellido+','+institucion+','+grado+','+residencia+')',function(err,rows) {
             if(err){
                 console.log(err);
-            } 
+            }
+            console.log(rows); 
         });
     });
 

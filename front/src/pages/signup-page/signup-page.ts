@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Platform, NavController, LoadingController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { HomePage } from '../home/home';
+import { Localsave } from '../../providers/localsave';
  
 @Component({
   selector: 'signup-page',
@@ -11,8 +12,8 @@ export class SignupPage {
  
 // Objeto usuario
     mail: string;
-    usuario: string;
-    contrasenia: string;
+    username: string;
+    password: string;
     nombre: string;
     apellido: string;
     institucion: string;
@@ -29,7 +30,11 @@ export class SignupPage {
   tituloBoton = "Mostrar contraseña";
   isActive=false;
 
-  constructor(public navCtrl: NavController, public plt: Platform, public authService: Auth, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, 
+              public plt: Platform, 
+              public authService: Auth,
+              public localSaveCtrl:Localsave,
+              public loadingCtrl: LoadingController) {
     this.width=plt.width();
     if(this.width <= 320){
       this.tam="170% 100%";
@@ -53,8 +58,8 @@ export class SignupPage {
     this.showLoader();
     let details = {
           mail: this.mail,
-          username: this.usuario,
-          password: this.contrasenia,
+          username: this.username,
+          password: this.password,
           nombre: this.nombre,
           apellido: this.apellido,
           institucion: this.institucion,
@@ -65,6 +70,7 @@ export class SignupPage {
  
     this.authService.createAccount(details).then((result) => {
       this.loading.dismiss();
+      this.localSaveCtrl.init();
       this.navCtrl.setRoot(HomePage);
     }, (err) => {
         this.loading.dismiss();
