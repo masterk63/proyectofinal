@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 import { IntroPage } from '../intro/intro';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
 import { Localsave } from '../../providers/localsave';
+import { MenuController } from 'ionic-angular';
  
 @Component({
   selector: 'login-page',
@@ -27,10 +28,11 @@ export class LoginPage {
                 public authService: Auth, 
                 public loadingCtrl: LoadingController,
                 public localSaveCtrl:Localsave,
+                private menu: MenuController,
                 public storage: Storage,
                 private toastCtrl: ToastController
                 ){
-                    
+                    this.menu.enable(false);
     this.sliderOptions = {
       pager: true
     };
