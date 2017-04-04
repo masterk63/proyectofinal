@@ -36,6 +36,8 @@ export class Ubicacion {
 
           function error(err) {
             console.warn('ERROR(' + err.code + '): ' + err.message);
+            let resultado = -1;
+            resolve(resultado);
           };
 
     });

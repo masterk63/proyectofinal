@@ -36,6 +36,7 @@ export class HomePage {
     fotoPaisajeURLSafe:any;
     fotoMuestraURLSafe:any;
     muestroMapaNativo = false;
+    loading: any;
 
     constructor(public navCtrl: NavController, 
                 public actionSheetCtrl: ActionSheetController, 
@@ -55,7 +56,9 @@ export class HomePage {
                     }              
                 }
 
-    
+    ngOnInit(){
+        
+    }
 
     ionViewDidLoad() {
 
@@ -124,21 +127,55 @@ export class HomePage {
     }
 
     public paso2(){
-        
-        this.navCtrl.push(Paso2Page,{
-            foto1: this.fotoPaisaje,
-            foto2: this.fotoMuestra,
-            latitud: this.latitud,
-            longitud: this.longitud
-        });
+        if(this.fotoPaisaje != '' && this.fotoMuestra != ''){
+            this.navCtrl.push(Paso2Page,{
+                foto1: this.fotoPaisaje,
+                foto2: this.fotoMuestra,
+                latitud: this.latitud,
+                longitud: this.longitud
+            });
+        }else{
+            if(this.fotoPaisaje === ''){
+                let mensajeToast = "Debe caputar una foto del paisaje";
+                this.abrirToast(mensajeToast);
+            }
+            if(this.fotoMuestra === ''){
+                let mensajeToast = "Debe caputar una foto de la muestra";
+                this.abrirToast(mensajeToast);
+            }
+        }
+    }
+
+    abrirToast(mensaje) {
+    let toast = this.toastCtrl.create({
+        message: mensaje,
+        duration: 3000,
+        position: 'middle'
+    });
+
+    toast.present();
     }
 
     ubicacion(){
-       this.ubicacionCtrl.obtenerCoordenadas().then((data) => 
-       {
-           this.coordenadas = data;
-           this.latitud = this.coordenadas.latitude;
-           this.longitud = this.coordenadas.longitude;
+        this.showLoader();
+        this.obtenerUbicacion();
+   }
+
+   public obtenerUbicacion(){
+        this.ubicacionCtrl.obtenerCoordenadas().then((data) => 
+        {
+            console.log("ubicacion home");
+            console.log(data);
+            if(data != -1){
+                this.coordenadas = data;
+                this.latitud = this.coordenadas.latitude;
+                this.longitud = this.coordenadas.longitude;
+                this.loading.dismiss();
+            }else{
+                this.obtenerUbicacion();
+            }
+            
+
         }); 
    }
    
@@ -149,4 +186,11 @@ export class HomePage {
       this.navCtrl.setRoot(LoginPage);
     });
   }
+
+    showLoader(){
+    this.loading = this.loadingCtrl.create({
+        content: 'Espere mientras cargamos la ubicacion'
+    });
+    this.loading.present();
+    }
 }
