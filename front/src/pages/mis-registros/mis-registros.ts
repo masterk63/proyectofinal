@@ -19,6 +19,7 @@ export class MisRegistrosPage {
               public localSaveCtrl:Localsave,
               private _zone: NgZone) {
                 this.localSaveCtrl.getTodos().subscribe((data) => {
+                  console.log(this.navCtrl.getViews());
                     this._zone.run(() => this.registros = data);
                     console.log(this.registros);
                 });
@@ -32,6 +33,7 @@ export class MisRegistrosPage {
     console.log('saliendo logout');
     this.authService.logout().then(()=>{
       console.log('listo borrado, dirijiendo a registrar');
+      
       this.navCtrl.setRoot(LoginPage);
     });
   }

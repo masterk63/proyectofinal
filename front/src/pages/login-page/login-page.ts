@@ -13,7 +13,6 @@ import { Localsave } from '../../providers/localsave';
   templateUrl: 'login-page.html'
 })
 export class LoginPage {
-    mostrarOnoMostrar = true;
     email: string;
     username: string;
     password: string;
@@ -31,7 +30,7 @@ export class LoginPage {
                 public storage: Storage,
                 private toastCtrl: ToastController
                 ){
- 
+                    
     this.sliderOptions = {
       pager: true
     };
@@ -73,6 +72,7 @@ export class LoginPage {
         this.authService.checkAuthentication().then((res) => {
             console.log("Already authorized");
             this.loading.dismiss();
+            this
             this.navCtrl.setRoot(MisRegistrosPage);
         }, (err) => {
             console.log("Not already authorized");

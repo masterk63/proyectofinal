@@ -22,23 +22,22 @@ export class MyApp {
   // rootPage: any = LoginPage;//aqui poner la pagina de LOGIN como root
   rootPage: any;
   pages: Array<{title: string, component: any}>;
-
   constructor(public platform: Platform, public storage: Storage,public authService: Auth) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Mapas JS', component: MapasjsPage },
-      { title: 'Mapas Nativo', component: MapasnativoPage },
-      { title: 'Camara', component: HomePage },
-      { title: 'ClouDO', component: ClouDOPage },
-      { title: 'MapaHTML', component: Mapajshtml },
-      { title: 'SignupPage', component: SignupPage },
-      { title: 'LoginPage', component: LoginPage },
-      { title: 'MisRegistros', component: MisRegistrosPage },
-      { title: 'Introduccion', component: IntroPage },
-      { title: 'Tutorial', component: TutorialPage },
-    ];
+    // this.pages = [
+    //   { title: 'Mapas JS', component: MapasjsPage },
+    //   { title: 'Mapas Nativo', component: MapasnativoPage },
+    //   { title: 'Camara', component: HomePage },
+    //   { title: 'ClouDO', component: ClouDOPage },
+    //   { title: 'MapaHTML', component: Mapajshtml },
+    //   { title: 'SignupPage', component: SignupPage },
+    //   { title: 'LoginPage', component: LoginPage },
+    //   { title: 'MisRegistros', component: MisRegistrosPage },
+    //   { title: 'Introduccion', component: IntroPage },
+    //   { title: 'Tutorial', component: TutorialPage },
+    // ];
 
   }
 
@@ -53,8 +52,23 @@ export class MyApp {
          console.log('token is', token);
          if(token === ''){
            this.rootPage = LoginPage;
+           this.pages = [
+      { title: 'LoginPage', component: LoginPage },
+    ];
          }else{
            this.rootPage = MisRegistrosPage;
+           this.pages = [
+      { title: 'Mapas JS', component: MapasjsPage },
+      { title: 'Mapas Nativo', component: MapasnativoPage },
+      { title: 'Camara', component: HomePage },
+      { title: 'ClouDO', component: ClouDOPage },
+      { title: 'MapaHTML', component: Mapajshtml },
+      { title: 'SignupPage', component: SignupPage },
+      { title: 'LoginPage', component: LoginPage },
+      { title: 'MisRegistros', component: MisRegistrosPage },
+      { title: 'Introduccion', component: IntroPage },
+      { title: 'Tutorial', component: TutorialPage },
+    ];
          }
        }).catch((err)=>{ 
             console.log(err);
