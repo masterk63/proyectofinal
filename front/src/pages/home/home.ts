@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 //ActionSheetController menu de opciones nativas.
 //ToastController modal nativo
-import { ModalController, ViewController, NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
+import { ModalController, ViewController, NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { Camera, File, Transfer, FilePath } from 'ionic-native';
 import { Mapjshtml } from '../pages/mapajshtml/mapajshtml';
 import { MapasnativoPage } from '../pages/mapasnativo/mapasnativo';
@@ -48,7 +48,8 @@ export class HomePage {
                 public authService: Auth,
                 private sanitizer:DomSanitizer,
                 public ubicacionCtrl:Ubicacion,
-                public localSaveCtrl:Localsave
+                public localSaveCtrl:Localsave,
+                public alertCtrl: AlertController
                 ){
                     this.ubicacion();
                     if(this.platform.is('android') || this.platform.is('ios')){
@@ -136,30 +137,33 @@ export class HomePage {
             });
         }else{
             if(this.fotoPaisaje == null && this.fotoMuestra == null){
-                let mensajeToast = "Debe caputar las fotos correspondientes";
-                this.abrirToast(mensajeToast);
+                let titulo = "Fotos no tomadas";
+                let mensaje = "Por favor, tomar las fotos correspondientes para poder continuar";
+                this.mostrarAlerta(titulo,mensaje);
             }else{
                 if(this.fotoPaisaje == null){
-                    let mensajeToast = "Debe caputar una foto del paisaje";
-                    this.abrirToast(mensajeToast);
+                    let titulo = "Foto paisaje";
+                    let mensaje = "Por favor, tomar una foto del paisaje antes de continuar";
+                    this.mostrarAlerta(titulo,mensaje);
                 }else{
                     if(this.fotoMuestra == null){
-                        let mensajeToast = "Debe caputar una foto de la muestra";
-                        this.abrirToast(mensajeToast);
+                        let titulo = "Foto muestra";
+                        let mensaje = "Por favor, tomar una foto de la muestra antes de continuar";
+                        this.mostrarAlerta(titulo,mensaje);
                     }
                 }
             }
         }
     }
 
-    abrirToast(mensaje) {
-    let toast = this.toastCtrl.create({
-        message: mensaje,
-        duration: 3000,
-        position: 'middle'
-    });
 
-    toast.present();
+    mostrarAlerta(titulo,mensaje) {
+        let alert = this.alertCtrl.create({
+        title: titulo,
+        subTitle: mensaje,
+        buttons: ['ACEPTAR']
+        });
+        alert.present();
     }
 
     ubicacion(){

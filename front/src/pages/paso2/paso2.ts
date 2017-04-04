@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, ModalController, NavController, NavParams } from 'ionic-angular';
+import { AlertController, Platform, ModalController, NavController, NavParams} from 'ionic-angular';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Localsave } from '../../providers/localsave';
 import { ModalPage } from '../modal/modal';
@@ -17,10 +17,10 @@ import { ModalPage } from '../modal/modal';
 })
 export class Paso2Page {
 
-  elmidos;
-  patudos;
-  plecopteros;
-  tricopteros;
+  elmidos:any;
+  patudos:any;
+  plecopteros:any;
+  tricopteros:any;
   coincidencia;
   fotoPaisaje;
   fotoMuestra;
@@ -40,7 +40,8 @@ export class Paso2Page {
               public navParams: NavParams,
               public localSaveCtrl:Localsave,
               public modalCtrl: ModalController,
-              public plt: Platform
+              public plt: Platform,
+              public alertCtrl: AlertController
     ){
      this.coincidencia = new FormGroup({
       "elmidos": new FormControl(),
@@ -128,13 +129,29 @@ export class Paso2Page {
   }
 
 doSubmit(event) {
-    let elmidos = this.coincidencia.value.elmidos;
-    let plecopteros = this.coincidencia.value.plecopteros;
-    let tricopteros = this.coincidencia.value.tricopteros;
-    let patudos = this.coincidencia.value.patudos;
+    this.elmidos = this.coincidencia.value.elmidos;
+    this.plecopteros = this.coincidencia.value.plecopteros;
+    this.tricopteros = this.coincidencia.value.tricopteros;
+    this.patudos = this.coincidencia.value.patudos;
     let observaciones = this.coincidencia.value.observaciones;
-    this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones);
-    event.preventDefault();
+    if(this.elmidos == null || this.plecopteros == null || this.tricopteros == null || this.patudos == null){
+        let mensaje = "Debe seleccionar SI o NO en cada bicho."
+        this.mostrarAlerta(mensaje);
+    }else{
+        this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,this.patudos,this.elmidos,this.plecopteros,this.tricopteros,this.latitud,this.longitud,observaciones);
+        event.preventDefault();
+    }
+    
+    
+  }
+
+    mostrarAlerta(mensaje) {
+    let alert = this.alertCtrl.create({
+      title: '¡Datos incompletos!',
+      subTitle: mensaje,
+      buttons: ['ACEPTAR']
+    });
+    alert.present();
   }
 
     openModal(pic,name) {
