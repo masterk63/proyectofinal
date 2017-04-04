@@ -127,7 +127,7 @@ export class HomePage {
     }
 
     public paso2(){
-        if(this.fotoPaisaje != '' && this.fotoMuestra != ''){
+        if(this.fotoPaisaje != null && this.fotoMuestra != null){
             this.navCtrl.push(Paso2Page,{
                 foto1: this.fotoPaisaje,
                 foto2: this.fotoMuestra,
@@ -135,13 +135,19 @@ export class HomePage {
                 longitud: this.longitud
             });
         }else{
-            if(this.fotoPaisaje === ''){
-                let mensajeToast = "Debe caputar una foto del paisaje";
+            if(this.fotoPaisaje == null && this.fotoMuestra == null){
+                let mensajeToast = "Debe caputar las fotos correspondientes";
                 this.abrirToast(mensajeToast);
-            }
-            if(this.fotoMuestra === ''){
-                let mensajeToast = "Debe caputar una foto de la muestra";
-                this.abrirToast(mensajeToast);
+            }else{
+                if(this.fotoPaisaje == null){
+                    let mensajeToast = "Debe caputar una foto del paisaje";
+                    this.abrirToast(mensajeToast);
+                }else{
+                    if(this.fotoMuestra == null){
+                        let mensajeToast = "Debe caputar una foto de la muestra";
+                        this.abrirToast(mensajeToast);
+                    }
+                }
             }
         }
     }
