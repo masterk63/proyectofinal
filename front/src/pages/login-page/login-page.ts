@@ -119,7 +119,7 @@ export class LoginPage {
     presentToast() {
     let toast = this.toastCtrl.create({
         message: 'Ha iniciado sesion de manera correcta',
-        duration: 4000,
+        duration: 2000,
         position: 'top'
     });
 

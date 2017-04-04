@@ -33,16 +33,6 @@
         </button>
       </div>
       
-      <div class="padding">
-        <div class="mapa" style="height:228px;"> 
-          <div class="mapaConteiner">
-            
-            <!--<mapajshtml [latitud]="this.latitud" [longitud]="this.longitud"></mapajshtml>-->
-          </div>
-          <p>Ubicacion Actual</p> 
-        </div>
-      </div>
-      
        <div class="padding" *ngIf="fotoMuestra">
          <div class="mapa" > 
             <img [src]="fotoMuestraURLSafe" (click)="mostrarFoto(fotoMuestra)" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
