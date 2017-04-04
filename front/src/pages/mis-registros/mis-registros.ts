@@ -4,6 +4,7 @@ import { Localsave } from '../../providers/localsave';
 import {File, Transfer, FilePath } from 'ionic-native';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
+import { MenuController } from 'ionic-angular';
 
 @Component({
   selector: 'page-mis-registros',
@@ -17,7 +18,9 @@ export class MisRegistrosPage {
               public authService: Auth,
               public navParams: NavParams,
               public localSaveCtrl:Localsave,
+              private menu: MenuController,
               private _zone: NgZone) {
+                this.menu.enable(true);
                 this.localSaveCtrl.getTodos().subscribe((data) => {
                   console.log(this.navCtrl.getViews());
                     this._zone.run(() => this.registros = data);
