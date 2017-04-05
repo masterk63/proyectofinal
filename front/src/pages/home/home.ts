@@ -14,7 +14,7 @@ import { Paso2Page } from '../paso2/paso2';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import {DomSanitizer} from '@angular/platform-browser';
-
+import { MenuController } from 'ionic-angular';
 
 
 @Component({
@@ -44,6 +44,7 @@ export class HomePage {
                 public platform: Platform, 
                 public loadingCtrl: LoadingController,
                 public modalCtrl: ModalController,
+                private menu: MenuController,
                 public camaraCtrl:Camara,
                 public authService: Auth,
                 private sanitizer:DomSanitizer,
@@ -51,6 +52,8 @@ export class HomePage {
                 public localSaveCtrl:Localsave,
                 public alertCtrl: AlertController
                 ){
+                    this.menu.enable(false,'admin');
+                    this.menu.enable(true,'user');
                     this.ubicacion();
                     if(this.platform.is('android') || this.platform.is('ios')){
                         this.muestroMapaNativo = true;

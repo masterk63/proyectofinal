@@ -11,7 +11,8 @@ function generateToken(user){
 function setUserInfo(request){
     return {
         _id: request._id,
-        email: request.username,
+        username: request.username,
+        rol:request.rol,
     };
 }
  
@@ -26,11 +27,31 @@ exports.login = function(req, res, next){
  
 }
 
+function convertirLaPrimeraLetraAMayuscula(str)
+{
+    if(str){
+        var pieces = str.split(" ");
+        for ( var i = 0; i < pieces.length; i++ )
+        {
+            var j = pieces[i].charAt(0).toUpperCase();
+            pieces[i] = j + pieces[i].substr(1);
+        }
+        return pieces.join(" ");
+    }else{
+        return str;
+    }
+}
+
 // creacion de usuarios 
 exports.register = function(req, res, next){
-    console.log(req.body);
+    if(!req.body.username || !req.body.mail){
+        res.status(500).json({
+            mensaje: "ERROR!!! Controlar los Campos Ingresados",
+            codigo: -1
+        });
+    }
     //control para ver si existe el username o el mail
-    User.find( {username:req.body.username}, function(err,user){
+    User.find( {username:req.body.username.toLowerCase()}, function(err,user){
         if(err){
             console.log(err);
         }else{
@@ -42,7 +63,7 @@ exports.register = function(req, res, next){
                 codigo: -1
             });
             }else{
-                User.find( {mail:req.body.mail}, function(err,user){
+                User.find( {mail:req.body.mail.toLowerCase()}, function(err,user){
                     if(err){
                         console.log(err);
                     }else{
@@ -53,10 +74,28 @@ exports.register = function(req, res, next){
                                     codigo: -1
                                 });
                         }else{// este else es el que determino el usuario no existente completo. y lo creamos
-                            User.create(req.body, function(err, data) {
+                            //Podria haber hecho de esta forma User.create(req.body, function(err, data) {
+                            //Pero necesito agregarle el rol, por lo que defino el objeto antes.
+         
+                            var details = {
+                                mail: req.body.mail.toLowerCase(),
+                                username: req.body.username.toLowerCase(),
+                                password: req.body.password,
+                                nombre: convertirLaPrimeraLetraAMayuscula(req.body.nombre),
+                                apellido: convertirLaPrimeraLetraAMayuscula(req.body.apellido),
+                                institucion: convertirLaPrimeraLetraAMayuscula(req.body.institucion),
+                                grado: req.body.grado,
+                                residencia: convertirLaPrimeraLetraAMayuscula(req.body.residencia),
+                                rol: "usuario"
+                            };
+                            User.create(details, function(err, data) {
                             if (err) {
                                 console.log('Error : ', err);
-                                res.send(500, err);
+                                //res.send(500, err);
+                                res.status(500).json({
+                                    mensaje: "ERROR!!! Controlar los Campos Ingresados",
+                                    codigo: -1
+                                });
                             } else {
                                 var userInfo = setUserInfo(data);
                                 console.log(data);
