@@ -20,9 +20,7 @@ export class MisRegistrosPage {
               public localSaveCtrl:Localsave,
               private menu: MenuController,
               private _zone: NgZone) {
-                this.menu.enable(true);
                 this.localSaveCtrl.getTodos().subscribe((data) => {
-                  console.log(this.navCtrl.getViews());
                     this._zone.run(() => this.registros = data);
                     console.log(this.registros);
                 });

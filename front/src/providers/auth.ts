@@ -94,6 +94,7 @@ export class Auth {
     return new Promise((resolve, reject) => {
       this.storage.set('token', '');
       this.storage.set('idUsuario', '');
+      this.storage.set('rol', '');
       this.localSaveCtrl.destruirDB();
             resolve(42);
     });

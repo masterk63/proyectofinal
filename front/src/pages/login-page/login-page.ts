@@ -14,7 +14,7 @@ import { MenuController } from 'ionic-angular';
   templateUrl: 'login-page.html'
 })
 export class LoginPage {
-    email: string;
+    resultadoDelLogin: any;
     username: string;
     password: string;
     loading: any;
@@ -93,9 +93,18 @@ export class LoginPage {
         };
  
         this.authService.login(credentials).then((result) => {
+            this.resultadoDelLogin = result;
             this.loading.dismiss();
             this.presentToast();
             this.localSaveCtrl.init();
+            console.log('el usario desde la base datos tiene el rol de ',this.resultadoDelLogin.user.rol);
+            if(this.resultadoDelLogin.user.rol === 'usuario'){
+                this.menu.enable(false,'admin');
+                this.menu.enable(true,'user');
+            }else{
+                this.menu.enable(true,'admin');
+                this.menu.enable(false,'user');
+            }
             this.navCtrl.setRoot(MisRegistrosPage);
         }, (err) => {
             this.loading.dismiss();

@@ -13,6 +13,7 @@ import { IntroPage } from '../pages/intro/intro';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Storage } from '@ionic/storage';
 import { Auth } from '../providers/auth';
+import { MenuController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,25 +24,33 @@ export class MyApp {
   rootPage: any;
   pagesAdmin: Array<{title: string, component: any}>;
   pagesUser: Array<{title: string, component: any}>;
-  constructor(public platform: Platform, public storage: Storage,public authService: Auth) {
+  constructor(public platform: Platform, public storage: Storage,public authService: Auth,private menu: MenuController) {
+    this.menu.enable(false);
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pagesAdmin = [
-      { title: 'Mapas JS', component: MapasjsPage },
-      { title: 'Mapas Nativo', component: MapasnativoPage },
-      { title: 'Camara', component: HomePage },
-      { title: 'ClouDO', component: ClouDOPage },
-      { title: 'MapaHTML', component: Mapajshtml },
-      { title: 'SignupPage', component: SignupPage },
+      { title: 'Administrar', component: ClouDOPage },
+      { title: 'Mis Registros', component: MisRegistrosPage },
+      { title: 'Nuevo Registro', component: HomePage },
+      { title: 'Registrarse', component: SignupPage },
       { title: 'LoginPage', component: LoginPage },
-      { title: 'MisRegistros', component: MisRegistrosPage },
       { title: 'Introduccion', component: IntroPage },
       { title: 'Tutorial', component: TutorialPage },
+      // { title: 'Mapas JS', component: MapasjsPage },
+      // { title: 'Mapas Nativo', component: MapasnativoPage },
+      // { title: 'Camara', component: HomePage },
+      // { title: 'ClouDO', component: ClouDOPage },
+      // { title: 'MapaHTML', component: Mapajshtml },
+      // { title: 'SignupPage', component: SignupPage },
+      // { title: 'LoginPage', component: LoginPage },
+      // { title: 'MisRegistros', component: MisRegistrosPage },
+      // { title: 'Introduccion', component: IntroPage },
+      // { title: 'Tutorial', component: TutorialPage },
     ];
 
     this.pagesUser = [
-      { title: 'MisRegistros', component: MisRegistrosPage },
+      { title: 'Mis Registros', component: MisRegistrosPage },
       { title: 'Nuevo Registro', component: HomePage },
       { title: 'Registrarse', component: SignupPage },
       { title: 'LoginPage', component: LoginPage },
@@ -63,7 +72,17 @@ export class MyApp {
          if(token === ''){
            this.rootPage = LoginPage;
          }else{
-           this.rootPage = MisRegistrosPage;
+           this.storage.get('rol').then((rol) => {
+             console.log('el usario tiene el rol de',rol);
+              if(rol === 'usuario'){
+                this.menu.enable(false,'admin');
+                this.menu.enable(true,'user');
+              }else{
+                  this.menu.enable(true,'admin');
+                  this.menu.enable(false,'user');
+              }
+              this.rootPage = MisRegistrosPage;
+           });
          }
        }).catch((err)=>{ 
             console.log(err);
