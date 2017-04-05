@@ -55,6 +55,7 @@ export class Auth {
               this.token = data.token;
               this.storage.set('token', data.token);
               this.storage.set('idUsuario', data.user._id);
+              this.storage.set('rol', data.user.rol);
             }
             resolve(data);
           }, (err) => {
@@ -79,6 +80,7 @@ export class Auth {
             this.token = data.token;
             this.storage.set('token', data.token);
             this.storage.set('idUsuario', data.user._id);
+            this.storage.set('rol', data.user.rol);
             resolve(data);
           }, (err) => {
             reject(err);
