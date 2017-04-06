@@ -68,18 +68,17 @@ export class LoginPage {
             // }
             // });
  
-        this.showLoader();
+        // this.showLoader();
  
-        //Check if already authenticated
-        this.authService.checkAuthentication().then((res) => {
-            console.log("Already authorized");
-            this.loading.dismiss();
-            this
-            this.navCtrl.setRoot(MisRegistrosPage);
-        }, (err) => {
-            console.log("Not already authorized");
-            this.loading.dismiss();
-        });
+        // //Check if already authenticated
+        // this.authService.checkAuthentication().then((res) => {
+        //     console.log("Already authorized");
+        //     this.loading.dismiss();
+        //     this.navCtrl.setRoot(MisRegistrosPage);
+        // }, (err) => {
+        //     console.log("Not already authorized");
+        //     this.loading.dismiss();
+        // });
  
     }
  

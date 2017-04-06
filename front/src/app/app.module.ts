@@ -17,6 +17,7 @@ import { Ubicacion } from '../providers/ubicacion';
 import { LoginPage } from '../pages/login-page/login-page';
 import { SignupPage } from '../pages/signup-page/signup-page';
 import { MisRegistrosPage } from '../pages/mis-registros/mis-registros';
+import { Wheel } from '../pages/wheel/wheel';
 import { IntroPage } from '../pages/intro/intro';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Auth } from '../providers/auth';
@@ -35,6 +36,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Mapajshtml,
     SlidePage,
     Paso2Page,
+    Wheel,
     SignupPage,
     MisRegistrosPage,
     LoginPage,
@@ -57,6 +59,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SlidePage,
     Paso2Page,
     LoginPage,
+    Wheel,
     SignupPage,
     MisRegistrosPage,
     IntroPage,
