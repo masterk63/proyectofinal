@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { LoginPage } from '../login-page/login-page'; 
 import { HomePage } from '../home/home';
+import { Storage } from '@ionic/storage';
+import { MisRegistrosPage } from '../mis-registros/mis-registros';
 
 @Component({
   selector: 'page-tutorial',
@@ -18,7 +20,9 @@ export class TutorialPage {
   foto3: any;
   foto4: any;
   foto5: any;
-  constructor(public navCtrl: NavController, public plt: Platform) {
+  constructor(public navCtrl: NavController,
+              public storage: Storage,
+              public plt: Platform) {
  
     this.sliderOptions = {
       pager: true
@@ -80,11 +84,17 @@ export class TutorialPage {
   }
 
   navHome() {
-    this.navCtrl.setRoot(LoginPage);
+      this.storage.get('token').then((token) => {
+         if(token === ''){
+                this.navCtrl.setRoot(LoginPage);
+            }else{
+                this.navCtrl.setRoot(MisRegistrosPage);
+            }
+        });
   }
  
   ionViewDidLoad() {
-    console.log('ionViewDidLoad IntroPage');
+   // console.log('ionViewDidLoad IntroPage');
   }
  
 }
