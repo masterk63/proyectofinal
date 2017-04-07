@@ -65,7 +65,7 @@ exports.register = function(req, res, next){
 
     User.crearUsuario(details,function(respuesta){
         if(respuesta[0][0].codigo != 0){
-            
+            User.dame
             // var userInfo = setUserInfo(data);
             // res.status(200).json({
             //     token: 'JWT ' + generateToken(userInfo),

@@ -25,3 +25,17 @@ exports.crearUsuario = function(u,fn){
           fn(rows);
         }); 
 }
+
+exports.listar = function(fn){
+    connection.query('call usuarios_listar()', function(err, rows){  
+                if (err)  fn(err);  
+                fn(rows[0]); 
+            });
+}
+
+exports.dame = function(id,fn){
+    connection.query('call usuario_dame('+id+')', function(err, rows){  
+                if (err) fn (err);  
+                fn(rows[0]); 
+            });
+} 

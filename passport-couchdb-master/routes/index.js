@@ -23,8 +23,8 @@ module.exports = function(app){
         res.send({ content: 'Success'});
     });
 
-    apiUsuarios.get('/usuariosListar',UsuariosController.listar);
-    apiUsuarios.get('/usuariosDame/:id',UsuariosController.dame);
+    apiUsuarios.get('/usuariosListar',UsuariosController.listarUsuarios);
+    apiUsuarios.get('/usuariosDame/:id',UsuariosController.dameUsuario);
     // Set up routes
     app.use('/api', apiRoutes,apiUsuarios);
  
