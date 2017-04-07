@@ -1,18 +1,32 @@
-<!--
-  Generated template for the Usuario page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>usuario</ion-title>
+<ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Usuario
+    </ion-title>
+    <ion-buttons start>
+    <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
+  </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <p *ngFor="let u of users">
+      {{u.nombre}}
+      {{u.apellido}}
+      {{u.institucion}}
+      {{u.grado}}
+      {{u.residencia}}
+      {{u.mail}}
+      {{u.usuario}}
+      {{u.registros}}
+      
+  </p>
 
 </ion-content>

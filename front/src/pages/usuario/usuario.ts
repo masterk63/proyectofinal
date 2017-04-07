@@ -21,10 +21,7 @@ export class UsuarioPage {
               public userService: Usuarios){
                 this.userService.load()
                 .then(data => {
-                  this.users = data;
-                                  console.log("en la vista de usuarios");
-                console.log(this.users);
-                  
+                  this.users = data;                  
                 }) ;
 
             }

@@ -26,10 +26,10 @@ export class Usuarios {
 
     // todavia no tiene los datos de usuarios
     return new Promise(resolve => {
-      this.http.get('http://rickybruno.sytes.net:5984/passport-test/_design/usuarios/_view/listar')
+      this.http.get('http://rickybruno.sytes.net:3000/api/usuariosListar')
         .subscribe(resultado => {
           this.data = resultado;
-          this.data = JSON.parse(this.data._body).rows;
+          this.data = JSON.parse(this.data._body);
           resolve(this.data);
         });
     });
