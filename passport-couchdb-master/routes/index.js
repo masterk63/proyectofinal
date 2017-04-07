@@ -24,7 +24,7 @@ module.exports = function(app){
     });
 
     apiUsuarios.get('/usuariosListar',UsuariosController.listar);
-   
+    apiUsuarios.get('/usuariosDame/:id',UsuariosController.dame);
     // Set up routes
     app.use('/api', apiRoutes,apiUsuarios);
  
