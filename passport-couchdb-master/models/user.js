@@ -1,18 +1,14 @@
+var mysqlModel = require('mysql-model');
+var env    = process.env.NODE_ENV || 'database',
+    databaseConfig = require('./../config/' + env + '.js');
 
-var resourceful = require('resourceful');
-
-var User = module.exports = resourceful.define('user', function () {
-
-  this.string('mail',{ format: 'email', required: true });
-  this.string('nombre',{ required: true });
-  this.string('apellido',{ required: true });
-  this.string('institucion',{ required: true });
-  this.string('grado');
-  this.string('residencia');
-  this.string('username',{ required: true }); 
-  this.string('password',{ required: true });
-  this.string('rol');
-  this.timestamps();
-
+var MyAppModel = mysqlModel.createConnection({
+  host     : databaseConfig.host,
+  user     : databaseConfig.user,
+  password : databaseConfig.password,
+  database : databaseConfig.database,
 });
 
+
+
+var User = module.exports =  MyAppModel.extend({tableName: "usuarios",});
