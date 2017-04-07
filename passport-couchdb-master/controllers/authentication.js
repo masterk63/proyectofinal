@@ -49,27 +49,35 @@ exports.register = function(req, res, next){
     if(!req.body.username || !req.body.mail){
         res.status(500).json({
             mensaje: "ERROR!!! Controlar los Campos Ingresados",
-            codigo: -1
+            codigo: 0
         });
     }
     var details = {
-        mail: req.body.mail.toLowerCase(),
-        username: req.body.username.toLowerCase(),
-        password: req.body.password,
-        nombre: convertirLaPrimeraLetraAMayuscula(req.body.nombre),
-        apellido: convertirLaPrimeraLetraAMayuscula(req.body.apellido),
-        institucion: convertirLaPrimeraLetraAMayuscula(req.body.institucion),
-        grado: req.body.grado,
-        residencia: convertirLaPrimeraLetraAMayuscula(req.body.residencia),
-        rol: "usuario"
+        mail: '"'+req.body.mail.toLowerCase()+'"',
+        username: '"'+req.body.username.toLowerCase()+'"',
+        password: '"'+req.body.password+'"',
+        nombre: '"'+convertirLaPrimeraLetraAMayuscula(req.body.nombre)+'"',
+        apellido: '"'+convertirLaPrimeraLetraAMayuscula(req.body.apellido)+'"',
+        institucion: '"'+convertirLaPrimeraLetraAMayuscula(req.body.institucion)+'"',
+        grado: '"'+req.body.grado+'"',
+        residencia: '"'+convertirLaPrimeraLetraAMayuscula(req.body.residencia)+'"',
     };
-    console.log('por crear');
-    usuario = new User(details);
-    console.log('creado');
-    usuario.save(function(respusta){
-        console.log(respuesta);
+
+    User.crearUsuario(details,function(respuesta){
+        if(respuesta[0][0].codigo != 0){
+            
+            // var userInfo = setUserInfo(data);
+            // res.status(200).json({
+            //     token: 'JWT ' + generateToken(userInfo),
+            //     user: userInfo,
+            //     mensaje: "Usuario creado con exito",
+            //     codigo: 200
+            // });
+        }else{
+            res.json(respuesta[0][0]);
+        }
     });
-    console.log('guardado');
+    
     // //control para ver si existe el username o el mail
     // User.find( {username:req.body.username.toLowerCase()}, function(err,user){
     //     if(err){
