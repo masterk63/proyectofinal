@@ -52,69 +52,87 @@ exports.register = function(req, res, next){
             codigo: -1
         });
     }
-    //control para ver si existe el username o el mail
-    User.find( {username:req.body.username.toLowerCase()}, function(err,user){
-        if(err){
-            console.log(err);
-        }else{
-            console.log(user.length);
-            if(user.length != 0){
-                console.log(user);
-                res.status(200).json({
-                mensaje: "El nombre de usuario ya existe",
-                codigo: -1
-            });
-            }else{
-                User.find( {mail:req.body.mail.toLowerCase()}, function(err,user){
-                    if(err){
-                        console.log(err);
-                    }else{
-                        if(user.length != 0){
-                            console.log(user);
-                            res.status(200).json({
-                                    mensaje: "El mail ya esta registrado",
-                                    codigo: -1
-                                });
-                        }else{// este else es el que determino el usuario no existente completo. y lo creamos
-                            //Podria haber hecho de esta forma User.create(req.body, function(err, data) {
-                            //Pero necesito agregarle el rol, por lo que defino el objeto antes.
-         
-                            var details = {
-                                mail: req.body.mail.toLowerCase(),
-                                username: req.body.username.toLowerCase(),
-                                password: req.body.password,
-                                nombre: convertirLaPrimeraLetraAMayuscula(req.body.nombre),
-                                apellido: convertirLaPrimeraLetraAMayuscula(req.body.apellido),
-                                institucion: convertirLaPrimeraLetraAMayuscula(req.body.institucion),
-                                grado: req.body.grado,
-                                residencia: convertirLaPrimeraLetraAMayuscula(req.body.residencia),
-                                rol: "usuario"
-                            };
-                            User.create(details, function(err, data) {
-                            if (err) {
-                                console.log('Error : ', err);
-                                //res.send(500, err);
-                                res.status(500).json({
-                                    mensaje: "ERROR!!! Controlar los Campos Ingresados",
-                                    codigo: -1
-                                });
-                            } else {
-                                var userInfo = setUserInfo(data);
-                                console.log(data);
-                                res.status(200).json({
-                                    token: 'JWT ' + generateToken(userInfo),
-                                    user: userInfo,
-                                    mensaje: "Usuario creado con exito",
-                                    codigo: 200
-                                });
-                            }   
-                           });
-                        }
-                    }
-                });
-            }
-        }
+    var details = {
+        mail: req.body.mail.toLowerCase(),
+        username: req.body.username.toLowerCase(),
+        password: req.body.password,
+        nombre: convertirLaPrimeraLetraAMayuscula(req.body.nombre),
+        apellido: convertirLaPrimeraLetraAMayuscula(req.body.apellido),
+        institucion: convertirLaPrimeraLetraAMayuscula(req.body.institucion),
+        grado: req.body.grado,
+        residencia: convertirLaPrimeraLetraAMayuscula(req.body.residencia),
+        rol: "usuario"
+    };
+    console.log('por crear');
+    usuario = new User(details);
+    console.log('creado');
+    usuario.save(function(respusta){
+        console.log(respuesta);
     });
+    console.log('guardado');
+    // //control para ver si existe el username o el mail
+    // User.find( {username:req.body.username.toLowerCase()}, function(err,user){
+    //     if(err){
+    //         console.log(err);
+    //     }else{
+    //         console.log(user.length);
+    //         if(user.length != 0){
+    //             console.log(user);
+    //             res.status(200).json({
+    //             mensaje: "El nombre de usuario ya existe",
+    //             codigo: -1
+    //         });
+    //         }else{
+    //             User.find( {mail:req.body.mail.toLowerCase()}, function(err,user){
+    //                 if(err){
+    //                     console.log(err);
+    //                 }else{
+    //                     if(user.length != 0){
+    //                         console.log(user);
+    //                         res.status(200).json({
+    //                                 mensaje: "El mail ya esta registrado",
+    //                                 codigo: -1
+    //                             });
+    //                     }else{// este else es el que determino el usuario no existente completo. y lo creamos
+    //                         //Podria haber hecho de esta forma User.create(req.body, function(err, data) {
+    //                         //Pero necesito agregarle el rol, por lo que defino el objeto antes.
+         
+    //                         var details = {
+    //                             mail: req.body.mail.toLowerCase(),
+    //                             username: req.body.username.toLowerCase(),
+    //                             password: req.body.password,
+    //                             nombre: convertirLaPrimeraLetraAMayuscula(req.body.nombre),
+    //                             apellido: convertirLaPrimeraLetraAMayuscula(req.body.apellido),
+    //                             institucion: convertirLaPrimeraLetraAMayuscula(req.body.institucion),
+    //                             grado: req.body.grado,
+    //                             residencia: convertirLaPrimeraLetraAMayuscula(req.body.residencia),
+    //                             rol: "usuario"
+    //                         };
+    //                         User.create(details, function(err, data) {
+    //                         if (err) {
+    //                             console.log('Error : ', err);
+    //                             //res.send(500, err);
+    //                             res.status(500).json({
+    //                                 mensaje: "ERROR!!! Controlar los Campos Ingresados",
+    //                                 codigo: -1
+    //                             });
+    //                         } else {
+    //                             var userInfo = setUserInfo(data);
+    //                             console.log(data);
+    //                             res.status(200).json({
+    //                                 token: 'JWT ' + generateToken(userInfo),
+    //                                 user: userInfo,
+    //                                 mensaje: "Usuario creado con exito",
+    //                                 codigo: 200
+    //                             });
+    //                         }   
+    //                        });
+    //                     }
+    //                 }
+    //             });
+    //         }
+    //     }
+    // });
  
 }
  

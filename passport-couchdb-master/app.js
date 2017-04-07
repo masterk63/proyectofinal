@@ -3,15 +3,11 @@ var express       = require('express'),
     cookieParser  = require('cookie-parser'),
     bodyParser    = require('body-parser'),
     cors          = require('cors'),
-    logger        = require('morgan'),
-    resourceful  = require('resourceful');
+    logger        = require('morgan');
+    
 
 var router = require('./routes/index');
 
-var env    = process.env.NODE_ENV || 'database',
-    databaseConfig = require('./config/' + env + '.js');
-
-resourceful.use('couchdb', {database: databaseConfig.database});
     
 app.use(logger('dev'));
 app.use(bodyParser.json());
