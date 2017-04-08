@@ -33,7 +33,10 @@ export class UsuariosGestorPage {
     }
 
     setFilteredItems() {
-      this._zone.run(() =>this.usuarios = this.userService.filterItems(this.searchTerm));
+      this.userService.filterItems(this.searchTerm).subscribe((data) => {
+        this._zone.run(() =>this.usuarios = data);
+        console.log(this.usuarios);
+      });
     }
 
 

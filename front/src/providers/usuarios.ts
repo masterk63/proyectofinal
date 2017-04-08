@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-
+import {Observable} from 'rxjs/Observable';
 /*
   Generated class for the Usuarios provider.
 
@@ -18,17 +18,16 @@ export class Usuarios {
   }
 
   filterItems(searchTerm){
+      return Observable.create(observer => { 
+        console.log(searchTerm);
 
-    console.log(searchTerm);
-
-      if(this.usuarios){
-         return this.usuarios.filter((item) => {
-            return item.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-        });
-      }
-       this.load().then(()=>function (){
-              return this.usuarios.filter((item) => {
-            return item.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+        if(this.usuarios){
+          observer.next(this.usuarios.filter((item) => {
+              return item.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+          }));
+        }
+        this.load().then(()=>function (){
+          observer.next(this.usuarios);
         });
        });
     }

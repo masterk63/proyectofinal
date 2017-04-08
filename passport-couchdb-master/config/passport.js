@@ -36,20 +36,13 @@ var jwtOptions = {
 
 var jwtLogin = new JwtStrategy(jwtOptions, function(payload, done){
  
-    User.get(payload._id, function(err, user){
- 
-        if(err){
-            return done(err, false);
-        }
- 
-        if(user){
+    User.dame(payload._id, function(user){
+        if(user[0].codigo != 0){
             done(null, user);
-        } else {
+        }else {
             done(null, false);
         }
- 
     });
- 
 });
  
 passport.use(localLogin);
