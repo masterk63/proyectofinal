@@ -11,17 +11,17 @@ var LocalStrategy = require('passport-local').Strategy;
 var localLogin = new LocalStrategy(
   function(username, password, done) {
     process.nextTick(function () {
-      User.find( {username : username}, function(err, user) {
-        if (err) { return done(err); }
-
-        if (!user || user.length == 0) { return done(null, false, { message: 'Unknown user ' + username }); }
-
-        user = user[0];
-
-        if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
-
-        return done(null, user);
-      })
+        var user = '"'+username+'"';
+        User.login(user, function(user) {
+            var usuario = user[0];
+            if(usuario.codigo != 0){
+                if(usuario.contrasenia === password){
+                    return done(null, user);
+                }
+            }else{
+                return done(null, false);
+            }
+        });
     });
   }
 );
