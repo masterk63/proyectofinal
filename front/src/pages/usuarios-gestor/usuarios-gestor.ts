@@ -32,7 +32,6 @@ export class UsuariosGestorPage {
 
     filtrar() {
       this.usuarios = this.userService.filterItems(this.searchTerm);
-      
     }
 
 
