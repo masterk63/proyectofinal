@@ -19,10 +19,10 @@ export class UsuarioPage {
 
   constructor(public navCtrl: NavController,
               public userService: Usuarios){
-                this.userService.load()
-                .then(data => {
-                  this.users = data;                  
-                }) ;
+                // this.userService.listar()
+                // .then(data => {
+                //   this.users = data;                  
+                // }) ;
 
             }
 

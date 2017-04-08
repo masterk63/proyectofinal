@@ -1,0 +1,42 @@
+
+<ion-header>
+<ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Gestion Usuarios
+    </ion-title>
+    <ion-buttons start>
+    <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
+  </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <p *ngFor="let u of usuarios">
+      {{u.nombre}}
+      {{u.apellido}}
+      {{u.institucion}}
+      {{u.grado}}
+      {{u.residencia}}
+      {{u.mail}}
+      {{u.usuario}}
+      {{u.registros}}
+      
+  </p>
+
+ 
+    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems()"></ion-searchbar>
+ 
+    <ion-list>
+        <ion-item *ngFor="let item of usuarios">
+            {{item.nombre}}
+        </ion-item>
+    </ion-list>
+ 
+
+</ion-content>

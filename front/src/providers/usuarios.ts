@@ -11,27 +11,44 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class Usuarios {
 
-  data: any;
+  usuarios: any;
 
   constructor(private http: Http) {
+
   }
 
-  load() {
-    // if (this.data) {
-    //   console.log("ya tiene los datos de usuarios");
-    //   console.log(this.data);
-    //   // ya tiene los datos
-    //   return Promise.resolve(this.data);
-    // }
+  filterItems(searchTerm){
 
-    // todavia no tiene los datos de usuarios
-    return new Promise(resolve => {
-      this.http.get('http://rickybruno.sytes.net:3000/api/usuariosListar')
-        .subscribe(resultado => {
-          this.data = resultado;
-          this.data = JSON.parse(this.data._body);
-          resolve(this.data);
+    console.log(searchTerm);
+
+      if(this.usuarios){
+         return this.usuarios.filter((item) => {
+            return item.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
         });
-    });
-  }
+      }
+       this.load().then(()=>function (){
+              return this.usuarios.filter((item) => {
+            return item.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+        });
+       });
+    }
+
+    load() {
+      // if (this.data) {
+      //   console.log("ya tiene los datos de usuarios");
+      //   console.log(this.data);
+      //   // ya tiene los datos
+      //   return Promise.resolve(this.data);
+      // }
+
+      // todavia no tiene los datos de usuarios
+      return new Promise(resolve => {
+        this.http.get('http://rickybruno.sytes.net:3000/api/usuariosListar')
+          .subscribe(resultado => {
+            this.usuarios = resultado;
+            this.usuarios = JSON.parse(this.usuarios._body);
+            resolve(this.usuarios);
+          });
+      });
+    }
 }

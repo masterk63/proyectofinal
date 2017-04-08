@@ -16,6 +16,7 @@ import { Storage } from '@ionic/storage';
 import { Auth } from '../providers/auth';
 import { MenuController } from 'ionic-angular';
 import { UsuarioPage } from '../pages/usuario/usuario';
+import { UsuariosGestorPage } from '../pages/usuarios-gestor/usuarios-gestor';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class MyApp {
       { title: 'Introduccion', component: IntroPage },
       { title: 'Tutorial', component: TutorialPage },
       { title: 'Usuarios', component: UsuarioPage },
+      { title: 'Gestion Usuarios', component: UsuariosGestorPage },
       // { title: 'Mapas JS', component: MapasjsPage },
       // { title: 'Mapas Nativo', component: MapasnativoPage },
       // { title: 'Camara', component: HomePage },
@@ -63,6 +65,7 @@ export class MyApp {
       { title: 'Introduccion', component: IntroPage },
       { title: 'Tutorial', component: TutorialPage },
       { title: 'Usuarios', component: UsuarioPage },
+      { title: 'Gestion Usuarios', component: UsuariosGestorPage },
     ];
 
   }
