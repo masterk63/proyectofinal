@@ -34,14 +34,6 @@ export class Usuarios {
     }
 
     load() {
-      // if (this.data) {
-      //   console.log("ya tiene los datos de usuarios");
-      //   console.log(this.data);
-      //   // ya tiene los datos
-      //   return Promise.resolve(this.data);
-      // }
-
-      // todavia no tiene los datos de usuarios
       return new Promise(resolve => {
         this.http.get('http://rickybruno.sytes.net:3000/api/usuariosListar')
           .subscribe(resultado => {

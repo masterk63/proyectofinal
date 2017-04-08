@@ -13,27 +13,26 @@ import {Usuarios} from '../../providers/usuarios';
   templateUrl: 'usuarios-gestor.html'
 })
 export class UsuariosGestorPage {
-  searchTerm: string = '';
-  usuarios: any;
+  searchTerm: string ='';
+  public usuarios: any;
 
   constructor(public navCtrl: NavController,
               public userService: Usuarios,
               private _zone: NgZone){
-                // this.userService.load()
-                // .then(data => {
-                //   this.users = data;                  
-                // }) ;
+                this.cargarUsuarios();
 
             }
 
-      ionViewDidLoad() {
- 
-        this.setFilteredItems();
- 
+    cargarUsuarios(){
+      this.userService.load()
+        .then(data => {
+          this.usuarios = data;                  
+        }) ;
     }
 
-    setFilteredItems() {
-      this._zone.run(() =>this.usuarios = this.userService.filterItems(this.searchTerm));
+    filtrar() {
+      this.usuarios = this.userService.filterItems(this.searchTerm);
+      
     }
 
 

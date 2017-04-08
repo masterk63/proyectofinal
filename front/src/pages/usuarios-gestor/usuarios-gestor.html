@@ -30,7 +30,7 @@
   </p>
 
  
-    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems()"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filtrar()"></ion-searchbar>
  
     <ion-list>
         <ion-item *ngFor="let item of usuarios">
