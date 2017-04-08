@@ -9,28 +9,33 @@ function generateToken(user){
 }
  
 function setUserInfo(request){
+    console.log(request);
     return {
-        _id: request._id,
-        username: request.username,
+        _id: request.idUsuario,
+        username: request.usuario,
         rol:request.rol,
     };
 }
  
 exports.login = function(req, res, next){
-    
-    User.find( {username : req.user.username}, function(err, user) {
-        
-        var userInfo = setUserInfo(user[0]);
-        console.log(userInfo);
-        res.status(200).json({
-            token: 'JWT ' + generateToken(userInfo),
-            user: userInfo
-        });
+    var username = '"'+req.body.username+'"';
+    User.login(username, function(user) {
+        var usuario = user[0];
+        if(usuario.codigo != 0){
+            if(usuario.contrasenia === req.body.password){
+                var userInfo = setUserInfo(usuario);
+                res.status(200).json({
+                    token: 'JWT ' + generateToken(userInfo),
+                    user: userInfo
+                });
+            }
+        }else{
+            res.json(usuario);
+        }
     });
 }
 
-function convertirLaPrimeraLetraAMayuscula(str)
-{
+function convertirLaPrimeraLetraAMayuscula(str){
     if(str){
         var pieces = str.split(" ");
         for ( var i = 0; i < pieces.length; i++ )
@@ -65,83 +70,20 @@ exports.register = function(req, res, next){
 
     User.crearUsuario(details,function(respuesta){
         if(respuesta[0][0].codigo != 0){
-            User.dame
-            // var userInfo = setUserInfo(data);
-            // res.status(200).json({
-            //     token: 'JWT ' + generateToken(userInfo),
-            //     user: userInfo,
-            //     mensaje: "Usuario creado con exito",
-            //     codigo: 200
-            // });
+            var id = '"'+respuesta[0][0].codigo+'"';
+            User.dame(id,function(data){
+                var userInfo = setUserInfo(data[0]);
+                res.status(200).json({
+                    token: 'JWT ' + generateToken(userInfo),
+                    user: userInfo,
+                    mensaje: "Usuario creado con exito",
+                    codigo: 200
+                });
+            });
         }else{
             res.json(respuesta[0][0]);
         }
     });
-    
-    // //control para ver si existe el username o el mail
-    // User.find( {username:req.body.username.toLowerCase()}, function(err,user){
-    //     if(err){
-    //         console.log(err);
-    //     }else{
-    //         console.log(user.length);
-    //         if(user.length != 0){
-    //             console.log(user);
-    //             res.status(200).json({
-    //             mensaje: "El nombre de usuario ya existe",
-    //             codigo: -1
-    //         });
-    //         }else{
-    //             User.find( {mail:req.body.mail.toLowerCase()}, function(err,user){
-    //                 if(err){
-    //                     console.log(err);
-    //                 }else{
-    //                     if(user.length != 0){
-    //                         console.log(user);
-    //                         res.status(200).json({
-    //                                 mensaje: "El mail ya esta registrado",
-    //                                 codigo: -1
-    //                             });
-    //                     }else{// este else es el que determino el usuario no existente completo. y lo creamos
-    //                         //Podria haber hecho de esta forma User.create(req.body, function(err, data) {
-    //                         //Pero necesito agregarle el rol, por lo que defino el objeto antes.
-         
-    //                         var details = {
-    //                             mail: req.body.mail.toLowerCase(),
-    //                             username: req.body.username.toLowerCase(),
-    //                             password: req.body.password,
-    //                             nombre: convertirLaPrimeraLetraAMayuscula(req.body.nombre),
-    //                             apellido: convertirLaPrimeraLetraAMayuscula(req.body.apellido),
-    //                             institucion: convertirLaPrimeraLetraAMayuscula(req.body.institucion),
-    //                             grado: req.body.grado,
-    //                             residencia: convertirLaPrimeraLetraAMayuscula(req.body.residencia),
-    //                             rol: "usuario"
-    //                         };
-    //                         User.create(details, function(err, data) {
-    //                         if (err) {
-    //                             console.log('Error : ', err);
-    //                             //res.send(500, err);
-    //                             res.status(500).json({
-    //                                 mensaje: "ERROR!!! Controlar los Campos Ingresados",
-    //                                 codigo: -1
-    //                             });
-    //                         } else {
-    //                             var userInfo = setUserInfo(data);
-    //                             console.log(data);
-    //                             res.status(200).json({
-    //                                 token: 'JWT ' + generateToken(userInfo),
-    //                                 user: userInfo,
-    //                                 mensaje: "Usuario creado con exito",
-    //                                 codigo: 200
-    //                             });
-    //                         }   
-    //                        });
-    //                     }
-    //                 }
-    //             });
-    //         }
-    //     }
-    // });
- 
 }
  
 exports.roleAuthorization = function(roles){
