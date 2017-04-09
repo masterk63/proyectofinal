@@ -23,6 +23,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 
 export class HomePage {
+    registro: string = "mapa";
     fotoPaisajeURL = 'data:image/jpeg;base64,';
     fotoPaisaje:any;
     fotoMuestra:any;
@@ -50,7 +51,7 @@ export class HomePage {
                 public localSaveCtrl:Localsave,
                 public alertCtrl: AlertController
                 ){
-                    this.ubicacion();
+                    this.ubicacion(); 
                     if(this.platform.is('android') || this.platform.is('ios')){
                         this.muestroMapaNativo = true;
                     }              
@@ -173,8 +174,6 @@ export class HomePage {
    public obtenerUbicacion(){
         this.ubicacionCtrl.obtenerCoordenadas().then((data) => 
         {
-            console.log("ubicacion home");
-            console.log(data);
             if(data != -1){
                 this.coordenadas = data;
                 this.latitud = this.coordenadas.latitude;
@@ -183,8 +182,6 @@ export class HomePage {
             }else{
                 this.obtenerUbicacion();
             }
-            
-
         }); 
    }
    

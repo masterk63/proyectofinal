@@ -10,18 +10,42 @@
     <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
   </ion-buttons>
   </ion-navbar>
+  <ion-toolbar>
+  <div>
+    <ion-segment [(ngModel)]="registro">
+      <ion-segment-button value="mapa">
+        Mapa
+      </ion-segment-button>
+      <ion-segment-button value="fotos">
+        Fotos
+      </ion-segment-button>
+      <ion-segment-button value="obseravaciones">
+        Obseravaciones
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  </ion-toolbar>
 </ion-header>
  
 
 
-<div style="height: 228px;margin-top: 56px;"> 
-    <page-mapasnativo [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="muestroMapaNativo"> </page-mapasnativo>
-    <mapajshtml [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="!muestroMapaNativo"></mapajshtml>
-</div>
 
-<ion-content style="margin-top: 284px;" class="scroll-content ionic-scroll  has-header">
-  
-    <button class="delFoto" *ngIf="fotoPaisaje" (click)="deleteFoto('paisaje')"><ion-icon style="margin-right: 2px" name="trash"></ion-icon>Eliminar</button>
+
+<ion-content style="margin-top: 111px;"class="scroll-content ionic-scroll  has-header">
+<div [ngSwitch]="registro">
+
+    <div  *ngSwitchCase="'mapa'" style="text-align: center;">
+      <p style="margin-bottom: 1px;">GEOLOCALIZACION OBETENIDA, PULSE <STRONG>SIGUIENTE</STRONG> PARA CONTINUAR</p>
+      <div class="mapaConteiner"> 
+        <page-mapasnativo [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="muestroMapaNativo"> </page-mapasnativo>
+        <mapajshtml [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="!muestroMapaNativo"></mapajshtml>
+      </div>
+      <span style="color:gray">Usted esta aqui!!!</span>
+    </div>
+
+  <div *ngSwitchCase="'fotos'">
+
+   <button class="delFoto" *ngIf="fotoPaisaje" (click)="deleteFoto('paisaje')"><ion-icon style="margin-right: 2px" name="trash"></ion-icon>Eliminar</button>
     
     <img [src]="fotoPaisajeURLSafe" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">
     
@@ -39,8 +63,6 @@
           <p>Foto Muestra <button (click)="deleteFoto('muestra')" style="background: transparent;font-size: 1em;color: #757575;"><ion-icon style="margin-left: 2px;" name="trash"></ion-icon></button></p> 
         </div>
       </div>
-      
-
 
       <div class="padding" *ngIf="!fotoMuestra">
         <button class="uploadPicture" style="height: 228px;" (click)="takefotoMuestra()">
@@ -49,9 +71,18 @@
         </button>
       </div>
     </div>
+  </div>
 
+  <ion-list *ngSwitchCase="'obseravaciones'">
+    <ion-item>
+      <ion-thumbnail item-left>
+        <img src="img/thumbnail-kitten-1.jpg">
+      </ion-thumbnail>
+      <h2>Luna</h2>
+    </ion-item>
+  </ion-list>
+</div>
     
- 
 </ion-content>
 
     <!--<h2 id="modals" class="section-header">Fotos <a style="float: right;">Agregar <ion-icon name="add"></ion-icon></a></h2>
