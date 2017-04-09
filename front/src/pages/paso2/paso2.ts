@@ -12,7 +12,7 @@ import { ModalPage } from '../modal/modal';
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-paso2',
+  selector: 'observaciones',
   templateUrl: 'paso2.html'
 })
 export class Paso2Page {

@@ -25,6 +25,10 @@
     position: relative;
     margin: 0 auto;
 }
+ion-menu {
+    max-width: 350px!important;
+}
+
 .scroll-content {
     height: auto !important;
 }

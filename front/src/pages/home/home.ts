@@ -23,6 +23,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 
 export class HomePage {
+    altoMapa:number;
     registro: string = "mapa";
     fotoPaisajeURL = 'data:image/jpeg;base64,';
     fotoPaisaje:any;
@@ -51,6 +52,15 @@ export class HomePage {
                 public localSaveCtrl:Localsave,
                 public alertCtrl: AlertController
                 ){
+                    if((this.platform.height() > 600) && (this.platform.height() < 801)){
+                        this.altoMapa = 500;
+                    }else{
+                        if(this.platform.height() > 801){
+                            this.altoMapa = 600;
+                        }else{
+                            this.altoMapa = 220;
+                        }
+                    }
                     this.ubicacion(); 
                     if(this.platform.is('android') || this.platform.is('ios')){
                         this.muestroMapaNativo = true;
