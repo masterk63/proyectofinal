@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 import {Usuarios} from '../../providers/usuarios';
 
 /*
@@ -14,11 +14,13 @@ import {Usuarios} from '../../providers/usuarios';
 })
 export class UsuariosGestorPage {
   searchTerm: string ='';
-  public usuarios: any;
+  public usuarios: any; //todos los usuarios devvueltos por el provider
+  filtro: string = null; //variable con la que filtramos los usuarios
 
   constructor(public navCtrl: NavController,
               public userService: Usuarios,
-              private _zone: NgZone){
+              public alertCtrl: AlertController,
+              ){
                 this.cargarUsuarios();
 
             }
@@ -30,9 +32,23 @@ export class UsuariosGestorPage {
         }) ;
     }
 
-    filtrar() {
-      this.usuarios = this.userService.filterItems(this.searchTerm);
-      
+    filtrarUsuarios() {
+      this.usuarios = this.userService.filterItems(this.searchTerm,this.filtro);
+    }
+
+    controlVacio(){
+      if(this.filtro == null){
+        this.mostrarAlerta();
+      }
+    }
+
+    mostrarAlerta(){
+        let alert = this.alertCtrl.create({
+          title: '¡Filtro necesario!',
+          subTitle: 'Por favor primedo debe seleccionar un filtro para realizar la busqueda',
+          buttons: ['ACEPTAR']
+        });
+        alert.present();
     }
 
 
