@@ -178,7 +178,8 @@ public noExiste(id,fn){
   public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud,observaciones){
 
       var fecha = new Date();
-      var id = this.idUsuario;
+      var id = this.idUsuario.toString();
+      console.log(id);
       var doc = {
         "_id": id,
         "registros":[], 

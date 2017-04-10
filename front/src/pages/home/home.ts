@@ -38,6 +38,19 @@ export class HomePage {
     fotoMuestraURLSafe:any;
     muestroMapaNativo = false;
     loading: any;
+    elmidos:any;
+    patudos:any;
+    plecopteros:any;
+    tricopteros:any;
+    fotoElmido;
+    realElmido;
+    fotoPatudo;
+    realPatudo;
+    fotoPlecoptero;
+    realPlecoptero;
+    fotoTricoptero;
+    realTricoptero;
+    observaciones;
     coincidencia = new FormGroup({
       "elmidos": new FormControl(),
       "patudos": new FormControl(),
@@ -68,10 +81,67 @@ export class HomePage {
                             this.altoMapa = 220;
                         }
                     }
-                    //this.ubicacion(); 
+                    this.ubicacion(); 
                     if(this.platform.is('android') || this.platform.is('ios')){
                         this.muestroMapaNativo = true;
-                    }              
+                    }
+                    //FOTOS PARA PASO 2 RADIO BUTTON
+
+                    if(this.platform.is('android') || this.platform.is('ios')){
+                        this.fotoElmido = "../www/assets/img/Elmidos.jpg";
+                    }else{
+                        this.fotoElmido = "../assets/img/Elmidos.jpg";
+                    }
+
+                    if(this.platform.is('android') || this.platform.is('ios')){
+                        this.fotoPatudo = "../www/assets/img/Patudo.jpg";
+                    }else{
+                        this.fotoPatudo = "../assets/img/Patudo.jpg";
+                    }
+
+                    if(this.platform.is('android') || this.platform.is('ios')){
+                        this.fotoPlecoptero = "../www/assets/img/Plecoptero.jpg";
+                    }else{
+                        this.fotoPlecoptero = "../assets/img/Plecoptero.jpg";
+                    }
+
+                    if(this.platform.is('android') || this.platform.is('ios')){
+                        this.fotoTricoptero = "../www/assets/img/Tricoptero.jpg";
+                    }else{
+                        this.fotoTricoptero = "../assets/img/Tricoptero.jpg";
+                    }
+
+                    if(this.platform.is('android') || this.platform.is('ios')){
+                        this.fotoElmido = "../www/assets/img/Elmidos.jpg";
+                    }else{
+                        this.fotoElmido = "../assets/img/Elmidos.jpg";
+                    }
+
+                //FOTOS REALES PARA MODAL!
+
+                    if(this.platform.is('android') || this.platform.is('ios')){
+                        this.realElmido = "../www/assets/img/fElmido.jpg";
+                    }else{
+                        this.realElmido = "../assets/img/fElmido.jpg";
+                    }
+
+                    if(this.platform.is('android') || this.platform.is('ios')){
+                        this.realPatudo = "../www/assets/img/fPatudo.jpg";
+                    }else{
+                        this.realPatudo = "../assets/img/fPatudo.jpg";
+                    }
+
+                    if(this.platform.is('android') || this.platform.is('ios')){
+                        this.realPlecoptero = "../www/assets/img/fPlecoptero.jpg";
+                    }else{
+                        this.realPlecoptero = "../assets/img/fPlecoptero.jpg";
+                    }
+
+                    if(this.platform.is('android') || this.platform.is('ios')){
+                        this.realTricoptero = "../www/assets/img/fTricoptero.jpg";
+                    }else{
+                        this.realTricoptero = "../assets/img/fTricoptero.jpg";
+                    }             
                 }
 
     ngOnInit(){
@@ -82,8 +152,8 @@ export class HomePage {
 
     }
     
-    openModal(pic) {
-        let modal = this.modalCtrl.create(ModalPage, {foto: pic});
+    openModal(pic,name) {
+        let modal = this.modalCtrl.create(ModalPage, {foto: pic, nombre: name});
         modal.present();
     }
 
@@ -144,9 +214,7 @@ export class HomePage {
         actionSheet.present();
     }
 
-    public check(){
-        console.log(this.coincidencia.value.elmidos);
-    }
+  
     public pasoAnterior(){
         switch(this.registro) {
                     case "fotos":
@@ -162,37 +230,52 @@ export class HomePage {
                     case "fotos":
                         return this.registro = "obseravaciones";
                     case "obseravaciones":
-                         alert('subiendo');
+                        this.controlDeDatos();
                 }
     }
 
     controlDeDatos(){
-        if(this.fotoPaisaje != null && this.fotoMuestra != null){
-            this.navCtrl.push(Paso2Page,{
-                foto1: this.fotoPaisaje,
-                foto2: this.fotoMuestra,
-                latitud: this.latitud,
-                longitud: this.longitud
-            });
-        }else{
-            if(this.fotoPaisaje == null && this.fotoMuestra == null){
-                let titulo = "Fotos no tomadas";
-                let mensaje = "Por favor, tomar las fotos correspondientes para poder continuar";
-                this.mostrarAlerta(titulo,mensaje);
-            }else{
-                if(this.fotoPaisaje == null){
-                    let titulo = "Foto paisaje";
-                    let mensaje = "Por favor, tomar una foto del paisaje antes de continuar";
-                    this.mostrarAlerta(titulo,mensaje);
-                }else{
-                    if(this.fotoMuestra == null){
-                        let titulo = "Foto muestra";
-                        let mensaje = "Por favor, tomar una foto de la muestra antes de continuar";
-                        this.mostrarAlerta(titulo,mensaje);
-                    }
-                }
-            }
-        }
+         this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,this.patudos,this.elmidos,this.plecopteros,this.tricopteros,this.latitud,this.longitud,this.observaciones);
+        event.preventDefault();
+        // this.elmidos = this.coincidencia.value.elmidos;
+        // this.plecopteros = this.coincidencia.value.plecopteros;
+        // this.tricopteros = this.coincidencia.value.tricopteros;
+        // this.patudos = this.coincidencia.value.patudos;
+        // let observaciones = this.coincidencia.value.observaciones;
+        // if(this.elmidos == null || this.plecopteros == null || this.tricopteros == null || this.patudos == null){
+        //     let titulo = "Encuesta";
+        //     let mensaje = "Debe seleccionar SI o NO en cada bicho."
+        //     this.mostrarAlerta(titulo,mensaje);
+        // }else{
+        //     this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,this.patudos,this.elmidos,this.plecopteros,this.tricopteros,this.latitud,this.longitud,observaciones);
+        //     event.preventDefault();
+        // }
+        // if(this.fotoPaisaje != null && this.fotoMuestra != null){
+        //     this.navCtrl.push(Paso2Page,{
+        //         foto1: this.fotoPaisaje,
+        //         foto2: this.fotoMuestra,
+        //         latitud: this.latitud,
+        //         longitud: this.longitud
+        //     });
+        // }else{
+        //     if(this.fotoPaisaje == null && this.fotoMuestra == null){
+        //         let titulo = "Fotos no tomadas";
+        //         let mensaje = "Por favor, tomar las fotos correspondientes para poder continuar";
+        //         this.mostrarAlerta(titulo,mensaje);
+        //     }else{
+        //         if(this.fotoPaisaje == null){
+        //             let titulo = "Foto paisaje";
+        //             let mensaje = "Por favor, tomar una foto del paisaje antes de continuar";
+        //             this.mostrarAlerta(titulo,mensaje);
+        //         }else{
+        //             if(this.fotoMuestra == null){
+        //                 let titulo = "Foto muestra";
+        //                 let mensaje = "Por favor, tomar una foto de la muestra antes de continuar";
+        //                 this.mostrarAlerta(titulo,mensaje);
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     mostrarAlerta(titulo,mensaje) {
@@ -236,5 +319,7 @@ export class HomePage {
         content: 'Espere mientras cargamos la ubicacion'
     });
     this.loading.present();
-    }
+}
+
+    
 }

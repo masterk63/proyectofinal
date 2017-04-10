@@ -65,7 +65,7 @@
 
         <div *ngSwitchCase="'obseravaciones'">
 
-<form (submit)="siguentePaso()"  #loginForm="ngForm" [formGroup]="coincidencia">
+<form [formGroup]="coincidencia">
   <ion-row>
     <ion-col col-12 col-sm-6 col-xl-3>
       <ion-card>
@@ -175,6 +175,7 @@
    </ion-col>
   </ion-row>
   </form>
+
         </div>
       </div>
   </div>
@@ -184,7 +185,7 @@
   <ion-toolbar color="primary">
     <ion-buttons>
       <button *ngIf="this.registro != 'obseravaciones'" ion-button block style="float: right" (click)="siguientePaso()">Siguiente<ion-icon style="margin-left: 10%; font-size: 2em;" name="arrow-dropright-circle"></ion-icon></button>
-      <button *ngIf="this.registro === 'obseravaciones'" ion-button block style="float: right" (click)="check()">Subir<ion-icon style="margin-left: 10%; font-size: 2em;" name="cloud-upload"></ion-icon></button>
+      <button *ngIf="this.registro === 'obseravaciones'" ion-button block style="float: right" (click)="siguientePaso()">Subir<ion-icon style="margin-left: 10%; font-size: 2em;" name="cloud-upload"></ion-icon></button>
     </ion-buttons>
     <ion-buttons>
       <button *ngIf="this.registro != 'mapa'" ion-button block style="float: left" (click)="pasoAnterior()"><ion-icon style="margin-right: 10%; font-size: 2em;" name="arrow-dropleft-circle"></ion-icon> Atras</button>
