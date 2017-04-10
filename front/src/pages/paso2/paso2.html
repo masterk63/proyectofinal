@@ -1,6 +1,4 @@
-
-<form (submit)="doSubmit($event)" [formGroup]="coincidencia">
-
+  <form (submit)="doSubmit($event)" #loginForm="ngForm" [formGroup]="coincidencia">
   <ion-row>
     <ion-col col-12 col-sm-6 col-xl-3>
       <ion-card>
@@ -109,5 +107,4 @@
         </ion-list>
    </ion-col>
   </ion-row>
-
-</form>
+  </form>

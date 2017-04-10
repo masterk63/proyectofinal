@@ -4,7 +4,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Localsave } from '../../providers/localsave';
 import { ModalPage } from '../modal/modal';
 
-
 /*
   Generated class for the Paso2 page.
 
@@ -21,7 +20,6 @@ export class Paso2Page {
   patudos:any;
   plecopteros:any;
   tricopteros:any;
-  coincidencia;
   fotoPaisaje;
   fotoMuestra;
   fotoElmido;
@@ -35,6 +33,13 @@ export class Paso2Page {
   latitud;
   longitud;
   observaciones;
+  coincidencia = new FormGroup({
+      "elmidos": new FormControl(),
+      "patudos": new FormControl(),
+      "plecopteros": new FormControl(),
+      "tricopteros": new FormControl(),
+      "observaciones": new FormControl(),
+    });
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -43,13 +48,7 @@ export class Paso2Page {
               public plt: Platform,
               public alertCtrl: AlertController
     ){
-     this.coincidencia = new FormGroup({
-      "elmidos": new FormControl(),
-      "patudos": new FormControl(),
-      "plecopteros": new FormControl(),
-      "tricopteros": new FormControl(),
-      "observaciones": new FormControl(),
-    });
+     
     this.fotoPaisaje=this.navParams.get('foto1');
     this.fotoMuestra=this.navParams.get('foto2');
     this.latitud=this.navParams.get('latitud');
@@ -128,22 +127,22 @@ export class Paso2Page {
     console.log('ionViewDidLoad Paso2Page');
   }
 
-doSubmit(event) {
-    this.elmidos = this.coincidencia.value.elmidos;
-    this.plecopteros = this.coincidencia.value.plecopteros;
-    this.tricopteros = this.coincidencia.value.tricopteros;
-    this.patudos = this.coincidencia.value.patudos;
-    let observaciones = this.coincidencia.value.observaciones;
-    if(this.elmidos == null || this.plecopteros == null || this.tricopteros == null || this.patudos == null){
-        let mensaje = "Debe seleccionar SI o NO en cada bicho."
-        this.mostrarAlerta(mensaje);
-    }else{
-        this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,this.patudos,this.elmidos,this.plecopteros,this.tricopteros,this.latitud,this.longitud,observaciones);
-        event.preventDefault();
-    }
+// doSubmit(event) {
+//     this.elmidos = this.coincidencia.value.elmidos;
+//     this.plecopteros = this.coincidencia.value.plecopteros;
+//     this.tricopteros = this.coincidencia.value.tricopteros;
+//     this.patudos = this.coincidencia.value.patudos;
+//     let observaciones = this.coincidencia.value.observaciones;
+//     if(this.elmidos == null || this.plecopteros == null || this.tricopteros == null || this.patudos == null){
+//         let mensaje = "Debe seleccionar SI o NO en cada bicho."
+//         this.mostrarAlerta(mensaje);
+//     }else{
+//         this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,this.patudos,this.elmidos,this.plecopteros,this.tricopteros,this.latitud,this.longitud,observaciones);
+//         event.preventDefault();
+//     }
     
     
-  }
+//   }
 
     mostrarAlerta(mensaje) {
     let alert = this.alertCtrl.create({

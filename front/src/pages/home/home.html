@@ -24,13 +24,9 @@
     </ion-segment>
   </ion-toolbar>
 </ion-header>
- 
-
-
 
 
 <ion-content style="margin-top: 111px;"class="scroll-content ionic-scroll  has-header">
-
   <div class="contenedorCenter">
     <div [ngSwitch]="registro">
         <div  *ngSwitchCase="'mapa'" style="text-align: center;">
@@ -41,8 +37,6 @@
           </div>
           <span style="color:gray">Usted esta aqui!!!</span>
       </div>
-
-
 
       <div *ngSwitchCase="'fotos'">
           <button class="delFoto" *ngIf="fotoPaisaje" (click)="deleteFoto('paisaje')"><ion-icon style="margin-right: 2px" name="trash"></ion-icon>Eliminar</button>
@@ -70,24 +64,131 @@
       </div>
 
         <div *ngSwitchCase="'obseravaciones'">
-            <observaciones></observaciones>
+
+<form (submit)="siguentePaso()"  #loginForm="ngForm" [formGroup]="coincidencia">
+  <ion-row>
+    <ion-col col-12 col-sm-6 col-xl-3>
+      <ion-card>
+        <!--Para llevar un string a una funcion solo poner '', como en openModal 'elmido'-->
+        <img class="bichos" [src]="fotoElmido" (click)="openModal(realElmido,'elmido')"/>
+        <ion-card-content>
+          <ion-card-title>
+           Elmidos
+            </ion-card-title>
+          <p>
+            ¿Se encuentra este bicho?
+            <ion-list radio-group formControlName="elmidos">
+              <ion-item>
+                <ion-label>Si</ion-label>
+                <ion-radio value="si"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>No</ion-label>
+                <ion-radio value="no"></ion-radio>
+              </ion-item>
+             </ion-list>
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col col-12 col-sm-6 col-xl-3>
+      <ion-card>
+        <img class="bichos" [src]="fotoPatudo" (click)="openModal(realPatudo,'patudo')"/>
+        <ion-card-content>
+          <ion-card-title>
+           Patudo
+            </ion-card-title>
+          <p>
+            ¿Se encuentra este bicho?
+             <ion-list radio-group formControlName="patudos">
+              <ion-item>
+                <ion-label>Si</ion-label>
+                <ion-radio value="si"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>No</ion-label>
+                <ion-radio value="no"></ion-radio>
+              </ion-item>
+            </ion-list>
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col col-12 col-sm-6 col-xl-3>
+      <ion-card>
+        <img class="bichos" [src]="fotoPlecoptero" (click)="openModal(realPlecoptero,'plecoptero')"/>
+        <ion-card-content>
+          <ion-card-title>
+           Plecoptero
+            </ion-card-title>
+          <p>
+            ¿Se encuentra este bicho?
+            <ion-list radio-group formControlName="plecopteros">
+              <ion-item>
+                <ion-label>Si</ion-label>
+                <ion-radio value="si"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>No</ion-label>
+                <ion-radio value="no"></ion-radio>
+              </ion-item>
+             </ion-list>
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col col-12 col-sm-6 col-xl-3>
+      <ion-card>
+        <img class="bichos" [src]="fotoTricoptero" (click)="openModal(realTricoptero,'tricoptero')"/>
+        <ion-card-content>
+          <ion-card-title>
+           Tricoptero
+            </ion-card-title>
+          <p>
+            ¿Se encuentra este bicho?
+            <ion-list radio-group formControlName="tricopteros">
+              <ion-item>
+                <ion-label>Si</ion-label>
+                <ion-radio value="si"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>No</ion-label>
+                <ion-radio value="no"></ion-radio>
+              </ion-item>
+             </ion-list>
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+ </ion-row>
+
+  <ion-row>
+    <ion-col col-12>
+        <ion-list formControlName="observaciones">
+          <ion-item>
+            <ion-label color="primary" floating>Observaciones</ion-label>
+            <ion-textarea></ion-textarea>
+          </ion-item>
+        </ion-list>
+   </ion-col>
+  </ion-row>
+  </form>
         </div>
       </div>
   </div>
 </ion-content>
 
-    <!--<h2 id="modals" class="section-header">Fotos <a style="float: right;">Agregar <ion-icon name="add"></ion-icon></a></h2>
-      <ion-scroll scrollX="true">
-        <img *ngFor="let foto of listaFotosbase64; let i = index"  [src]="'data:image/jpeg;base64,'+foto" (click)="openModal(listaFotosbase64,i)" style="width:150px"/>
-      </ion-scroll>-->
-
 <ion-footer>
   <ion-toolbar color="primary">
     <ion-buttons>
-      <!--<button ion-button icon-left (click)="presentActionSheet()">
-        <ion-icon name="camera"></ion-icon>Seleccionar
-      </button>-->
-      <button ion-button block style="float: right" (click)="paso2()">Siguiente<ion-icon style="margin-left: 10%; font-size: 2em;" name="arrow-dropright-circle"></ion-icon></button>
+      <button *ngIf="this.registro != 'obseravaciones'" ion-button block style="float: right" (click)="siguientePaso()">Siguiente<ion-icon style="margin-left: 10%; font-size: 2em;" name="arrow-dropright-circle"></ion-icon></button>
+      <button *ngIf="this.registro === 'obseravaciones'" ion-button block style="float: right" (click)="check()">Subir<ion-icon style="margin-left: 10%; font-size: 2em;" name="cloud-upload"></ion-icon></button>
+    </ion-buttons>
+    <ion-buttons>
+      <button *ngIf="this.registro != 'mapa'" ion-button block style="float: left" (click)="pasoAnterior()"><ion-icon style="margin-right: 10%; font-size: 2em;" name="arrow-dropleft-circle"></ion-icon> Atras</button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
+

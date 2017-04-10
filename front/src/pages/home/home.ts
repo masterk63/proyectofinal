@@ -14,7 +14,7 @@ import { Paso2Page } from '../paso2/paso2';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import {DomSanitizer} from '@angular/platform-browser';
-
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
     selector: 'home-page',
@@ -38,6 +38,13 @@ export class HomePage {
     fotoMuestraURLSafe:any;
     muestroMapaNativo = false;
     loading: any;
+    coincidencia = new FormGroup({
+      "elmidos": new FormControl(),
+      "patudos": new FormControl(),
+      "plecopteros": new FormControl(),
+      "tricopteros": new FormControl(),
+      "observaciones": new FormControl(),
+    });
 
     constructor(public navCtrl: NavController, 
                 public actionSheetCtrl: ActionSheetController, 
@@ -61,7 +68,7 @@ export class HomePage {
                             this.altoMapa = 220;
                         }
                     }
-                    this.ubicacion(); 
+                    //this.ubicacion(); 
                     if(this.platform.is('android') || this.platform.is('ios')){
                         this.muestroMapaNativo = true;
                     }              
@@ -137,7 +144,29 @@ export class HomePage {
         actionSheet.present();
     }
 
-    public paso2(){
+    public check(){
+        console.log(this.coincidencia.value.elmidos);
+    }
+    public pasoAnterior(){
+        switch(this.registro) {
+                    case "fotos":
+                        return this.registro = "mapa";
+                    case "obseravaciones":
+                        return this.registro = "fotos";
+                }
+    }
+    public siguientePaso(){
+        switch(this.registro) {
+                    case "mapa":
+                        return this.registro = "fotos";
+                    case "fotos":
+                        return this.registro = "obseravaciones";
+                    case "obseravaciones":
+                         alert('subiendo');
+                }
+    }
+
+    controlDeDatos(){
         if(this.fotoPaisaje != null && this.fotoMuestra != null){
             this.navCtrl.push(Paso2Page,{
                 foto1: this.fotoPaisaje,
@@ -165,7 +194,6 @@ export class HomePage {
             }
         }
     }
-
 
     mostrarAlerta(titulo,mensaje) {
         let alert = this.alertCtrl.create({
