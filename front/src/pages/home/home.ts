@@ -240,12 +240,12 @@ export class HomePage {
         let tricopteros = this.coincidencia.value.tricopteros;
         let patudos = this.coincidencia.value.patudos;
         let observaciones = this.coincidencia.value.observaciones;
-        if(this.elmidos == null || this.plecopteros == null || this.tricopteros == null || this.patudos == null){
+        if(elmidos == null || plecopteros == null || tricopteros == null || patudos == null){
             let titulo = "Encuesta";
             let mensaje = "Debe seleccionar SI o NO en cada bicho."
             this.mostrarAlerta(titulo,mensaje);
         }else{
-            this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,this.patudos,this.elmidos,this.plecopteros,this.tricopteros,this.latitud,this.longitud,observaciones);
+            this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones);
             event.preventDefault();
         }
         if(this.fotoPaisaje != null && this.fotoMuestra != null){
