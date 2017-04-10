@@ -19,7 +19,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 @Component({
     selector: 'home-page',
     templateUrl: 'home.html',
-    
 })
 
 export class HomePage {
@@ -38,10 +37,6 @@ export class HomePage {
     fotoMuestraURLSafe:any;
     muestroMapaNativo = false;
     loading: any;
-    elmidos:any;
-    patudos:any;
-    plecopteros:any;
-    tricopteros:any;
     fotoElmido;
     realElmido;
     fotoPatudo;
@@ -72,6 +67,7 @@ export class HomePage {
                 public localSaveCtrl:Localsave,
                 public alertCtrl: AlertController
                 ){
+                    //Es para hacer responsive el mapa
                     if((this.platform.height() > 600) && (this.platform.height() < 801)){
                         this.altoMapa = 500;
                     }else{
@@ -81,12 +77,16 @@ export class HomePage {
                             this.altoMapa = 220;
                         }
                     }
-                    this.ubicacion(); 
+
+                    //Detecta la ubicacion
+                    this.ubicacion();
+
+                    //Para usar mapa nativo o mapaHTML
                     if(this.platform.is('android') || this.platform.is('ios')){
                         this.muestroMapaNativo = true;
                     }
-                    //FOTOS PARA PASO 2 RADIO BUTTON
 
+                    //FOTOS PARA PASO 2 RADIO BUTTON
                     if(this.platform.is('android') || this.platform.is('ios')){
                         this.fotoElmido = "../www/assets/img/Elmidos.jpg";
                     }else{
@@ -117,8 +117,7 @@ export class HomePage {
                         this.fotoElmido = "../assets/img/Elmidos.jpg";
                     }
 
-                //FOTOS REALES PARA MODAL!
-
+                    //FOTOS REALES PARA MODAL!
                     if(this.platform.is('android') || this.platform.is('ios')){
                         this.realElmido = "../www/assets/img/fElmido.jpg";
                     }else{
@@ -169,7 +168,6 @@ export class HomePage {
        {this.fotoMuestra = data;
        this.fotoMuestraURL = this.fotoMuestraURL + this.fotoMuestra;
        this.fotoMuestraURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL );});
-       
    }
     
     mostrarFoto(pic){
@@ -223,6 +221,7 @@ export class HomePage {
                         return this.registro = "fotos";
                 }
     }
+
     public siguientePaso(){
         switch(this.registro) {
                     case "mapa":
@@ -235,47 +234,46 @@ export class HomePage {
     }
 
     controlDeDatos(){
-         this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,this.patudos,this.elmidos,this.plecopteros,this.tricopteros,this.latitud,this.longitud,this.observaciones);
-        event.preventDefault();
-        // this.elmidos = this.coincidencia.value.elmidos;
-        // this.plecopteros = this.coincidencia.value.plecopteros;
-        // this.tricopteros = this.coincidencia.value.tricopteros;
-        // this.patudos = this.coincidencia.value.patudos;
-        // let observaciones = this.coincidencia.value.observaciones;
-        // if(this.elmidos == null || this.plecopteros == null || this.tricopteros == null || this.patudos == null){
-        //     let titulo = "Encuesta";
-        //     let mensaje = "Debe seleccionar SI o NO en cada bicho."
-        //     this.mostrarAlerta(titulo,mensaje);
-        // }else{
-        //     this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,this.patudos,this.elmidos,this.plecopteros,this.tricopteros,this.latitud,this.longitud,observaciones);
-        //     event.preventDefault();
-        // }
-        // if(this.fotoPaisaje != null && this.fotoMuestra != null){
-        //     this.navCtrl.push(Paso2Page,{
-        //         foto1: this.fotoPaisaje,
-        //         foto2: this.fotoMuestra,
-        //         latitud: this.latitud,
-        //         longitud: this.longitud
-        //     });
-        // }else{
-        //     if(this.fotoPaisaje == null && this.fotoMuestra == null){
-        //         let titulo = "Fotos no tomadas";
-        //         let mensaje = "Por favor, tomar las fotos correspondientes para poder continuar";
-        //         this.mostrarAlerta(titulo,mensaje);
-        //     }else{
-        //         if(this.fotoPaisaje == null){
-        //             let titulo = "Foto paisaje";
-        //             let mensaje = "Por favor, tomar una foto del paisaje antes de continuar";
-        //             this.mostrarAlerta(titulo,mensaje);
-        //         }else{
-        //             if(this.fotoMuestra == null){
-        //                 let titulo = "Foto muestra";
-        //                 let mensaje = "Por favor, tomar una foto de la muestra antes de continuar";
-        //                 this.mostrarAlerta(titulo,mensaje);
-        //             }
-        //         }
-        //     }
-        // }
+        //this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,this.patudos,this.elmidos,this.plecopteros,this.tricopteros,this.latitud,this.longitud,this.observaciones);
+        let elmidos = this.coincidencia.value.elmidos;
+        let plecopteros = this.coincidencia.value.plecopteros;
+        let tricopteros = this.coincidencia.value.tricopteros;
+        let patudos = this.coincidencia.value.patudos;
+        let observaciones = this.coincidencia.value.observaciones;
+        if(this.elmidos == null || this.plecopteros == null || this.tricopteros == null || this.patudos == null){
+            let titulo = "Encuesta";
+            let mensaje = "Debe seleccionar SI o NO en cada bicho."
+            this.mostrarAlerta(titulo,mensaje);
+        }else{
+            this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,this.patudos,this.elmidos,this.plecopteros,this.tricopteros,this.latitud,this.longitud,observaciones);
+            event.preventDefault();
+        }
+        if(this.fotoPaisaje != null && this.fotoMuestra != null){
+            this.navCtrl.push(Paso2Page,{
+                foto1: this.fotoPaisaje,
+                foto2: this.fotoMuestra,
+                latitud: this.latitud,
+                longitud: this.longitud
+            });
+        }else{
+            if(this.fotoPaisaje == null && this.fotoMuestra == null){
+                let titulo = "Fotos no tomadas";
+                let mensaje = "Por favor, tomar las fotos correspondientes para poder continuar";
+                this.mostrarAlerta(titulo,mensaje);
+            }else{
+                if(this.fotoPaisaje == null){
+                    let titulo = "Foto paisaje";
+                    let mensaje = "Por favor, tomar una foto del paisaje antes de continuar";
+                    this.mostrarAlerta(titulo,mensaje);
+                }else{
+                    if(this.fotoMuestra == null){
+                        let titulo = "Foto muestra";
+                        let mensaje = "Por favor, tomar una foto de la muestra antes de continuar";
+                        this.mostrarAlerta(titulo,mensaje);
+                    }
+                }
+            }
+        }
     }
 
     mostrarAlerta(titulo,mensaje) {
@@ -290,7 +288,7 @@ export class HomePage {
     ubicacion(){
         this.showLoader();
         this.obtenerUbicacion();
-   }
+    }
 
    public obtenerUbicacion(){
         this.ubicacionCtrl.obtenerCoordenadas().then((data) => 
@@ -307,19 +305,17 @@ export class HomePage {
    }
    
    logout(){
-    console.log('saliendo logout');
-    this.authService.logout().then(()=>{
-      console.log('listo borrado, dirijiendo a registrar');
-      this.navCtrl.setRoot(LoginPage);
-    });
+        console.log('saliendo logout');
+        this.authService.logout().then(()=>{
+        console.log('listo borrado, dirijiendo a registrar');
+        this.navCtrl.setRoot(LoginPage);
+        });
   }
 
     showLoader(){
-    this.loading = this.loadingCtrl.create({
-        content: 'Espere mientras cargamos la ubicacion'
-    });
-    this.loading.present();
-}
-
-    
+        this.loading = this.loadingCtrl.create({
+            content: 'Espere mientras cargamos la ubicacion'
+        });
+        this.loading.present();
+    }
 }
