@@ -234,27 +234,20 @@ export class HomePage {
     }
 
     controlDeDatos(){
-        //this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,this.patudos,this.elmidos,this.plecopteros,this.tricopteros,this.latitud,this.longitud,this.observaciones);
         let elmidos = this.coincidencia.value.elmidos;
         let plecopteros = this.coincidencia.value.plecopteros;
         let tricopteros = this.coincidencia.value.tricopteros;
         let patudos = this.coincidencia.value.patudos;
         let observaciones = this.coincidencia.value.observaciones;
-        if(elmidos == null || plecopteros == null || tricopteros == null || patudos == null){
-            let titulo = "Encuesta";
-            let mensaje = "Debe seleccionar SI o NO en cada bicho."
-            this.mostrarAlerta(titulo,mensaje);
-        }else{
-            this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones);
-            event.preventDefault();
-        }
         if(this.fotoPaisaje != null && this.fotoMuestra != null){
-            this.navCtrl.push(Paso2Page,{
-                foto1: this.fotoPaisaje,
-                foto2: this.fotoMuestra,
-                latitud: this.latitud,
-                longitud: this.longitud
-            });
+            if(elmidos == null || plecopteros == null || tricopteros == null || patudos == null){
+                let titulo = "Encuesta";
+                let mensaje = "Debe seleccionar SI o NO en cada bicho."
+                this.mostrarAlerta(titulo,mensaje);
+            }else{
+                this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones);
+                event.preventDefault();
+            }
         }else{
             if(this.fotoPaisaje == null && this.fotoMuestra == null){
                 let titulo = "Fotos no tomadas";

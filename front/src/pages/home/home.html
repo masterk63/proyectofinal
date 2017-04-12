@@ -39,14 +39,18 @@
       </div>
 
       <div *ngSwitchCase="'fotos'">
-          <button class="delFoto" *ngIf="fotoPaisaje" (click)="deleteFoto('paisaje')"><ion-icon style="margin-right: 2px" name="trash"></ion-icon>Eliminar</button>
-          <img [src]="fotoPaisajeURLSafe" *ngIf="fotoPaisaje" (click)="mostrarFoto(fotoPaisaje)">
           <div class="contenedor">
             <div class="padding" *ngIf="!fotoPaisaje">
               <button class="uploadPicture" style="height: 228px;" (click)="takefotoPaisaje()">
                 <ion-icon name="camera"></ion-icon>
                 <p><ion-icon name="md-add-circle"></ion-icon> Foto del Paisaje</p> 
               </button>
+            </div>
+            <div class="padding" *ngIf="fotoPaisaje">
+               <div class="mapa" > 
+                  <img [src]="fotoPaisajeURLSafe" (click)="mostrarFoto(fotoPaisaje)" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
+                <p>Foto Paisaje <button (click)="deleteFoto('paisaje')" style="background: transparent;font-size: 1em;color: #757575;"><ion-icon style="margin-left: 2px;" name="trash"></ion-icon></button></p> 
+              </div>
             </div>
             <div class="padding" *ngIf="fotoMuestra">
               <div class="mapa" > 
@@ -65,116 +69,116 @@
 
         <div *ngSwitchCase="'obseravaciones'">
 
-<form [formGroup]="coincidencia">
-  <ion-row>
-    <ion-col col-12 col-sm-6 col-xl-3>
-      <ion-card>
-        <!--Para llevar un string a una funcion solo poner '', como en openModal 'elmido'-->
-        <img class="bichos" [src]="fotoElmido" (click)="openModal(realElmido,'elmido')"/>
-        <ion-card-content>
-          <ion-card-title>
-           Elmidos
-            </ion-card-title>
-          <p>
-            ¿Se encuentra este bicho?
-            <ion-list radio-group formControlName="elmidos">
-              <ion-item>
-                <ion-label>Si</ion-label>
-                <ion-radio value="si"></ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-label>No</ion-label>
-                <ion-radio value="no"></ion-radio>
-              </ion-item>
-             </ion-list>
-          </p>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
+        <form [formGroup]="coincidencia">
+          <ion-row>
+            <ion-col col-12 col-sm-6 col-xl-3>
+              <ion-card>
+                <!--Para llevar un string a una funcion solo poner '', como en openModal 'elmido'-->
+                <img class="bichos" [src]="fotoElmido" (click)="openModal(realElmido,'elmido')"/>
+                <ion-card-content>
+                  <ion-card-title>
+                  Elmidos
+                    </ion-card-title>
+                  <p>
+                    ¿Se encuentra este bicho?
+                    <ion-list radio-group formControlName="elmidos">
+                      <ion-item>
+                        <ion-label>Si</ion-label>
+                        <ion-radio value="si"></ion-radio>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>No</ion-label>
+                        <ion-radio value="no"></ion-radio>
+                      </ion-item>
+                    </ion-list>
+                  </p>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
 
-    <ion-col col-12 col-sm-6 col-xl-3>
-      <ion-card>
-        <img class="bichos" [src]="fotoPatudo" (click)="openModal(realPatudo,'patudo')"/>
-        <ion-card-content>
-          <ion-card-title>
-           Patudo
-            </ion-card-title>
-          <p>
-            ¿Se encuentra este bicho?
-             <ion-list radio-group formControlName="patudos">
-              <ion-item>
-                <ion-label>Si</ion-label>
-                <ion-radio value="si"></ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-label>No</ion-label>
-                <ion-radio value="no"></ion-radio>
-              </ion-item>
-            </ion-list>
-          </p>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
+            <ion-col col-12 col-sm-6 col-xl-3>
+              <ion-card>
+                <img class="bichos" [src]="fotoPatudo" (click)="openModal(realPatudo,'patudo')"/>
+                <ion-card-content>
+                  <ion-card-title>
+                  Patudo
+                    </ion-card-title>
+                  <p>
+                    ¿Se encuentra este bicho?
+                    <ion-list radio-group formControlName="patudos">
+                      <ion-item>
+                        <ion-label>Si</ion-label>
+                        <ion-radio value="si"></ion-radio>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>No</ion-label>
+                        <ion-radio value="no"></ion-radio>
+                      </ion-item>
+                    </ion-list>
+                  </p>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
 
-    <ion-col col-12 col-sm-6 col-xl-3>
-      <ion-card>
-        <img class="bichos" [src]="fotoPlecoptero" (click)="openModal(realPlecoptero,'plecoptero')"/>
-        <ion-card-content>
-          <ion-card-title>
-           Plecoptero
-            </ion-card-title>
-          <p>
-            ¿Se encuentra este bicho?
-            <ion-list radio-group formControlName="plecopteros">
-              <ion-item>
-                <ion-label>Si</ion-label>
-                <ion-radio value="si"></ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-label>No</ion-label>
-                <ion-radio value="no"></ion-radio>
-              </ion-item>
-             </ion-list>
-          </p>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-    <ion-col col-12 col-sm-6 col-xl-3>
-      <ion-card>
-        <img class="bichos" [src]="fotoTricoptero" (click)="openModal(realTricoptero,'tricoptero')"/>
-        <ion-card-content>
-          <ion-card-title>
-           Tricoptero
-            </ion-card-title>
-          <p>
-            ¿Se encuentra este bicho?
-            <ion-list radio-group formControlName="tricopteros">
-              <ion-item>
-                <ion-label>Si</ion-label>
-                <ion-radio value="si"></ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-label>No</ion-label>
-                <ion-radio value="no"></ion-radio>
-              </ion-item>
-             </ion-list>
-          </p>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
- </ion-row>
+            <ion-col col-12 col-sm-6 col-xl-3>
+              <ion-card>
+                <img class="bichos" [src]="fotoPlecoptero" (click)="openModal(realPlecoptero,'plecoptero')"/>
+                <ion-card-content>
+                  <ion-card-title>
+                  Plecoptero
+                    </ion-card-title>
+                  <p>
+                    ¿Se encuentra este bicho?
+                    <ion-list radio-group formControlName="plecopteros">
+                      <ion-item>
+                        <ion-label>Si</ion-label>
+                        <ion-radio value="si"></ion-radio>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>No</ion-label>
+                        <ion-radio value="no"></ion-radio>
+                      </ion-item>
+                    </ion-list>
+                  </p>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col col-12 col-sm-6 col-xl-3>
+              <ion-card>
+                <img class="bichos" [src]="fotoTricoptero" (click)="openModal(realTricoptero,'tricoptero')"/>
+                <ion-card-content>
+                  <ion-card-title>
+                  Tricoptero
+                    </ion-card-title>
+                  <p>
+                    ¿Se encuentra este bicho?
+                    <ion-list radio-group formControlName="tricopteros">
+                      <ion-item>
+                        <ion-label>Si</ion-label>
+                        <ion-radio value="si"></ion-radio>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>No</ion-label>
+                        <ion-radio value="no"></ion-radio>
+                      </ion-item>
+                    </ion-list>
+                  </p>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+        </ion-row>
 
-  <ion-row>
-    <ion-col col-12>
-        <ion-list formControlName="observaciones">
-          <ion-item>
-            <ion-label color="primary" floating>Observaciones</ion-label>
-            <ion-textarea></ion-textarea>
-          </ion-item>
-        </ion-list>
-   </ion-col>
-  </ion-row>
-  </form>
+          <ion-row>
+            <ion-col col-12>
+                <ion-list formControlName="observaciones">
+                  <ion-item>
+                    <ion-label color="primary" floating>Observaciones</ion-label>
+                    <ion-textarea></ion-textarea>
+                  </ion-item>
+                </ion-list>
+          </ion-col>
+          </ion-row>
+          </form>
 
         </div>
       </div>
