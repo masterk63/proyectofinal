@@ -14,6 +14,7 @@ import { Paso2Page } from '../paso2/paso2';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import {DomSanitizer} from '@angular/platform-browser';
+import { MisRegistrosPage } from '../mis-registros/mis-registros';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -246,6 +247,7 @@ export class HomePage {
                 this.mostrarAlerta(titulo,mensaje);
             }else{
                 this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones);
+                this.navCtrl.setRoot(MisRegistrosPage);
                 event.preventDefault();
             }
         }else{
@@ -279,7 +281,8 @@ export class HomePage {
     }
 
     ubicacion(){
-        this.showLoader();
+        let text = 'Espere mientras cargamos la ubicacion';
+        this.showLoader(text);
         this.obtenerUbicacion();
     }
 
@@ -305,9 +308,9 @@ export class HomePage {
         });
   }
 
-    showLoader(){
+    showLoader(text){
         this.loading = this.loadingCtrl.create({
-            content: 'Espere mientras cargamos la ubicacion'
+            content: text
         });
         this.loading.present();
     }
