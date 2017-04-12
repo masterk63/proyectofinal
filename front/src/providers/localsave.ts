@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import PouchDB from 'pouchdb';
 import { Storage } from '@ionic/storage';
+import { ToastController } from 'ionic-angular';
 
 //Variable global de Google definida en su js
 declare var google;
@@ -94,7 +95,9 @@ export class Localsave {
   idUsuario:any;
   public registrosObersables:Observable<Array<any>>;
 
-  constructor(public http: Http,public storage: Storage) {
+  constructor(public http: Http,
+              public storage: Storage,
+              private toastCtrl: ToastController) {
     this.init();
   }
 
@@ -176,7 +179,6 @@ public noExiste(id,fn){
 
   // Crear un nuevo  registro
   public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud,observaciones){
-
       var fecha = new Date();
       var id = this.idUsuario;
       console.log(id);
@@ -218,7 +220,9 @@ public noExiste(id,fn){
             doc.registros.push(registro);
             db.put(doc).then(function (response) {
               console.log(JSON.stringify(response));
+              this.presentToast('Registro creado con exito');
             }).catch(function (err) {
+              this.presentToast(err);
               console.log(err);
             });
           }
@@ -226,21 +230,15 @@ public noExiste(id,fn){
             console.log('intentado acualizar');
             noTa.registros.push(registro);
             db.put(noTa).then(function () {
+
               console.log('listo');
             }).catch(function (err) {
+   
               console.log(err);
               // error (not a 404 or 409)
             });
           }
       });
-  
-        
-
-  // "_attachments": {},
-    // for(let pic of pics){
-    //   doc._attachments['foto'+i+'.png']={content_type: 'image/png',data:pic};
-    //   i++;
-    // }
   }
 
 
@@ -286,4 +284,12 @@ public noExiste(id,fn){
     })
   }
 
+  presentToast() {
+    let toast = this.toastCtrl.create({
+        message: 'Registro creado con exito',
+        duration: 2000,
+        position: 'top'
+    });
+    toast.present();
+  }
 }
