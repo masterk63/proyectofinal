@@ -22,9 +22,9 @@ module.exports = function(app){
     authRoutes.get('/protected', requireAuth, function(req, res){
         res.send({ content: 'Success'});
     });
-
+    //API usuarios
     apiUsuarios.get('/usuariosListar',UsuariosController.listarUsuarios);
-    apiUsuarios.get('/usuariosDame/:id',UsuariosController.dameUsuario);
+    apiUsuarios.get('/usuarioDame/:id',UsuariosController.dameUsuario);
     // Set up routes
     app.use('/api', apiRoutes,apiUsuarios);
  

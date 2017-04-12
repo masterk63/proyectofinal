@@ -1,6 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { AlertController, NavController, NavParams } from 'ionic-angular';
-import {Usuarios} from '../../providers/usuarios';
+import { UsuariosService } from '../../providers/usuariosService';
 
 /*
   Generated class for the UsuariosGestor page.
@@ -18,7 +18,7 @@ export class UsuariosGestorPage {
   filtro: string = null; //variable con la que filtramos los usuarios
 
   constructor(public navCtrl: NavController,
-              public userService: Usuarios,
+              public userService: UsuariosService,
               public alertCtrl: AlertController,
               ){
                 this.cargarUsuarios();
@@ -28,7 +28,7 @@ export class UsuariosGestorPage {
     cargarUsuarios(){
       this.userService.load()
         .then(data => {
-          this.usuarios = data;                  
+          this.usuarios = data;
         }) ;
     }
 

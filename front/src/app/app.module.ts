@@ -14,7 +14,7 @@ import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
 import { Camara } from '../providers/camara';
 import { Localsave } from '../providers/localsave';
 import { Ubicacion } from '../providers/ubicacion';
-import { Usuarios } from '../providers/usuarios';
+import { UsuariosService } from '../providers/usuariosService';
 import { LoginPage } from '../pages/login-page/login-page';
 import { UsuarioPage } from '../pages/usuario/usuario';
 import { UsuariosGestorPage } from '../pages/usuarios-gestor/usuarios-gestor';
@@ -73,6 +73,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     UsuariosGestorPage,
   ],
   providers: [StatusBar,
-              SplashScreen,{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave,Ubicacion,Auth,Usuarios,Storage]
+              SplashScreen,{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,Storage]
 })
 export class AppModule {}

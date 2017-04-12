@@ -9,9 +9,11 @@ import 'rxjs/add/operator/map';
   for more info on providers and Angular 2 DI.
 */
 @Injectable()
-export class Usuarios {
-
+export class UsuariosService {
+    //lista de usuarios para gestion
   usuarios: any;
+  //solo el usuario para el DAME
+  usuario: any;
 
   constructor(private http: Http) {
 
@@ -20,6 +22,7 @@ export class Usuarios {
   filterItems(searchTerm,filtro){
 
       if(this.usuarios){
+          console.log("ya estan los usuarios cargados");
          return this.usuarios.filter((atributo) => {
                switch(filtro) {
                     case "nombre":
@@ -51,11 +54,23 @@ export class Usuarios {
 
     load() {
       return new Promise(resolve => {
+          console.log("usuarios no cargados, comunicando provider");
         this.http.get('http://rickybruno.sytes.net:3000/api/usuariosListar')
           .subscribe(resultado => {
             this.usuarios = resultado;
             this.usuarios = JSON.parse(this.usuarios._body);
             resolve(this.usuarios);
+          });
+      });
+    }
+
+    usuarioDame(idUsuario){
+        return new Promise(resolve => {
+        this.http.get('http://rickybruno.sytes.net:3000/api/usuarioDame/'+idUsuario)
+          .subscribe(resultado => {
+            this.usuario = resultado;
+            this.usuario = JSON.parse(this.usuario._body);
+            resolve(this.usuario);
           });
       });
     }
