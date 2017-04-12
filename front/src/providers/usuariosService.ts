@@ -21,6 +21,21 @@ export class UsuariosService {
 
   filterItems(searchTerm,filtro){
 
+      if(this.usuarios){
+          console.log("ya estan los usuarios cargados");
+         return this.usuarios.filter((atributo) => {
+               switch(filtro) {
+                    case "nombre":
+                        return atributo.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+                    case "apellido":
+                        return atributo.apellido.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+                    case "usuario":
+                        return atributo.usuario.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+                    case "mail":
+                        return atributo.mail.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+                }
+        });
+      }
        this.load().then(()=>function (){
               return this.usuarios.filter((atributo) => {
                     switch(filtro) {
