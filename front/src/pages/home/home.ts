@@ -14,6 +14,7 @@ import { Paso2Page } from '../paso2/paso2';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import {DomSanitizer} from '@angular/platform-browser';
+import { MisRegistrosPage } from '../mis-registros/mis-registros';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -234,27 +235,21 @@ export class HomePage {
     }
 
     controlDeDatos(){
-        //this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,this.patudos,this.elmidos,this.plecopteros,this.tricopteros,this.latitud,this.longitud,this.observaciones);
         let elmidos = this.coincidencia.value.elmidos;
         let plecopteros = this.coincidencia.value.plecopteros;
         let tricopteros = this.coincidencia.value.tricopteros;
         let patudos = this.coincidencia.value.patudos;
         let observaciones = this.coincidencia.value.observaciones;
-        if(elmidos == null || plecopteros == null || tricopteros == null || patudos == null){
-            let titulo = "Encuesta";
-            let mensaje = "Debe seleccionar SI o NO en cada bicho."
-            this.mostrarAlerta(titulo,mensaje);
-        }else{
-            this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones);
-            event.preventDefault();
-        }
         if(this.fotoPaisaje != null && this.fotoMuestra != null){
-            this.navCtrl.push(Paso2Page,{
-                foto1: this.fotoPaisaje,
-                foto2: this.fotoMuestra,
-                latitud: this.latitud,
-                longitud: this.longitud
-            });
+            if(elmidos == null || plecopteros == null || tricopteros == null || patudos == null){
+                let titulo = "Encuesta";
+                let mensaje = "Debe seleccionar SI o NO en cada bicho."
+                this.mostrarAlerta(titulo,mensaje);
+            }else{
+                this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones);
+                this.navCtrl.setRoot(MisRegistrosPage);
+                event.preventDefault();
+            }
         }else{
             if(this.fotoPaisaje == null && this.fotoMuestra == null){
                 let titulo = "Fotos no tomadas";
@@ -286,7 +281,8 @@ export class HomePage {
     }
 
     ubicacion(){
-        this.showLoader();
+        let text = 'Espere mientras cargamos la ubicacion';
+        this.showLoader(text);
         this.obtenerUbicacion();
     }
 
@@ -312,9 +308,9 @@ export class HomePage {
         });
   }
 
-    showLoader(){
+    showLoader(text){
         this.loading = this.loadingCtrl.create({
-            content: 'Espere mientras cargamos la ubicacion'
+            content: text
         });
         this.loading.present();
     }

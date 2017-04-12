@@ -103,7 +103,7 @@ export class Localsave {
   init(){
     db = new PouchDB('proyectofinal');
     this.storage.get('idUsuario').then((value) => {
-      this.idUsuario = value;
+      this.idUsuario = value.toString();
 
       this.remote = 'http://rickybruno.sytes.net:5984/proyectofinal';
 
@@ -178,7 +178,7 @@ public noExiste(id,fn){
   public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud,observaciones){
 
       var fecha = new Date();
-      var id = this.idUsuario.toString();
+      var id = this.idUsuario;
       console.log(id);
       var doc = {
         "_id": id,

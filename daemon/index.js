@@ -45,7 +45,7 @@ Converter.prototype.parseMySQL = function () {
 
 Converter.prototype.connect = function () {
     var self = this;
-    this.mysql.connect(function (err) {
+    self.mysql.connect(function (err) {
         if (err) throw err;
         self.listen();
     });

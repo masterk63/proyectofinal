@@ -1,21 +1,21 @@
 var converter = require('./');
 var cvr = converter();
 cvr.connect();
-var fotoPaisaje;
+//var fotoPaisaje;
 
-function foto1(self,change,fn){
-    self.database.attachment.get(change.id, "fotoMuestra.png", function(err, body) {
-        if (err) throw err;
-        fn(body.toString('base64'));
-    });
-}
+// function foto1(self,change,fn){
+//     self.database.attachment.get(change.id, "fotoMuestra.png", function(err, body) {
+//         if (err) throw err;
+//         fn(body.toString('base64'));
+//     });
+// }
 
-function foto2(self,change,fotoMuestra,fn){
-    self.database.attachment.get(change.id, "fotoPaisaje.png", function(err, body) {
-        if (err) throw err;
-        fn(body.toString('base64'));
-    });
-}
+// function foto2(self,change,fotoMuestra,fn){
+//     self.database.attachment.get(change.id, "fotoPaisaje.png", function(err, body) {
+//         if (err) throw err;
+//         fn(body.toString('base64'));
+//     });
+// }
 
 //CHANGE solo tiene el id y la rev del documento en cuestion
 cvr.on('regCreado', function (change) {
@@ -70,11 +70,11 @@ cvr.on('regActualizado', function (change) {
             console.log("no tiene localizacion inversa");
         }else{
             console.log("ya hay localizacion, ingresando a MYSQL")
-            self.mysql.query('SELECT COUNT(*) AS cantidad FROM registros WHERE idUsuario="'+res._id+'"',function(err,fila) {
+            self.mysql.query('SELECT COUNT(*) AS cantidad FROM registros WHERE idUsuario="'+parseInt(res._id)+'"',function(err,fila) {
                 if(err){
                     console.log(err);
                 }
-                let indice = fila[0].cantidad;//desde el indice empezamos a agregar a mysql
+                var indice = fila[0].cantidad;//desde el indice empezamos a agregar a mysql
                 for(indice;indice<res.registros.length;indice++){
                     var fecha='"'+res.registros[indice].fecha+'"';
                     var latitud=res.registros[indice].latitud;
@@ -95,7 +95,8 @@ cvr.on('regActualizado', function (change) {
                     self.mysql.query('CALL registro_nuevo_completo('+fecha+','+latitud+','+longitud+','+fotoPaisajeConcat+','+fotoMuestraConcat+','+fotoMapaConcat+','+observaciones+','+idUsuario+','+ciudad+','+provincia+','+pais+','+elmidos+','+patudos+','+plecopteros+','+tricopteros+')',function(err,rows) {
                         if(err){
                             console.log(err);
-                        } 
+                        }
+                        console.log(rows); 
                     });
                 }
             });
