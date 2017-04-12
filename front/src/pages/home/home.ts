@@ -235,11 +235,15 @@ export class HomePage {
     }
 
     controlDeDatos(){
+        
         let elmidos = this.coincidencia.value.elmidos;
         let plecopteros = this.coincidencia.value.plecopteros;
         let tricopteros = this.coincidencia.value.tricopteros;
         let patudos = this.coincidencia.value.patudos;
         let observaciones = this.coincidencia.value.observaciones;
+        this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones);
+                this.navCtrl.setRoot(MisRegistrosPage);
+                event.preventDefault();
         if(this.fotoPaisaje != null && this.fotoMuestra != null){
             if(elmidos == null || plecopteros == null || tricopteros == null || patudos == null){
                 let titulo = "Encuesta";
