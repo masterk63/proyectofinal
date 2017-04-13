@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import PouchDB from 'pouchdb';
 import { Storage } from '@ionic/storage';
-import { ToastController } from 'ionic-angular';
+
 
 //Variable global de Google definida en su js
 declare var google;
@@ -96,8 +96,7 @@ export class Localsave {
   public registrosObersables:Observable<Array<any>>;
 
   constructor(public http: Http,
-              public storage: Storage,
-              private toastCtrl: ToastController) {
+              public storage: Storage,) {
     this.init();
   }
 
@@ -179,6 +178,8 @@ public noExiste(id,fn){
 
   // Crear un nuevo  registro
   public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud,observaciones){
+    return new Promise((resolve, reject) => {
+      var indice = this.calcularIndice(patudos,elmidos,plecopteros,tricopteros);
       var fecha = new Date();
       var id = this.idUsuario;
       console.log(id);
@@ -212,46 +213,62 @@ public noExiste(id,fn){
         "ciudad":null,
         "provincia":null,
         "pais":null,
+        "indice":indice,
       };
-
 
       this.noExiste(doc._id,function(noTa){
           if(noTa === '1'){
             doc.registros.push(registro);
             db.put(doc).then(function (response) {
               console.log(JSON.stringify(response));
-              this.presentToast('Registro creado con exito');
+              resolve(1);
             }).catch(function (err) {
-              this.presentToast(err);
               console.log(err);
+              resolve(err);
             });
           }
           else{
             console.log('intentado acualizar');
             noTa.registros.push(registro);
             db.put(noTa).then(function () {
-
               console.log('listo');
+              resolve(1);
             }).catch(function (err) {
-   
               console.log(err);
+              resolve(err);
               // error (not a 404 or 409)
             });
           }
       });
+    });
   }
 
-
+  public calcularIndice(patudos,elmidos,plecopteros,tricopteros){
+    let i = 0;
+    if(patudos === 'si'){
+      i++;
+    }
+    if(elmidos === 'si'){
+      i++;
+    }
+    if(plecopteros === 'si'){
+      i++;
+    }
+    if(tricopteros === 'si'){
+      i++;
+    }
+    return i;
+  }
   //Obtener los registros de la base de datos Locales
   public getTodos(){
 
     //Si ya se consulto se devuelve, sin consultar nuevamente la base 
     // de datos
-    if (registrosLocales) {
-      this.registrosObersables = new Observable(observer => {
-        observer.next(registrosLocales);
-      });
-    }
+    // if (registrosLocales) {
+    //   this.registrosObersables = new Observable(observer => {
+    //     observer.next(registrosLocales);
+    //   });
+    // }
 
     // Consulte la base de Datos
   return Observable.create(observer => { 
@@ -262,10 +279,16 @@ public noExiste(id,fn){
       var docs = result.rows.map(function (row) { return row.doc; }); 
       if(docs.length != 0){
         registrosLocales = docs[0].registros;
+        registrosLocales.sort(function(a,b) { //La funcion sort ordena numeros, si quiero de menor a mayor a es 'a-b', si quiero de mayo a menor b-a
+            return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() 
+        });
         observer.next(registrosLocales);
       }
       db.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
         registrosLocales = change.doc.registros;
+        registrosLocales.sort(function(a,b) { 
+            return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() 
+        });
         observer.next(registrosLocales);
       });
     }).catch(function (err) {
@@ -284,12 +307,5 @@ public noExiste(id,fn){
     })
   }
 
-  presentToast() {
-    let toast = this.toastCtrl.create({
-        message: 'Registro creado con exito',
-        duration: 2000,
-        position: 'top'
-    });
-    toast.present();
-  }
+  
 }

@@ -8,6 +8,7 @@ page-wheel {
         display:inline-block;
         position:relative;
         overflow:hidden;
+        transform: rotate(91deg);
     }
     #wheel:after{
         content:"";
@@ -21,3 +22,19 @@ page-wheel {
         margin-left:-7px;
         transform: rotate(45deg)
     }
+
+    .caja{
+        width: 300px;
+        height: 300px;
+        background: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_directions_car_48px-128.png);
+        position: absolute;
+        top: 2px;
+        left: 3px;
+    }
+
+    .contenedorRueda{
+        margin: 0 auto;
+        position: relative;
+        width: 300px;
+    }
+        

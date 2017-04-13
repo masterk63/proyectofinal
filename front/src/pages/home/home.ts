@@ -10,7 +10,7 @@ import { Camara } from '../../providers/camara';
 import { Ubicacion } from '../../providers/ubicacion';
 import { Localsave } from '../../providers/localsave';
 import { PhotoViewer } from 'ionic-native';
-import { Paso2Page } from '../paso2/paso2';
+import { Wheel } from '../wheel/wheel';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -226,7 +226,8 @@ export class HomePage {
     public siguientePaso(){
         switch(this.registro) {
                     case "mapa":
-                        return this.registro = "fotos";
+                        this.navCtrl.setRoot(Wheel);
+                        //return this.registro = "fotos";
                     case "fotos":
                         return this.registro = "obseravaciones";
                     case "obseravaciones":
@@ -241,18 +242,22 @@ export class HomePage {
         let tricopteros = this.coincidencia.value.tricopteros;
         let patudos = this.coincidencia.value.patudos;
         let observaciones = this.coincidencia.value.observaciones;
-        this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones);
-                this.navCtrl.setRoot(MisRegistrosPage);
-                event.preventDefault();
+        
         if(this.fotoPaisaje != null && this.fotoMuestra != null){
             if(elmidos == null || plecopteros == null || tricopteros == null || patudos == null){
                 let titulo = "Encuesta";
                 let mensaje = "Debe seleccionar SI o NO en cada bicho."
                 this.mostrarAlerta(titulo,mensaje);
             }else{
-                this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones);
-                this.navCtrl.setRoot(MisRegistrosPage);
-                event.preventDefault();
+                this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones).then((estado)=>{
+                    if(estado === 1){
+                        this.presentToast('Registro creado con Exito');
+                        this.navCtrl.setRoot(MisRegistrosPage);
+                        event.preventDefault();
+                    }else{
+                        this.presentToast(estado);
+                    }
+                });
             }
         }else{
             if(this.fotoPaisaje == null && this.fotoMuestra == null){
@@ -317,5 +322,14 @@ export class HomePage {
             content: text
         });
         this.loading.present();
+    }
+
+    presentToast(text) {
+        let toast = this.toastCtrl.create({
+            message: text,
+            duration: 2000,
+            position: 'top'
+        });
+        toast.present();
     }
 }

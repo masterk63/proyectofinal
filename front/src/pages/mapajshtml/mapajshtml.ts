@@ -51,6 +51,13 @@ export class Mapajshtml {
     
       google.maps.event.addListener(marker, 'click', () => {
         infoWindow.open(mapa, marker);
-      });          
+      });    
+
+        //Repinta el mapa cuando cambio de pestaña
+        google.maps.event.addListenerOnce(mapa, 'idle', function () {
+            google.maps.event.trigger(mapa, 'resize');
+            mapa.setCenter(latLng);
+            mapa.setZoom(15);
+        });   
       };
 }
