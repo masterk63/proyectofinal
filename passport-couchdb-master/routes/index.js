@@ -25,6 +25,7 @@ module.exports = function(app){
     //API usuarios
     apiUsuarios.get('/usuariosListar',UsuariosController.listarUsuarios);
     apiUsuarios.get('/usuarioDame/:id',UsuariosController.dameUsuario);
+    apiUsuarios.post('/usuarioModificar',UsuariosController.usuarioModificar);
     // Set up routes
     app.use('/api', apiRoutes,apiUsuarios);
  

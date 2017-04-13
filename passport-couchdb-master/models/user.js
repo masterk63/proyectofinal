@@ -40,6 +40,19 @@ exports.dame = function(id,fn){
             });
 } 
 
+exports.modificar = function(u,fn){
+    connection.query('call usuario_modificar('
+        +u.idUsuario+
+        ','+u.nombre+
+        ','+u.apellido+
+        ','+u.residencia+
+        ','+u.institucion+
+        ','+u.grado+')', function(err, rows){  
+                if (err) fn (err);  
+                fn(rows[0]); 
+            });
+} 
+
 exports.login = function(usuario,fn){
     connection.query('call usuario_ingresar('+usuario+')', function(err, rows){  
                 if (err) fn (err);  

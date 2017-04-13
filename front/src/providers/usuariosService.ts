@@ -14,6 +14,7 @@ export class UsuariosService {
   usuarios: any;
   //solo el usuario para el DAME
   usuario: any;
+  mensajeModificar: any;
 
   constructor(private http: Http) {
 
@@ -67,10 +68,21 @@ export class UsuariosService {
     usuarioDame(idUsuario){
         return new Promise(resolve => {
         this.http.get('http://rickybruno.sytes.net:3000/api/usuarioDame/'+idUsuario)
-          .subscribe(resultado => {
+            .map(res => res.json())
+            .subscribe(resultado => {
             this.usuario = resultado;
-            this.usuario = JSON.parse(this.usuario._body);
             resolve(this.usuario);
+          });
+      });
+    }
+
+    usuarioModificar(usuario){
+        return new Promise(resolve => {
+        this.http.post('http://rickybruno.sytes.net:3000/api/usuarioModificar',usuario)
+            .map(res => res.json())
+            .subscribe(resultado => {
+            this.mensajeModificar = resultado;
+            resolve(this.mensajeModificar);
           });
       });
     }

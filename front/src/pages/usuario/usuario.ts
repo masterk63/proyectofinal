@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { UsuariosService } from '../../providers/usuariosService';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
@@ -17,16 +17,25 @@ import { Storage } from '@ionic/storage';
 })
 export class UsuarioPage {
 
-  users: any;
   idUsuario: any;
   public usuario: any;
+  editar: boolean=false;
+  margen: number=275;
+  mensajeModificar: any;
+  nombre: any;
+  apellido: any;
+  residencia: any;
+  institucion: any;
+  grado: any;
+
 
   constructor(public navCtrl: NavController,
               public userService: UsuariosService,
               public storage: Storage,
-              public authService: Auth,){
+              public authService: Auth,
+              public alertCtrl: AlertController){
                 this.dameId();
-            }
+            } 
 
   dameId(){
     //traemos el id de la variable local guardada en el logueo
@@ -36,7 +45,7 @@ export class UsuarioPage {
         this.userService.usuarioDame(this.idUsuario)
         .then(data => {
           this.usuario = data;
-          console.log(this.usuario[1]);
+          this.usuario = this.usuario[0];
         }) ;
     });
   }
@@ -49,5 +58,58 @@ export class UsuarioPage {
       this.navCtrl.setRoot(LoginPage);
     });
   }
+
+  botonEditar(){
+    //guardo el estado actual de los parametros posibles a modificar
+    this.nombre = this.usuario.nombre;
+    this.apellido = this.usuario.apellido;
+    this.residencia = this.usuario.residencia;
+    this.institucion = this.usuario.institucion;
+    this.grado = this.usuario.grado;
+    //variables para modificar el DOM CSS
+    this.editar = !this.editar;
+    this.margen = 320;
+  }
+
+  botonAceptar(){
+
+      this.userService.usuarioModificar(this.usuario)
+      .then(data => {
+        this.mensajeModificar = data;
+        if(this.mensajeModificar[0].codigo > 0){
+          let titulo = "Correcto";
+          let mensaje = this.mensajeModificar[0].mensaje;
+          this.mostrarAlerta(mensaje,titulo);
+          this.editar = !this.editar;
+          this.margen = 275;
+        }else{
+          let titulo = "Error";
+           let mensaje = this.mensajeModificar[0].mensaje;
+            this.mostrarAlerta(mensaje,titulo);
+        }
+
+        }) ;
+  }
+
+  botonCancelar(){
+    this.usuario.nombre = this.nombre;
+    this.usuario.apellido = this.apellido;
+    this.usuario.residencia = this.residencia;
+    this.usuario.institucion = this.institucion;
+    this.usuario.grado = this.grado;
+
+    this.editar = !this.editar;
+    this.margen = 275;
+
+  }
+
+    mostrarAlerta(mensaje,titulo) {
+      let alert = this.alertCtrl.create({
+        title: titulo,
+        subTitle: mensaje,
+        buttons: ['ACEPTAR']
+      });
+      alert.present();
+    }
 
 }

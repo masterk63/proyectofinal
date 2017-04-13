@@ -11,3 +11,19 @@ exports.listarUsuarios = function(req,res){
         res.json(consulta);
     });
 }
+
+exports.usuarioModificar = function(req,res){
+    
+    var details = {
+        idUsuario: req.body.idUsuario,
+        nombre: '"'+req.body.nombre+'"',
+        apellido: '"'+req.body.apellido+'"',
+        residencia: '"'+req.body.residencia+'"',
+        institucion: '"'+req.body.institucion+'"',
+        grado: '"'+req.body.grado+'"',
+    };
+
+    User.modificar(details,function(consulta){
+        res.json(consulta);
+    });
+}

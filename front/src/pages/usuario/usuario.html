@@ -11,27 +11,54 @@
     <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
   </ion-buttons>
   </ion-navbar>
+       <div *ngIf="usuario" style="background-color: #d14836; margin-top: -1px;" class="col-md-12 col-lg-12" align="center">
+            <div class="outter"><img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" class="image-circle"/></div>
+            <h1 *ngIf="!editar">{{usuario.nombre}} {{usuario.apellido}}</h1>
+            <ion-input class="inputHeader" [(ngModel)]="usuario.nombre" *ngIf="editar" type="text" value="{{usuario.nombre}}"></ion-input>
+            <ion-input class="inputHeader" [(ngModel)]="usuario.apellido" *ngIf="editar" type="text" value="{{usuario.apellido}}"></ion-input>
+            <h2>Usted tiene {{usuario.registros}} registros</h2>  
+	    </div>
   
 
 </ion-header>
 
 
 <ion-content>
-	<div class="login_box">
-	    <div style="background-color: #d14836;"class="col-md-12 col-lg-12" align="center">
-            <div class="outter"><img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" class="image-circle"/></div>   
-	    </div>
+	<div *ngIf="usuario" class="login_box" [style.margin-top.px]="margen">
         <div class="col-md-6 col-lg-6" align="center">
             <div class="col-md-12 col-lg-12 login_control">
-                <p *ngFor="let u of usuario">Usted tiene {{u.registros}} registros</p>
-                <label for="nombre">Nombre</label>
-                <p id="nombre" *ngFor="let u of usuario">{{u.nombre}}</p>
-                <p *ngFor="let u of usuario">{{u.nombre}}</p>
-                <p *ngFor="let u of usuario">{{u.nombre}}</p>
-                <p *ngFor="let u of usuario">{{u.nombre}}</p>
-                <p *ngFor="let u of usuario">{{u.nombre}}</p>
+                <table class="table table-user-information">
+                    <tbody class="inputBody">
+                        <tr>
+                            <td>Residencia</td>
+                            <td *ngIf="!editar">{{usuario.residencia}}</td>
+                            <ion-input [(ngModel)]="usuario.residencia" *ngIf="editar" type="text" value="{{usuario.residencia}}"></ion-input>
+                        </tr>
+                        <tr>
+                            <td>Institucion</td>
+                            <td *ngIf="!editar">{{usuario.institucion}}</td>
+                            <ion-input [(ngModel)]="usuario.institucion" *ngIf="editar" type="text" value="{{usuario.institucion}}"></ion-input>
+                        </tr>
+                        <tr>
+                            <td>Grado</td>
+                            <td *ngIf="!editar">{{usuario.grado}}</td>
+                            <ion-input [(ngModel)]="usuario.grado" *ngIf="editar" type="text" value="{{usuario.grado}}"></ion-input>
+                        </tr>
+                        <tr>
+                            <td>Usuario</td>
+                            <td>{{usuario.usuario}}</td>
+                        </tr>
+                        <tr>
+                            <td>Mail</td>
+                            <td>{{usuario.mail}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>    
         </div>
+        <button *ngIf="!editar" (click)="botonEditar()"> EDITAR </button>
+        <button *ngIf="editar" (click)="botonAceptar()"> ACEPTAR </button>
+        <button *ngIf="editar" (click)="botonCancelar()"> CANCELAR </button>
     </div>
 
 </ion-content>
