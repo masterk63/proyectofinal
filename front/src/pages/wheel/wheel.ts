@@ -18,6 +18,7 @@ export class Wheel {
     }else{
         this.cover = "../assets/img/cover2.png";
     }
+    
   }
 
   ionViewDidLoad() {
@@ -117,9 +118,9 @@ export class Wheel {
       window.requestAnimationFrame( anim );
       }());
 
-      document.getElementById("spin").addEventListener("mousedown", function(){
-        isStopped = true;
-      }, false);
+      // document.getElementById("spin").addEventListener("mousedown", function(){
+      //   isStopped = true;
+      // }, false);
   }
 
   detener(){
