@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,Platform} from 'ionic-angular';
 
 var isStopped = false;
 
@@ -8,8 +8,17 @@ var isStopped = false;
   templateUrl: 'wheel.html'
 })
 export class Wheel {
+  public cover:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController,
+              public platform: Platform,
+              public navParams: NavParams) {
+    if(this.platform.is('android') || this.platform.is('ios')){
+        this.cover = "../www/assets/img/cover2.png";
+    }else{
+        this.cover = "../assets/img/cover2.png";
+    }
+  }
 
   ionViewDidLoad() {
     
@@ -17,8 +26,8 @@ export class Wheel {
       return Math.random() * (max - min) + min;
     }
     var canvas:any = document.getElementById('canvas');
-    var color = ['#4CAF50','#f88','#fbc','#f88'];
-    var label = ['10', '200', '50', '100', '5', '500', '0', "jPOT"];
+    var color = ['#97907C','#97907C','#97907C','#97907C','#97907C','#BD393C','#CF6D31','#F8F131','#31B353','#3F3470'];
+    var label = ['0', '1', '2', '3', '4', '', '', '','',''];
     var slices = color.length;
     var sliceDeg = 360/slices;
     var deg = rand(0, 360);
@@ -83,7 +92,7 @@ export class Wheel {
          if(speed <2){
             var ai = Math.floor(((360 - deg - 90) % 360) / sliceDeg); // deg 2 Array Index
             ai = (slices+ai)%slices; // Fix negative index
-            if (label[ai]==='10'){
+            if (label[ai]==='2'){
               if(inicioProcesoFin){
                 inicioProcesoFin=false;
                 var comienzo = deg;

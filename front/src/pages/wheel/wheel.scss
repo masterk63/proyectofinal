@@ -8,7 +8,7 @@ page-wheel {
         display:inline-block;
         position:relative;
         overflow:hidden;
-        transform: rotate(91deg);
+        transform: rotate(90deg);
     }
     #wheel:after{
         content:"";
@@ -24,17 +24,40 @@ page-wheel {
     }
 
     .caja{
-        width: 300px;
-        height: 300px;
-        background: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_directions_car_48px-128.png);
+        width: 350px;
+        height: 302px;
         position: absolute;
-        top: 2px;
-        left: 3px;
+        top: 1px;
+        left: -12px;
+    }
+
+    .fondocaja{
+        background: #81583D;
+        width: 313px;
+        height: 302px;
+        position: absolute;
+        top: 1px;
+        left: -12px;
+        z-index: -1;
     }
 
     .contenedorRueda{
         margin: 0 auto;
         position: relative;
-        width: 300px;
+        width: 317px;
+        left: 3%;
     }
+
+    .contenedorCenter{
+            display: table !important;
+            width: 100% !important;
+            height: 100% !important;
+            text-align: center;
+            overflow-y: hidden;
+        }
+
+        .contenedorCenter > div{
+            display: table-cell;
+            vertical-align: middle;
+        }
         
