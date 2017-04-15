@@ -226,8 +226,7 @@ export class HomePage {
     public siguientePaso(){
         switch(this.registro) {
                     case "mapa":
-                        this.navCtrl.setRoot(Wheel);
-                        //return this.registro = "fotos";
+                        return this.registro = "fotos";
                     case "fotos":
                         return this.registro = "obseravaciones";
                     case "obseravaciones":
@@ -252,8 +251,8 @@ export class HomePage {
                 this.localSaveCtrl.crear(this.fotoPaisaje,this.fotoMuestra,patudos,elmidos,plecopteros,tricopteros,this.latitud,this.longitud,observaciones).then((estado)=>{
                     if(estado === 1){
                         this.presentToast('Registro creado con Exito');
-                        this.navCtrl.setRoot(MisRegistrosPage);
-                        event.preventDefault();
+                        let i = this.calcularIndice(patudos,elmidos,plecopteros,tricopteros);
+                        this.navCtrl.setRoot(Wheel,{indice: i});
                     }else{
                         this.presentToast(estado);
                     }
@@ -278,6 +277,23 @@ export class HomePage {
                 }
             }
         }
+    }
+
+    public calcularIndice(patudos,elmidos,plecopteros,tricopteros){
+        let i = 0;
+        if(patudos === 'si'){
+        i++;
+        }
+        if(elmidos === 'si'){
+        i++;
+        }
+        if(plecopteros === 'si'){
+        i++;
+        }
+        if(tricopteros === 'si'){
+        i++;
+        }
+        return i;
     }
 
     mostrarAlerta(titulo,mensaje) {

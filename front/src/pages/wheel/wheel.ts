@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { NavController, NavParams,Platform} from 'ionic-angular';
 
 var isStopped = false;
+var myReq;
+var contarVueltas = 0;
+var indice;
+
 
 @Component({
   selector: 'wheel',
@@ -9,22 +13,36 @@ var isStopped = false;
 })
 export class Wheel {
   public cover:any;
+  public mostrar = true;
 
   constructor(public navCtrl: NavController,
               public platform: Platform,
               public navParams: NavParams) {
-    if(this.platform.is('android') || this.platform.is('ios')){
-        this.cover = "../www/assets/img/cover2.png";
-    }else{
-        this.cover = "../assets/img/cover2.png";
-    }
-    
+                indice = navParams.get('indice'); 
+                console.log('el indice es:',indice);
+                if(this.platform.is('android') || this.platform.is('ios')){
+                    this.cover = "../www/assets/img/cover2.png";
+                }else{
+                    this.cover = "../assets/img/cover2.png";
+                }
   }
+  
+ 
+ ionViewWillLeave(){
+   //Evita que el proceso se siga ejecutando, incluso al salir de la vista
+   // el proceso se seguia ejucutando
+   window.cancelAnimationFrame(myReq);
+ }
 
   ionViewDidLoad() {
     
     function rand(min, max) {
-      return Math.random() * (max - min) + min;
+      return (max - min) + min;
+    }
+
+    function randomIntFromInterval(min,max)
+    {
+        return Math.floor(Math.random()*(max-min+1)+min);
     }
     var canvas:any = document.getElementById('canvas');
     var color = ['#97907C','#97907C','#97907C','#97907C','#97907C','#BD393C','#CF6D31','#F8F131','#31B353','#3F3470'];
@@ -39,8 +57,8 @@ export class Wheel {
     var center = width/2;      // center
     var inicioProcesoFin = true;
     var parar= false;
-
     var lock = false;
+  
 
     function deg2rad(deg) {
       return deg * Math.PI/180;
@@ -48,11 +66,15 @@ export class Wheel {
 
     function drawSlice(deg, color) {
       ctx.beginPath();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth   = 1;
       ctx.fillStyle = color;
       ctx.moveTo(center, center);
+      //x    y   rad startAng endAng
       ctx.arc(center, center, width/2, deg2rad(deg), deg2rad(deg+sliceDeg));
       ctx.lineTo(center, center);
       ctx.fill();
+      //ctx.stroke();
     }
 
     function drawText(deg, text) {
@@ -75,7 +97,7 @@ export class Wheel {
       }
     }
 
-    (function anim() {
+    function anim() {
       deg += speed;
       deg %= 360;
 
@@ -93,13 +115,12 @@ export class Wheel {
          if(speed <2){
             var ai = Math.floor(((360 - deg - 90) % 360) / sliceDeg); // deg 2 Array Index
             ai = (slices+ai)%slices; // Fix negative index
-            if (label[ai]==='2'){
+            if (label[ai] === '2'){
+            //if (label[ai] === indice.toString()){
               if(inicioProcesoFin){
                 inicioProcesoFin=false;
                 var comienzo = deg;
-                console.log(comienzo);
                 parar = comienzo+sliceDeg/2;
-                console.log(parar);
               }
               if(deg>parar){
                 speed=0;
@@ -107,25 +128,40 @@ export class Wheel {
             }
           }
       }
+
       // Stopped!
       if(lock && !speed){
         var ai = Math.floor(((360 - deg - 90) % 360) / sliceDeg); // deg 2 Array Index
         ai = (slices+ai)%slices; // Fix negative index
-        return alert("You got:\n"+ label[ai] ); // Get Array Item from end Degree
+        //Seteo todos los valores a 0 para poder instanciarlo nuevamente
+        lock = false;
+        isStopped = false;
+        contarVueltas = 0;
+        return this;
+        //return alert("You got:\n"+ label[ai] ); // Get Array Item from end Degree
       }
 
       drawImg();
-      window.requestAnimationFrame( anim );
-      }());
 
-      // document.getElementById("spin").addEventListener("mousedown", function(){
-      //   isStopped = true;
-      // }, false);
+      if(contarVueltas < 350){
+        contarVueltas++;
+      }
+      else{
+        isStopped = true;
+      }
+      // Se llama recursivamente para poder animar la rueda.
+      myReq = requestAnimationFrame(anim);
+    }
+    //Llama a la animacion una vez, cuando se inicia la vista
+    // luego se llama recusivamente, todo se guarda en myreq
+    // entonces para denter la animacion cancelo desde la primera llamada
+    myReq = requestAnimationFrame(anim);
   }
 
-  detener(){
-     isStopped = true;
+  public detener(){
+     this.mostrar = false;
   }
+
 }
 
 
