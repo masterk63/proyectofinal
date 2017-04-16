@@ -16,14 +16,21 @@ var contarVueltas = 0;
 export class Wheel {
   public cover:any;
   public mostrar = false;
-  public indice:number;
+  public indice;
   public riverCartoon:any;
+  public colorVector = ['#BD393C','#CF6D31','#F8F131','#31B353','#3F3470'];
+  public colorArrow:any;
+  public nivelDeContaminacion:any;
+  public nivelDeContaminacionVector = ['Muy Contaminado','Contaminado','con Contaminacion Media','en Buen Estado','en Excelente Estado'];
+
   constructor(public navCtrl: NavController,
               public platform: Platform,
               public navParams: NavParams) {
                 this.indice = navParams.get('indice'); 
-                this.indice = 2;
+                this.indice = 3;
                 console.log('el indice es:',this.indice);
+                this.colorArrow = this.calcularColorArrow();
+                this.nivelDeContaminacion = this.calcularNivelDeContaminacion();
                 if(this.platform.is('android') || this.platform.is('ios')){
                     this.cover = "../www/assets/img/cover2.png";
                 }else{
@@ -135,8 +142,7 @@ export class Wheel {
          if(speed <2){
             var ai = Math.floor(((360 - deg - 90) % 360) / sliceDeg); // deg 2 Array Index
             ai = (slices+ai)%slices; // Fix negative index
-            if (label[ai] === '2'){
-            //if (label[ai] === indice.toString()){
+            if (label[ai] === this.indice.toString()){
               if(inicioProcesoFin){
                 inicioProcesoFin=false;
                 var comienzo = deg;
@@ -175,6 +181,36 @@ export class Wheel {
       myReq = requestAnimationFrame(()=> {
         this.anim(ctx,width,slices,deg,color,center,sliceDeg,label,speed,lock,slowDownRand,inicioProcesoFin,parar);
       });
+    }
+
+    public calcularColorArrow(){
+        switch(this.indice) {
+          case 0:
+              return this.colorVector[0];
+          case 1:
+              return this.colorVector[1];
+          case 2:
+              return this.colorVector[2];
+          case 3:
+              return this.colorVector[3];
+          case 4:
+              return this.colorVector[4];
+        }
+    }
+
+    public calcularNivelDeContaminacion(){
+        switch(this.indice) {
+          case 0:
+              return this.nivelDeContaminacionVector[0];
+          case 1:
+              return this.nivelDeContaminacionVector[1];
+          case 2:
+              return this.nivelDeContaminacionVector[2];
+          case 3:
+              return this.nivelDeContaminacionVector[3];
+          case 4:
+              return this.nivelDeContaminacionVector[4];
+        }
     }
 }
 

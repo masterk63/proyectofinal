@@ -9,8 +9,8 @@
         </div>
         <img [src]="cover" class="caja">
         <div class="fondocaja"></div>
-        <p *ngIf="mostrar" id="pNivelDeContaminacion"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>Nivel <br/> de Contaminacion <br/>Media</span></p>
-        <p *ngIf="!mostrar" id="pInformacion">La presencia de cada unos de los insectos seumara 1 punto, pudiendo
+        <p *ngIf="mostrar" id="pNivelDeContaminacion"><i [style.color]="colorArrow" class="fa fa-arrow-right" aria-hidden="true"></i><span>EL afluente <br/> se encuentra <br/>{{nivelDeContaminacion}}</span></p>
+        <p *ngIf="!mostrar" id="pInformacion">La presencia de cada unos de los insectos sumara 1 punto, pudiendo
           alcanzar un maximo de 4 (todos los grupos en el rio) y minmo de 0 
           (ninguno esta presente).
         </p>
