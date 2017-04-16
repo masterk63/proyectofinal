@@ -47,6 +47,7 @@ page-wheel {
         position: relative;
         width: 317px;
         left: 3%;
+        z-index: 99;
     }
 
     .contenedorCenter{
@@ -55,10 +56,62 @@ page-wheel {
             height: 100% !important;
             text-align: center;
             overflow-y: hidden;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-position: center center;
         }
 
         .contenedorCenter > div{
             display: table-cell;
             vertical-align: middle;
+            background-color: rgba(0,0,0,0.2);
         }
         
+        #pIndice{
+            font-family: 'Amatic','Oswald', sans-serif !important;
+            font-size: 3.5em;
+            color: white;
+            font-weight: 700;
+            margin: 2%;
+            position: absolute;
+            left: -14px;
+        }
+
+        #pInformacion{
+            position: absolute;
+            bottom: 13px;
+            right: 20px;
+        }
+
+        #pNivelDeContaminacion{
+            position: absolute;
+            top: 108px;
+            left: 43px;
+        }
+
+        #pNivelDeContaminacion i{
+            color: #F8F131;
+            font-size: 4em;
+        }
+
+        #pNivelDeContaminacion span{
+            font-family: 'Amatic','Oswald', sans-serif !important;
+            font-size: 2em;
+            left: 25px;
+            top: -19px;
+            position: absolute;
+            width: 200px;
+            font-weight: 700;
+        }
+
+        #siguiente{
+            position: fixed;
+            bottom: 6px;
+            right: 3px;
+        }
+
+        #siguiente button{
+            color: white;
+            font-size: 1.5em;
+            background-color: transparent;
+        }

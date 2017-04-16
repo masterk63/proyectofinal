@@ -1,7 +1,7 @@
 
 <ion-content padding>
 
-  <div class="contenedorCenter">
+  <div class="contenedorCenter" [ngStyle]="{'background-image':'url('+riverCartoon+')'}">
     <div>
       <div class="contenedorRueda">
         <div id="wheel">
@@ -9,7 +9,15 @@
         </div>
         <img [src]="cover" class="caja">
         <div class="fondocaja"></div>
-         <p *ngIf="mostrar">Su indice es igual a {{indice}}</p>
+        <p *ngIf="mostrar" id="pNivelDeContaminacion"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>Nivel <br/> de Contaminacion <br/>Media</span></p>
+        <p *ngIf="!mostrar" id="pInformacion">La presencia de cada unos de los insectos seumara 1 punto, pudiendo
+          alcanzar un maximo de 4 (todos los grupos en el rio) y minmo de 0 
+          (ninguno esta presente).
+        </p>
+         <p id="pIndice" *ngIf="mostrar"> - Su indice es igual a {{indice}} - </p>
+      </div>
+      <div id="siguiente" *ngIf="mostrar" (click)="siguiente()">
+        <button>Continuar <ion-icon name="arrow-dropright-circle"></ion-icon></button>
       </div>
     </div>
   </div>

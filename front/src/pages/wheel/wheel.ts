@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,Platform} from 'ionic-angular';
+import { MisRegistrosPage } from '../mis-registros/mis-registros';
 
 var isStopped = false;
 var myReq;
@@ -16,7 +17,7 @@ export class Wheel {
   public cover:any;
   public mostrar = false;
   public indice:number;
-
+  public riverCartoon:any;
   constructor(public navCtrl: NavController,
               public platform: Platform,
               public navParams: NavParams) {
@@ -27,6 +28,11 @@ export class Wheel {
                     this.cover = "../www/assets/img/cover2.png";
                 }else{
                     this.cover = "../assets/img/cover2.png";
+                }
+                if(this.platform.is('android') || this.platform.is('ios')){
+                    this.riverCartoon = "../www/assets/img/riverCartoon.png";
+                }else{
+                    this.riverCartoon = "../assets/img/riverCartoon.png";
                 }
   }
   
@@ -61,8 +67,8 @@ export class Wheel {
     });
   }
 
-    public detener(){
-      this.mostrar = false;
+    public siguiente(){
+      this.navCtrl.setRoot(MisRegistrosPage);
     }
 
     public rand(min, max) {
