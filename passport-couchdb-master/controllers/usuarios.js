@@ -40,23 +40,22 @@ exports.forgotPassword = function(req,res){
                 });
             },
             function(token, done) {
-                console.log(req.body.email);
                 User.buscarPorMail(req.body.email, function(consulta) {
-
-                    console.log(consulta);
                     if (consulta[0].codigo === 0) {
                         return res.json(consulta[0]);
                     }
-                    //tengo que modificar la tabla en mysql y hacer el sp para agregar el token
-                    user.resetPasswordToken = token;
-                    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-
-                    user.save(function(err) {
-                    done(err, token, user);
+                    
+                    User.insertarTokenUsuario(token,consulta[0].codigo,function(consulta){
+                        if (consulta[0].codigo === 0) {
+                            return res.json(consulta[0]);
+                        }
+                        done(err, token, req.body.email);
                     });
                 });
             },
-            function(token, user, done) {
+            function(token, mail, done) {
+                console.log(token);
+                console.log(mail);
             var smtpTransport = nodemailer.createTransport('SMTP', {
                 service: 'SendGrid',
                 auth: {

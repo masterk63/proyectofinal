@@ -68,3 +68,13 @@ exports.buscarPorMail = function(mail,fn){
     });
 } 
 
+exports.insertarTokenUsuario = function(token,idUsuario,fn){
+    var t = '"'+token+'"';
+    var i = '"'+idUsuario+'"';
+    connection.query('call token_nuevo('+t+','+i+')', function(err, rows){  
+        if (err) fn (err);  
+            fn(rows[0]); 
+    });
+} 
+
+
