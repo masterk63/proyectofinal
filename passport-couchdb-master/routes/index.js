@@ -26,7 +26,7 @@ module.exports = function(app){
     apiUsuarios.get('/usuariosListar',UsuariosController.listarUsuarios);
     apiUsuarios.get('/usuarioDame/:id',UsuariosController.dameUsuario);
     apiUsuarios.post('/usuarioModificar',UsuariosController.usuarioModificar);
-    apiUsuarios.post('/forgot',UsuariosController.fotgotPassword);
+    apiUsuarios.post('/forgot',UsuariosController.forgotPassword); 
 
     // Set up routes
     app.use('/api', apiRoutes,apiUsuarios);

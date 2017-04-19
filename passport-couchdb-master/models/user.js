@@ -61,7 +61,8 @@ exports.login = function(usuario,fn){
 } 
 
 exports.buscarPorMail = function(mail,fn){
-    connection.query('call usuario_buscarPorMail('+mail+')', function(err, rows){  
+    var m = '"'+mail+'"';
+    connection.query('call usuario_buscarPorMail('+m+')', function(err, rows){  
         if (err) fn (err);  
             fn(rows[0]); 
     });

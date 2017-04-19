@@ -1,4 +1,6 @@
 var User = require('./../models/user');
+var async = require('async'),
+    crypto = require('crypto');
 
 exports.dameUsuario = function(req,res){
     User.dame(req.params.id,function(consulta){
@@ -28,7 +30,7 @@ exports.usuarioModificar = function(req,res){
     });
 }
 
-exports.fotgotPassword = function(req,res){
+exports.forgotPassword = function(req,res){
     
      async.waterfall([
             function(done) {
@@ -38,12 +40,14 @@ exports.fotgotPassword = function(req,res){
                 });
             },
             function(token, done) {
+                console.log(req.body.email);
                 User.buscarPorMail(req.body.email, function(consulta) {
-                    if (consulta.codigo === '0') {
-                        req.flash('error', 'No existe una cuenta con es Mail.');
-                        return res.redirect('/forgot');
-                    }
 
+                    console.log(consulta);
+                    if (consulta[0].codigo === 0) {
+                        return res.json(consulta[0]);
+                    }
+                    //tengo que modificar la tabla en mysql y hacer el sp para agregar el token
                     user.resetPasswordToken = token;
                     user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
