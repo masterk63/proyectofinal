@@ -38,7 +38,6 @@ export class UsuarioPage {
               public authService: Auth,
               public alertCtrl: AlertController){
                 this.idUsuario = this.params.get('idUsuario');
-                console.log(this.idUsuario);
                 this.dameId();
             } 
 
@@ -132,18 +131,26 @@ export class UsuarioPage {
     eliminar(){
       console.log("eliminar function");
       console.log(this.idUsuario);
-      this.userService.usuarioBaja(this.idUsuario)
+      this.userService.usuarioBaja(this.usuario.idUsuario)
       .then(data => {
-        this.mensajeModificar = data;
-        if(this.mensajeModificar[0].codigo > 0){
+        let mensajeBaja = data;
+        if(mensajeBaja[0].codigo > 0){
           let titulo = "Correcto";
-          let mensaje = this.mensajeModificar[0].mensaje;
+          let mensaje = mensajeBaja[0].mensaje;
           this.mostrarAlerta(mensaje,titulo);
-          this.editar = !this.editar;
-          this.margen = 275;
+          //eliminamos del vector usuarios, el que acabamos de eliminar, por el TWO DATA BINDING en el componente GESTOR USUARIOS, para modificar el DOM
+          let bandera=0;
+          for (let u of this.userService.usuarios) {
+              if(u.idUsuario == this.usuario.idUsuario){
+                  this.userService.usuarios.splice(bandera, 1); // el primera variable es el elemento del array (0-n indexado)
+              }else{
+                bandera++;
+              }
+          }
+          this.controlLogout();
         }else{
           let titulo = "Error";
-           let mensaje = this.mensajeModificar[0].mensaje;
+           let mensaje = mensajeBaja[0].mensaje;
             this.mostrarAlerta(mensaje,titulo);
         }
         });
@@ -169,6 +176,17 @@ export class UsuarioPage {
       ]
     });
     confirm.present();
+  }
+
+  controlLogout(){
+    this.storage.get('idUsuario').then((value) => {
+          let id = value;
+          if(id == this.usuario.idUsuario){
+            this.logout();
+          }else{
+            this.navCtrl.pop();
+          }
+      });
   }
 
 }

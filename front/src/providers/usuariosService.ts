@@ -11,10 +11,11 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class UsuariosService {
     //lista de usuarios para gestion
-  usuarios: any;
+  public usuarios: any;
   //solo el usuario para el DAME
   usuario: any;
   mensajeModificar: any;
+  mensajeBaja: any;
 
   constructor(private http: Http) {
 
@@ -92,8 +93,8 @@ export class UsuariosService {
         this.http.get('http://rickybruno.sytes.net:3000/api/usuarioBaja/'+idUsuario)
             .map(res => res.json())
             .subscribe(resultado => {
-            this.usuario = resultado;
-            resolve(this.usuario);
+            this.mensajeBaja = resultado;
+            resolve(this.mensajeBaja);
           });
       });
     }
