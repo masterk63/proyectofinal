@@ -1,29 +1,24 @@
-<!--
-  Generated template for the Wheel page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>wheel</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
 
 <ion-content padding>
 
-  <div class="contenedorRueda">
-    <div id="wheel">
-      <canvas id="canvas" width="300" height="300"></canvas>
+  <div class="contenedorCenter" [ngStyle]="{'background-image':'url('+riverCartoon+')'}">
+    <div>
+      <div class="contenedorRueda">
+        <div id="wheel">
+          <canvas id="canvas" width="300" height="300"></canvas>
+        </div>
+        <img [src]="cover" class="caja">
+        <div class="fondocaja"></div>
+        <p *ngIf="mostrar" id="pNivelDeContaminacion"><i [style.color]="colorArrow" class="fa fa-arrow-right" aria-hidden="true"></i><span>EL afluente <br/> se encuentra <br/>{{nivelDeContaminacion}}</span></p>
+        <p *ngIf="!mostrar" id="pInformacion">La presencia de cada unos de los insectos sumara 1 punto, pudiendo
+          alcanzar un maximo de 4 (todos los grupos en el rio) y minmo de 0 
+          (ninguno esta presente).
+        </p>
+         <p id="pIndice" *ngIf="mostrar"> - Su indice es igual a {{indice}} - </p>
+      </div>
+      <div id="siguiente" *ngIf="mostrar" (click)="siguiente()">
+        <button>Continuar <ion-icon name="arrow-dropright-circle"></ion-icon></button>
+      </div>
     </div>
-    <div class="caja"></div>
   </div>
-  
-    
-  <br>
-  <button id="spin">Stop!</button>
-  <button (click)="detener()">Detner!</button>
 </ion-content>

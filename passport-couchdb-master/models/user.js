@@ -66,3 +66,21 @@ exports.login = function(usuario,fn){
                 fn(rows[0]); 
             });
 } 
+
+exports.buscarPorMail = function(mail,fn){
+    var m = '"'+mail+'"';
+    connection.query('call usuario_buscarPorMail('+m+')', function(err, rows){  
+        if (err) fn (err);  
+            fn(rows[0]); 
+    });
+} 
+
+exports.insertarTokenUsuario = function(token,idUsuario,fn){
+    var t = '"'+token+'"';
+    var i = '"'+idUsuario+'"';
+    connection.query('call token_nuevo('+t+','+i+')', function(err, rows){  
+            fn(err,rows[0]); 
+    });
+} 
+
+

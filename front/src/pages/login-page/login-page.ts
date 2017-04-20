@@ -46,12 +46,12 @@ export class LoginPage {
     }else if(this.width > 600){
       this.tam="100% 100%";
     }
-     this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
-    // if(this.plt.is('android') || this.plt.is('ios')){
-    //     this.fotoIntro = "../www/assets/img/cascadaRioNoque.jpg";
-    // }else{
-    //     this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
-    // }
+     //this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
+    if(this.plt.is('android') || this.plt.is('ios')){
+        this.fotoIntro = "../www/assets/img/cascadaRioNoque.jpg";
+    }else{
+        this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
+    }
 
 }
 
