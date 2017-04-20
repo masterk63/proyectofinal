@@ -1,6 +1,7 @@
 var User = require('./../models/user');
 var async = require('async'),
     crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 exports.dameUsuario = function(req,res){
     User.dame(req.params.id,function(consulta){
@@ -30,7 +31,7 @@ exports.usuarioModificar = function(req,res){
     });
 }
 
-exports.forgotPassword = function(req,res,next){
+exports.forgotPassword = function(req,res){
     
      async.waterfall([
             function(done) {
@@ -56,31 +57,33 @@ exports.forgotPassword = function(req,res,next){
                 });
             },
             function(token, mail, done) {
-                console.log('el token es',token);
-                console.log('el mail es',mail);
-            var smtpTransport = nodemailer.createTransport('SMTP', {
-                service: 'SendGrid',
+            
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
                 auth: {
-                user: '!!! YOUR SENDGRID USERNAME !!!',
-                pass: '!!! YOUR SENDGRID PASSWORD !!!'
+                    user: 'masterk63@gmail.com',
+                    pass: 'Kg200210'
                 }
             });
             var mailOptions = {
-                to: user.email,
-                from: 'passwordreset@demo.com',
-                subject: 'Node.js Password Reset',
-                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-                'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                to: mail,
+                from: 'restablecercontrasenia@aguita.com',
+                subject: 'Restablecer Contrasenia',
+                text: 'Recibiste este mail porque tu (o alguien mas) pidio un restablecimiento de contrasenia para tu cuenta en aguieta. \n\n' +
+                'Porfavor click aqui en el siguiente enlace, o pega esto en tu navegador para completar el proceso: \n\n' +
+                'http://rickybruno.sytes.net/reset/' + token + '\n\n' +
+                'Si tu no lo solicitaste, por favor ignora este mail y tu contrasenia no fue cambiada.\n'
             };
-            smtpTransport.sendMail(mailOptions, function(err) {
-                req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+            transporter.sendMail(mailOptions, function (error, info){
+                console.log('mail enviado');
+                res.json({'codigo':1,'mensaje':'listo'});
                 done(err, 'done');
             });
             }
         ], function(err) {
-            if (err) return next(err);
-            res.redirect('/forgot');
+            console.log('fin del proceso');
+            //if (err) return res.send(err);;
+            
+            //res.json({'codigo':1,'mensaje':'listo'});
         });
 }
