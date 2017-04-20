@@ -57,6 +57,7 @@
             </div>    
         </div>
         <button *ngIf="!editar" (click)="botonEditar()"> EDITAR </button>
+        <button *ngIf="!editar" ion-button color="red" (click)="confirmarEliminar()">Eliminar</button>
         <button *ngIf="editar" (click)="botonAceptar()"> ACEPTAR </button>
         <button *ngIf="editar" (click)="botonCancelar()"> CANCELAR </button>
     </div>

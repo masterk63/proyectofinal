@@ -1,6 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { UsuariosService } from '../../providers/usuariosService';
+import { UsuarioPage } from '../usuario/usuario';
 
 /*
   Generated class for the UsuariosGestor page.
@@ -49,6 +50,11 @@ export class UsuariosGestorPage {
           buttons: ['ACEPTAR']
         });
         alert.present();
+    }
+
+    editar(idUsuario){
+      console.log(idUsuario);
+      this.navCtrl.push(UsuarioPage,{idUsuario});
     }
 
 

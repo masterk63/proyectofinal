@@ -40,6 +40,13 @@ exports.dame = function(id,fn){
             });
 } 
 
+exports.baja = function(id,fn){
+    connection.query('call usuario_baja('+id+')', function(err, rows){  
+                if (err) fn (err);  
+                fn(rows[0]); 
+            });
+} 
+
 exports.modificar = function(u,fn){
     connection.query('call usuario_modificar('
         +u.idUsuario+

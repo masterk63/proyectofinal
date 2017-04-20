@@ -41,22 +41,24 @@
           <ion-col><strong>Nombre</strong></ion-col>
           <ion-col><strong>Apellido</strong></ion-col>
           <ion-col><strong>Mail</strong></ion-col>
-          <ion-col><strong>Residencia</strong></ion-col>
+          <!--<ion-col><strong>Residencia</strong></ion-col>
           <ion-col><strong>Institucion</strong></ion-col>
-          <ion-col><strong>Grado</strong></ion-col>
+          <ion-col><strong>Grado</strong></ion-col>-->
           <ion-col><strong>Cantidad de registros</strong></ion-col>
+          <ion-col><strong>Accion</strong></ion-col>
         </ion-row>
         <ion-row *ngFor="let u of usuarios">
           <ion-col><strong>{{u.usuario}}</strong></ion-col>
           <ion-col><strong>{{u.nombre}}</strong></ion-col>
           <ion-col><strong>{{u.apellido}}</strong></ion-col>
           <ion-col><strong>{{u.mail}}</strong></ion-col>
-          <ion-col *ngIf="u.residencia != 'undefined'"><strong>{{u.residencia}}</strong></ion-col>
+          <!--<ion-col *ngIf="u.residencia != 'undefined'"><strong>{{u.residencia}}</strong></ion-col>
           <ion-col *ngIf="u.residencia == 'undefined'"><strong><ion-icon name="remove"></ion-icon></strong></ion-col>
           <ion-col><strong>{{u.institucion}}</strong></ion-col>
           <ion-col *ngIf="u.grado != 'undefined'"><strong>{{u.grado}}</strong></ion-col>
-          <ion-col *ngIf="u.grado == 'undefined'"><strong><ion-icon name="remove"></ion-icon></strong></ion-col>
+          <ion-col *ngIf="u.grado == 'undefined'"><strong><ion-icon name="remove"></ion-icon></strong></ion-col>-->
           <ion-col><strong>{{u.registros}}</strong></ion-col>
+          <ion-col><button ion-button color="red" (click)="editar(u.idUsuario)">Ver/Editar</button></ion-col>
         </ion-row >
     </ion-grid>  
 

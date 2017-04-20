@@ -86,4 +86,17 @@ export class UsuariosService {
           });
       });
     }
+
+    usuarioBaja(idUsuario){
+        return new Promise(resolve => {
+        this.http.get('http://rickybruno.sytes.net:3000/api/usuarioBaja/'+idUsuario)
+            .map(res => res.json())
+            .subscribe(resultado => {
+            this.usuario = resultado;
+            resolve(this.usuario);
+          });
+      });
+    }
+
+
 }

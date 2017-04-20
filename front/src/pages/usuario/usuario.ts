@@ -29,25 +29,42 @@ export class UsuarioPage {
   grado: any;
 
 
+
+
   constructor(public navCtrl: NavController,
+              public params: NavParams,
               public userService: UsuariosService,
               public storage: Storage,
               public authService: Auth,
               public alertCtrl: AlertController){
+                this.idUsuario = this.params.get('idUsuario');
+                console.log(this.idUsuario);
                 this.dameId();
             } 
 
   dameId(){
+
+    if(this.idUsuario == null){
+      console.log("idUsuario null, buscando desde usuario propio");
     //traemos el id de la variable local guardada en el logueo
-     this.storage.get('idUsuario').then((value) => {
-        this.idUsuario = value;
-        //vamos al provider a que pida en la api el SP de usuario dame con el id
+      this.storage.get('idUsuario').then((value) => {
+          this.idUsuario = value;
+          //vamos al provider a que pida en la api el SP de usuario dame con el id
+          this.userService.usuarioDame(this.idUsuario)
+          .then(data => {
+            this.usuario = data;
+            this.usuario = this.usuario[0];
+          });
+      });
+    }else{
+      console.log("idUsuario existe desde gestor usuarios por PUSH");
         this.userService.usuarioDame(this.idUsuario)
-        .then(data => {
-          this.usuario = data;
-          this.usuario = this.usuario[0];
-        }) ;
-    });
+          .then(data => {
+            this.usuario = data;
+            this.usuario = this.usuario[0];
+          });
+    }
+
   }
 
     logout(){
@@ -111,5 +128,47 @@ export class UsuarioPage {
       });
       alert.present();
     }
+
+    eliminar(){
+      console.log("eliminar function");
+      console.log(this.idUsuario);
+      this.userService.usuarioBaja(this.idUsuario)
+      .then(data => {
+        this.mensajeModificar = data;
+        if(this.mensajeModificar[0].codigo > 0){
+          let titulo = "Correcto";
+          let mensaje = this.mensajeModificar[0].mensaje;
+          this.mostrarAlerta(mensaje,titulo);
+          this.editar = !this.editar;
+          this.margen = 275;
+        }else{
+          let titulo = "Error";
+           let mensaje = this.mensajeModificar[0].mensaje;
+            this.mostrarAlerta(mensaje,titulo);
+        }
+        });
+    }
+
+    confirmarEliminar() {
+      console.log("aleterConfirmar");
+    let confirm = this.alertCtrl.create({
+      title: 'Eliminar Usuario',
+      message: '¿Esta seguro que desea eliminar el usuario '+this.usuario.usuario+'?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.eliminar();
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
 
 }
