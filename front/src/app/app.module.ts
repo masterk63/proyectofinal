@@ -15,11 +15,13 @@ import { Camara } from '../providers/camara';
 import { Localsave } from '../providers/localsave';
 import { Ubicacion } from '../providers/ubicacion';
 import { UsuariosService } from '../providers/usuariosService';
+import { RegistrosService } from '../providers/registrosService';
 import { LoginPage } from '../pages/login-page/login-page';
 import { UsuarioPage } from '../pages/usuario/usuario';
 import { UsuariosGestorPage } from '../pages/usuarios-gestor/usuarios-gestor';
 import { SignupPage } from '../pages/signup-page/signup-page';
 import { MisRegistrosPage } from '../pages/mis-registros/mis-registros';
+import { RegistrosGestorPage } from '../pages/registros-gestor/registros-gestor';
 import { Wheel } from '../pages/wheel/wheel';
 import { IntroPage } from '../pages/intro/intro';
 import { TutorialPage } from '../pages/tutorial/tutorial';
@@ -47,6 +49,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TutorialPage,
     UsuarioPage,
     UsuariosGestorPage,
+    RegistrosGestorPage,
     SwipeVertical //OJO, Swipe Vertical es una directiva, solo va aqui y se importa arriba, no va abajo en bootstrap!
   ],
   imports: [
@@ -71,8 +74,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TutorialPage,
     UsuarioPage,
     UsuariosGestorPage,
+    RegistrosGestorPage,
   ],
   providers: [StatusBar,
-              SplashScreen,{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,Storage]
+              SplashScreen,{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,RegistrosService,Storage]
 })
 export class AppModule {}
