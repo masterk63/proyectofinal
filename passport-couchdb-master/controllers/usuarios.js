@@ -30,7 +30,7 @@ exports.usuarioModificar = function(req,res){
     });
 }
 
-exports.forgotPassword = function(req,res){
+exports.forgotPassword = function(req,res,next){
     
      async.waterfall([
             function(done) {
@@ -44,18 +44,20 @@ exports.forgotPassword = function(req,res){
                     if (consulta[0].codigo === 0) {
                         return res.json(consulta[0]);
                     }
-                    
-                    User.insertarTokenUsuario(token,consulta[0].codigo,function(consulta){
+                    var idUsuario = consulta[0].codigo;
+                    idUsuario = parseInt(idUsuario);
+                    User.insertarTokenUsuario(token,idUsuario,function(err,consulta){
                         if (consulta[0].codigo === 0) {
                             return res.json(consulta[0]);
                         }
-                        done(err, token, req.body.email);
+                        done(err,token, req.body.email); // siempre el done() tiene que llevar el error
+                                                         // por definicion
                     });
                 });
             },
             function(token, mail, done) {
-                console.log(token);
-                console.log(mail);
+                console.log('el token es',token);
+                console.log('el mail es',mail);
             var smtpTransport = nodemailer.createTransport('SMTP', {
                 service: 'SendGrid',
                 auth: {
