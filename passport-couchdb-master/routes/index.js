@@ -27,14 +27,16 @@ module.exports = function(app){
     apiUsuarios.get('/usuarioDame/:id',UsuariosController.dameUsuario);
     apiUsuarios.post('/usuarioModificar',UsuariosController.usuarioModificar);
     apiUsuarios.get('/usuarioBaja/:id',UsuariosController.usuarioBaja);
-    apiUsuarios.post('/forgot',UsuariosController.forgotPassword);
+    apiUsuarios.post('/forgot',UsuariosController.forgotPassword); 
     // Set up routes
     app.use('/api', apiRoutes,apiUsuarios);
+    
+    app.get('/reset/:token', UsuariosController.resetPassword);
+    app.post('/reset/:token', UsuariosController.resetPasswordPOST);
     
     app.get('/', function(req, res) {
         res.render('index', { title: 'Express' });
     });
-
     app.get('/forgot', function(req, res) {
         res.render('forgot', {
             user: req.user
