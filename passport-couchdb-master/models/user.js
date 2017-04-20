@@ -75,6 +75,28 @@ exports.buscarPorMail = function(mail,fn){
     });
 } 
 
+exports.buscarToken = function(token,fn){
+    var t = '"'+token+'"';
+    connection.query('call token_buscar('+t+')', function(err, rows){  
+            fn(err,rows[0]); 
+    });
+}
+
+exports.actualizarContrasenia = function(contrasenia,idUsuario,fn){
+    var c;
+    if(contrasenia){
+         c = '"'+contrasenia+'"';
+    }
+    else{
+        c= '""';
+    }   
+    var i = '"'+idUsuario+'"';
+    console.log(c);
+    connection.query('call usuario_actualizarContrasenia('+c+','+i+')', function(err, rows){  
+            fn(err,rows[0]); 
+    });
+} 
+
 exports.insertarTokenUsuario = function(token,idUsuario,fn){
     var t = '"'+token+'"';
     var i = '"'+idUsuario+'"';

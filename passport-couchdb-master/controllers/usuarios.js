@@ -37,6 +37,66 @@ exports.usuarioModificar = function(req,res){
     });
 }
 
+
+exports.resetPassword = function(req,res){
+    User.buscarToken(req.params.token, function(err, consulta) {
+        if (consulta[0].codigo === 0) {
+            req.flash('error', consulta[0].mensaje);
+            return res.redirect('/');
+        }else{
+            res.render('reset', {
+                user: req.user
+            });
+        }
+    });
+}
+
+exports.resetPasswordPOST = function(req,res){
+    
+     async.waterfall([
+            function(done) {
+                User.buscarToken(req.params.token, function(err,consulta) {
+                    if (consulta[0].codigo === 0) {
+                        req.flash('error', consulta[0].mensaje);
+                        return res.redirect('back');
+                    }else{
+                        User.actualizarContrasenia(req.body.password,consulta[0].idUsuario,function(err,consulta) {
+                            res.json(consulta);
+                        });
+                    }
+                });
+            },
+            function(token, mail, done) {
+            
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'masterk63@gmail.com',
+                    pass: 'Kg200210'
+                }
+            });
+            var mailOptions = {
+                to: mail,
+                from: 'restablecercontrasenia@aguita.com',
+                subject: 'Restablecer Contrasenia',
+                text: 'Recibiste este mail porque tu (o alguien mas) pidio un restablecimiento de contrasenia para tu cuenta en aguieta. \n\n' +
+                'Porfavor click aqui en el siguiente enlace, o pega esto en tu navegador para completar el proceso: \n\n' +
+                'http://rickybruno.sytes.net/reset/' + token + '\n\n' +
+                'Si tu no lo solicitaste, por favor ignora este mail y tu contrasenia no fue cambiada.\n'
+            };
+            transporter.sendMail(mailOptions, function (error, info){
+                console.log('mail enviado');
+                done(error, 'done');
+            });
+            }
+        ], function(err) {
+            console.log('fin del proceso');
+            if (err) return res.send(err);;
+            res.json({'codigo':1,'mensaje':'listo'});
+        });
+}
+
+
 exports.forgotPassword = function(req,res){
     
      async.waterfall([
@@ -82,14 +142,12 @@ exports.forgotPassword = function(req,res){
             };
             transporter.sendMail(mailOptions, function (error, info){
                 console.log('mail enviado');
-                res.json({'codigo':1,'mensaje':'listo'});
-                done(err, 'done');
+                done(error, 'done');
             });
             }
         ], function(err) {
             console.log('fin del proceso');
-            //if (err) return res.send(err);;
-            
-            //res.json({'codigo':1,'mensaje':'listo'});
+            if (err) return res.send(err);;
+            res.json({'codigo':1,'mensaje':'listo'});
         });
 }
