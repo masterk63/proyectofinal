@@ -58,41 +58,41 @@ exports.resetPasswordPOST = function(req,res){
                 User.buscarToken(req.params.token, function(err,consulta) {
                     if (consulta[0].codigo === 0) {
                         req.flash('error', consulta[0].mensaje);
-                        return res.redirect('back');
+                        return res.redirect('/');
                     }else{
                         User.actualizarContrasenia(req.body.password,consulta[0].idUsuario,function(err,consulta) {
-                            res.json(consulta);
+                            if(consulta[0].codigo === 0){
+                                req.flash('error', consulta[0].mensaje);
+                                return res.redirect('/');
+                            }else{
+                                done(err,consulta[0].mail);
+                            }
                         });
                     }
                 });
             },
-            function(token, mail, done) {
-            
-            var transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: 'masterk63@gmail.com',
-                    pass: 'Kg200210'
-                }
-            });
-            var mailOptions = {
-                to: mail,
-                from: 'restablecercontrasenia@aguita.com',
-                subject: 'Restablecer Contrasenia',
-                text: 'Recibiste este mail porque tu (o alguien mas) pidio un restablecimiento de contrasenia para tu cuenta en aguieta. \n\n' +
-                'Porfavor click aqui en el siguiente enlace, o pega esto en tu navegador para completar el proceso: \n\n' +
-                'http://rickybruno.sytes.net/reset/' + token + '\n\n' +
-                'Si tu no lo solicitaste, por favor ignora este mail y tu contrasenia no fue cambiada.\n'
-            };
-            transporter.sendMail(mailOptions, function (error, info){
-                console.log('mail enviado');
-                done(error, 'done');
-            });
+            function(mail, done) {
+                var transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: 'masterk63@gmail.com',
+                        pass: 'Kg200210'
+                    }
+                });
+                var mailOptions = {
+                    to: mail,
+                    from: 'restablecercontrasenia@aguita.com',
+                    subject: 'Restablecer Contrasenia',
+                    text: 'Hola ,\n\n' +
+                    'Esta es una confirmacion de que el password de tu cuenta ' + mail + ' a sido cambiado.\n'
+                };
+                transporter.sendMail(mailOptions, function (error, info){
+                    req.flash('success', 'Tu contrasenia se actualizo correctamente!!');
+                    done(error, 'done');
+                });
             }
         ], function(err) {
-            console.log('fin del proceso');
-            if (err) return res.send(err);;
-            res.json({'codigo':1,'mensaje':'listo'});
+            res.redirect('/');
         });
 }
 
