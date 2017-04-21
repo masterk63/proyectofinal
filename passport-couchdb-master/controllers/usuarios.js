@@ -52,7 +52,17 @@ exports.resetPassword = function(req,res){
 }
 
 exports.resetPasswordPOST = function(req,res){
-    
+
+    //validacion de datos
+    req.assert('password', 'La contresenia debe poseer al menos 5 caracteres').notEmpty().len(5,20);
+    req.assert('password_confirm', 'La contresenia de confirmacion debe poseer al menos 5 caracteres').notEmpty().len(5,20);
+    req.assert('password_confirm', 'La contresenia debe coincidir').equals(req.body.password);
+
+    var errors = req.validationErrors();
+    if (errors) {
+        req.flash('error', errors);
+        return res.redirect('back');
+    } 
      async.waterfall([
             function(done) {
                 User.buscarToken(req.params.token, function(err,consulta) {

@@ -2,6 +2,7 @@ var express       = require('express'),
     app           = express(),
     cookieParser  = require('cookie-parser'),
     bodyParser    = require('body-parser'),
+    validator = require('express-validator'),
     cors          = require('cors'),
     path = require('path'),
     crypto = require('crypto'),
@@ -17,6 +18,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(validator());
 app.use(cors());
 app.use(cookieParser());
 app.use(session({ secret: 'session secret key' }));
