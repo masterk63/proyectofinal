@@ -9,6 +9,7 @@ declare var google;
 
 @Injectable()
 export class Ubicacion {
+  markers:any;
 
   constructor(public http: Http) {
     console.log('Hello Ubicacion Provider');
@@ -39,11 +40,18 @@ export class Ubicacion {
             let resultado = -1;
             resolve(resultado);
           };
-
     });
-    
- 
-
   }
+
+    public obtenerTodasLasCoordenadas(){
+        return new Promise(resolve => {
+        this.http.get('http://rickybruno.sytes.net:3000/api/listarMarkers')
+            .map(res => res.json())
+            .subscribe(resultado => {
+              this.markers = resultado;
+              resolve(this.markers);
+          });
+      });
+    }
   
 }

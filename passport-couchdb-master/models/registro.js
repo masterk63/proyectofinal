@@ -12,8 +12,14 @@ var connection = mysql.createConnection({
 
 exports.listar = function(fn){
     connection.query('call registros_listar()', function(err, rows){  
-                if (err)  fn(err);  
+                if (err)  fn(err);
                 fn(rows[0]); 
+            });
+}
+
+exports.listarMarkets = function(fn){
+    connection.query('call registros_coordenadas()', function(err, rows){  
+                fn(err,rows[0]); 
             });
 }
 

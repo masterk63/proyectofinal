@@ -9,6 +9,14 @@ exports.registrosListar = function(req,res){
     });
 }
 
+exports.registrosListarMarkers = function(req,res){
+    Registro.listarMarkets(function(err,consulta){
+        if (err)  return res.send(err); 
+        res.json(consulta);
+    });
+}
+
+
 
 // exports.dameUsuario = function(req,res){
 //     User.dame(req.params.id,function(consulta){
