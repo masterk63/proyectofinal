@@ -1,5 +1,6 @@
 var AuthenticationController = require('./../controllers/authentication'),  
     UsuariosController = require('./../controllers/usuarios'),  
+    RegistrosController = require('./../controllers/registrosController'),  
     express = require('express'),
     passportService = require('./../config/passport'),
     passport = require('passport');
@@ -11,6 +12,7 @@ module.exports = function(app){
  
     var apiRoutes = express.Router(),
         apiUsuarios = express.Router(),
+        apiRegistros = express.Router(),
         authRoutes = express.Router();
  
     // Auth Routes
@@ -28,8 +30,13 @@ module.exports = function(app){
     apiUsuarios.post('/usuarioModificar',UsuariosController.usuarioModificar);
     apiUsuarios.get('/usuarioBaja/:id',UsuariosController.usuarioBaja);
     apiUsuarios.post('/forgot',UsuariosController.forgotPassword); 
+    //API Registros
+    apiRegistros.get('/registrosListar',RegistrosController.registrosListar);
+
+
     // Set up routes
-    app.use('/api', apiRoutes,apiUsuarios);
+    //Esto es para que use la ruta! sino error
+    app.use('/api', apiRoutes,apiUsuarios,apiRegistros);
     
     app.get('/reset/:token', UsuariosController.resetPassword);
     app.post('/reset/:token', UsuariosController.resetPasswordPOST);

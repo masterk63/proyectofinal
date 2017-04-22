@@ -18,40 +18,40 @@ export class RegistrosGestorPage {
               public userService: UsuariosService,
               public alertCtrl: AlertController,
               ){
-                  this.cargarUsuarios();
+                  // this.cargarRegistros();
               }
 
               
-    cargarUsuarios(){
-      this.userService.load()
-        .then(data => {
-          this.usuarios = data;
-        }) ;
-    }
+    // cargarRegistros(){
+    //   this.userService.cargarRegistros()
+    //     .then(data => {
+    //       this.usuarios = data;
+    //     }) ;
+    // }
 
-    filtrarUsuarios() {
-      this.usuarios = this.userService.filterItems(this.searchTerm,this.filtro);
-    }
+    // filtrarUsuarios() {
+    //   this.usuarios = this.userService.filterItems(this.searchTerm,this.filtro);
+    // }
 
-    controlVacio(){
-      if(this.filtro == null){
-        this.mostrarAlerta();
-      }
-    }
+    // controlVacio(){
+    //   if(this.filtro == null){
+    //     this.mostrarAlerta();
+    //   }
+    // }
 
-    mostrarAlerta(){
-        let alert = this.alertCtrl.create({
-          title: '¡Filtro necesario!',
-          subTitle: 'Por favor primedo debe seleccionar un filtro para realizar la busqueda',
-          buttons: ['ACEPTAR']
-        });
-        alert.present();
-    }
+    // mostrarAlerta(){
+    //     let alert = this.alertCtrl.create({
+    //       title: '¡Filtro necesario!',
+    //       subTitle: 'Por favor primedo debe seleccionar un filtro para realizar la busqueda',
+    //       buttons: ['ACEPTAR']
+    //     });
+    //     alert.present();
+    // }
 
-    editar(idUsuario){
-      console.log(idUsuario);
-      this.navCtrl.push(UsuarioPage,{idUsuario});
-    }
+    // editar(idUsuario){
+    //   console.log(idUsuario);
+    //   this.navCtrl.push(UsuarioPage,{idUsuario});
+    // }
 
 
 
