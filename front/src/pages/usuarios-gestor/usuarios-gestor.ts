@@ -1,5 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { AlertController, NavController, NavParams } from 'ionic-angular';
+import { Auth } from '../../providers/auth';
+import { LoginPage } from '../login-page/login-page';
 import { UsuariosService } from '../../providers/usuariosService';
 import { UsuarioPage } from '../usuario/usuario';
 
@@ -21,6 +23,7 @@ export class UsuariosGestorPage {
   constructor(public navCtrl: NavController,
               public userService: UsuariosService,
               public alertCtrl: AlertController,
+              public authService: Auth,
               ){
                 this.cargarUsuarios();
 
@@ -56,6 +59,14 @@ export class UsuariosGestorPage {
       console.log(idUsuario);
       this.navCtrl.push(UsuarioPage,{idUsuario});
     }
+      logout(){
+    console.log('saliendo logout');
+    this.authService.logout().then(()=>{
+      console.log('listo borrado, dirijiendo a registrar');
+      
+      this.navCtrl.setRoot(LoginPage);
+    });
+  }
 
 
 

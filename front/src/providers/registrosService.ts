@@ -18,9 +18,7 @@ export class RegistrosService {
   mensajeBaja: any;
 
   constructor(private http: Http) {
-    //   this.registros.sort(function(a,b) { //La funcion sort ordena numeros, si quiero de menor a mayor a es 'a-b', si quiero de mayo a menor b-a
-    //         return b.indice - a.indice;
-    //     });
+
   }
 
 
@@ -36,16 +34,16 @@ export class RegistrosService {
       });
     }
 
-    // usuarioDame(idUsuario){
-    //     return new Promise(resolve => {
-    //     this.http.get('http://rickybruno.sytes.net:3000/api/usuarioDame/'+idUsuario)
-    //         .map(res => res.json())
-    //         .subscribe(resultado => {
-    //         this.usuario = resultado;
-    //         resolve(this.usuario);
-    //       });
-    //   });
-    // }
+    registroDame(idRegistro){
+        return new Promise(resolve => {
+        this.http.get('http://rickybruno.sytes.net:3000/api/registroDame/'+idRegistro)
+            .map(res => res.json())
+            .subscribe(resultado => {
+            this.registro = resultado;
+            resolve(this.registro);
+          });
+      });
+    }
 
     // usuarioModificar(usuario){
     //     return new Promise(resolve => {
