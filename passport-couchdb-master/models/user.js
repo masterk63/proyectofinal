@@ -91,7 +91,6 @@ exports.actualizarContrasenia = function(contrasenia,idUsuario,fn){
         c= '""';
     }   
     var i = '"'+idUsuario+'"';
-    console.log(c);
     connection.query('call usuario_actualizarContrasenia('+c+','+i+')', function(err, rows){  
             fn(err,rows[0]); 
     });

@@ -25,7 +25,9 @@ html
     .container
       if messages.error
         .alert.alert-danger
-          div= messages.error
+          ul
+            for e in messages.error
+              li!= e.msg
       if messages.info
         .alert.alert-info
           div= messages.info
