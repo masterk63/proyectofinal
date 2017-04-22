@@ -1,0 +1,28 @@
+
+<ion-header>
+<ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Registro N° {{registro.idRegistro}}
+    </ion-title>
+    <ion-buttons start>
+    <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
+  </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    <div> 
+        <img [src]="fotoPaisajeURL" (click)="mostrarFoto(fotoPaisajeURL)" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
+      <p>Foto Paisaje</p> 
+    </div>
+
+    <div> 
+        <img [src]="fotoMuestraURL" (click)="mostrarFoto(fotoMuestraURL)" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
+      <p>Foto Muestra</p> 
+    </div>
+</ion-content>
+

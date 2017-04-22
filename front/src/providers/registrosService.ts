@@ -45,17 +45,6 @@ export class RegistrosService {
       });
     }
 
-    // usuarioModificar(usuario){
-    //     return new Promise(resolve => {
-    //     this.http.post('http://rickybruno.sytes.net:3000/api/usuarioModificar',usuario)
-    //         .map(res => res.json())
-    //         .subscribe(resultado => {
-    //         this.mensajeModificar = resultado;
-    //         resolve(this.mensajeModificar);
-    //       });
-    //   });
-    // }
-
     // usuarioBaja(idUsuario){
     //     return new Promise(resolve => {
     //     this.http.get('http://rickybruno.sytes.net:3000/api/usuarioBaja/'+idUsuario)
@@ -66,6 +55,5 @@ export class RegistrosService {
     //       });
     //   });
     // }
-
 
 }

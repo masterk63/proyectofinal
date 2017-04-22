@@ -32,12 +32,8 @@ module.exports = function(app){
     apiUsuarios.post('/forgot',UsuariosController.forgotPassword); 
     //API Registros
     apiRegistros.get('/registrosListar',RegistrosController.registrosListar);
-
     apiRegistros.get('/listarMarkers',RegistrosController.registrosListarMarkers);
-
     apiRegistros.get('/registroDame/:id',RegistrosController.registroDame);
-
-
 
     // Set up routes
     //Esto es para que use la ruta! sino error

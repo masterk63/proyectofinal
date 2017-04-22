@@ -3,7 +3,7 @@ import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import { RegistrosService } from '../../providers/registrosService';
-import { UsuarioPage } from '../usuario/usuario';
+import { RegistroPage } from '../registro/registro';
 /*
   Generated class for the RegistrosGestor page.
 
@@ -181,6 +181,11 @@ export class RegistrosGestorPage {
               });
               break;
           }
+    }
+
+    ver(idRegistro){
+      console.log(idRegistro);
+      this.navCtrl.push(RegistroPage,{idRegistro});
     }
 
     logout(){

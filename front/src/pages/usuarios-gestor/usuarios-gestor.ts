@@ -59,14 +59,15 @@ export class UsuariosGestorPage {
       console.log(idUsuario);
       this.navCtrl.push(UsuarioPage,{idUsuario});
     }
-      logout(){
-    console.log('saliendo logout');
-    this.authService.logout().then(()=>{
-      console.log('listo borrado, dirijiendo a registrar');
-      
-      this.navCtrl.setRoot(LoginPage);
-    });
-  }
+
+    logout(){
+      console.log('saliendo logout');
+      this.authService.logout().then(()=>{
+        console.log('listo borrado, dirijiendo a registrar');
+        
+        this.navCtrl.setRoot(LoginPage);
+      });
+    }
 
 
 
