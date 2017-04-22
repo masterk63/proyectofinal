@@ -23,11 +23,7 @@ export class MapaGeneralPage {
 
   initialize() {
         this.ubicacionCtrl.obtenerTodasLasCoordenadas().then((resultado) => {
-            // var locations = [
-            //   ['DESCRIPTION',-26.8121796,-65.2550263, 3],
-            //   ['DESCRIPTION', 41.914873, 12.506486, 2],
-            //   ['DESCRIPTION', 61.918574, 12.507201, 1]
-            // ];
+
             this.markers = resultado;
 
             let mapOptions = {
@@ -54,7 +50,8 @@ export class MapaGeneralPage {
                 bounds.extend(marker.position);
                 
                 google.maps.event.addListener(marker, 'click', (function (marker) {
-                    var content = '<div>'+ m.idRegistro+'</div>';
+                  console.log(m);
+                    var content = '<div><img src="data:image/jpeg;base64,'+m.fotoPaisaje+'">'+ m.idRegistro+'</div>';
                     return function () {
                         infowindow.setContent(content);
                         infowindow.open(map, marker);
