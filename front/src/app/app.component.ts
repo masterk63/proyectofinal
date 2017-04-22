@@ -11,6 +11,7 @@ import { MisRegistrosPage } from '../pages/mis-registros/mis-registros';
 import { LoginPage } from '../pages/login-page/login-page';
 import { IntroPage } from '../pages/intro/intro';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { MapaGeneralPage } from '../pages/mapa-general/mapa-general';
 import { Storage } from '@ionic/storage';
 import { Auth } from '../providers/auth';
 import { MenuController } from 'ionic-angular';
@@ -34,6 +35,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pagesAdmin = [
+      { title: 'Mapa General', component: MapaGeneralPage },
       { title: 'Mis Registros', component: MisRegistrosPage },
       { title: 'Nuevo Registro', component: HomePage },
       { title: 'Wheel', component: Wheel },
@@ -47,6 +49,7 @@ export class MyApp {
     ];
 
     this.pagesUser = [
+      { title: 'Mapa General', component: MapaGeneralPage },
       { title: 'Mis Registros', component: MisRegistrosPage },
       { title: 'Nuevo Registro', component: HomePage },
       { title: 'Wheel', component: Wheel },

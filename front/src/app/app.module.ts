@@ -1,7 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { MapasjsPage } from '../pages/mapasjs/mapasjs';
 import { MapasnativoPage } from '../pages/mapasnativo/mapasnativo';
 import { HomePage } from '../pages/home/home';
 import { ModalPage } from '../pages/modal/modal';
@@ -16,6 +15,7 @@ import { RegistrosService } from '../providers/registrosService';
 import { LoginPage } from '../pages/login-page/login-page';
 import { UsuarioPage } from '../pages/usuario/usuario';
 import { UsuariosGestorPage } from '../pages/usuarios-gestor/usuarios-gestor';
+import { MapaGeneralPage } from '../pages/mapa-general/mapa-general';
 import { SignupPage } from '../pages/signup-page/signup-page';
 import { MisRegistrosPage } from '../pages/mis-registros/mis-registros';
 import { RegistrosGestorPage } from '../pages/registros-gestor/registros-gestor';
@@ -30,7 +30,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
-    MapasjsPage,
+    MapaGeneralPage,
     MapasnativoPage,
     HomePage,
     ModalPage,
@@ -52,7 +52,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    MapasjsPage,
+    MapaGeneralPage,
     MapasnativoPage,
     HomePage,
     ModalPage,
