@@ -23,50 +23,18 @@ export class RegistrosService {
     //     });
   }
 
-//   filterItems(searchTerm,filtro){
 
-//       if(this.registros){
-//           console.log("ya estan los registros cargados");
-//          return this.registros.filter((atributo) => {
-//                switch(filtro) {
-//                     case "nombre":
-//                         return atributo.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-//                     case "apellido":
-//                         return atributo.apellido.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-//                     case "usuario":
-//                         return atributo.usuario.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-//                     case "mail":
-//                         return atributo.mail.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-//                 }
-//         });
-//       }
-//        this.load().then(()=>function (){
-//               return this.usuarios.filter((atributo) => {
-//                     switch(filtro) {
-//                             case "nombre":
-//                                 return atributo.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-//                             case "apellido":
-//                                 return atributo.apellido.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-//                             case "usuario":
-//                                 return atributo.usuario.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-//                             case "mail":
-//                                 return atributo.mail.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-//                         }
-//         });
-//        });
-//     }
-
-    // cargarRegistros() {
-    //   return new Promise(resolve => {
-    //       console.log("registros no cargados, comunicando provider");
-    //     this.http.get('http://rickybruno.sytes.net:3000/api/usuariosListar')
-    //       .subscribe(resultado => {
-    //         this.usuarios = resultado;
-    //         this.usuarios = JSON.parse(this.usuarios._body);
-    //         resolve(this.usuarios);
-    //       });
-    //   });
-    // }
+    cargarRegistros() {
+      return new Promise(resolve => {
+          console.log("registros no cargados, comunicando provider");
+        this.http.get('http://rickybruno.sytes.net:3000/api/registrosListar')
+          .subscribe(resultado => {
+            this.registros = resultado;
+            this.registros = JSON.parse(this.registros._body);
+            resolve(this.registros);
+          });
+      });
+    }
 
     // usuarioDame(idUsuario){
     //     return new Promise(resolve => {

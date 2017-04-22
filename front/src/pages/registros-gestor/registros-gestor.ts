@@ -1,6 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { AlertController, NavController, NavParams } from 'ionic-angular';
-import { UsuariosService } from '../../providers/usuariosService';
+import { RegistrosService } from '../../providers/registrosService';
 import { UsuarioPage } from '../usuario/usuario';
 /*
   Generated class for the RegistrosGestor page.
@@ -15,19 +15,19 @@ import { UsuarioPage } from '../usuario/usuario';
 export class RegistrosGestorPage {
 
   constructor(public navCtrl: NavController,
-              public userService: UsuariosService,
+              public regService: RegistrosService,
               public alertCtrl: AlertController,
               ){
-                  // this.cargarRegistros();
+                  this.cargarRegistros();
               }
 
               
-    // cargarRegistros(){
-    //   this.userService.cargarRegistros()
-    //     .then(data => {
-    //       this.usuarios = data;
-    //     }) ;
-    // }
+    cargarRegistros(){
+      this.regService.cargarRegistros()
+        .then(data => {
+          let registros = data;
+        }) ;
+    }
 
     // filtrarUsuarios() {
     //   this.usuarios = this.userService.filterItems(this.searchTerm,this.filtro);
