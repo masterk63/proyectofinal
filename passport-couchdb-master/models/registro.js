@@ -18,7 +18,7 @@ exports.listar = function(fn){
 }
 
 exports.dame = function(id,fn){
-    connection.query('call usuario_dame('+id+')', function(err, rows){  
+    connection.query('call registro_dame('+id+')', function(err, rows){  
                 if (err) fn (err);  
                 fn(rows[0]); 
             });

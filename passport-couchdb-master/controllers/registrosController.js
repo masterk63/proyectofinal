@@ -9,12 +9,11 @@ exports.registrosListar = function(req,res){
     });
 }
 
-
-// exports.dameUsuario = function(req,res){
-//     User.dame(req.params.id,function(consulta){
-//         res.json(consulta);
-//     });
-// }
+exports.registroDame = function(req,res){
+    Registro.dame(req.params.id,function(consulta){
+        res.json(consulta);
+    });
+}
 
 // exports.usuarioBaja = function(req,res){
 //     User.baja(req.params.id,function(consulta){
