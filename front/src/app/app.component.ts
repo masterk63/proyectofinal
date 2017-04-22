@@ -4,7 +4,6 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { MapasjsPage } from '../pages/mapasjs/mapasjs';
 import { MapasnativoPage } from '../pages/mapasnativo/mapasnativo';
 import { HomePage } from '../pages/home/home';
-import { ClouDOPage } from '../pages/clou-do/clou-do';
 import { Wheel } from '../pages/wheel/wheel';
 import { Mapajshtml } from '../pages/mapajshtml/mapajshtml';
 import { SignupPage } from '../pages/signup-page/signup-page';
@@ -35,7 +34,6 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pagesAdmin = [
-      { title: 'Administrar', component: ClouDOPage },
       { title: 'Mis Registros', component: MisRegistrosPage },
       { title: 'Nuevo Registro', component: HomePage },
       { title: 'Wheel', component: Wheel },
@@ -46,16 +44,6 @@ export class MyApp {
       { title: 'Usuarios', component: UsuarioPage },
       { title: 'Gestion Usuarios', component: UsuariosGestorPage },
       { title: 'Gestion Registros', component: RegistrosGestorPage },
-      // { title: 'Mapas JS', component: MapasjsPage },
-      // { title: 'Mapas Nativo', component: MapasnativoPage },
-      // { title: 'Camara', component: HomePage },
-      // { title: 'ClouDO', component: ClouDOPage },
-      // { title: 'MapaHTML', component: Mapajshtml },
-      // { title: 'SignupPage', component: SignupPage },
-      // { title: 'LoginPage', component: LoginPage },
-      // { title: 'MisRegistros', component: MisRegistrosPage },
-      // { title: 'Introduccion', component: IntroPage },
-      // { title: 'Tutorial', component: TutorialPage },
     ];
 
     this.pagesUser = [
