@@ -15,14 +15,70 @@
 </ion-header>
 
 <ion-content>
-    <div> 
-        <img [src]="fotoPaisajeURLSafe" (click)="mostrarFoto(fotoPaisajeURLSafe)" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
-      <p>Foto Paisaje</p> 
-    </div>
+    <div *ngIf="registro">
+        <div class="fotoPaisaje" [ngStyle]="{'background-image': 'url(' + fotoPaisajeURL + ')'}" >
+            <div class="overlay titulo">
+                <p>Foto Paisaje</p>
+            </div> 
+            <div class="overlay subtitulo">
+                <p>Indice: {{registro.indice}}</p>
+                <p>Fecha: {{registro.fecha | date:'dd/MM/yy'}}</p>
+                <p>{{registro.ciudad}}, {{registro.provincia}}, {{registro.pais}}</p>
+            </div>
+        </div>
+        <div *ngIf="rol == 'administrador'">
+            <p>Registro creado por el usuario: {{registro.usuario}}</p><button ion-button color="red" (click)="verUsuario(registro.idUsuario)">Ver Perfil</button>
+        </div>
+        <p>Observacion hecha por el usuario: {{registro.observacion}}</p>
+        <div  class="padding">
+          <ion-grid>
+            <ion-row>
+                <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+                    <div class="foto" style="width: 90%;" > 
+                        <img imageViewer [src]="fotoMapaURLSafe">
+                        <p>Foto Mapa</p>
+                        <p>Latitud: {{registro.latitud}}</p>
+                        <p>Longitud: {{registro.longitud}}</p> 
+                    </div>
+                </ion-col>
+                <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+                    <div class="foto" > 
+                        <img imageViewer [src]="fotoMuestraURLSafe">
+                        <p>Foto Muestra</p> 
+                    </div>
+                </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
 
-    <div> 
-        <img [src]="fotoMuestraURLSafe" (click)="mostrarFoto(fotoMuestraURLSafe)" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
-      <p>Foto Muestra</p> 
+        <ion-grid>
+          <ion-row>
+            <ion-col>Elmidos</ion-col>
+            <ion-col>Patudos</ion-col>
+            <ion-col>Plecopteros</ion-col>
+            <ion-col>Tricopteros</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{registro.elmido}}</ion-col>
+            <ion-col>{{registro.patudo}}</ion-col>
+            <ion-col>{{registro.plecoptero}}</ion-col>
+            <ion-col>{{registro.tricoptero}}</ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <h2>Estado del registro: {{valido}}</h2>
+        <div *ngIf="rol == 'administrador' && registro.valido == 0">
+          <button ion-button color="secondary" (click)="validarRegistro(registro.idRegistro)">Validar</button>
+          <button ion-button color="red" (click)="invalidarRegistro(registro.idRegistro)">Invalidar</button>
+        </div>
+        <div *ngIf="rol == 'administrador' && registro.valido == 1">
+          <button ion-button color="red" (click)="invalidarRegistro(registro.idRegistro)">Invalidar</button>
+        </div>
+        <div *ngIf="rol == 'administrador' && registro.valido == -1">
+          <button ion-button color="secondary" (click)="validarRegistro(registro.idRegistro)">Validar</button>
+        </div>     
+        
+
     </div>
 </ion-content>
 

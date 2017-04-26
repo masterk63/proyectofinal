@@ -1,3 +1,41 @@
 page-registro {
 
+        .foto{
+           
+        }
+
+        .fotoPaisaje{
+            width: 100% !important;
+            height: 250px !important;
+            background-position: center;
+            background-size: 100% 140%;
+            position: relative;
+        }
+
+        .overlay{
+            position: absolute;
+            background: rgba(0,0,0,0.7);
+            z-index: 20;
+            color: antiquewhite;
+            
+        }
+
+        .titulo{
+            top: 1px;
+        }
+
+        .titulo p{
+            font-size: 20px;
+            margin: 0px;
+        }
+
+        .subtitulo{
+            bottom: 1px;
+        }
+        .subtitulo p{
+            font-size: 15px;
+            margin: 1px;
+        }
+           
+
 }
