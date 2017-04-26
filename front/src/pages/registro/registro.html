@@ -5,7 +5,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      Registro N° {{registro.idRegistro}}
+      Registro N° {{idRegistro}}
     </ion-title>
     <ion-buttons start>
     <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
@@ -16,12 +16,12 @@
 
 <ion-content>
     <div> 
-        <img [src]="fotoPaisajeURL" (click)="mostrarFoto(fotoPaisajeURL)" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
+        <img [src]="fotoPaisajeURLSafe" (click)="mostrarFoto(fotoPaisajeURLSafe)" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
       <p>Foto Paisaje</p> 
     </div>
 
     <div> 
-        <img [src]="fotoMuestraURL" (click)="mostrarFoto(fotoMuestraURL)" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
+        <img [src]="fotoMuestraURLSafe" (click)="mostrarFoto(fotoMuestraURLSafe)" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
       <p>Foto Muestra</p> 
     </div>
 </ion-content>
