@@ -91,9 +91,7 @@ var obtenerFotoMapa = function (registros,tam,fn) {
 @Injectable()
 export class Localsave {
   remote: any;
-  data: any;
   idUsuario:any;
-  public registrosObersables:Observable<Array<any>>;
 
   constructor(public http: Http,
               public storage: Storage,) {
@@ -124,7 +122,7 @@ export class Localsave {
         // replication was paused, usually because of a lost connection
       }).on('change', (change)=>{
         console.log('cambio detectado');
-        this.geoInvImgMap(change);
+        //this.geoInvImgMap(change);
       }).on('active', (info)=>{
         console.log('volvi perras');
       }).on('error', (err)=>{
@@ -134,8 +132,7 @@ export class Localsave {
       db.replicate.from(this.remote, {
         live: true,
         retry: true,
-        continuous: true,
-        doc_ids: [this.idUsuario]});
+        continuous: true});
     });
 }
 
@@ -182,13 +179,9 @@ public noExiste(id,fn){
       var indice = this.calcularIndice(patudos,elmidos,plecopteros,tricopteros);
       var fecha = new Date();
       var id = this.idUsuario;
-      console.log(id);
-      var doc = {
-        "_id": id,
-        "registros":[], 
-      };
-      var registro = {
-        "_attachments": {
+      db.put({
+          _id: Date.now().toString(),
+          _attachments: {
             'fotoPaisaje.png': {
               content_type: 'image/png',
               data: fotoPaisaje
@@ -196,50 +189,32 @@ public noExiste(id,fn){
             'fotoMuestra.png': {
               content_type: 'image/png',
               data: fotoMuestra
-            },
-            'fotoMapa.png': {
-              content_type: 'image/png',
-              data: null
-            },
+            }
           },
-        "patudos":patudos,
-        "elmidos":elmidos,
-        "plecopteros":plecopteros,
-        "tricopteros":tricopteros,
-        "latitud":latitud,
-        "longitud":longitud,
-        "observaciones":observaciones,
-        "fecha":fecha,
-        "ciudad":null,
-        "provincia":null,
-        "pais":null,
-        "indice":indice,
-      };
-
-      this.noExiste(doc._id,function(noTa){
-          if(noTa === '1'){
-            doc.registros.push(registro);
-            db.put(doc).then(function (response) {
-              console.log(JSON.stringify(response));
-              resolve(1);
+          idUsuario:id,
+          patudos:patudos,
+          elmidos:elmidos,
+          plecopteros:plecopteros,
+          tricopteros:tricopteros,
+          latitud:latitud,
+          longitud:longitud,
+          observaciones:observaciones,
+          fecha:fecha,
+          ciudad:null,
+          provincia:null,
+          pais:null,
+          indice:indice
+        }).then(function (response) {
+            console.log(JSON.stringify(response));
+            db.compact().then(function (info) {
             }).catch(function (err) {
               console.log(err);
-              resolve(err);
             });
-          }
-          else{
-            console.log('intentado acualizar');
-            noTa.registros.push(registro);
-            db.put(noTa).then(function () {
-              console.log('listo');
-              resolve(1);
-            }).catch(function (err) {
-              console.log(err);
-              resolve(err);
-              // error (not a 404 or 409)
-            });
-          }
-      });
+            resolve(1);
+          }).catch(function (err) {
+            console.log(err);
+            resolve(err);
+        });
     });
   }
 
@@ -276,16 +251,18 @@ public noExiste(id,fn){
       include_docs: true,
       attachments: true
     }).then(function (result) {
-      var docs = result.rows.map(function (row) { return row.doc; }); 
-      if(docs.length != 0){
-        registrosLocales = docs[0].registros;
+      registrosLocales= [];
+      let docs = result.rows.map((row) => {
+        registrosLocales.push(row.doc);
+      });
+      if(registrosLocales.length != 0){
         registrosLocales.sort(function(a,b) { //La funcion sort ordena numeros, si quiero de menor a mayor a es 'a-b', si quiero de mayo a menor b-a
             return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() 
         });
         observer.next(registrosLocales);
       }
       db.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
-        registrosLocales = change.doc.registros;
+        registrosLocales.push(change.doc); 
         registrosLocales.sort(function(a,b) { 
             return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() 
         });
