@@ -74,25 +74,27 @@ cvr.on('regActualizado', function (change) {
                 if(err){
                     console.log(err);
                 }
-                var indice = fila[0].cantidad;//desde el indice empezamos a agregar a mysql
-                for(indice;indice<res.registros.length;indice++){
-                    var fecha='"'+res.registros[indice].fecha+'"';
-                    var latitud=res.registros[indice].latitud;
-                    var longitud=res.registros[indice].longitud;
-                    var fotoPaisajeConcat='"'+res.registros[indice]._attachments["fotoPaisaje.png"].data+'"';
-                    var fotoMuestraConcat='"'+res.registros[indice]._attachments["fotoMuestra.png"].data+'"';
-                    var fotoMapaConcat='"'+res.registros[indice]._attachments["fotoMapa.png"].data+'"';
-                    var observaciones='"'+res.registros[indice].observaciones+'"';
+                var indec = fila[0].cantidad;//desde el indec empezamos a agregar a mysql
+                for(indec;indec<res.registros.length;indec++){
+                    var indice= parseInt(res.registros[indec].indice);
+                    console.log(indice);
+                    var fecha='"'+res.registros[indec].fecha+'"';
+                    var latitud=res.registros[indec].latitud;
+                    var longitud=res.registros[indec].longitud;
+                    var fotoPaisajeConcat='"'+res.registros[indec]._attachments["fotoPaisaje.png"].data+'"';
+                    var fotoMuestraConcat='"'+res.registros[indec]._attachments["fotoMuestra.png"].data+'"';
+                    var fotoMapaConcat='"'+res.registros[indec]._attachments["fotoMapa.png"].data+'"';
+                    var observaciones='"'+res.registros[indec].observaciones+'"';
                     var idUsuario='"'+res._id+'"';
-                    var ciudad='"'+res.registros[indice].ciudad+'"';
-                    var provincia='"'+res.registros[indice].provincia+'"';
-                    var pais='"'+res.registros[indice].pais+'"';
-                    var elmidos='"'+res.registros[indice].elmidos+'"';
-                    var patudos='"'+res.registros[indice].patudos+'"';
-                    var plecopteros='"'+res.registros[indice].plecopteros+'"';
-                    var tricopteros='"'+res.registros[indice].tricopteros+'"';
-
-                    self.mysql.query('CALL registro_nuevo_completo('+fecha+','+latitud+','+longitud+','+fotoPaisajeConcat+','+fotoMuestraConcat+','+fotoMapaConcat+','+observaciones+','+idUsuario+','+ciudad+','+provincia+','+pais+','+elmidos+','+patudos+','+plecopteros+','+tricopteros+')',function(err,rows) {
+                    var ciudad='"'+res.registros[indec].ciudad+'"';
+                    var provincia='"'+res.registros[indec].provincia+'"';
+                    var pais='"'+res.registros[indec].pais+'"';
+                    var elmidos='"'+res.registros[indec].elmidos+'"';
+                    var patudos='"'+res.registros[indec].patudos+'"';
+                    var plecopteros='"'+res.registros[indec].plecopteros+'"';
+                    var tricopteros='"'+res.registros[indec].tricopteros+'"';
+                    
+                    self.mysql.query('CALL registro_nuevo_completo('+indice+','+fecha+','+latitud+','+longitud+','+fotoPaisajeConcat+','+fotoMuestraConcat+','+fotoMapaConcat+','+observaciones+','+idUsuario+','+ciudad+','+provincia+','+pais+','+elmidos+','+patudos+','+plecopteros+','+tricopteros+')',function(err,rows) {
                         if(err){
                             console.log(err);
                         }
