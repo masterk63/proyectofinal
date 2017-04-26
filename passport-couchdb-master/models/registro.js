@@ -31,10 +31,15 @@ exports.dame = function(id,fn){
 } 
 
 exports.validar = function(id,fn){
-    connection.query('call usuario_baja('+id+')', function(err, rows){  
+    connection.query('call registro_validar('+id+')', function(err, rows){  
                 if (err) fn (err);  
                 fn(rows[0]); 
             });
 }
 
-
+exports.invalidar = function(id,fn){
+    connection.query('call registro_invalidar('+id+')', function(err, rows){  
+                if (err) fn (err);  
+                fn(rows[0]); 
+            });
+}

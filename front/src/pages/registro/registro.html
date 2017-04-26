@@ -68,14 +68,14 @@
 
         <h2>Estado del registro: {{valido}}</h2>
         <div *ngIf="rol == 'administrador' && registro.valido == 0">
-          <button ion-button color="secondary" (click)="validarRegistro(registro.idRegistro)">Validar</button>
-          <button ion-button color="red" (click)="invalidarRegistro(registro.idRegistro)">Invalidar</button>
+          <button ion-button color="secondary" (click)="mensajeConfirmar(registro.idRegistro,'validar')">Validar</button>
+          <button ion-button color="red" (click)="mensajeConfirmar(registro.idRegistro,'invalidar')">Invalidar</button>
         </div>
         <div *ngIf="rol == 'administrador' && registro.valido == 1">
-          <button ion-button color="red" (click)="invalidarRegistro(registro.idRegistro)">Invalidar</button>
+          <button ion-button color="red" (click)="mensajeConfirmar(registro.idRegistro,'invalidar')">Invalidar</button>
         </div>
         <div *ngIf="rol == 'administrador' && registro.valido == -1">
-          <button ion-button color="secondary" (click)="validarRegistro(registro.idRegistro)">Validar</button>
+          <button ion-button color="secondary" (click)="mensajeConfirmar(registro.idRegistro,'validar')">Validar</button>
         </div>     
         
 

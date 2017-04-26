@@ -55,6 +55,7 @@ export class RegistroPage {
               public authService: Auth,
               private sanitizer:DomSanitizer,
               public storage: Storage,
+              public alertCtrl: AlertController,
               ){
                 this.dameRol();
                 this.idRegistro = this.params.get('idRegistro');
@@ -74,15 +75,7 @@ export class RegistroPage {
             this.fotoPaisajeURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL );
             this.fotoMuestraURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL );
             this.fotoMapaURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoMapaURL );
-            if(this.registro.valido == -1){
-              this.valido = 'Invalido';
-            }else{
-               if(this.registro.valido == 0){
-                  this.valido = 'Pendiente de validacion';
-               }else{
-                 this.valido = 'Valido';
-               }
-            }
+            this.validoToArray();
             if(this.registro.observacion == "null"){
               this.registro.observacion = "No hay observaciones."
             }
@@ -90,18 +83,105 @@ export class RegistroPage {
           });
   }
 
+  validoToArray(){
+    if(this.registro.valido == -1){
+      this.valido = 'Invalido';
+    }else{
+        if(this.registro.valido == 0){
+          this.valido = 'Pendiente de validacion';
+        }else{
+          this.valido = 'Valido';
+        }
+    }
+  }
+
   validarRegistro(idRegistro){
-    console.log(idRegistro);
+    this.regService.registroValidar(this.registro.idRegistro)
+      .then(data => {
+        let mensajeBaja = data;
+        if(mensajeBaja[0].codigo > 0){
+          let titulo = "Correcto";
+          let mensaje = mensajeBaja[0].mensaje;
+          this.mostrarAlerta(mensaje,titulo);
+          //eliminamos del vector usuarios, el que acabamos de eliminar, por el TWO DATA BINDING en el componente GESTOR USUARIOS, para modificar el DOM
+          for (let r of this.regService.registros) {
+              if(r.idRegistro == this.registro.idRegistro){
+                  this.regService.registros.valido = 1; // el primera variable es el elemento del array (0-n indexado)
+              }
+          }
+          this.registro.valido = 1;
+          this.validoToArray();
+        }else{
+          let titulo = "Error";
+           let mensaje = mensajeBaja[0].mensaje;
+            this.mostrarAlerta(mensaje,titulo);
+        }
+        });
   }
 
   invalidarRegistro(idRegistro){
-    console.log(idRegistro);
+    this.regService.registroInvalidar(this.registro.idRegistro)
+      .then(data => {
+        let mensajeBaja = data;
+        if(mensajeBaja[0].codigo > 0){
+          let titulo = "Correcto";
+          let mensaje = mensajeBaja[0].mensaje;
+          this.mostrarAlerta(mensaje,titulo);
+          //eliminamos del vector usuarios, el que acabamos de eliminar, por el TWO DATA BINDING en el componente GESTOR USUARIOS, para modificar el DOM
+          for (let r of this.regService.registros) {
+              if(r.idRegistro == this.registro.idRegistro){
+                  this.regService.registros.valido = -1; // el primera variable es el elemento del array (0-n indexado)
+              }
+          }
+          this.registro.valido = -1;
+          this.validoToArray();
+        }else{
+          let titulo = "Error";
+           let mensaje = mensajeBaja[0].mensaje;
+            this.mostrarAlerta(mensaje,titulo);
+        }
+        });
   }
 
   verUsuario(idUsuario){
       console.log(idUsuario);
       this.navCtrl.push(UsuarioPage,{idUsuario});
   }
+
+  mensajeConfirmar(idRegistro,accion) {
+    let confirm = this.alertCtrl.create({
+      title: accion.charAt(0).toUpperCase()+accion.slice(1)+' Registro',
+      message: '¿Esta seguro que desea '+accion+' el Registro N° '+this.registro.idRegistro+'?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            if(accion == 'validar'){
+              this.validarRegistro(idRegistro);
+              
+            }else{
+              this.invalidarRegistro(idRegistro);
+            }
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  mostrarAlerta(mensaje,titulo) {
+      let alert = this.alertCtrl.create({
+        title: titulo,
+        subTitle: mensaje,
+        buttons: ['ACEPTAR']
+      });
+      alert.present();
+    }
 
   dameRol(){
     this.storage.get('rol').then((value) => {

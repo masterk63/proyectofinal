@@ -22,18 +22,14 @@ exports.registrosListarMarkers = function(req,res){
     });
 }
 
+exports.registroValidar = function(req,res){
+    Registro.validar(req.params.id,function(consulta){
+        res.json(consulta);
+    });
+}
 
-
-// exports.dameUsuario = function(req,res){
-//     User.dame(req.params.id,function(consulta){
-//         res.json(consulta);
-//     });
-// }
-
-
-
-// exports.usuarioBaja = function(req,res){
-//     User.baja(req.params.id,function(consulta){
-//         res.json(consulta);
-//     });
-// }
+exports.registroInvalidar = function(req,res){
+    Registro.invalidar(req.params.id,function(consulta){
+        res.json(consulta);
+    });
+}

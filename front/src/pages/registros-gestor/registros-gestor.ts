@@ -29,12 +29,12 @@ export class RegistrosGestorPage {
               ){
                   this.cargarRegistros();
               }
-
               
     cargarRegistros(){
       this.regService.cargarRegistros()
         .then(data => {
           this.registros = data;
+          this.validoToArray();
           for(let r of this.registros){
             if(r.elmido == 1){
               r.elmido = 'Si';
@@ -55,20 +55,23 @@ export class RegistrosGestorPage {
               r.tricoptero = 'Si';
             }else{
               r.tricoptero = 'No';
-            }
-
-            if(r.valido == -1){
-              r.valido = 'Invalido';
-            }else{
-               if(r.valido == 0){
-                  r.valido = 'Pendiente de validacion';
-               }else{
-                 r.valido = 'Valido';
-               }
-            }
-            
+            }            
           }
         }) ;
+    }
+
+    validoToArray(){
+      for(let r of this.registros){
+        if(r.valido == -1){
+          r.valido = 'Invalido';
+        }else{
+            if(r.valido == 0){
+              r.valido = 'Pendiente de validacion';
+            }else{
+              r.valido = 'Valido';
+            }
+        }
+      }
     }    
 
     ordenarRegistro(){
