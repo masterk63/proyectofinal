@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { AlertController, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import { UsuariosService } from '../../providers/usuariosService';
@@ -16,6 +16,8 @@ import { UsuarioPage } from '../usuario/usuario';
   templateUrl: 'usuarios-gestor.html'
 })
 export class UsuariosGestorPage {
+
+  loading:any;
   searchTerm: string ='';
   public usuarios: any; //todos los usuarios devvueltos por el provider
   filtro: string = null; //variable con la que filtramos los usuarios
@@ -24,7 +26,9 @@ export class UsuariosGestorPage {
               public userService: UsuariosService,
               public alertCtrl: AlertController,
               public authService: Auth,
+              public loadingCtrl: LoadingController,
               ){
+                this.showLoader();
                 this.cargarUsuarios();
 
             }
@@ -33,6 +37,7 @@ export class UsuariosGestorPage {
       this.userService.load()
         .then(data => {
           this.usuarios = data;
+          this.loading.dismiss();
         }) ;
     }
 
@@ -58,6 +63,14 @@ export class UsuariosGestorPage {
     editar(idUsuario){
       console.log(idUsuario);
       this.navCtrl.push(UsuarioPage,{idUsuario});
+    }
+
+    showLoader(){
+    console.log("llamando a loading");
+        this.loading = this.loadingCtrl.create({
+            content: "Cargando usuarios. Espere por favor..."
+        });
+        this.loading.present();
     }
 
     logout(){

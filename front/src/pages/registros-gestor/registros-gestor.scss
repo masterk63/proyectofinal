@@ -1,3 +1,27 @@
 page-registros-gestor {
 
+    .contenedor{
+        overflow: auto;
+        background-color: white;
+        margin: 50px 20px 50px 20px;
+        display: block;
+        background-color: white;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+    }
+
+    th{
+        padding: 10px 10px 10px 15px;
+        border-radius: 0px;
+        background-color: #B71C1C;
+        color: white;
+    }
+
+    td{
+        padding: 10px;
+    }
+
+    h2{
+        padding: 15px;
+    }
+
 }

@@ -25,13 +25,10 @@ export class RegistrosService {
 
     cargarRegistros() {
       return new Promise(resolve => {
-          console.log("registros no cargados, comunicando provider");
         this.http.get('http://rickybruno.sytes.net:3000/api/registrosListar')
           .subscribe(resultado => {
             this.registros = resultado;
             this.registros = JSON.parse(this.registros._body);
-            console.log("registrosService");
-            console.log(this.registros);
             resolve(this.registros);
           });
       });

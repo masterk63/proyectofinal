@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { AlertController, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import { RegistrosService } from '../../providers/registrosService';
@@ -17,6 +17,7 @@ import { RegistroPage } from '../registro/registro';
 export class RegistrosGestorPage {
 
   public registros: any;
+  loading: any;
   ordInd: any = null;
   ordReg: any = null;
   ordFec: any = null;
@@ -26,7 +27,9 @@ export class RegistrosGestorPage {
               public regService: RegistrosService,
               public alertCtrl: AlertController,
               public authService: Auth,
+              public loadingCtrl: LoadingController,
               ){
+                  this.showLoader();
                   this.cargarRegistros();
               }
               
@@ -34,7 +37,6 @@ export class RegistrosGestorPage {
       this.regService.cargarRegistros()
         .then(data => {
           this.registros = data;
-          this.validoToArray();
           for(let r of this.registros){
             if(r.elmido == 1){
               r.elmido = 'Si';
@@ -57,21 +59,8 @@ export class RegistrosGestorPage {
               r.tricoptero = 'No';
             }            
           }
-        }) ;
-    }
-
-    validoToArray(){
-      for(let r of this.registros){
-        if(r.valido == -1){
-          r.valido = 'Invalido';
-        }else{
-            if(r.valido == 0){
-              r.valido = 'Pendiente de validacion';
-            }else{
-              r.valido = 'Valido';
-            }
-        }
-      }
+          this.loading.dismiss();
+        });
     }    
 
     ordenarRegistro(){
@@ -112,19 +101,19 @@ export class RegistrosGestorPage {
             case "ascendente":
               this.ordFec = "descendente";
               this.registros.sort(function(a,b) { //La funcion sort ordena numeros, si quiero de menor a mayor a es 'a-b', si quiero de mayo a menor b-a
-                  return b.fecha - a.fecha;
+                  return new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
               });
               break;
             case "descendente" :
               this.ordFec = "ascendente";
               this.registros.sort(function(a,b) { //La funcion sort ordena numeros, si quiero de menor a mayor a es 'a-b', si quiero de mayo a menor b-a
-                  return a.fecha - b.fecha;
+                  return new Date(a.fecha).getTime() - new Date(b.fecha).getTime();
               });
               break;
             case null:
               this.ordFec = "ascendente";
               this.registros.sort(function(a,b) { //La funcion sort ordena numeros, si quiero de menor a mayor a es 'a-b', si quiero de mayo a menor b-a
-                  return a.fecha - b.fecha;
+                  return new Date(a.fecha).getTime() - new Date(b.fecha).getTime();
               });
               break;
           }
@@ -186,9 +175,15 @@ export class RegistrosGestorPage {
           }
     }
 
-    ver(idRegistro){
-      console.log(idRegistro);
-      this.navCtrl.push(RegistroPage,{idRegistro});
+    ver(idRegistro,posicion){
+      this.navCtrl.push(RegistroPage,{idRegistro,posicion});
+    }
+
+    showLoader(){
+        this.loading = this.loadingCtrl.create({
+            content: "Cargando registros. Espere por favor..."
+        });
+        this.loading.present();
     }
 
     logout(){

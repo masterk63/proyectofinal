@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
 import {DomSanitizer} from '@angular/platform-browser';
 import { RegistrosService } from '../../providers/registrosService';
 import { Auth } from '../../providers/auth';
@@ -18,7 +18,9 @@ import { UsuarioPage } from '../usuario/usuario';
 })
 export class RegistroPage {
 
+  loading: any;
   idRegistro: any;
+  posicion: any;
   registro: any;
   fotoPaisajeURL = 'data:image/jpeg;base64,';
   fotoMuestraURL = 'data:image/jpeg;base64,';
@@ -56,15 +58,16 @@ export class RegistroPage {
               private sanitizer:DomSanitizer,
               public storage: Storage,
               public alertCtrl: AlertController,
+              public loadingCtrl: LoadingController,
               ){
                 this.dameRol();
                 this.idRegistro = this.params.get('idRegistro');
-                console.log("en registroPage");
-                console.log(this.idRegistro);
+                this.posicion = this.params.get('posicion');                
                 this.registroDame();
               }
 
   registroDame() {
+    this.showLoader();
     this.regService.registroDame(this.idRegistro)
           .then(data => {
             this.registro = data;
@@ -79,7 +82,7 @@ export class RegistroPage {
             if(this.registro.observacion == "null"){
               this.registro.observacion = "No hay observaciones."
             }
-            console.log(this.registro);
+            this.loading.dismiss();
           });
   }
 
@@ -103,12 +106,8 @@ export class RegistroPage {
           let titulo = "Correcto";
           let mensaje = mensajeBaja[0].mensaje;
           this.mostrarAlerta(mensaje,titulo);
-          //eliminamos del vector usuarios, el que acabamos de eliminar, por el TWO DATA BINDING en el componente GESTOR USUARIOS, para modificar el DOM
-          for (let r of this.regService.registros) {
-              if(r.idRegistro == this.registro.idRegistro){
-                  this.regService.registros.valido = 1; // el primera variable es el elemento del array (0-n indexado)
-              }
-          }
+          //modificamos del vector registros, el que acabamos de validar, a traves de la posicion por el TWO DATA BINDING en el componente GESTOR USUARIOS, para modificar el DOM
+            this.regService.registros[this.posicion].valido = 1; // el primera variable es el elemento del array (0-n indexado)
           this.registro.valido = 1;
           this.validoToArray();
         }else{
@@ -127,12 +126,8 @@ export class RegistroPage {
           let titulo = "Correcto";
           let mensaje = mensajeBaja[0].mensaje;
           this.mostrarAlerta(mensaje,titulo);
-          //eliminamos del vector usuarios, el que acabamos de eliminar, por el TWO DATA BINDING en el componente GESTOR USUARIOS, para modificar el DOM
-          for (let r of this.regService.registros) {
-              if(r.idRegistro == this.registro.idRegistro){
-                  this.regService.registros.valido = -1; // el primera variable es el elemento del array (0-n indexado)
-              }
-          }
+          //modificamos del vector registros, el que acabamos de validar, a traves de la posicion por el TWO DATA BINDING en el componente GESTOR USUARIOS, para modificar el DOM
+            this.regService.registros[this.posicion].valido = -1; // el primera variable es el elemento del array (0-n indexado)
           this.registro.valido = -1;
           this.validoToArray();
         }else{
@@ -144,7 +139,6 @@ export class RegistroPage {
   }
 
   verUsuario(idUsuario){
-      console.log(idUsuario);
       this.navCtrl.push(UsuarioPage,{idUsuario});
   }
 
@@ -189,12 +183,19 @@ export class RegistroPage {
       });
   }
 
+  showLoader(){
+    console.log("llamando a loading");
+        this.loading = this.loadingCtrl.create({
+            content: "Cargando registro. Espere por favor..."
+        });
+        this.loading.present();
+    }
+
 
   logout(){
     console.log('saliendo logout');
     this.authService.logout().then(()=>{
       console.log('listo borrado, dirijiendo a registrar');
-      
       this.navCtrl.setRoot(LoginPage);
     });
   }

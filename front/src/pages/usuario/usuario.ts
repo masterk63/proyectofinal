@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams, LoadingController} from 'ionic-angular';
 import { UsuariosService } from '../../providers/usuariosService';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
@@ -16,7 +16,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'usuario.html'
 })
 export class UsuarioPage {
-
+  loading: any;
   idUsuario: any;
   public usuario: any;
   editar: boolean=false;
@@ -36,7 +36,10 @@ export class UsuarioPage {
               public userService: UsuariosService,
               public storage: Storage,
               public authService: Auth,
-              public alertCtrl: AlertController){
+              public alertCtrl: AlertController,
+              public loadingCtrl: LoadingController,
+              ){
+                this.showLoader();
                 this.idUsuario = this.params.get('idUsuario');
                 this.dameId();
             } 
@@ -53,6 +56,7 @@ export class UsuarioPage {
           .then(data => {
             this.usuario = data;
             this.usuario = this.usuario[0];
+            this.loading.dismiss();
           });
       });
     }else{
@@ -61,6 +65,7 @@ export class UsuarioPage {
           .then(data => {
             this.usuario = data;
             this.usuario = this.usuario[0];
+            this.loading.dismiss();
           });
     }
 
@@ -177,6 +182,14 @@ export class UsuarioPage {
     });
     confirm.present();
   }
+
+  showLoader(){
+    console.log("llamando a loading");
+        this.loading = this.loadingCtrl.create({
+            content: "Cargando usuario. Espere por favor..."
+        });
+        this.loading.present();
+    }
 
   controlLogout(){
     this.storage.get('idUsuario').then((value) => {
