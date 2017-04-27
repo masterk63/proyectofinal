@@ -12,6 +12,8 @@ var geocoder = new google.maps.Geocoder;
 //Variable global para nuestros metodos
 var db;
 var registrosLocales;
+declare var navigator: any;
+declare var Connection: any;
 
 //Convertir imagenURL de internet a base64
 function imgURLtoBase64(url, callback) {
@@ -92,12 +94,29 @@ var obtenerFotoMapa = function (registros,tam,fn) {
 export class Localsave {
   remote: any;
   idUsuario:any;
+  public entrar = true;
 
   constructor(public http: Http,
-              public storage: Storage,) {
-    this.init();
+              public storage: Storage) {
+    this.init();   
   }
 
+
+  public comprobarConexion(){
+            var networkState = navigator.connection.type;
+            if (networkState !== Connection.NONE) {
+              console.log('HAY conexion');
+               return true;
+            }else{
+              console.log('no hay conexion');
+              return false;
+            }
+  }
+
+
+  
+
+  
   // No defino esto en el constructor porque necesito instancialo
   // antes, en otra clase.
   init(){
@@ -124,7 +143,8 @@ export class Localsave {
         console.log('cambio detectado');
         //this.geoInvImgMap(change);
       }).on('active', (info)=>{
-        console.log('volvi perras');
+          console.log('volvi perras');
+          this.controlarRegistros();
       }).on('error', (err)=>{
         console.log('todo roto');
       });
@@ -135,6 +155,25 @@ export class Localsave {
         continuous: true});
     });
 }
+
+public controlarRegistros(){
+  if(this.comprobarConexion()){
+      for(let r of registrosLocales){
+        if(r.ciudad === null){
+            db.get(r._id).then(function(doc) {
+              console.log('registro a actualizar',doc)
+              doc.ciudad = 'hola';
+              return db.put(doc);
+            }).then(function(response) {
+                console.log('actualizado',response)
+            }).catch(function (err) {
+              console.log(err);
+            });
+        }
+      }
+  }
+}
+
 
 // Cada vez que dectecta un cambo se llama a esta funcion
 public geoInvImgMap(change){

@@ -25,7 +25,7 @@ export class MisRegistrosPage {
                 this.localSaveCtrl.getTodos().subscribe((data) => {
                     this._zone.run(() => this.registros = data);
                     console.log(this.registros);
-                });
+                }); 
 
                 if(this.platform.is('android') || this.platform.is('ios')){
                     this.fotoMapaNoDisponible = "../www/assets/img/mapNotAvalible.jpg";

@@ -23,11 +23,6 @@ cvr.on('regCreado', function (change) {
     console.log(change);
 });
 
-cvr.on('regActualizado', function (change) {
-    console.log("reg actualizado");
-    console.log(change);
-});
-
 cvr.on('usrCreado', function (change) {
     console.log("Usuario creado");
     console.log(change);
@@ -61,50 +56,51 @@ cvr.on('usrActualizado', function (change) {
 
 cvr.on('regActualizado', function (change) {
     console.log('Registros');
-    var self = this;
-    var query = this.config.queries.insert;
     console.log(change);
-    self.databaseRegistros.get(change.id, function (err, res) {
-        if (err) throw err;
-        if(res.registros[res.registros.length-1].pais === '' || res.registros[res.registros.length-1].pais === null){
-            console.log("no tiene localizacion inversa");
-        }else{
-            console.log("ya hay localizacion, ingresando a MYSQL")
-            self.mysql.query('SELECT COUNT(*) AS cantidad FROM registros WHERE idUsuario="'+parseInt(res._id)+'"',function(err,fila) {
-                if(err){
-                    console.log(err);
-                }
-                var indec = fila[0].cantidad;//desde el indec empezamos a agregar a mysql
-                for(indec;indec<res.registros.length;indec++){
-                    var indice= parseInt(res.registros[indec].indice);
-                    console.log(indice);
-                    var fecha='"'+res.registros[indec].fecha+'"';
-                    var latitud=res.registros[indec].latitud;
-                    var longitud=res.registros[indec].longitud;
-                    var fotoPaisajeConcat='"'+res.registros[indec]._attachments["fotoPaisaje.png"].data+'"';
-                    var fotoMuestraConcat='"'+res.registros[indec]._attachments["fotoMuestra.png"].data+'"';
-                    var fotoMapaConcat='"'+res.registros[indec]._attachments["fotoMapa.png"].data+'"';
-                    var observaciones='"'+res.registros[indec].observaciones+'"';
-                    var idUsuario='"'+res._id+'"';
-                    var ciudad='"'+res.registros[indec].ciudad+'"';
-                    var provincia='"'+res.registros[indec].provincia+'"';
-                    var pais='"'+res.registros[indec].pais+'"';
-                    var elmidos='"'+res.registros[indec].elmidos+'"';
-                    var patudos='"'+res.registros[indec].patudos+'"';
-                    var plecopteros='"'+res.registros[indec].plecopteros+'"';
-                    var tricopteros='"'+res.registros[indec].tricopteros+'"';
+    // var self = this;
+    // var query = this.config.queries.insert;
+    // console.log(change);
+    // self.databaseRegistros.get(change.id, function (err, res) {
+    //     if (err) throw err;
+    //     if(res.registros[res.registros.length-1].pais === '' || res.registros[res.registros.length-1].pais === null){
+    //         console.log("no tiene localizacion inversa");
+    //     }else{
+    //         console.log("ya hay localizacion, ingresando a MYSQL")
+    //         self.mysql.query('SELECT COUNT(*) AS cantidad FROM registros WHERE idUsuario="'+parseInt(res._id)+'"',function(err,fila) {
+    //             if(err){
+    //                 console.log(err);
+    //             }
+    //             var indec = fila[0].cantidad;//desde el indec empezamos a agregar a mysql
+    //             for(indec;indec<res.registros.length;indec++){
+    //                 var indice= parseInt(res.registros[indec].indice);
+    //                 console.log(indice);
+    //                 var fecha='"'+res.registros[indec].fecha+'"';
+    //                 var latitud=res.registros[indec].latitud;
+    //                 var longitud=res.registros[indec].longitud;
+    //                 var fotoPaisajeConcat='"'+res.registros[indec]._attachments["fotoPaisaje.png"].data+'"';
+    //                 var fotoMuestraConcat='"'+res.registros[indec]._attachments["fotoMuestra.png"].data+'"';
+    //                 var fotoMapaConcat='"'+res.registros[indec]._attachments["fotoMapa.png"].data+'"';
+    //                 var observaciones='"'+res.registros[indec].observaciones+'"';
+    //                 var idUsuario='"'+res._id+'"';
+    //                 var ciudad='"'+res.registros[indec].ciudad+'"';
+    //                 var provincia='"'+res.registros[indec].provincia+'"';
+    //                 var pais='"'+res.registros[indec].pais+'"';
+    //                 var elmidos='"'+res.registros[indec].elmidos+'"';
+    //                 var patudos='"'+res.registros[indec].patudos+'"';
+    //                 var plecopteros='"'+res.registros[indec].plecopteros+'"';
+    //                 var tricopteros='"'+res.registros[indec].tricopteros+'"';
                     
-                    self.mysql.query('CALL registro_nuevo_completo('+indice+','+fecha+','+latitud+','+longitud+','+fotoPaisajeConcat+','+fotoMuestraConcat+','+fotoMapaConcat+','+observaciones+','+idUsuario+','+ciudad+','+provincia+','+pais+','+elmidos+','+patudos+','+plecopteros+','+tricopteros+')',function(err,rows) {
-                        if(err){
-                            console.log(err);
-                        }
-                        console.log(rows); 
-                    });
-                }
-            });
-        }
+    //                 self.mysql.query('CALL registro_nuevo_completo('+indice+','+fecha+','+latitud+','+longitud+','+fotoPaisajeConcat+','+fotoMuestraConcat+','+fotoMapaConcat+','+observaciones+','+idUsuario+','+ciudad+','+provincia+','+pais+','+elmidos+','+patudos+','+plecopteros+','+tricopteros+')',function(err,rows) {
+    //                     if(err){
+    //                         console.log(err);
+    //                     }
+    //                     console.log(rows); 
+    //                 });
+    //             }
+    //         });
+    //     }
         
-    });
+    // });
 
 
 
