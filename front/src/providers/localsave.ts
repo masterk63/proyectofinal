@@ -89,6 +89,40 @@ var obtenerFotoMapa = function (registros,tam,fn) {
    }
 }
 
+function manejarElCambio(change){
+ 
+  let changedDoc = null;
+  let changedIndex = null;
+ 
+  registrosLocales.forEach((doc, index) => {
+ 
+    if(doc._id === change.id){
+      changedDoc = doc;
+      changedIndex = index;
+    }
+ 
+  });
+ 
+  //A document was deleted
+  if(change.deleted){
+    registrosLocales.splice(changedIndex, 1);
+  } 
+  else {
+ 
+    //A document was updated
+    if(changedDoc){
+      registrosLocales[changedIndex] = change.doc;
+    } 
+ 
+    //A document was added
+    else {
+      registrosLocales.push(change.doc); 
+    }
+ 
+  }
+ 
+}
+
 
 @Injectable()
 export class Localsave {
@@ -103,6 +137,11 @@ export class Localsave {
 
 
   public comprobarConexion(){
+    // Como navigator.connection es nativo, no anda para browser,
+    // Pero lo necesito para saber si puedo hacer la consulta en el navegador,
+    // Por lo que lo encierro en un try catch, si da error seguramente esta en un navegador
+    // y por ende tiene internet.
+        try{
             var networkState = navigator.connection.type;
             if (networkState !== Connection.NONE) {
               console.log('HAY conexion');
@@ -111,12 +150,11 @@ export class Localsave {
               console.log('no hay conexion');
               return false;
             }
+        }catch(Exception){
+            return true;
+        }   
   }
 
-
-  
-
-  
   // No defino esto en el constructor porque necesito instancialo
   // antes, en otra clase.
   init(){
@@ -273,6 +311,9 @@ public noExiste(id,fn){
     }
     return i;
   }
+
+
+
   //Obtener los registros de la base de datos Locales
   public getTodos(){
 
@@ -294,14 +335,15 @@ public noExiste(id,fn){
       let docs = result.rows.map((row) => {
         registrosLocales.push(row.doc);
       });
+      console.log('llamados desde la bd',registrosLocales);
       if(registrosLocales.length != 0){
         registrosLocales.sort(function(a,b) { //La funcion sort ordena numeros, si quiero de menor a mayor a es 'a-b', si quiero de mayo a menor b-a
             return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() 
         });
         observer.next(registrosLocales);
       }
-      db.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
-        registrosLocales.push(change.doc); 
+      db.changes({live: true, since: 'now', include_docs: true,attachments: true}).on('change', (change) => {
+        manejarElCambio(change);
         registrosLocales.sort(function(a,b) { 
             return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() 
         });
@@ -312,6 +354,9 @@ public noExiste(id,fn){
     });
   });
 }
+
+
+
 
   // Destruye la base datos, y limpia el array de registrosLocales
   public destruirDB(){
