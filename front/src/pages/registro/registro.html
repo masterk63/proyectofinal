@@ -30,7 +30,25 @@
             <p>Registro creado por el usuario: {{registro.usuario}}</p><button ion-button color="red" (click)="verUsuario(registro.idUsuario)">Ver Perfil</button>
         </div>
         <p>Observacion hecha por el usuario: {{registro.observacion}}</p>
-        <div  class="padding">
+
+        <div class="contenedorImg">
+            <div> 
+                <img imageViewer [src]="fotoMapaURLSafe">
+            </div>
+            <div>
+                <p>Foto Mapa</p>
+                <p>Latitud: {{registro.latitud}}</p>
+                <p>Longitud: {{registro.longitud}}</p> 
+            </div>
+        </div>
+        <div>
+            <div class="foto" > 
+                <img imageViewer [src]="fotoMuestraURLSafe">
+                <p>Foto Muestra</p> 
+            </div>
+        </div>
+
+        <!--<div class="padding">
           <ion-grid>
             <ion-row>
                 <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
@@ -49,7 +67,7 @@
                 </ion-col>
             </ion-row>
           </ion-grid>
-        </div>
+        </div>-->
 
         <ion-grid>
           <ion-row>
