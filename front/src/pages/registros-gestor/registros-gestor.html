@@ -16,7 +16,64 @@
 
 
 <ion-content padding>
-    <ion-grid>
+    <div class="contenedor">
+        <h2>Listado de Registros</h2>
+        <table class="responsive-table bordered">
+            <thead>
+                <tr>
+                    <th (click)="ordenarRegistro()" scope="col">
+                        N°
+                        <ion-icon *ngIf="ordReg == 'ascendente'" name="arrow-up"></ion-icon>
+                        <ion-icon *ngIf="ordReg == 'descendente'" name="arrow-down"></ion-icon>
+                    </th>
+                    <th (click)="ordenarFecha()" scope="col">
+                        Fecha
+                        <ion-icon *ngIf="ordFec == 'ascendente'" name="arrow-up"></ion-icon>
+                        <ion-icon *ngIf="ordFec == 'descendente'" name="arrow-down"></ion-icon>
+                    </th>
+                    <th scope="col">Latitud</th>
+                    <th scope="col">Longitud</th>
+                    <th (click)="ordenarIndice()" scope="col">
+                        Indice
+                        <ion-icon *ngIf="ordInd == 'ascendente'" name="arrow-up"></ion-icon>
+                        <ion-icon *ngIf="ordInd == 'descendente'" name="arrow-down"></ion-icon>
+                    </th>
+                    <th scope="col">Elmido</th>
+                    <th scope="col">Patudo</th>
+                    <th scope="col">Plecoptero</th>
+                    <th scope="col">Tricoptero</th>
+                    <th (click)="ordenarEstado()" scope="col">
+                        Estado
+                        <ion-icon *ngIf="ordEst == 'ascendente'" name="arrow-up"></ion-icon>
+                        <ion-icon *ngIf="ordEst == 'descendente'" name="arrow-down"></ion-icon>
+                    </th>
+                    <th scope="col">Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let r of registros; let i = index">
+                    <td data-label="Numero de registro">{{r.idRegistro}}</td>
+                    <td data-label="">{{r.fecha | date:'dd/MM/yy'}}</td>
+                    <td data-label="">{{r.latitud}}</td>
+                    <td data-label="">{{r.longitud}}</td>
+                    <td data-label="">{{r.indice}}</td>
+                    <td data-label="">{{r.elmido}}</td>
+                    <td data-label="">{{r.patudo}}</td>
+                    <td data-label="">{{r.plecoptero}}</td>
+                    <td data-label="">{{r.tricoptero}}</td>
+                    <td data-label="" *ngIf="r.valido == -1">Invalido</td>
+                    <td data-label="" *ngIf="r.valido == 0">Pendiente de validacion</td>
+                    <td data-label="" *ngIf="r.valido == 1">Valido</td>
+                    <td data-label="">
+                        <button ion-button color="secondary" (click)="ver(r.idRegistro,i)">
+                            Ver
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--<ion-grid>
       <ion-row>
           <ion-col (click)="ordenarRegistro()">
               <strong>N° Registro  </strong>
@@ -46,7 +103,7 @@
           </ion-col>
           <ion-col><strong>Accion</strong></ion-col>
         </ion-row>
-        <ion-row *ngFor="let r of registros">
+        <ion-row *ngFor="let r of registros; let i = index">
           <ion-col><strong>{{r.idRegistro}}</strong></ion-col>
           <ion-col><strong>{{r.fecha}}</strong></ion-col>
           <ion-col><strong>{{r.latitud}}</strong></ion-col>
@@ -56,10 +113,12 @@
           <ion-col><strong>{{r.patudo}}</strong></ion-col>
           <ion-col><strong>{{r.plecoptero}}</strong></ion-col>
           <ion-col><strong>{{r.tricoptero}}</strong></ion-col>
-          <ion-col><strong>{{r.valido}}</strong></ion-col>
-          <ion-col><button ion-button color="red" (click)="ver(r.idRegistro)">Ver</button></ion-col>
+          <ion-col *ngIf="r.valido == -1"><strong>Invalido</strong></ion-col>
+          <ion-col *ngIf="r.valido == 0"><strong>Pendiente de validacion</strong></ion-col>
+          <ion-col *ngIf="r.valido == 1"><strong>Valido</strong></ion-col>
+          <ion-col><button ion-button color="red" (click)="ver(r.idRegistro,i)">Ver</button></ion-col>
         </ion-row >
-    </ion-grid>  
+    </ion-grid>  -->
 
 
 </ion-content>
