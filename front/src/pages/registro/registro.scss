@@ -1,17 +1,43 @@
 page-registro {
 
+    ion-content{
+        background-color: #F2F2F2 !important;
+    }
+
     .contenedorImg{
+        position: relative;
         overflow: auto;
-        background-color: white;
-        margin: 50px 20px 50px 20px;
-        display: block;
         background-color: white;
         box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
     }
 
-        .foto{
-           
-        }
+    .contenedorTab{
+        margin: 40px auto;
+        max-width: 600px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+    }      
+
+    .tabla th{
+        padding: 5px 5px 5px 10px;
+        border-radius: 0px;
+        background-color: #2C3E50;
+        color: white;
+    }
+
+    .tabla td{
+        padding: 5px;
+        border-radius: 0px;
+        // background-color: #ECF0F1;
+        background-color: white;
+        color: black;
+        text-align: center;
+
+    }
+
+    .tabla{
+        overflow: auto;
+    display: block;
+    }
 
         .fotoPaisaje{
             width: 100% !important;
@@ -44,6 +70,16 @@ page-registro {
         .subtitulo p{
             font-size: 15px;
             margin: 1px;
+        }
+
+        th{
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        td{
+            font-size: 14px;
+            font-weight: normal;
         }
            
 

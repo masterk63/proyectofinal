@@ -4,6 +4,7 @@ import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import { RegistrosService } from '../../providers/registrosService';
 import { RegistroPage } from '../registro/registro';
+import { MisRegistrosPage } from '../mis-registros/mis-registros';
 /*
   Generated class for the RegistrosGestor page.
 
@@ -60,7 +61,10 @@ export class RegistrosGestorPage {
             }            
           }
           this.loading.dismiss();
-        });
+        }).catch((err)=> {this.loading.dismiss(),
+                          this.mostrarAlerta("No se puede conectar con el servidor",err),
+                          this.navCtrl.push(MisRegistrosPage);
+                        });
     }    
 
     ordenarRegistro(){
@@ -184,6 +188,15 @@ export class RegistrosGestorPage {
             content: "Cargando registros. Espere por favor..."
         });
         this.loading.present();
+    }
+
+    mostrarAlerta(mensaje,titulo) {
+      let alert = this.alertCtrl.create({
+        title: titulo,
+        subTitle: mensaje,
+        buttons: ['ACEPTAR']
+      });
+      alert.present();
     }
 
     logout(){

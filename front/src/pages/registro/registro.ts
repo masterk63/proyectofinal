@@ -6,6 +6,7 @@ import { Auth } from '../../providers/auth';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../login-page/login-page';
 import { UsuarioPage } from '../usuario/usuario';
+import { MisRegistrosPage } from '../mis-registros/mis-registros';
 /*
   Generated class for the Registro page.
 
@@ -18,6 +19,8 @@ import { UsuarioPage } from '../usuario/usuario';
 })
 export class RegistroPage {
 
+  conexion = 0;
+  retry = 4;
   loading: any;
   idRegistro: any;
   posicion: any;
@@ -62,7 +65,7 @@ export class RegistroPage {
               ){
                 this.dameRol();
                 this.idRegistro = this.params.get('idRegistro');
-                this.posicion = this.params.get('posicion');                
+                this.posicion = this.params.get('posicion');
                 this.registroDame();
               }
 
@@ -70,6 +73,7 @@ export class RegistroPage {
     this.showLoader();
     this.regService.registroDame(this.idRegistro)
           .then(data => {
+            this.conexion = 1;
             this.registro = data;
             this.registro = this.registro[0];
             this.fotoPaisajeURL = this.fotoPaisajeURL + this.registro.fotoPaisaje;
@@ -83,7 +87,10 @@ export class RegistroPage {
               this.registro.observacion = "No hay observaciones."
             }
             this.loading.dismiss();
-          });
+          }).catch((err)=> {this.loading.dismiss(),
+                          this.mostrarAlerta("No se puede conectar con el servidor",err),
+                          this.navCtrl.push(MisRegistrosPage);
+                        });
   }
 
   validoToArray(){
@@ -115,7 +122,8 @@ export class RegistroPage {
            let mensaje = mensajeBaja[0].mensaje;
             this.mostrarAlerta(mensaje,titulo);
         }
-        });
+        }).catch((err)=> {this.mostrarAlerta("No se puede conectar con el servidor",err)
+                        });
   }
 
   invalidarRegistro(idRegistro){
@@ -135,7 +143,8 @@ export class RegistroPage {
            let mensaje = mensajeBaja[0].mensaje;
             this.mostrarAlerta(mensaje,titulo);
         }
-        });
+        }).catch((err)=> {this.mostrarAlerta("No se puede conectar con el servidor",err)
+                        });
   }
 
   verUsuario(idUsuario){

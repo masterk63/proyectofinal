@@ -4,6 +4,7 @@ import { UsuariosService } from '../../providers/usuariosService';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import { Storage } from '@ionic/storage';
+import { MisRegistrosPage } from '../mis-registros/mis-registros';
 
 /*
   Generated class for the Usuario page.
@@ -45,7 +46,6 @@ export class UsuarioPage {
             } 
 
   dameId(){
-
     if(this.idUsuario == null){
       console.log("idUsuario null, buscando desde usuario propio");
     //traemos el id de la variable local guardada en el logueo
@@ -57,7 +57,10 @@ export class UsuarioPage {
             this.usuario = data;
             this.usuario = this.usuario[0];
             this.loading.dismiss();
-          });
+          }).catch((err)=> {this.loading.dismiss(),
+                          this.mostrarAlerta("No se puede conectar con el servidor",err),
+                          this.navCtrl.push(MisRegistrosPage);
+                        });
       });
     }else{
       console.log("idUsuario existe desde gestor usuarios por PUSH");
@@ -66,7 +69,10 @@ export class UsuarioPage {
             this.usuario = data;
             this.usuario = this.usuario[0];
             this.loading.dismiss();
-          });
+          }).catch((err)=> {this.loading.dismiss(),
+                          this.mostrarAlerta("No se puede conectar con el servidor",err),
+                          this.navCtrl.push(MisRegistrosPage);
+                        });
     }
 
   }
@@ -109,7 +115,8 @@ export class UsuarioPage {
             this.mostrarAlerta(mensaje,titulo);
         }
 
-        }) ;
+        }).catch((err)=> {this.mostrarAlerta("No se puede conectar con el servidor",err)
+                        });
   }
 
   botonCancelar(){
@@ -158,7 +165,8 @@ export class UsuarioPage {
            let mensaje = mensajeBaja[0].mensaje;
             this.mostrarAlerta(mensaje,titulo);
         }
-        });
+        }).catch((err)=> {this.mostrarAlerta("No se puede conectar con el servidor",err)
+                        });
     }
 
     confirmarEliminar() {

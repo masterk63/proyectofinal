@@ -16,87 +16,116 @@
 
 <ion-content>
     <div *ngIf="registro">
+
         <div class="fotoPaisaje" [ngStyle]="{'background-image': 'url(' + fotoPaisajeURL + ')'}" >
             <div class="overlay titulo">
-                <p>Foto Paisaje</p>
+                <p>FOTO DEL PAISAJE</p>
             </div> 
-            <div class="overlay subtitulo">
-                <p>Indice: {{registro.indice}}</p>
-                <p>Fecha: {{registro.fecha | date:'dd/MM/yy'}}</p>
-                <p>{{registro.ciudad}}, {{registro.provincia}}, {{registro.pais}}</p>
-            </div>
-        </div>
-        <div *ngIf="rol == 'administrador'">
-            <p>Registro creado por el usuario: {{registro.usuario}}</p><button ion-button color="red" (click)="verUsuario(registro.idUsuario)">Ver Perfil</button>
-        </div>
-        <p>Observacion hecha por el usuario: {{registro.observacion}}</p>
-
-        <div class="contenedorImg">
-            <div> 
-                <img imageViewer [src]="fotoMapaURLSafe">
-            </div>
-            <div>
-                <p>Foto Mapa</p>
-                <p>Latitud: {{registro.latitud}}</p>
-                <p>Longitud: {{registro.longitud}}</p> 
-            </div>
-        </div>
-        <div>
-            <div class="foto" > 
-                <img imageViewer [src]="fotoMuestraURLSafe">
-                <p>Foto Muestra</p> 
-            </div>
         </div>
 
-        <!--<div class="padding">
-          <ion-grid>
+    <div class="contenedor">
+        <div class="contenedorTab">
+            <table class="tabla">
+                <thead>
+                    <tr>
+                        <th>Registro N°</th>
+                        <th>Creado por</th>
+                        <th>Fecha</th>
+                        <th>Estado del registro</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{registro.idRegistro}}</td>
+                        <td>{{registro.usuario}} <a style="text-decoration: underline;" (click)="verUsuario(registro.idUsuario)">Ver Perfil</a></td>
+                        <td>{{registro.fecha | date:'dd/MM/yy'}}</td>
+                        <td>{{valido}}</td>
+                        <td>
+                            <div *ngIf="rol == 'administrador' && registro.valido == 0">
+                                <a style="text-decoration: underline;" color="secondary" (click)="mensajeConfirmar(registro.idRegistro,'validar')">Validar</a>
+                                <a style="text-decoration: underline;" color="red" (click)="mensajeConfirmar(registro.idRegistro,'invalidar')">Invalidar</a>
+                            </div>
+                            <div *ngIf="rol == 'administrador' && registro.valido == 1">
+                                <a style="text-decoration: underline;" color="red" (click)="mensajeConfirmar(registro.idRegistro,'invalidar')">Invalidar</a>
+                            </div>
+                            <div *ngIf="rol == 'administrador' && registro.valido == -1">
+                                <a style="text-decoration: underline;" color="secondary" (click)="mensajeConfirmar(registro.idRegistro,'validar')">Validar</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th colspan="5">Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3" colspan="5">{{registro.observacion}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--<h2>Registro Numero </h2>
+            <h2 *ngIf="rol == 'administrador'"><p>Registro creado por el usuario: {{registro.usuario}}</p><button ion-button color="red" (click)="verUsuario(registro.idUsuario)">Ver Perfil</button></h2>
+            <h2>Fecha de creacion: {{registro.fecha | date:'dd/MM/yy'}}</h2>
+            <p>Observacion hecha: {{registro.observacion}}</p>-->
+        </div>
+        <ion-grid>
             <ion-row>
-                <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
-                    <div class="foto" style="width: 90%;" > 
-                        <img imageViewer [src]="fotoMapaURLSafe">
-                        <p>Foto Mapa</p>
-                        <p>Latitud: {{registro.latitud}}</p>
-                        <p>Longitud: {{registro.longitud}}</p> 
-                    </div>
+                <ion-col col-md-6 col-lg-4>
+                    <ion-card class="contenedorImg">
+                        <img style="max-height: 250px;" imageViewer [src]="fotoMapaURLSafe">
+                        <ion-item><div class="card-title">FOTO SATELITAL</div></ion-item>
+                        <ion-item>
+                            <ion-icon name="map" item-left large></ion-icon>
+                            <h2>Ubicacion</h2>
+                            <p>{{registro.ciudad}}, {{registro.provincia}}, {{registro.pais}}</p>
+                        </ion-item>
+                        <ion-item>
+                            <ion-icon name="pin" item-left large></ion-icon>
+                            <h2>Coordenadas</h2>
+                            <p>Latitud: {{registro.latitud}}</p>
+                            <p>Longitud: {{registro.longitud}}</p>
+                        </ion-item>
+                    </ion-card>
                 </ion-col>
-                <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
-                    <div class="foto" > 
-                        <img imageViewer [src]="fotoMuestraURLSafe">
-                        <p>Foto Muestra</p> 
-                    </div>
+                <ion-col col-md-6 col-lg-4>
+                    <ion-card class="contenedorImg">
+                        <img style="max-height: 250px;" imageViewer [src]="fotoMuestraURLSafe">
+                        <ion-item><div class="card-title">FOTO DE LA MUESTRA</div></ion-item>
+                        <ion-item>
+                            <ion-icon name="clipboard" item-left large></ion-icon>
+                            <h2>Indice</h2>
+                            <p>{{registro.indice}}<p>
+                        </ion-item>
+                        <ion-item>
+                            <ion-icon name="bug" item-left large ></ion-icon>
+                            <h2>Insectos encontrados:</h2>
+                            <table class="bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Elmido</th>
+                                        <th scope="col">Patudo</th>
+                                        <th scope="col">Plecoptero</th>
+                                        <th scope="col">Tricoptero</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="">{{registro.elmido}}</td>
+                                        <td data-label="">{{registro.patudo}}</td>
+                                        <td data-label="">{{registro.plecoptero}}</td>
+                                        <td data-label="">{{registro.tricoptero}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ion-item>
+                    </ion-card>
                 </ion-col>
             </ion-row>
-          </ion-grid>
-        </div>-->
-
-        <ion-grid>
-          <ion-row>
-            <ion-col>Elmidos</ion-col>
-            <ion-col>Patudos</ion-col>
-            <ion-col>Plecopteros</ion-col>
-            <ion-col>Tricopteros</ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>{{registro.elmido}}</ion-col>
-            <ion-col>{{registro.patudo}}</ion-col>
-            <ion-col>{{registro.plecoptero}}</ion-col>
-            <ion-col>{{registro.tricoptero}}</ion-col>
-          </ion-row>
         </ion-grid>
-
-        <h2>Estado del registro: {{valido}}</h2>
-        <div *ngIf="rol == 'administrador' && registro.valido == 0">
-          <button ion-button color="secondary" (click)="mensajeConfirmar(registro.idRegistro,'validar')">Validar</button>
-          <button ion-button color="red" (click)="mensajeConfirmar(registro.idRegistro,'invalidar')">Invalidar</button>
-        </div>
-        <div *ngIf="rol == 'administrador' && registro.valido == 1">
-          <button ion-button color="red" (click)="mensajeConfirmar(registro.idRegistro,'invalidar')">Invalidar</button>
-        </div>
-        <div *ngIf="rol == 'administrador' && registro.valido == -1">
-          <button ion-button color="secondary" (click)="mensajeConfirmar(registro.idRegistro,'validar')">Validar</button>
-        </div>     
-        
-
+    </div>
     </div>
 </ion-content>
 

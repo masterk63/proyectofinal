@@ -55,47 +55,51 @@ export class UsuariosService {
     }
 
     load() {
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
           console.log("usuarios no cargados, comunicando provider");
         this.http.get('http://rickybruno.sytes.net:3000/api/usuariosListar')
           .subscribe(resultado => {
             this.usuarios = resultado;
             this.usuarios = JSON.parse(this.usuarios._body);
             resolve(this.usuarios);
-          });
+         },error=> reject("Error de conexion")
+          );
       });
     }
 
     usuarioDame(idUsuario){
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
         this.http.get('http://rickybruno.sytes.net:3000/api/usuarioDame/'+idUsuario)
             .map(res => res.json())
             .subscribe(resultado => {
             this.usuario = resultado;
             resolve(this.usuario);
-          });
+          },error=> reject("Error de conexion")
+          );
       });
     }
 
     usuarioModificar(usuario){
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
         this.http.post('http://rickybruno.sytes.net:3000/api/usuarioModificar',usuario)
             .map(res => res.json())
             .subscribe(resultado => {
             this.mensajeModificar = resultado;
             resolve(this.mensajeModificar);
-          });
+         },error=> reject("Error de conexion")
+          );
       });
     }
 
     usuarioBaja(idUsuario){
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
         this.http.get('http://rickybruno.sytes.net:3000/api/usuarioBaja/'+idUsuario)
             .map(res => res.json())
             .subscribe(resultado => {
             this.mensajeBaja = resultado;
             resolve(this.mensajeBaja);
-          });
+          },error=> reject("Error de conexion")
+          );
       });
     }
 

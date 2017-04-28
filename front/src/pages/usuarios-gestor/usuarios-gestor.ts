@@ -4,6 +4,7 @@ import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import { UsuariosService } from '../../providers/usuariosService';
 import { UsuarioPage } from '../usuario/usuario';
+import { MisRegistrosPage } from '../mis-registros/mis-registros';
 
 /*
   Generated class for the UsuariosGestor page.
@@ -28,17 +29,20 @@ export class UsuariosGestorPage {
               public authService: Auth,
               public loadingCtrl: LoadingController,
               ){
-                this.showLoader();
                 this.cargarUsuarios();
 
             }
 
     cargarUsuarios(){
+      this.showLoader();
       this.userService.load()
         .then(data => {
           this.usuarios = data;
           this.loading.dismiss();
-        }) ;
+        }).catch((err)=> {this.loading.dismiss(),
+                          this.mostrarAlerta("No se puede conectar con el servidor",err),
+                          this.navCtrl.push(MisRegistrosPage);
+                        });
     }
 
     filtrarUsuarios() {
@@ -47,17 +51,10 @@ export class UsuariosGestorPage {
 
     controlVacio(){
       if(this.filtro == null){
-        this.mostrarAlerta();
+        let mensaje = "Por favor primero debe seleccionar un filtro para realizar la busqueda";
+        let titulo = "Filtro necesario";
+        this.mostrarAlerta(mensaje, titulo);
       }
-    }
-
-    mostrarAlerta(){
-        let alert = this.alertCtrl.create({
-          title: '¡Filtro necesario!',
-          subTitle: 'Por favor primedo debe seleccionar un filtro para realizar la busqueda',
-          buttons: ['ACEPTAR']
-        });
-        alert.present();
     }
 
     editar(idUsuario){
@@ -71,6 +68,15 @@ export class UsuariosGestorPage {
             content: "Cargando usuarios. Espere por favor..."
         });
         this.loading.present();
+    }
+
+    mostrarAlerta(mensaje,titulo) {
+      let alert = this.alertCtrl.create({
+        title: titulo,
+        subTitle: mensaje,
+        buttons: ['ACEPTAR']
+      });
+      alert.present();
     }
 
     logout(){
