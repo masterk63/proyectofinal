@@ -19,8 +19,8 @@
   <ion-col col-md-6 col-lg-4 *ngFor="let reg of registros">
     <ion-card style="position: relative;">
 
-      <img [src]="'data:image/jpeg;base64,'+reg._attachments['fotoPaisaje.png'].data" *ngIf="reg._attachments['fotoPaisaje.png'].data">
-      <img [src]="fotoMapaNoDisponible" *ngIf="!reg._attachments['fotoPaisaje.png'].data">
+      <img [src]="'data:image/jpeg;base64,'+reg._attachments['fotoMapa.png'].data" *ngIf="controlarFotoMapa(reg)">
+      <img [src]="fotoMapaNoDisponible" *ngIf="!controlarFotoMapa(reg)">
       <ion-fab right top>
         <button ion-fab>
           <ion-icon name="pin"></ion-icon>

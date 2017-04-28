@@ -30,6 +30,17 @@ function imgURLtoBase64(url, callback) {
   xhr.send();
 }
 
+
+// Cada vez que dectecta un cambo se llama a esta funcion
+function obtenerReverseGeolactionMapa(change,fn){
+  obtenerDireccion(change,function(respuesta){
+        obtenerFotoMapa(change,function(repuesta2){
+          fn(repuesta2);
+        });
+  });
+}
+
+
 //funcion que se define en una variable porque, de esa manera
 // puedo llamarlo recursivamente. (registros,tam,hayQuePedirAlgo,fn)
 // fn, es una funcion de callBack, donde la uso para devolver un 
@@ -66,7 +77,10 @@ var obtenerFotoMapa = function (registro,fn) {
     console.log(mapaURL);
     imgURLtoBase64(mapaURL, function(base64Img) {
       let imagenDB = base64Img.split('data:image/png;base64,');
-      registro._attachments['fotoMapa.png'].data = imagenDB[1];
+      registro._attachments['fotoMapa.png']= {
+              content_type: 'image/png',
+              data: imagenDB[1]
+            };
       fn(registro);
     });
 }
@@ -123,21 +137,11 @@ function comprobarConexion(){
         }   
   }
 
-// Cada vez que dectecta un cambo se llama a esta funcion
-function obtenerReverseGeolactionMapa(change,fn){
-  obtenerDireccion(change,function(respuesta){
-        return fn(respuesta);
-        // obtenerFotoMapa(change,function(repuesta2){
-        //   fn(repuesta2);
-        // });
-  });
-}
-
 function controlarRegistros(){
   if(comprobarConexion()){
       for(let r of registrosLocales){
         if(r.ciudad === null){
-            db.get(r._id).then(function(doc) {
+            db.get(r._id,{attachments: true}).then(function(doc) {
               console.log('registro a actualizar',doc)
               obtenerReverseGeolactionMapa(doc,(docModificado)=>{
                   db.put(docModificado);

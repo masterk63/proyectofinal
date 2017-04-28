@@ -24,6 +24,7 @@ export class MisRegistrosPage {
               private _zone: NgZone) {
                 this.localSaveCtrl.getTodos().subscribe((data) => {
                     this._zone.run(() => this.registros = data);
+                    console.log('largo del registro',Object.keys(this.registros[0]._attachments).length);
                     console.log(this.registros);
                 }); 
 
@@ -32,13 +33,21 @@ export class MisRegistrosPage {
                 }else{
                     this.fotoMapaNoDisponible = "../assets/img/mapNotAvalible.jpg";
                 }
-
               }
 
   ionViewDidLoad() {
     
   }
 
+  controlarFotoMapa(reg){
+      if(Object.keys(reg._attachments).length > 2){
+        return true;
+      }
+      else{
+        return false;
+      }
+  }
+  
   logout(){
     console.log('saliendo logout');
     this.authService.logout().then(()=>{
