@@ -34,59 +34,41 @@ function imgURLtoBase64(url, callback) {
 // puedo llamarlo recursivamente. (registros,tam,hayQuePedirAlgo,fn)
 // fn, es una funcion de callBack, donde la uso para devolver un 
 //parametro asincronico
-var obtenerDireccion = function (registros,tam,hayQuePedirAlgo,fn) {
-  if(tam < 0){
-    let respuesta=[registros,hayQuePedirAlgo];
-    fn(respuesta);
-  }else{
-    if(registros[tam].ciudad === null){
-       var latlng = {lat: registros[tam].latitud, lng: registros[tam].longitud};
-       geocoder.geocode({'location': latlng}, function(results, status) {
-        if (status === google.maps.GeocoderStatus.OK) {
-          if (results[1]) {
-            let resultado = results[1].address_components;
-            let ciudad = resultado[0].long_name;
-            let provinica = resultado[2].long_name;
-            let pais = resultado[3].long_name;
-            registros[tam].ciudad = ciudad;
-            registros[tam].provincia = provinica;
-            registros[tam].pais = pais;
-            console.log(results[1].formatted_address);
-          } else {
-            console.log('No results found');
-          }
+var obtenerDireccion = function (registro,fn) {
+    var latlng = {lat: registro.latitud, lng: registro.longitud};
+    geocoder.geocode({'location': latlng}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        if (results[1]) {
+          let resultado = results[1].address_components;
+          let ciudad = resultado[0].long_name;
+          let provinica = resultado[2].long_name;
+          let pais = resultado[3].long_name;
+          registro.ciudad = ciudad;
+          registro.provincia = provinica;
+          registro.pais = pais;
+          console.log(results[1].formatted_address);
+          fn(registro);
         } else {
-        console.log('Geocoder failed due to: ' + status);
+          console.log('No results found');
+        }
+      } else {
+          console.log('Geocoder failed due to: ' + status);
       }
-        return obtenerDireccion(registros,tam-1,hayQuePedirAlgo+1,fn);
-      });
-      
-    }else{
-      return obtenerDireccion(registros,tam-1,hayQuePedirAlgo,fn);
-    }
-  }
+    });
 }
 
 
 //Obitne Fotos de los mapas con google Statics Maps 
 // uso tambien fn callBack
-var obtenerFotoMapa = function (registros,tam,fn) {
-   if(tam < 0){
-    fn(registros);
-   }else{
-      if(registros[tam]._attachments['fotoMapa.png'].data === null){
-        let position = registros[tam].latitud+','+registros[tam].longitud;
-        let mapaURL = 'https://maps.googleapis.com/maps/api/staticmap?center='+position+'&zoom=16&size=640x400&markers=color:red%7Clabel:%7C'+position+'&key=AIzaSyCmp-2Bj3yexAf_L5HN6G7TOzgIh_mKe7I';
-        console.log(mapaURL);
-        imgURLtoBase64(mapaURL, function(base64Img) {
-          let imagenDB = base64Img.split('data:image/png;base64,');
-          registros[tam]._attachments['fotoMapa.png'].data = imagenDB[1];
-          return obtenerFotoMapa(registros,tam-1,fn);
-        });
-      }else{
-        return obtenerFotoMapa(registros,tam-1,fn);
-      }
-   }
+var obtenerFotoMapa = function (registro,fn) {
+    let position = registro.latitud+','+registro.longitud;
+    let mapaURL = 'https://maps.googleapis.com/maps/api/staticmap?center='+position+'&zoom=16&size=640x400&markers=color:red%7Clabel:%7C'+position+'&key=AIzaSyCmp-2Bj3yexAf_L5HN6G7TOzgIh_mKe7I';
+    console.log(mapaURL);
+    imgURLtoBase64(mapaURL, function(base64Img) {
+      let imagenDB = base64Img.split('data:image/png;base64,');
+      registro._attachments['fotoMapa.png'].data = imagenDB[1];
+      fn(registro);
+    });
 }
 
 function manejarElCambio(change){
@@ -120,23 +102,9 @@ function manejarElCambio(change){
     }
  
   }
- 
 }
 
-
-@Injectable()
-export class Localsave {
-  remote: any;
-  idUsuario:any;
-  public entrar = true;
-
-  constructor(public http: Http,
-              public storage: Storage) {
-    this.init();   
-  }
-
-
-  public comprobarConexion(){
+function comprobarConexion(){
     // Como navigator.connection es nativo, no anda para browser,
     // Pero lo necesito para saber si puedo hacer la consulta en el navegador,
     // Por lo que lo encierro en un try catch, si da error seguramente esta en un navegador
@@ -154,6 +122,50 @@ export class Localsave {
             return true;
         }   
   }
+
+// Cada vez que dectecta un cambo se llama a esta funcion
+function obtenerReverseGeolactionMapa(change,fn){
+  obtenerDireccion(change,function(respuesta){
+        return fn(respuesta);
+        // obtenerFotoMapa(change,function(repuesta2){
+        //   fn(repuesta2);
+        // });
+  });
+}
+
+function controlarRegistros(){
+  if(comprobarConexion()){
+      for(let r of registrosLocales){
+        if(r.ciudad === null){
+            db.get(r._id).then(function(doc) {
+              console.log('registro a actualizar',doc)
+              obtenerReverseGeolactionMapa(doc,(docModificado)=>{
+                  db.put(docModificado);
+              })
+            }).then(function(response) {
+                console.log('actualizado',response)
+            }).catch(function (err) {
+              console.log(err);
+            });
+        }
+      }
+  }
+}
+
+
+@Injectable()
+export class Localsave {
+  remote: any;
+  idUsuario:any;
+  public entrar = true;
+
+  constructor(public http: Http,
+              public storage: Storage) {
+    this.init();
+  }
+
+
+  
 
   // No defino esto en el constructor porque necesito instancialo
   // antes, en otra clase.
@@ -179,10 +191,9 @@ export class Localsave {
         // replication was paused, usually because of a lost connection
       }).on('change', (change)=>{
         console.log('cambio detectado');
-        //this.geoInvImgMap(change);
       }).on('active', (info)=>{
           console.log('volvi perras');
-          this.controlarRegistros();
+          controlarRegistros();
       }).on('error', (err)=>{
         console.log('todo roto');
       });
@@ -194,50 +205,10 @@ export class Localsave {
     });
 }
 
-public controlarRegistros(){
-  if(this.comprobarConexion()){
-      for(let r of registrosLocales){
-        if(r.ciudad === null){
-            db.get(r._id).then(function(doc) {
-              console.log('registro a actualizar',doc)
-              doc.ciudad = 'hola';
-              return db.put(doc);
-            }).then(function(response) {
-                console.log('actualizado',response)
-            }).catch(function (err) {
-              console.log(err);
-            });
-        }
-      }
-  }
-}
 
 
-// Cada vez que dectecta un cambo se llama a esta funcion
-public geoInvImgMap(change){
-  let tam = change.docs[0].registros.length;
-  tam = tam -1 ;
-  let hayQuePedirAlgo = 0;
-  let registros = change.docs[0].registros;
-  obtenerDireccion(registros,tam,hayQuePedirAlgo,function(respuesta){
-      // En respuesta[1] esta la varialbe 'hayQuePedirAlgo'
-      // que me dice si tengo que entrar a recorrer la segunda funcion
-      // evita lopps infinitos.
-      if(respuesta[1] != 0){
-        let tam2 = respuesta[0].length;
-        tam2 = tam2 -1 ;
-        obtenerFotoMapa(respuesta[0],tam2,function(repuesta2){
-          change.docs[0].registros = repuesta2;
-          db.put(change.docs[0]).then(function () {
-            console.log('registos actualizados con reverse');
-          }).catch(function (err) {
-            console.log(err);
-            // error (not a 404 or 409)
-          });
-        });
-      }
-  });
-}
+
+
 
  
 // Se fija si el registro existe, si no existe lo crea
@@ -340,6 +311,7 @@ public noExiste(id,fn){
         registrosLocales.sort(function(a,b) { //La funcion sort ordena numeros, si quiero de menor a mayor a es 'a-b', si quiero de mayo a menor b-a
             return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() 
         });
+        controlarRegistros();
         observer.next(registrosLocales);
       }
       db.changes({live: true, since: 'now', include_docs: true,attachments: true}).on('change', (change) => {
