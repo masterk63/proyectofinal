@@ -180,27 +180,27 @@ export class Localsave {
 
       this.remote = 'http://rickybruno.sytes.net:5984/proyectofinal';
 
-      let options = {
-      live: true,
-      retry: true,
-      continuous: true
-      };
+      // let options = {
+      // live: true,
+      // retry: true,
+      // continuous: true
+      // };
 
-      //obtengo todo los eventos de la base de datos
-      db.replicate.to(this.remote, options).on('paused', (err) =>{
-        console.log('paused');
-        if (err) {
-          console.log(`No connection! ${err}`);
-        }
-        // replication was paused, usually because of a lost connection
-      }).on('change', (change)=>{
-        console.log('cambio detectado');
-      }).on('active', (info)=>{
-          console.log('volvi perras');
-          controlarRegistros();
-      }).on('error', (err)=>{
-        console.log('todo roto');
-      });
+      // //obtengo todo los eventos de la base de datos
+      // db.replicate.to(this.remote, options).on('paused', (err) =>{
+      //   console.log('paused');
+      //   if (err) {
+      //     console.log(`No connection! ${err}`);
+      //   }
+      //   // replication was paused, usually because of a lost connection
+      // }).on('change', (change)=>{
+      //   console.log('cambio detectado');
+      // }).on('active', (info)=>{
+      //     console.log('volvi perras');
+      //     controlarRegistros();
+      // }).on('error', (err)=>{
+      //   console.log('todo roto');
+      // });
 
       db.replicate.from(this.remote, {
         live: true,
@@ -315,7 +315,6 @@ public noExiste(id,fn){
         registrosLocales.sort(function(a,b) { //La funcion sort ordena numeros, si quiero de menor a mayor a es 'a-b', si quiero de mayo a menor b-a
             return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() 
         });
-        controlarRegistros();
         observer.next(registrosLocales);
       }
       db.changes({live: true, since: 'now', include_docs: true,attachments: true}).on('change', (change) => {
