@@ -137,22 +137,30 @@ function comprobarConexion(){
         }   
   }
 
-function controlarRegistros(){
+var algoQueReplicar = function (tam,fn){
   if(comprobarConexion()){
-      for(let r of registrosLocales){
-        if(r.ciudad === null){
-            db.get(r._id,{attachments: true}).then(function(doc) {
-              console.log('registro a actualizar',doc)
-              obtenerReverseGeolactionMapa(doc,(docModificado)=>{
-                  db.put(docModificado);
-              })
-            }).then(function(response) {
-                console.log('actualizado',response)
-            }).catch(function (err) {
-              console.log(err);
-            });
+        if(tam < 0){
+          fn(true);
+        }else{
+            if((registrosLocales[tam].ciudad === null) || (Object.keys(registrosLocales[tam]._attachments).length < 3)){
+                db.get(registrosLocales[tam]._id,{attachments: true}).then(function(doc) {
+                  console.log('registro a actualizar',doc)
+                  obtenerReverseGeolactionMapa(doc,(docModificado)=>{
+                      console.log('actualizado')
+                      db.put(docModificado);
+                      algoQueReplicar(tam-1,fn);
+                  })
+                }).then(function(response) {
+                  
+                }).catch(function (err) {
+                  console.log(err);
+                });
+            }else{
+              algoQueReplicar(tam-1,fn);
+            }
         }
-      }
+  }else{
+    fn(false);
   }
 }
 
@@ -168,9 +176,6 @@ export class Localsave {
     this.init();
   }
 
-
-  
-
   // No defino esto en el constructor porque necesito instancialo
   // antes, en otra clase.
   init(){
@@ -180,36 +185,48 @@ export class Localsave {
 
       this.remote = 'http://rickybruno.sytes.net:5984/proyectofinal';
 
-      // let options = {
-      // live: true,
-      // retry: true,
-      // continuous: true
-      // };
+      let options = {
+      live: true,
+      retry: true,
+      continuous: true
+      };
 
-      // //obtengo todo los eventos de la base de datos
-      // db.replicate.to(this.remote, options).on('paused', (err) =>{
-      //   console.log('paused');
-      //   if (err) {
-      //     console.log(`No connection! ${err}`);
-      //   }
-      //   // replication was paused, usually because of a lost connection
-      // }).on('change', (change)=>{
-      //   console.log('cambio detectado');
-      // }).on('active', (info)=>{
-      //     console.log('volvi perras');
-      //     controlarRegistros();
-      // }).on('error', (err)=>{
-      //   console.log('todo roto');
-      // });
-
-      db.replicate.from(this.remote, {
-        live: true,
-        retry: true,
-        continuous: true});
+      //obtengo todo los eventos de la base de datos
+      db.replicate.from(this.remote, options).on('paused', (err) =>{
+        console.log('paused');
+        if (err) {
+          console.log(`No connection! ${err}`);
+        }
+      // replication was paused, usually because of a lost connection
+      }).on('change', (change)=>{
+        console.log('cambio detectado');
+      }).on('active', (info)=>{
+          console.log('volvi perras');
+      }).on('error', (err)=>{
+        console.log('todo roto');
+      });
     });
 }
 
-
+public replicar(){
+  let tamanio = registrosLocales.length -1;
+  algoQueReplicar(tamanio,(respuesta) => {
+    if(respuesta){
+      console.log('replicando');
+      let manejadorDeReplica = db.replicate.to(this.remote, {
+        live: true,
+        retry: true,
+        continuous: true});
+        
+      manejadorDeReplica.on('paused', (change)=>{
+          console.log('cancelando replicacion');
+          manejadorDeReplica.cancel();
+      });
+    }else{
+      console.log('nada que replicar')
+    }
+  });
+}
 
 
 
@@ -305,7 +322,7 @@ public noExiste(id,fn){
     db.allDocs({
       include_docs: true,
       attachments: true
-    }).then(function (result) {
+    }).then((result) => {
       registrosLocales= [];
       let docs = result.rows.map((row) => {
         registrosLocales.push(row.doc);
@@ -317,6 +334,7 @@ public noExiste(id,fn){
         });
         observer.next(registrosLocales);
       }
+      this.replicar();
       db.changes({live: true, since: 'now', include_docs: true,attachments: true}).on('change', (change) => {
         manejarElCambio(change);
         registrosLocales.sort(function(a,b) { 
