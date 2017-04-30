@@ -40,36 +40,37 @@ page-registro {
     }
 
         .fotoPaisaje{
+            box-shadow:inset 0 0 0 2000px rgba(0,0,0,0.7);
             width: 100% !important;
             height: 250px !important;
             background-position: center;
             background-size: 100% 140%;
             position: relative;
-        }
-
-        .overlay{
-            position: absolute;
-            background: rgba(0,0,0,0.7);
-            z-index: 20;
-            color: antiquewhite;
             
         }
 
-        .titulo{
-            top: 1px;
-        }
-
-        .titulo p{
-            font-size: 20px;
-            margin: 0px;
-        }
-
         .subtitulo{
+            position: absolute;
+            right: 1px;
             bottom: 1px;
+            margin-right: 15px;
         }
+
         .subtitulo p{
-            font-size: 15px;
-            margin: 1px;
+            font-size: 16px;
+            color: white;
+        }
+
+            
+
+        .titulo{
+            position: absolute;
+            bottom: 1px;
+            margin-left: 15px;
+        }
+        .titulo p{
+            font-size: 16px;
+            color: white;
         }
 
         th{
