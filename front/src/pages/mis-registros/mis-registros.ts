@@ -6,6 +6,11 @@ import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import { RegistroPage } from '../registro/registro';
 import { MenuController,Platform } from 'ionic-angular';
+import { Network } from 'ionic-native';
+
+
+
+declare var Connection: any;
 
 
 @Component({
@@ -21,12 +26,17 @@ export class MisRegistrosPage {
               public authService: Auth,
               public navParams: NavParams,
               public localSaveCtrl:Localsave,
-              public platform: Platform, 
+              public platform: Platform,
               private menu: MenuController,
               private _zone: NgZone) {
                 this.localSaveCtrl.getTodos().subscribe((data) => {
                     this._zone.run(() => this.registros = data);
                     console.log(this.registros);
+                });
+
+                // watch network for a connection
+                Network.onConnect().subscribe(() => {
+                  this.localSaveCtrl.replicar();
                 });
 
 

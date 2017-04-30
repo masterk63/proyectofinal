@@ -52,12 +52,35 @@ cvr.on('usrActualizado', function (change) {
 
 
 //CHANGE solo tiene el id y la rev del documento en cuestion
-cvr.on('regCreado', function (change) {
+cvr.on('regCreadoOActualizado', function (change) {
     console.log("reg creado");
     console.log(change);
     var self = this;
     self.databaseRegistros.get(change.id,{attachments: true},function (err, res) {
         console.log(res);
+        var indice= parseInt(res.indice);
+        var fecha='"'+res.fecha+'"';
+        var latitud=res.latitud;
+        var longitud=res.longitud;
+        var fotoPaisajeConcat='"'+res._attachments["fotoPaisaje.png"].data+'"';
+        var fotoMuestraConcat='"'+res._attachments["fotoMuestra.png"].data+'"';
+        var fotoMapaConcat='"'+res._attachments["fotoMapa.png"].data+'"';
+        var observaciones='"'+res.observaciones+'"';
+        var idUsuario=parseInt(res.idUsuario); 
+        var ciudad='"'+res.ciudad+'"';
+        var provincia='"'+res.provincia+'"';
+        var pais='"'+res.pais+'"';
+        var elmidos='"'+res.elmidos+'"';
+        var patudos='"'+res.patudos+'"';
+        var plecopteros='"'+res.plecopteros+'"';
+        var tricopteros='"'+res.tricopteros+'"';
+        
+        self.mysql.query('CALL registro_nuevo_completo('+indice+','+fecha+','+latitud+','+longitud+','+fotoPaisajeConcat+','+fotoMuestraConcat+','+fotoMapaConcat+','+observaciones+','+idUsuario+','+ciudad+','+provincia+','+pais+','+elmidos+','+patudos+','+plecopteros+','+tricopteros+')',function(err,rows) {
+            if(err){
+                console.log(err);
+            }
+            console.log(rows); 
+        });
     });
 });
 
