@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { FabContainer, AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
 import {DomSanitizer} from '@angular/platform-browser';
 import { RegistrosService } from '../../providers/registrosService';
 import { Auth } from '../../providers/auth';
@@ -19,8 +19,6 @@ import { MisRegistrosPage } from '../mis-registros/mis-registros';
 })
 export class RegistroPage {
 
-  conexion = 0;
-  retry = 4;
   loading: any;
   idRegistro: any;
   posicion: any;
@@ -62,6 +60,7 @@ export class RegistroPage {
               public storage: Storage,
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
+
               ){
                 this.dameRol();
                 this.idRegistro = this.params.get('idRegistro');
@@ -73,7 +72,6 @@ export class RegistroPage {
     this.showLoader();
     this.regService.registroDame(this.idRegistro)
           .then(data => {
-            this.conexion = 1;
             this.registro = data;
             this.registro = this.registro[0];
             this.fotoPaisajeURL = this.fotoPaisajeURL + this.registro.fotoPaisaje;
@@ -151,7 +149,8 @@ export class RegistroPage {
       this.navCtrl.push(UsuarioPage,{idUsuario});
   }
 
-  mensajeConfirmar(idRegistro,accion) {
+  mensajeConfirmar(idRegistro,accion, fab: FabContainer) {
+    fab.close();
     let confirm = this.alertCtrl.create({
       title: accion.charAt(0).toUpperCase()+accion.slice(1)+' Registro',
       message: '¿Esta seguro que desea '+accion+' el Registro N° '+this.registro.idRegistro+'?',

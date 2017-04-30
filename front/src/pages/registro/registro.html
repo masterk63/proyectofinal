@@ -24,7 +24,7 @@
         </div>
 
     <div class="contenedor">
-        <div class="contenedorTab">
+        <!--<div class="contenedorTab">
             <table class="tabla">
                 <thead>
                     <tr>
@@ -66,17 +66,12 @@
                     </tr>
                 </tbody>
             </table>
-            <!--<h2>Registro Numero </h2>
-            <h2 *ngIf="rol == 'administrador'"><p>Registro creado por el usuario: {{registro.usuario}}</p><button ion-button color="red" (click)="verUsuario(registro.idUsuario)">Ver Perfil</button></h2>
-            <h2>Fecha de creacion: {{registro.fecha | date:'dd/MM/yy'}}</h2>
-            <p>Observacion hecha: {{registro.observacion}}</p>-->
-        </div>
+        </div>-->
         <ion-grid>
             <ion-row>
-                <ion-col col-md-6 col-lg-4>
+                <ion-col col-md-4 col-lg-6>
                     <ion-card class="contenedorImg">
                         <img style="max-height: 250px;" imageViewer [src]="fotoMapaURLSafe">
-                        <ion-item><div class="card-title">FOTO SATELITAL</div></ion-item>
                         <ion-item>
                             <ion-icon name="map" item-left large></ion-icon>
                             <h2>Ubicacion</h2>
@@ -90,10 +85,9 @@
                         </ion-item>
                     </ion-card>
                 </ion-col>
-                <ion-col col-md-6 col-lg-4>
+                <ion-col col-md-4 col-lg-6>
                     <ion-card class="contenedorImg">
                         <img style="max-height: 250px;" imageViewer [src]="fotoMuestraURLSafe">
-                        <ion-item><div class="card-title">FOTO DE LA MUESTRA</div></ion-item>
                         <ion-item>
                             <ion-icon name="clipboard" item-left large></ion-icon>
                             <h2>Indice</h2>
@@ -124,8 +118,45 @@
                     </ion-card>
                 </ion-col>
             </ion-row>
+            <ion-row>
+                <ion-col col-md-4 col-lg-6>
+                    <ion-card class="contenedorImg">
+                       <ion-card-content>
+                            <h2>Registro Nº</h2>
+                            <p style="margin-left: 10px;">{{registro.idRegistro}}</p>
+                            <div *ngIf="rol == 'administrador'">
+                                <h2>Creado por</h2>
+                                <p style="margin-left: 10px;">{{registro.usuario}} <a style="margin-left: 10px; text-decoration: underline;" (click)="verUsuario(registro.idUsuario)">Ver Perfil</a></p>
+                            </div>
+                            <h2>Fecha</h2>
+                            <p style="margin-left: 10px;">{{registro.fecha | date:'dd/MM/yy'}}</p>
+                            <h2>Estado del registro</h2>
+                            <p style="margin-left: 10px;">{{valido}}</p>
+                            <h2>Observaciones</h2>
+                            <p style="margin-left: 10px;">{{registro.observacion}}</p>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
         </ion-grid>
     </div>
     </div>
+        <ion-fab #fab auto-close-on-click-outside bottom right *ngIf="registro">
+            <button class="botonValidar" ion-fab>Cambiar estado</button>
+            <ion-fab-list side="top">
+                <div *ngIf="rol == 'administrador' && registro.valido == 0">
+                    <button class="botonValidar" ion-fab (click)="mensajeConfirmar(registro.idRegistro,'validar',fab)">Validar</button>
+                    <button class="botonValidar" ion-fab (click)="mensajeConfirmar(registro.idRegistro,'invalidar',fab)">Invalidar</button>
+                </div>
+                
+                
+                <div *ngIf="rol == 'administrador' && registro.valido == 1">
+                    <button class="botonValidar" ion-fab (click)="mensajeConfirmar(registro.idRegistro,'invalidar',fab)">Invalidar</button>
+                </div>
+                <div *ngIf="rol == 'administrador' && registro.valido == -1">
+                    <button class="botonValidar" ion-fab (click)="mensajeConfirmar(registro.idRegistro,'validar',fab)">Validar</button>
+                </div>
+            </ion-fab-list>
+        </ion-fab>
 </ion-content>
 
