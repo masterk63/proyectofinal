@@ -1,6 +1,10 @@
 page-registros-gestor {
 
-    .contenedorImg{
+    ion-content{
+        background-color: #F2F2F2 !important;
+    }
+
+    .contenedorTabla{
         overflow: auto;
         background-color: white;
         margin: 50px 20px 50px 20px;

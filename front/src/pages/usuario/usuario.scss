@@ -1,12 +1,39 @@
 page-usuario {
-body{
- background-color: #2B2B2B;   
-}
+
+    ion-content{
+        background-color: #F2F2F2 !important;
+    }
+    
+    body{
+    background-color: #2B2B2B;   
+    }
+
+    td{
+        padding: 10px;
+    }
+
+    h2{
+        padding: 15px;
+    }
+
+.contenedorTabla{
+        overflow: auto;
+        background-color: white;
+        margin: 20px 20px 50px 20px;
+        display: block;
+        background-color: white;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
 
 h1{
     color: white;
     margin-top: 0;
     font-weight: 700;
+}
+
+.botones{
+    position: absolute;
+    right: 20px;
 }
 
 .inputHeader input{
@@ -23,6 +50,7 @@ h1{
 }
 
 .inputBody input{
+    padding: 10px;
     margin-top: 1px !important;
      margin-bottom: 1px !important;
     font-family: 'Oswald', sans-serif;
@@ -182,19 +210,5 @@ label {
 .toppad
 {margin-top:20px;
 }
-
-tbody {
-    font-size: 15px;
-}
-td{
-    padding-top: 6px;
-    padding-bottom: 6px;
-    padding-left: 2px;
-}
-table {
-    width: 100%;
-}
-
-
 
 }

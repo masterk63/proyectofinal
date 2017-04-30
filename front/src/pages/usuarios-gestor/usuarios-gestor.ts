@@ -57,9 +57,9 @@ export class UsuariosGestorPage {
       }
     }
 
-    editar(idUsuario){
+    editar(idUsuario,posicion){
       console.log(idUsuario);
-      this.navCtrl.push(UsuarioPage,{idUsuario});
+      this.navCtrl.push(UsuarioPage,{idUsuario,posicion});
     }
 
     showLoader(){
