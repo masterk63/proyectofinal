@@ -133,7 +133,8 @@
                             <h2>Estado del registro</h2>
                             <p style="margin-left: 10px;">{{valido}}</p>
                             <h2>Observaciones</h2>
-                            <p style="margin-left: 10px;">{{registro.observacion}}</p>
+                            <p *ngIf="registro.observacion == '' || registro.observacion == null" style="margin-left: 10px;">El usuario no hizo observaciones</p>
+                            <p *ngIf="registro.observacion !== '' || registro.observacion !== null" style="margin-left: 10px;">{{registro.observacion}}</p>
                         </ion-card-content>
                     </ion-card>
                 </ion-col>
