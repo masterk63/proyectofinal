@@ -6,6 +6,7 @@ import PouchDB from 'pouchdb';
 import { Storage } from '@ionic/storage';
 
 
+
 //Variable global de Google definida en su js
 declare var google;
 var geocoder = new google.maps.Geocoder;
@@ -172,8 +173,9 @@ export class Localsave {
   public entrar = true;
 
   constructor(public http: Http,
-              public storage: Storage) {
+              public storage: Storage,) {
     this.init();
+    
   }
 
   // No defino esto en el constructor porque necesito instancialo
@@ -228,19 +230,6 @@ public replicar(){
   });
 }
 
-
-
-
- 
-// Se fija si el registro existe, si no existe lo crea
-// si existe, lo devuelve, de esa manera se actualiza
-public noExiste(id,fn){
-  db.get(id).then(function (configDoc) {
-      fn(configDoc);
-    }).catch(function (err) {
-        fn('1');
-    });
-}
 
   // Crear un nuevo  registro
   public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud,observaciones){
@@ -360,6 +349,5 @@ public noExiste(id,fn){
       console.log('No se pudo Romper');
     })
   }
-
   
 }
