@@ -24,9 +24,9 @@ export class MisRegistrosPage {
               private _zone: NgZone) {
                 this.localSaveCtrl.getTodos().subscribe((data) => {
                     this._zone.run(() => this.registros = data);
-                    console.log('largo del registro',Object.keys(this.registros[0]._attachments).length);
                     console.log(this.registros);
-                }); 
+                });
+
 
                 if(this.platform.is('android') || this.platform.is('ios')){
                     this.fotoMapaNoDisponible = "../www/assets/img/mapNotAvalible.jpg";
