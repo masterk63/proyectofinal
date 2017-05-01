@@ -32,17 +32,21 @@ $font-path: "../assets/fonts";
 //   dark:       #222
 // );
 
-
+$primary:#00BCD4;
+$secondary:#00BCD4;
+$terciario:#00BCD4;
 
 $colors: (
-  primary:    #d14836,
-  secondary:  #3498db,
+  primary:   $primary,
+  secondary:  $secondary,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
-  favorite:   #69BB7B,
+  terciario:   $terciario,
   white: white,
 );
+
+
 
 $toolbar-background:#d14836;
 $toolbar-border-color:#f4f4f4;
