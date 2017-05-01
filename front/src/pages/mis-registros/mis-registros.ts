@@ -4,12 +4,14 @@ import { Localsave } from '../../providers/localsave';
 import {File, Transfer, FilePath } from 'ionic-native';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
+import { RegistroPage } from '../registro/registro';
 import { MenuController,Platform } from 'ionic-angular';
 import { Network } from 'ionic-native';
 
 
 
 declare var Connection: any;
+
 
 @Component({
   selector: 'page-mis-registros',
@@ -65,6 +67,25 @@ export class MisRegistrosPage {
       
       this.navCtrl.setRoot(LoginPage);
     });
+  }
+
+  verRegistro(attachments,fecha,ciudad,provincia,pais,latitud,longitud,indice,elmido,patudo,plecoptero,tricoptero,observacion){
+    console.log(fecha);
+    this.navCtrl.push(RegistroPage,{donde : "mis registros",
+                                    attachments,
+                                    fecha,
+                                    ciudad,
+                                    provincia,
+                                    pais,
+                                    latitud,
+                                    longitud,
+                                    indice,
+                                    elmido,
+                                    patudo,
+                                    plecoptero,
+                                    tricoptero,
+                                    observacion
+                                    });
   }
 
   

@@ -16,7 +16,7 @@
 
 
 <ion-content padding>
-    <div class="contenedorImg">
+    <div class="contenedorTabla">
         <h2>Listado de Registros</h2>
         <table class="responsive-table bordered">
             <thead>
@@ -73,52 +73,5 @@
             </tbody>
         </table>
     </div>
-    <!--<ion-grid>
-      <ion-row>
-          <ion-col (click)="ordenarRegistro()">
-              <strong>N° Registro  </strong>
-              <ion-icon *ngIf="ordReg == 'ascendente'" name="arrow-up"></ion-icon>
-              <ion-icon *ngIf="ordReg == 'descendente'" name="arrow-down"></ion-icon>
-          </ion-col>
-          <ion-col (click)="ordenarFecha()">
-              <strong>Fecha  </strong>
-              <ion-icon *ngIf="ordFec == 'ascendente'" name="arrow-up"></ion-icon>
-              <ion-icon *ngIf="ordFec == 'descendente'" name="arrow-down"></ion-icon>
-          </ion-col>
-          <ion-col><strong>Latitud</strong></ion-col>
-          <ion-col><strong>Longitud</strong></ion-col>
-          <ion-col (click)="ordenarIndice()">
-              <strong>Indice  </strong>
-              <ion-icon *ngIf="ordInd == 'ascendente'" name="arrow-up"></ion-icon>
-              <ion-icon *ngIf="ordInd == 'descendente'" name="arrow-down"></ion-icon>
-          </ion-col>
-          <ion-col><strong>Elmido</strong></ion-col>
-          <ion-col><strong>Patudo</strong></ion-col>
-          <ion-col><strong>Plecoptero</strong></ion-col>
-          <ion-col><strong>Tricoptero</strong></ion-col>
-          <ion-col (click)="ordenarEstado()">
-              <strong>Estado  </strong>
-              <ion-icon *ngIf="ordEst == 'ascendente'" name="arrow-up"></ion-icon>
-              <ion-icon *ngIf="ordEst == 'descendente'" name="arrow-down"></ion-icon>
-          </ion-col>
-          <ion-col><strong>Accion</strong></ion-col>
-        </ion-row>
-        <ion-row *ngFor="let r of registros; let i = index">
-          <ion-col><strong>{{r.idRegistro}}</strong></ion-col>
-          <ion-col><strong>{{r.fecha}}</strong></ion-col>
-          <ion-col><strong>{{r.latitud}}</strong></ion-col>
-          <ion-col><strong>{{r.longitud}}</strong></ion-col>
-          <ion-col><strong>{{r.indice}}</strong></ion-col>
-          <ion-col><strong>{{r.elmido}}</strong></ion-col>
-          <ion-col><strong>{{r.patudo}}</strong></ion-col>
-          <ion-col><strong>{{r.plecoptero}}</strong></ion-col>
-          <ion-col><strong>{{r.tricoptero}}</strong></ion-col>
-          <ion-col *ngIf="r.valido == -1"><strong>Invalido</strong></ion-col>
-          <ion-col *ngIf="r.valido == 0"><strong>Pendiente de validacion</strong></ion-col>
-          <ion-col *ngIf="r.valido == 1"><strong>Valido</strong></ion-col>
-          <ion-col><button ion-button color="red" (click)="ver(r.idRegistro,i)">Ver</button></ion-col>
-        </ion-row >
-    </ion-grid>  -->
-
-
+    
 </ion-content>

@@ -127,17 +127,17 @@ export class LoginPage {
     }
 
     presentToast() {
-    let toast = this.toastCtrl.create({
-        message: 'Ha iniciado sesion de manera correcta',
-        duration: 2000,
-        position: 'top'
-    });
+        let toast = this.toastCtrl.create({
+            message: 'Ha iniciado sesion de manera correcta',
+            duration: 2000,
+            position: 'top'
+        });
 
-    toast.onDidDismiss(() => {
-        console.log('Dismissed toast');
-    });
+        toast.onDidDismiss(() => {
+            console.log('Dismissed toast');
+        });
 
-    toast.present();
+        toast.present();
     }
  
 }

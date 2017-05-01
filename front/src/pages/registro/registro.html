@@ -17,56 +17,18 @@
 <ion-content>
     <div *ngIf="registro">
 
-        <div class="fotoPaisaje" [ngStyle]="{'background-image': 'url(' + fotoPaisajeURL + ')'}" >
-            <div class="overlay titulo">
-                <p>FOTO DEL PAISAJE</p>
-            </div> 
+    <div class="fotoPaisaje" [ngStyle]="{'background-image': 'url(' + fotoPaisajeURL + ')'}" >
+        <div *ngIf="rol == 'administrador' && registro.usuario !== null " class="titulo">
+            <p>Creado por el usuario {{registro.usuario}}
+                <a style="margin-left: 10px; text-decoration: underline;" (click)="verUsuario(registro.idUsuario)">Ver Perfil</a>
+            </p>
         </div>
+        <div class="subtitulo">
+            <p>Fecha {{registro.fecha | date:'dd/MM/yy'}}</p>
+        </div> 
+    </div> 
 
     <div class="contenedor">
-        <!--<div class="contenedorTab">
-            <table class="tabla">
-                <thead>
-                    <tr>
-                        <th>Registro N°</th>
-                        <th>Creado por</th>
-                        <th>Fecha</th>
-                        <th>Estado del registro</th>
-                        <th>Accion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{registro.idRegistro}}</td>
-                        <td>{{registro.usuario}} <a style="text-decoration: underline;" (click)="verUsuario(registro.idUsuario)">Ver Perfil</a></td>
-                        <td>{{registro.fecha | date:'dd/MM/yy'}}</td>
-                        <td>{{valido}}</td>
-                        <td>
-                            <div *ngIf="rol == 'administrador' && registro.valido == 0">
-                                <a style="text-decoration: underline;" color="secondary" (click)="mensajeConfirmar(registro.idRegistro,'validar')">Validar</a>
-                                <a style="text-decoration: underline;" color="red" (click)="mensajeConfirmar(registro.idRegistro,'invalidar')">Invalidar</a>
-                            </div>
-                            <div *ngIf="rol == 'administrador' && registro.valido == 1">
-                                <a style="text-decoration: underline;" color="red" (click)="mensajeConfirmar(registro.idRegistro,'invalidar')">Invalidar</a>
-                            </div>
-                            <div *ngIf="rol == 'administrador' && registro.valido == -1">
-                                <a style="text-decoration: underline;" color="secondary" (click)="mensajeConfirmar(registro.idRegistro,'validar')">Validar</a>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-                <thead>
-                    <tr>
-                        <th colspan="5">Observaciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td rowspan="3" colspan="5">{{registro.observacion}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>-->
         <ion-grid>
             <ion-row>
                 <ion-col col-md-4 col-lg-6>
@@ -122,15 +84,9 @@
                 <ion-col col-md-4 col-lg-6>
                     <ion-card class="contenedorImg">
                        <ion-card-content>
-                            <h2>Registro Nº</h2>
+                            <h2 *ngIf="registro.idRegistro !== null" >Registro Nº</h2>
                             <p style="margin-left: 10px;">{{registro.idRegistro}}</p>
-                            <div *ngIf="rol == 'administrador'">
-                                <h2>Creado por</h2>
-                                <p style="margin-left: 10px;">{{registro.usuario}} <a style="margin-left: 10px; text-decoration: underline;" (click)="verUsuario(registro.idUsuario)">Ver Perfil</a></p>
-                            </div>
-                            <h2>Fecha</h2>
-                            <p style="margin-left: 10px;">{{registro.fecha | date:'dd/MM/yy'}}</p>
-                            <h2>Estado del registro</h2>
+                            <h2 *ngIf="registro.valido !== null">Estado del registro</h2>
                             <p style="margin-left: 10px;">{{valido}}</p>
                             <h2>Observaciones</h2>
                             <p *ngIf="registro.observacion == '' || registro.observacion == null" style="margin-left: 10px;">El usuario no hizo observaciones</p>
@@ -142,7 +98,7 @@
         </ion-grid>
     </div>
     </div>
-        <ion-fab #fab auto-close-on-click-outside bottom right *ngIf="registro">
+        <ion-fab #fab auto-close-on-click-outside bottom right *ngIf="registro && registro.valido !== null ">
             <button class="botonValidar" ion-fab>Cambiar estado</button>
             <ion-fab-list side="top">
                 <div *ngIf="rol == 'administrador' && registro.valido == 0">
