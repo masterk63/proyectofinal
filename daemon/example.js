@@ -66,7 +66,7 @@ cvr.on('regCreadoOActualizado', function (change) {
         var fotoMuestraConcat='"'+res._attachments["fotoMuestra.png"].data+'"';
         var fotoMapaConcat='"'+res._attachments["fotoMapa.png"].data+'"';
         var observaciones='"'+res.observaciones+'"';
-        var idUsuario=parseInt(res.idUsuario); 
+        var idUsuario=parseInt(res.idUsuario);
         var ciudad='"'+res.ciudad+'"';
         var provincia='"'+res.provincia+'"';
         var pais='"'+res.pais+'"';
