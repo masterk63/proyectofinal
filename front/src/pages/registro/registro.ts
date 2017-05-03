@@ -81,11 +81,16 @@ export class RegistroPage {
 
   armarRegistroLocal(){
     this.attachments = this.params.get('attachments');
+    console.log(Object.keys(this.attachments).length);
+    if(Object.keys(this.attachments).length > 2){
+      this.fotoMapaURL = this.fotoMapaURL + this.attachments["fotoMapa.png"].data;
+      this.fotoMapaURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoMapaURL );
+    }else{
+
+    }
     this.fotoPaisajeURL = this.fotoPaisajeURL + this.attachments["fotoPaisaje.png"].data;
     this.fotoMuestraURL = this.fotoMuestraURL + this.attachments["fotoMuestra.png"].data;
-    this.fotoMapaURL = this.fotoMapaURL + this.attachments["fotoMapa.png"].data;
     this.fotoMuestraURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL );
-    this.fotoMapaURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoMapaURL );
     this.consultaArray = {fecha: this.params.get('fecha'),
                           ciudad: this.params.get('ciudad'),
                           provincia: this.params.get('provincia'),
@@ -237,7 +242,7 @@ export class RegistroPage {
     }
 
     controlarFotoMapa(){
-      if(this.registro.fotoMapa.length > 2){
+      if(Object.keys(this.attachments).length > 2){
         return true;
       }
       else{
