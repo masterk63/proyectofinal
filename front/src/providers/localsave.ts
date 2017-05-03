@@ -6,6 +6,7 @@ import PouchDB from 'pouchdb';
 import { Storage } from '@ionic/storage';
 
 
+
 //Variable global de Google definida en su js
 declare var google;
 var geocoder = new google.maps.Geocoder;
@@ -137,22 +138,30 @@ function comprobarConexion(){
         }   
   }
 
-function controlarRegistros(){
+var algoQueReplicar = function (tam,fn){
   if(comprobarConexion()){
-      for(let r of registrosLocales){
-        if(r.ciudad === null){
-            db.get(r._id,{attachments: true}).then(function(doc) {
-              console.log('registro a actualizar',doc)
-              obtenerReverseGeolactionMapa(doc,(docModificado)=>{
-                  db.put(docModificado);
-              })
-            }).then(function(response) {
-                console.log('actualizado',response)
-            }).catch(function (err) {
-              console.log(err);
-            });
+        if(tam < 0){
+          fn(true);
+        }else{
+            if((registrosLocales[tam].ciudad === null) || (Object.keys(registrosLocales[tam]._attachments).length < 3)){
+                db.get(registrosLocales[tam]._id,{attachments: true}).then(function(doc) {
+                  console.log('registro a actualizar',doc)
+                  obtenerReverseGeolactionMapa(doc,(docModificado)=>{
+                      console.log('actualizado')
+                      db.put(docModificado);
+                      algoQueReplicar(tam-1,fn);
+                  })
+                }).then(function(response) {
+                  
+                }).catch(function (err) {
+                  console.log(err);
+                });
+            }else{
+              algoQueReplicar(tam-1,fn);
+            }
         }
-      }
+  }else{
+    fn(false);
   }
 }
 
@@ -164,12 +173,10 @@ export class Localsave {
   public entrar = true;
 
   constructor(public http: Http,
-              public storage: Storage) {
+              public storage: Storage,) {
     this.init();
+    
   }
-
-
-  
 
   // No defino esto en el constructor porque necesito instancialo
   // antes, en otra clase.
@@ -187,43 +194,42 @@ export class Localsave {
       };
 
       //obtengo todo los eventos de la base de datos
-      db.replicate.to(this.remote, options).on('paused', (err) =>{
+      db.replicate.from(this.remote, options).on('paused', (err) =>{
         console.log('paused');
         if (err) {
           console.log(`No connection! ${err}`);
         }
-        // replication was paused, usually because of a lost connection
+      // replication was paused, usually because of a lost connection
       }).on('change', (change)=>{
         console.log('cambio detectado');
       }).on('active', (info)=>{
           console.log('volvi perras');
-          controlarRegistros();
       }).on('error', (err)=>{
         console.log('todo roto');
       });
+    });
+}
 
-      db.replicate.from(this.remote, {
+public replicar(){
+  let tamanio = registrosLocales.length -1;
+  algoQueReplicar(tamanio,(respuesta) => {
+    if(respuesta){
+      console.log('replicando');
+      let manejadorDeReplica = db.replicate.to(this.remote, {
         live: true,
         retry: true,
         continuous: true});
-    });
+        
+      manejadorDeReplica.on('paused', (change)=>{
+          console.log('cancelando replicacion');
+          manejadorDeReplica.cancel();
+      });
+    }else{
+      console.log('nada que replicar')
+    }
+  });
 }
 
-
-
-
-
-
- 
-// Se fija si el registro existe, si no existe lo crea
-// si existe, lo devuelve, de esa manera se actualiza
-public noExiste(id,fn){
-  db.get(id).then(function (configDoc) {
-      fn(configDoc);
-    }).catch(function (err) {
-        fn('1');
-    });
-}
 
   // Crear un nuevo  registro
   public crear(fotoPaisaje,fotoMuestra,patudos,elmidos,plecopteros,tricopteros,latitud,longitud,observaciones){
@@ -305,7 +311,7 @@ public noExiste(id,fn){
     db.allDocs({
       include_docs: true,
       attachments: true
-    }).then(function (result) {
+    }).then((result) => {
       registrosLocales= [];
       let docs = result.rows.map((row) => {
         registrosLocales.push(row.doc);
@@ -315,9 +321,9 @@ public noExiste(id,fn){
         registrosLocales.sort(function(a,b) { //La funcion sort ordena numeros, si quiero de menor a mayor a es 'a-b', si quiero de mayo a menor b-a
             return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() 
         });
-        controlarRegistros();
         observer.next(registrosLocales);
       }
+      this.replicar();
       db.changes({live: true, since: 'now', include_docs: true,attachments: true}).on('change', (change) => {
         manejarElCambio(change);
         registrosLocales.sort(function(a,b) { 
@@ -343,6 +349,5 @@ public noExiste(id,fn){
       console.log('No se pudo Romper');
     })
   }
-
   
 }

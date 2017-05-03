@@ -17,41 +17,71 @@ cvr.connect();
 //     });
 // }
 
-//CHANGE solo tiene el id y la rev del documento en cuestion
-cvr.on('regCreado', function (change) {
-    console.log("reg creado");
-    console.log(change);
-});
+
 
 cvr.on('usrCreado', function (change) {
-    console.log("Usuario creado");
-    console.log(change);
-    var self = this;
-    self.databaseUsuarios.get(change.id, function (err, res) {
-        if (err) throw err;
-        console.log(res); 
-        var idUsuario='"'+res._id+'"';
-        var mail='"'+res.mail+'"';
-        var username='"'+res.username+'"';
-        var password='"'+res.password+'"';
-        var nombre='"'+res.nombre+'"';
-        var apellido='"'+res.apellido+'"';
-        var institucion='"'+res.institucion+'"';
-        var grado='"'+res.grado+'"';
-        var residencia='"'+res.residencia+'"';
-        self.mysql.query('CALL usuario_nuevo('+idUsuario+','+mail+','+username+','+password+','+nombre+','+apellido+','+institucion+','+grado+','+residencia+')',function(err,rows) {
-            if(err){
-                console.log(err);
-            }
-            console.log(rows); 
-        });
-    });
+    // console.log("Usuario creado");
+    // console.log(change);
+    // var self = this;
+    // self.databaseUsuarios.get(change.id, function (err, res) {
+    //     if (err) throw err;
+    //     console.log(res); 
+    //     var idUsuario='"'+res._id+'"';
+    //     var mail='"'+res.mail+'"';
+    //     var username='"'+res.username+'"';
+    //     var password='"'+res.password+'"';
+    //     var nombre='"'+res.nombre+'"';
+    //     var apellido='"'+res.apellido+'"';
+    //     var institucion='"'+res.institucion+'"';
+    //     var grado='"'+res.grado+'"';
+    //     var residencia='"'+res.residencia+'"';
+    //     self.mysql.query('CALL usuario_nuevo('+idUsuario+','+mail+','+username+','+password+','+nombre+','+apellido+','+institucion+','+grado+','+residencia+')',function(err,rows) {
+    //         if(err){
+    //             console.log(err);
+    //         }
+    //         console.log(rows); 
+    //     });
+    // });
 
 });
 
 cvr.on('usrActualizado', function (change) {
     console.log("Usuario actualizado");
     console.log(change);
+});
+
+
+//CHANGE solo tiene el id y la rev del documento en cuestion
+cvr.on('regCreadoOActualizado', function (change) {
+    console.log("reg creado");
+    console.log(change);
+    var self = this;
+    self.databaseRegistros.get(change.id,{attachments: true},function (err, res) {
+        console.log(res);
+        var indice= parseInt(res.indice);
+        var fecha='"'+res.fecha+'"';
+        var latitud=res.latitud;
+        var longitud=res.longitud;
+        var fotoPaisajeConcat='"'+res._attachments["fotoPaisaje.png"].data+'"';
+        var fotoMuestraConcat='"'+res._attachments["fotoMuestra.png"].data+'"';
+        var fotoMapaConcat='"'+res._attachments["fotoMapa.png"].data+'"';
+        var observaciones='"'+res.observaciones+'"';
+        var idUsuario=parseInt(res.idUsuario);
+        var ciudad='"'+res.ciudad+'"';
+        var provincia='"'+res.provincia+'"';
+        var pais='"'+res.pais+'"';
+        var elmidos='"'+res.elmidos+'"';
+        var patudos='"'+res.patudos+'"';
+        var plecopteros='"'+res.plecopteros+'"';
+        var tricopteros='"'+res.tricopteros+'"';
+        
+        self.mysql.query('CALL registro_nuevo_completo('+indice+','+fecha+','+latitud+','+longitud+','+fotoPaisajeConcat+','+fotoMuestraConcat+','+fotoMapaConcat+','+observaciones+','+idUsuario+','+ciudad+','+provincia+','+pais+','+elmidos+','+patudos+','+plecopteros+','+tricopteros+')',function(err,rows) {
+            if(err){
+                console.log(err);
+            }
+            console.log(rows); 
+        });
+    });
 });
 
 cvr.on('regActualizado', function (change) {
@@ -157,24 +187,3 @@ cvr.on('regActualizado', function (change) {
     // });
 });
 
-// cvr.on('deleted', function (change) {
-//     var query = this.config.queries.delete;
-//     this.mysql.query(query, change.id); 
-// });
-
-
-// cvr.on('updated', function (change) {
-//     console.log('actualizando');
-//     var self = this;
-//     var query = this.config.queries.update;
-//     this.database.get(change.id, function (err, res) {
-//         if (err) throw err;
-//         // console.log(JSON.stringify(res));
-//         //Aca esta la magia modificar doc para lo que se necesario.
-//          var doc = { foto : res.title,idFotos : res._id };
-         
-//          self.mysql.query(query, doc,function (err) {
-//              if (err) throw err;
-//         });
-//     });
-// });

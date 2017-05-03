@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { AlertController, NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
+=======
+import { FabContainer, AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
+>>>>>>> 05686ba0c2734ef5f27575abcf008c533a23e21c
 import {DomSanitizer} from '@angular/platform-browser';
 import { RegistrosService } from '../../providers/registrosService';
 import { Auth } from '../../providers/auth';
@@ -18,9 +22,8 @@ import { MisRegistrosPage } from '../mis-registros/mis-registros';
   templateUrl: 'registro.html'
 })
 export class RegistroPage {
-
-  conexion = 0;
-  retry = 4;
+  consultaArray: any;
+  attachments:any;
   loading: any;
   idRegistro: any;
   posicion: any;
@@ -28,7 +31,6 @@ export class RegistroPage {
   fotoPaisajeURL = 'data:image/jpeg;base64,';
   fotoMuestraURL = 'data:image/jpeg;base64,';
   fotoMapaURL = 'data:image/jpeg;base64,';
-  fotoPaisajeURLSafe:any;
   fotoMuestraURLSafe:any;
   fotoMapaURLSafe: any;
   fotoMapaNoDisponible:any;
@@ -73,20 +75,50 @@ export class RegistroPage {
                 this.dameRol();
                 this.idRegistro = this.params.get('idRegistro');
                 this.posicion = this.params.get('posicion');
-                this.registroDame();
+                if(this.params.get('donde') == "mis registros"){
+                  this.armarRegistroLocal();
+                }else{
+                  this.registroDame();
+                }
+                
               }
+
+  armarRegistroLocal(){
+    this.attachments = this.params.get('attachments');
+    this.fotoPaisajeURL = this.fotoPaisajeURL + this.attachments["fotoPaisaje.png"].data;
+    this.fotoMuestraURL = this.fotoMuestraURL + this.attachments["fotoMuestra.png"].data;
+    this.fotoMapaURL = this.fotoMapaURL + this.attachments["fotoMapa.png"].data;
+    this.fotoMuestraURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL );
+    this.fotoMapaURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoMapaURL );
+    this.consultaArray = {fecha: this.params.get('fecha'),
+                          ciudad: this.params.get('ciudad'),
+                          provincia: this.params.get('provincia'),
+                          pais: this.params.get('pais'),
+                          latitud: this.params.get('latitud'),
+                          longitud: this.params.get('longitud'),
+                          indice: this.params.get('indice'),
+                          elmido: this.params.get('elmido'),
+                          patudo: this.params.get('patudo'),
+                          plecoptero: this.params.get('plecoptero'),
+                          tricoptero: this.params.get('tricoptero'),
+                          observacion: this.params.get('observacion'),
+                          usuario: null,
+                          valido: null,
+                          idRegistro: null,
+                          };
+  this.registro = this.consultaArray;
+  }
 
   registroDame() {
     this.showLoader();
     this.regService.registroDame(this.idRegistro)
           .then(data => {
-            this.conexion = 1;
             this.registro = data;
             this.registro = this.registro[0];
+            console.log(this.registro);
             this.fotoPaisajeURL = this.fotoPaisajeURL + this.registro.fotoPaisaje;
             this.fotoMuestraURL = this.fotoMuestraURL + this.registro.fotoMuestra;
             this.fotoMapaURL = this.fotoMapaURL + this.registro.fotoMapa;
-            this.fotoPaisajeURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL );
             this.fotoMuestraURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL );
             this.fotoMapaURLSafe= this.sanitizer.bypassSecurityTrustUrl(this.fotoMapaURL );
             this.validoToArray();
@@ -158,7 +190,8 @@ export class RegistroPage {
       this.navCtrl.push(UsuarioPage,{idUsuario});
   }
 
-  mensajeConfirmar(idRegistro,accion) {
+  mensajeConfirmar(idRegistro,accion, fab: FabContainer) {
+    fab.close();
     let confirm = this.alertCtrl.create({
       title: accion.charAt(0).toUpperCase()+accion.slice(1)+' Registro',
       message: '¿Esta seguro que desea '+accion+' el Registro N° '+this.registro.idRegistro+'?',

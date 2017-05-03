@@ -69,10 +69,8 @@ Converter.prototype.listen = function () {
 Converter.prototype.handleRegistros = function (change) {
     if (change.deleted) {
         this.sync(change, 'regBorrado');
-    } else if (change.changes[0].rev[0] != '1') {
-        this.sync(change, 'regActualizado');
     } else {
-        this.sync(change, 'regCreado');
+        this.sync(change, 'regCreadoOActualizado');
     } 
 };
 

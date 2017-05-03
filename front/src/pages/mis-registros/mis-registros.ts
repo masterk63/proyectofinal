@@ -4,7 +4,14 @@ import { Localsave } from '../../providers/localsave';
 import {File, Transfer, FilePath } from 'ionic-native';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
+import { RegistroPage } from '../registro/registro';
 import { MenuController,Platform } from 'ionic-angular';
+import { Network } from 'ionic-native';
+
+
+
+declare var Connection: any;
+
 
 @Component({
   selector: 'page-mis-registros',
@@ -19,14 +26,19 @@ export class MisRegistrosPage {
               public authService: Auth,
               public navParams: NavParams,
               public localSaveCtrl:Localsave,
-              public platform: Platform, 
+              public platform: Platform,
               private menu: MenuController,
               private _zone: NgZone) {
                 this.localSaveCtrl.getTodos().subscribe((data) => {
                     this._zone.run(() => this.registros = data);
-                    console.log('largo del registro',Object.keys(this.registros[0]._attachments).length);
                     console.log(this.registros);
-                }); 
+                });
+
+                // watch network for a connection
+                Network.onConnect().subscribe(() => {
+                  this.localSaveCtrl.replicar();
+                });
+
 
                 if(this.platform.is('android') || this.platform.is('ios')){
                     this.fotoMapaNoDisponible = "../www/assets/img/mapNotAvalible.jpg";
@@ -55,6 +67,25 @@ export class MisRegistrosPage {
       
       this.navCtrl.setRoot(LoginPage);
     });
+  }
+
+  verRegistro(attachments,fecha,ciudad,provincia,pais,latitud,longitud,indice,elmido,patudo,plecoptero,tricoptero,observacion){
+    console.log(fecha);
+    this.navCtrl.push(RegistroPage,{donde : "mis registros",
+                                    attachments,
+                                    fecha,
+                                    ciudad,
+                                    provincia,
+                                    pais,
+                                    latitud,
+                                    longitud,
+                                    indice,
+                                    elmido,
+                                    patudo,
+                                    plecoptero,
+                                    tricoptero,
+                                    observacion
+                                    });
   }
 
   

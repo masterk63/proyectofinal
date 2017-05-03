@@ -17,7 +17,7 @@
 <ion-content>
 <ion-row>
   <ion-col col-md-6 col-lg-4 *ngFor="let reg of registros">
-    <ion-card style="position: relative;">
+    <ion-card (click)="verRegistro(reg._attachments,reg.fecha,reg.ciudad,reg.provincia,reg.pais,reg.latitud,reg.longitud,reg.indice,reg.elmidos,reg.patudos,reg.plecopteros,reg.tricopteros,reg.observaciones)" style="position: relative;">
 
       <img [src]="'data:image/jpeg;base64,'+reg._attachments['fotoMapa.png'].data" *ngIf="controlarFotoMapa(reg)">
       <img [src]="fotoMapaNoDisponible" *ngIf="!controlarFotoMapa(reg)">
