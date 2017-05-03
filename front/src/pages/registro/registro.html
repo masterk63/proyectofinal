@@ -33,6 +33,9 @@
             <ion-row>
                 <ion-col col-md-4 col-lg-6>
                     <ion-card class="contenedorImg">
+                        <img style="max-height: 250px;" imageViewer [src]="fotoMapaURLSafe" *ngIf="controlarFotoMapa()">
+                        <img [src]="fotoMapaNoDisponible" *ngIf="!controlarFotoMapa()">
+                        <ion-item><div class="card-title">FOTO SATELITAL</div></ion-item>
                         <img style="max-height: 250px;" imageViewer [src]="fotoMapaURLSafe">
                         <ion-item>
                             <ion-icon name="map" item-left large></ion-icon>
