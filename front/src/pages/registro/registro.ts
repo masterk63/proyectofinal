@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { AlertController, NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
 import {DomSanitizer} from '@angular/platform-browser';
 import { RegistrosService } from '../../providers/registrosService';
 import { Auth } from '../../providers/auth';
@@ -31,6 +31,7 @@ export class RegistroPage {
   fotoPaisajeURLSafe:any;
   fotoMuestraURLSafe:any;
   fotoMapaURLSafe: any;
+  fotoMapaNoDisponible:any;
   valido: any;
   rol=null;
   // Atributos del registro que viene de mysql:
@@ -62,7 +63,13 @@ export class RegistroPage {
               public storage: Storage,
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
+              public platform: Platform,
               ){
+                if(this.platform.is('android') || this.platform.is('ios')){
+                    this.fotoMapaNoDisponible = "../www/assets/img/mapNotAvalible.jpg";
+                }else{
+                    this.fotoMapaNoDisponible = "../assets/img/mapNotAvalible.jpg";
+                }
                 this.dameRol();
                 this.idRegistro = this.params.get('idRegistro');
                 this.posicion = this.params.get('posicion');
@@ -199,6 +206,15 @@ export class RegistroPage {
         });
         this.loading.present();
     }
+
+    controlarFotoMapa(){
+      if(this.registro.fotoMapa.length > 2){
+        return true;
+      }
+      else{
+        return false;
+      }
+  }
 
 
   logout(){
