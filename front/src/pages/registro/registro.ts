@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-import { AlertController, NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
-=======
-import { FabContainer, AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
->>>>>>> 05686ba0c2734ef5f27575abcf008c533a23e21c
+import { FabContainer, AlertController, NavController, NavParams, LoadingController,Platform } from 'ionic-angular';
 import {DomSanitizer} from '@angular/platform-browser';
 import { RegistrosService } from '../../providers/registrosService';
 import { Auth } from '../../providers/auth';
