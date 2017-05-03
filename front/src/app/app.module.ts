@@ -10,6 +10,7 @@ import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
 import { Camara } from '../providers/camara';
 import { Localsave } from '../providers/localsave';
 import { Ubicacion } from '../providers/ubicacion';
+import { ConnectivityService } from '../providers/connectivity-service';
 import { UsuariosService } from '../providers/usuariosService';
 import { RegistrosService } from '../providers/registrosService';
 import { LoginPage } from '../pages/login-page/login-page';
@@ -73,6 +74,6 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
     RegistroPage,
   ],
   providers: [StatusBar,
-              SplashScreen,{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,RegistrosService,Storage]
+              SplashScreen,{provide: ErrorHandler, useClass: IonicErrorHandler},Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,ConnectivityService,RegistrosService,Storage]
 })
 export class AppModule {}
