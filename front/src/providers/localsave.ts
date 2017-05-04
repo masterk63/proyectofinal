@@ -6,10 +6,8 @@ import PouchDB from 'pouchdb';
 import { Storage } from '@ionic/storage';
 
 
-
 //Variable global de Google definida en su js
-// declare var google;
-// var geocoder = new google.maps.Geocoder;
+declare var google;
 
 //Variable global para nuestros metodos
 var db;
@@ -48,26 +46,37 @@ function obtenerReverseGeolactionMapa(change,fn){
 // fn, es una funcion de callBack, donde la uso para devolver un 
 //parametro asincronico
 var obtenerDireccion = function (registro,fn) {
-    // var latlng = {lat: registro.latitud, lng: registro.longitud};
-    // geocoder.geocode({'location': latlng}, function(results, status) {
-    //   if (status === google.maps.GeocoderStatus.OK) {
-    //     if (results[1]) {
-    //       let resultado = results[1].address_components;
-    //       let ciudad = resultado[0].long_name;
-    //       let provinica = resultado[2].long_name;
-    //       let pais = resultado[3].long_name;
-    //       registro.ciudad = ciudad;
-    //       registro.provincia = provinica;
-    //       registro.pais = pais;
-    //       console.log(results[1].formatted_address);
-    //       fn(registro);
-    //     } else {
-    //       console.log('No results found');
-    //     }
-    //   } else {
-    //       console.log('Geocoder failed due to: ' + status);
-    //   }
-    // });
+        //Si estoy offline goolge nuca ser cargo, enotonces llamo al script de esta manera.
+        if(typeof google == "undefined" || typeof google.maps == "undefined"){
+            console.log("Google maps JavaScript needs to be loaded.");
+            let script = document.createElement("script");
+            script.id = "googleMaps";
+      
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyA4h0qNqE_K6GuDT5-BH2g2Mx_XcwbLSys';
+        
+            document.body.appendChild(script);  
+        }
+        var geocoder = new google.maps.Geocoder; 
+        var latlng = {lat: registro.latitud, lng: registro.longitud};
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+              let resultado = results[1].address_components;
+              let ciudad = resultado[0].long_name;
+              let provinica = resultado[2].long_name;
+              let pais = resultado[3].long_name;
+              registro.ciudad = ciudad;
+              registro.provincia = provinica;
+              registro.pais = pais;
+              console.log(results[1].formatted_address);
+              fn(registro);
+            } else {
+              console.log('No results found');
+            }
+          } else {
+              console.log('Geocoder failed due to: ' + status);
+          }
+        });
 }
 
 
@@ -337,9 +346,6 @@ public replicar(){
     });
   });
 }
-
-
-
 
   // Destruye la base datos, y limpia el array de registrosLocales
   public destruirDB(){

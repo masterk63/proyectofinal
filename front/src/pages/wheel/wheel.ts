@@ -26,8 +26,7 @@ export class Wheel {
   constructor(public navCtrl: NavController,
               public platform: Platform,
               public navParams: NavParams) {
-                this.indice = navParams.get('indice'); 
-                this.indice = 3;
+                this.indice = navParams.get('indice');
                 console.log('el indice es:',this.indice);
                 this.colorArrow = this.calcularColorArrow();
                 this.nivelDeContaminacion = this.calcularNivelDeContaminacion();
