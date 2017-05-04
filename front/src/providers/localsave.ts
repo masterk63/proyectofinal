@@ -326,7 +326,6 @@ public replicar(){
       let docs = result.rows.map((row) => {
         registrosLocales.push(row.doc);
       });
-      console.log('llamados desde la bd',registrosLocales);
       if(registrosLocales.length != 0){
         registrosLocales.sort(function(a,b) { //La funcion sort ordena numeros, si quiero de menor a mayor a es 'a-b', si quiero de mayo a menor b-a
             return new Date(b.fecha).getTime() - new Date(a.fecha).getTime() 

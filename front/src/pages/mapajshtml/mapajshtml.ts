@@ -30,7 +30,7 @@ public loadGoogleMaps(){
   this.addConnectivityListeners();
    if(typeof google == "undefined" || typeof google.maps == "undefined"){
  
-    console.log("Google maps JavaScript needs to be loaded.");
+    console.log("Google maps JavaScript necesita ser cargado.");
     this.disableMap();
  
     if(this.connectivityService.isOnline()){
