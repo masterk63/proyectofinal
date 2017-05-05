@@ -50,7 +50,7 @@ page-wheel {
         z-index: 99;
     }
 
-    .contenedorCenter{
+    .contenedorCenterRueda{
             display: table !important;
             width: 100% !important;
             height: 100% !important;
@@ -61,7 +61,7 @@ page-wheel {
             background-position: center center;
         }
 
-        .contenedorCenter > div{
+        .contenedorCenterRueda > div{
             display: table-cell;
             vertical-align: middle;
             background-color: rgba(0,0,0,0.2);

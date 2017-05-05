@@ -23,6 +23,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 
 export class HomePage {
+    @ViewChild('micontenedor') contenedor: ElementRef;
     altoMapa:number;
     registro: string = "mapa";
     fotoPaisajeURL = 'data:image/jpeg;base64,';
@@ -68,16 +69,17 @@ export class HomePage {
                 public localSaveCtrl:Localsave,
                 public alertCtrl: AlertController
                 ){
-                    //Es para hacer responsive el mapa
-                    if((this.platform.height() > 600) && (this.platform.height() < 801)){
-                        this.altoMapa = 500;
-                    }else{
-                        if(this.platform.height() > 801){
-                            this.altoMapa = 600;
-                        }else{
-                            this.altoMapa = 220;
-                        }
-                    }
+                    
+                    // //Es para hacer responsive el mapa
+                    // if((this.platform.height() > 600) && (this.platform.height() < 801)){
+                    //     this.altoMapa = 500;
+                    // }else{
+                    //     if(this.platform.height() > 801){
+                    //         this.altoMapa = 600;
+                    //     }else{
+                    //         this.altoMapa = 220;
+                    //     }
+                    // }
 
                     //Detecta la ubicacion
                     this.ubicacion();
@@ -147,9 +149,12 @@ export class HomePage {
     ngOnInit(){
         
     }
+    ngAfterViewInit(){
+        
+    }
 
     ionViewDidLoad() {
-
+        this.altoMapa = (this.contenedor.nativeElement.offsetHeight)-155;
     }
     
     openModal(pic,name) {

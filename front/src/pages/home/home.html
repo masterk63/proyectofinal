@@ -27,7 +27,8 @@
 
 
 <ion-content style="margin-top: 111px;"class="scroll-content ionic-scroll  has-header">
-  <div class="contenedorCenter">
+  <div #micontenedor class="contenedorCenter">
+   
     <div [ngSwitch]="registro">
         <div  *ngSwitchCase="'mapa'" style="text-align: center;">
           <p>GEOLOCALIZACION OBETENIDA, PULSE <STRONG>SIGUIENTE</STRONG> PARA CONTINUAR</p>
@@ -68,7 +69,7 @@
       </div>
 
         <div *ngSwitchCase="'obseravaciones'">
-
+           <a href="#tricoptero">ir</a>
         <form [formGroup]="coincidencia">
           <ion-row>
             <ion-col col-12 col-sm-6 col-xl-3>
@@ -144,7 +145,7 @@
               </ion-card>
             </ion-col>
             <ion-col col-12 col-sm-6 col-xl-3>
-              <ion-card>
+              <ion-card id="tricoptero">
                 <img class="bichos" [src]="fotoTricoptero" (click)="openModal(realTricoptero,'tricoptero')"/>
                 <ion-card-content>
                   <ion-card-title>
