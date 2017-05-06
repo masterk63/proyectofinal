@@ -16,6 +16,7 @@ import { LoginPage } from '../login-page/login-page';
 import {DomSanitizer} from '@angular/platform-browser';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Content } from 'ionic-angular';
 
 @Component({
     selector: 'home-page',
@@ -24,6 +25,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 export class HomePage {
     @ViewChild('micontenedor') contenedor: ElementRef;
+    @ViewChild('tricoptero') content: Content;
     altoMapa:number;
     registro: string = "mapa";
     fotoPaisajeURL = 'data:image/jpeg;base64,';
@@ -146,6 +148,12 @@ export class HomePage {
                     }             
                 }
 
+
+    public move(){
+        console.log('hola');
+        let yOffset = document.getElementById('tricoptero').offsetTop;
+        this.content.scrollTo(0, yOffset, 4000)
+    }
     ngOnInit(){
         
     }
