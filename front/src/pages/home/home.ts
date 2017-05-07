@@ -25,7 +25,7 @@ import { Content } from 'ionic-angular';
 
 export class HomePage {
     @ViewChild('micontenedor') contenedor: ElementRef;
-    @ViewChild('tricoptero') content: Content;
+    @ViewChild(Content) content: Content;
     altoMapa:number;
     registro: string = "mapa";
     fotoPaisajeURL = 'data:image/jpeg;base64,';
@@ -149,11 +149,11 @@ export class HomePage {
                 }
 
 
-    public move(){
-        console.log('hola');
-        let yOffset = document.getElementById('tricoptero').offsetTop;
-        this.content.scrollTo(0, yOffset, 4000)
+    public move(bicho){
+        let yOffset = document.getElementById(bicho).offsetTop;
+        this.content.scrollTo(0, yOffset, 1000);
     }
+    
     ngOnInit(){
         
     }
