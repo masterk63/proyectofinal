@@ -19,6 +19,12 @@ ion-content{
     background-color: #F2F2F2 !important;
 }
 
+//fix ios device 
+.col{
+  flex: 1 0 100%;
+}
+
+
 .contenedor{
     max-width: 980px;
     display: block;

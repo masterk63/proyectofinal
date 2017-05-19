@@ -71,7 +71,6 @@ export class HomePage {
                 public localSaveCtrl:Localsave,
                 public alertCtrl: AlertController
                 ){
-                    
                     // //Es para hacer responsive el mapa
                     // if((this.platform.height() > 600) && (this.platform.height() < 801)){
                     //     this.altoMapa = 500;

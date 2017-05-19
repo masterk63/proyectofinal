@@ -51,7 +51,16 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
     SwipeVertical //OJO, Swipe Vertical es una directiva, solo va aqui y se importa arriba, no va abajo en bootstrap!
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      backButtonText: 'Ir Atras',
+      mode: "md",
+      iconMode: 'md',
+      modalEnter: 'modal-slide-in',
+      modalLeave: 'modal-slide-out',
+      tabsPlacement: 'bottom',
+      pageTransition: 'md-transition'
+    }, {}
+  ),
     IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
