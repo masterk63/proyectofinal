@@ -1,0 +1,38 @@
+.ios, .md {
+ 
+  page-intro {
+
+    .swiper-pagination-bullet-active {
+        background: white !important;
+    }
+
+    .swiper-pagination-bullet {
+        background: red;
+    }
+
+
+    // background-color: #d14836 !important;
+ 
+    // ion-slide {
+    //   background-color: #d14836 !important;
+    // }
+
+    .overlay{
+      background-color: rgba(0, 0, 0, 0.7); 
+      height: 100%;
+    }
+
+    ion-content{
+      // background-image: url("../assets/img/cascadaRioNoque.jpg");
+      background-position: center;
+      color: white;
+    }
+ 
+    // ion-slide img {
+    //   height: 70vh !important;
+    //   width: auto !important;
+    // }
+ 
+  }
+ 
+}
