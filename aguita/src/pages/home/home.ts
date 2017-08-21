@@ -74,17 +74,6 @@ export class HomePage {
                 public localSaveCtrl:Localsave,
                 public alertCtrl: AlertController
                 ){
-                    // //Es para hacer responsive el mapa
-                    // if((this.platform.height() > 600) && (this.platform.height() < 801)){
-                    //     this.altoMapa = 500;
-                    // }else{
-                    //     if(this.platform.height() > 801){
-                    //         this.altoMapa = 600;
-                    //     }else{
-                    //         this.altoMapa = 220;
-                    //     }
-                    // }
-
                     //Detecta la ubicacion
                     this.ubicacion();
 
@@ -164,7 +153,7 @@ export class HomePage {
     }
 
     ionViewDidLoad() {
-        this.altoMapa = (this.contenedor.nativeElement.offsetHeight)-155;
+        this.altoMapa = (this.contenedor.nativeElement.offsetHeight)-200;
     }
     
     openModal(pic,name) {
@@ -201,33 +190,7 @@ export class HomePage {
             this.fotoMuestraURL= 'data:image/jpeg;base64,';
         }  
     }
-        
-  
-//    public presentActionSheet() {
-//         let actionSheet = this.actionSheetCtrl.create({
-//             title: 'Subir Imagen desde',
-//             buttons: [
-//                 {
-//                     text: 'Libreria',
-//                     handler: () => {
-//                         this.camaraCtrl.takePicture(Camera.PictureSourceType.PHOTOLIBRARY);
-//                     }
-//                 },
-//                 {
-//                     text: 'Camara',
-//                     handler: () => {
-//                         //this.camaraCtrl.takePicture64();
-//                     }
-//                 },
-//                 {
-//                     text: 'Cancelar',
-//                     role: 'cancel'
-//                 }
-//             ]
-//         });
-//         actionSheet.present();
-//     }
-
+    
   
     public pasoAnterior(){
         switch(this.registro) {
