@@ -33,7 +33,8 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
-$primary:#d14836;
+
+$primary:#c04232;
 $secondary:#d14836;
 $terciario:#00BCD4;
 
@@ -49,7 +50,7 @@ $colors: (
 
 
 
-$toolbar-background:$primary;
+$toolbar-background:$secondary;
 $toolbar-border-color:#f4f4f4;
 $toolbar-text-color:#f4f4f4;
 $toolbar-active-color:#f4f4f4;
