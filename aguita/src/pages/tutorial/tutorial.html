@@ -1,0 +1,55 @@
+
+<ion-content padding [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }" >
+    <div class="overlay">
+  <ion-slides pager="true">
+    <!--<p ion-button menuToggle style="position: absolute; margin-left: 15px;"></p>-->
+    <ion-slide>
+      <i primary class="fa fa-map-o" style="font-size: 7em;"></i>
+      <h1>TUTORIAL</h1>
+      <p>Recomendamos tener una buena conexión WIFI para<br>
+         poder realizar de manera exitosa el tutorial
+      </p>
+    </ion-slide>
+
+    <ion-slide >
+    <img 	style="width: 60%;" [src]="foto1"	>
+      <p>Abre la aplicacion Maps de tu celular.<br>
+        En caso de no tenerla, descargala<br>
+          de la tienda (Play Store)</p>
+    </ion-slide>
+
+    <ion-slide >
+    <img 	style="width: 60%;" [src]="foto2"	>
+      <p>Presiona en las 3 lineas horizontales.<br>
+        Se te desplegara un menu<br>
+        con la informacion</p>
+    </ion-slide>
+
+    <ion-slide >
+    <img 	style="width: 60%;" [src]="foto3"	>
+      <p>En el menu desplegado, presiona en<br>
+         la opcion "Áreas sin conexión"</p>
+    </ion-slide>
+
+    <ion-slide >
+    <img 	style="width: 60%;" [src]="foto4"	>
+      <p>En el menu "Descarga un área sin conexión.<br>
+        Presiona en "Área personalizada"</p>
+    </ion-slide>
+
+    <ion-slide >
+    <img 	style="width: 60%;" [src]="foto5"	>
+      <!--<img src="assets/img/Elmidos.jpg">-->
+       <p>Disminuye el zoom hasta que el recuadro<br>
+        abarque el area en la que trabajaras.<br>
+        Haz click en "DESCARGAR"</p>
+     <p style="margin-top: 8%;">        
+        <a style="color: white; font-size: 1em; text-decoration: underline;"  (click)="navHome()">
+          USAR APLICACIÓN
+        </a>
+      </p>
+    </ion-slide>
+  </ion-slides>
+  </div>
+</ion-content>
+

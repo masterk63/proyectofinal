@@ -1,14 +1,12 @@
 Autentificacion con google y facebook
-Que el usuario se contrele si esta habilitado en cocuh y pouch y pasar mysql
-corregir la intro del div negro
-terminar de dar estilo a mis registros
+Vincular boton olvide contraseña con la funcion
+Hacer carteles de error de contrasña o dado de baja
 estilo modal para los bichos
-consultar y mostrar mapas con todos los registros
-panel de administrador para validar registros
+consultar y mostrar mapas con todos los registros con los estilos
 crear los daemon en el sever
-
-el login con recuyperacion d contraseña.. que envie los mails, 
-las contraseñas van encriptadas en todas las base de datos
-
+contraseñas encriptadas.
 hacer el toast "subiendo registros"
+en crear nuevo registo al hacer clcik deslizar
+ver el tema del mapa sin conexion en el registro
+Deshabilitar el click en mapa nativo
 

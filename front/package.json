@@ -40,6 +40,8 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.1.4",
+    "@ionic/cli-plugin-cordova": "1.4.0",
+    "@ionic/cli-plugin-ionic-angular": "1.4.1",
     "ionic-gulp-image-task": "^1.0.1",
     "typescript": "2.0.9"
   },

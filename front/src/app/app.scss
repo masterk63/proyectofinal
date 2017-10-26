@@ -15,9 +15,15 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-// ion-content{
-//     background-color: #F2F2F2 !important;
-// }
+ion-content{
+    background-color: #F2F2F2 !important;
+}
+
+//fix ios device 
+.col{
+  flex: 1 0 100%;
+}
+
 
 .contenedor{
     max-width: 980px;

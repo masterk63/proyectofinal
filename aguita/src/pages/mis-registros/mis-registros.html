@@ -1,0 +1,45 @@
+
+<ion-header>
+<ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Mis Registros
+    </ion-title>
+    <!-- <ion-buttons start>
+    <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
+  </ion-buttons> -->
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+<ion-row>
+  <ion-col col-md-6 col-lg-4 *ngFor="let reg of registros">
+    <ion-card (click)="verRegistro(reg._attachments,reg.fecha,reg.ciudad,reg.provincia,reg.pais,reg.latitud,reg.longitud,reg.indice,reg.elmidos,reg.patudos,reg.plecopteros,reg.tricopteros,reg.observaciones)" style="position: relative;">
+
+      <img [src]="'data:image/jpeg;base64,'+reg._attachments['fotoMapa.png'].data" *ngIf="controlarFotoMapa(reg)">
+      <img [src]="fotoMapaNoDisponible" *ngIf="!controlarFotoMapa(reg)">
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="pin"></ion-icon>
+        </button>
+      </ion-fab>
+
+      <ion-item>
+        <ion-icon name="calendar" item-left large></ion-icon>
+        <h2>{{reg.fecha | date:'dd/MM/yy'}}</h2> 
+        <p>{{reg.ciudad}}, {{reg.provincia}}, {{reg.pais}}</p>
+      </ion-item>
+
+      <ion-item>
+      <ion-icon name="ios-bug" item-left large ></ion-icon>
+      <h2>INDICE DEL REGISTRO</h2>
+      <p>{{reg.indice}}</p> 
+      </ion-item>
+
+    </ion-card>
+  </ion-col>
+</ion-row>
+</ion-content>

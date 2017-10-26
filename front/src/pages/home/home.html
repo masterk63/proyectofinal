@@ -27,13 +27,14 @@
 
 
 <ion-content style="margin-top: 111px;"class="scroll-content ionic-scroll  has-header">
-  <div class="contenedorCenter">
+  <div #micontenedor class="contenedorCenter">
+   
     <div [ngSwitch]="registro">
         <div  *ngSwitchCase="'mapa'" style="text-align: center;">
           <p>GEOLOCALIZACION OBETENIDA, PULSE <STRONG>SIGUIENTE</STRONG> PARA CONTINUAR</p>
           <div class="mapaConteiner" [style.height.px]="altoMapa"> 
-            <page-mapasnativo [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="muestroMapaNativo"> </page-mapasnativo>
-            <mapajshtml [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="!muestroMapaNativo"></mapajshtml>
+            <page-mapasnativo [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="false"> </page-mapasnativo>
+            <mapajshtml [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="true"></mapajshtml>
           </div>
           <span style="color:gray">Usted esta aqui!!!</span>
       </div>
@@ -68,7 +69,6 @@
       </div>
 
         <div *ngSwitchCase="'obseravaciones'">
-
         <form [formGroup]="coincidencia">
           <ion-row>
             <ion-col col-12 col-sm-6 col-xl-3>
@@ -84,11 +84,11 @@
                     <ion-list radio-group formControlName="elmidos">
                       <ion-item>
                         <ion-label>Si</ion-label>
-                        <ion-radio value="si"></ion-radio>
+                        <ion-radio (click)="move('patudo')" value="si"></ion-radio>
                       </ion-item>
                       <ion-item>
                         <ion-label>No</ion-label>
-                        <ion-radio value="no"></ion-radio>
+                        <ion-radio (click)="move('patudo')" value="no"></ion-radio>
                       </ion-item>
                     </ion-list>
                   </p>
@@ -96,7 +96,7 @@
               </ion-card>
             </ion-col>
 
-            <ion-col col-12 col-sm-6 col-xl-3>
+            <ion-col id="patudo" col-12 col-sm-6 col-xl-3>
               <ion-card>
                 <img class="bichos" [src]="fotoPatudo" (click)="openModal(realPatudo,'patudo')"/>
                 <ion-card-content>
@@ -108,11 +108,11 @@
                     <ion-list radio-group formControlName="patudos">
                       <ion-item>
                         <ion-label>Si</ion-label>
-                        <ion-radio value="si"></ion-radio>
+                        <ion-radio (click)="move('plecoptero')" value="si"></ion-radio>
                       </ion-item>
                       <ion-item>
                         <ion-label>No</ion-label>
-                        <ion-radio value="no"></ion-radio>
+                        <ion-radio (click)="move('plecoptero')" value="no"></ion-radio>
                       </ion-item>
                     </ion-list>
                   </p>
@@ -120,7 +120,7 @@
               </ion-card>
             </ion-col>
 
-            <ion-col col-12 col-sm-6 col-xl-3>
+            <ion-col id="plecoptero" col-12 col-sm-6 col-xl-3>
               <ion-card>
                 <img class="bichos" [src]="fotoPlecoptero" (click)="openModal(realPlecoptero,'plecoptero')"/>
                 <ion-card-content>
@@ -132,19 +132,19 @@
                     <ion-list radio-group formControlName="plecopteros">
                       <ion-item>
                         <ion-label>Si</ion-label>
-                        <ion-radio value="si"></ion-radio>
+                        <ion-radio (click)="move('tricoptero')" value="si"></ion-radio>
                       </ion-item>
                       <ion-item>
                         <ion-label>No</ion-label>
-                        <ion-radio value="no"></ion-radio>
+                        <ion-radio (click)="move('tricoptero')" value="no"></ion-radio>
                       </ion-item>
                     </ion-list>
                   </p>
                 </ion-card-content>
               </ion-card>
             </ion-col>
-            <ion-col col-12 col-sm-6 col-xl-3>
-              <ion-card>
+            <ion-col id="tricoptero" col-12 col-sm-6 col-xl-3>
+              <ion-card >
                 <img class="bichos" [src]="fotoTricoptero" (click)="openModal(realTricoptero,'tricoptero')"/>
                 <ion-card-content>
                   <ion-card-title>
@@ -155,11 +155,11 @@
                     <ion-list radio-group formControlName="tricopteros">
                       <ion-item>
                         <ion-label>Si</ion-label>
-                        <ion-radio value="si"></ion-radio>
+                        <ion-radio (click)="move('observaciones')" value="si"></ion-radio>
                       </ion-item>
                       <ion-item>
                         <ion-label>No</ion-label>
-                        <ion-radio value="no"></ion-radio>
+                        <ion-radio (click)="move('observaciones')" value="no"></ion-radio>
                       </ion-item>
                     </ion-list>
                   </p>
@@ -169,7 +169,7 @@
         </ion-row>
 
           <ion-row>
-            <ion-col col-12>
+            <ion-col id="observaciones" col-12>
                 <ion-list formControlName="observaciones">
                   <ion-item>
                     <ion-label color="primary" floating>Observaciones</ion-label>
