@@ -1,25 +1,25 @@
 //fix ios device 
-.col{
+.col {
     flex: 1 0 100%;
-  }
-  
-  
-  .contenedor{
-      max-width: 980px;
-      display: block;
-      position: relative;
-      margin: 0 auto;
-  }
-  @media (min-width: 992px) { 
+}
+
+.contenedor {
+    max-width: 980px;
+    display: block;
+    position: relative;
+    margin: 0 auto;
+}
+
+@media (min-width: 992px) {
     ion-menu {
         max-width: 350px!important;
     }
-  }
-  
-  .scroll-content {
-      height: auto !important;
-  }
-  
-   .padding{
-          padding: 15px;
-      }
+}
+
+.scroll-content {
+    height: auto !important;
+}
+
+.padding {
+    padding: 15px;
+}

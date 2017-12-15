@@ -23,52 +23,52 @@ export class RegistrosService {
   }
 
 
-    cargarRegistros() {
-      return new Promise((resolve, reject) => {
-        this.http.get('http://rickybruno.sytes.net:3000/api/registrosListar')
-          .subscribe(resultado => {
-            this.registros = resultado;
-            this.registros = JSON.parse(this.registros._body);
-            resolve(this.registros);
-           },error=> reject("Error de conexion")
-          );
-      });
-    }
+  cargarRegistros() {
+    return new Promise((resolve, reject) => {
+      this.http.get('http://rickybruno.sytes.net:3000/api/registrosListar')
+        .subscribe(resultado => {
+          this.registros = resultado;
+          this.registros = JSON.parse(this.registros._body);
+          resolve(this.registros);
+        }, error => reject("Error de conexion")
+        );
+    });
+  }
 
-    registroDame(idRegistro){
-        return new Promise((resolve, reject) => {
-        this.http.get('http://rickybruno.sytes.net:3000/api/registroDame/'+idRegistro)
-            .map(res => res.json())
-            .subscribe(resultado => {
-            this.registro = resultado;
-            resolve(this.registro);
-          },error=> reject("Error de conexion")
-          );
-      });
-    }
+  registroDame(idRegistro) {
+    return new Promise((resolve, reject) => {
+      this.http.get('http://rickybruno.sytes.net:3000/api/registroDame/' + idRegistro)
+        .map(res => res.json())
+        .subscribe(resultado => {
+          this.registro = resultado;
+          resolve(this.registro);
+        }, error => reject("Error de conexion")
+        );
+    });
+  }
 
-    registroValidar(idRegistro){
-        return new Promise((resolve, reject) => {
-        this.http.get('http://rickybruno.sytes.net:3000/api/registroValidar/'+idRegistro)
-            .map(res => res.json())
-            .subscribe(resultado => {
-            this.mensajeValidar = resultado;
-            resolve(this.mensajeValidar);
-           },error=> reject("Error de conexion")
-          );
-      });
-    }
+  registroValidar(idRegistro) {
+    return new Promise((resolve, reject) => {
+      this.http.get('http://rickybruno.sytes.net:3000/api/registroValidar/' + idRegistro)
+        .map(res => res.json())
+        .subscribe(resultado => {
+          this.mensajeValidar = resultado;
+          resolve(this.mensajeValidar);
+        }, error => reject("Error de conexion")
+        );
+    });
+  }
 
-    registroInvalidar(idRegistro){
-        return new Promise((resolve, reject) => {
-        this.http.get('http://rickybruno.sytes.net:3000/api/registroInvalidar/'+idRegistro)
-            .map(res => res.json())
-            .subscribe(resultado => {
-            this.mensajeInvalidar = resultado;
-            resolve(this.mensajeInvalidar);
-           },error=> reject("Error de conexion")
-          );
-      });
-    }
+  registroInvalidar(idRegistro) {
+    return new Promise((resolve, reject) => {
+      this.http.get('http://rickybruno.sytes.net:3000/api/registroInvalidar/' + idRegistro)
+        .map(res => res.json())
+        .subscribe(resultado => {
+          this.mensajeInvalidar = resultado;
+          resolve(this.mensajeInvalidar);
+        }, error => reject("Error de conexion")
+        );
+    });
+  }
 
 }

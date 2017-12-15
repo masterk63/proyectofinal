@@ -1,5 +1,5 @@
-import {Directive, ElementRef, Output, OnInit, OnDestroy, EventEmitter} from '@angular/core';
-import {Gesture} from 'ionic-angular/gestures/gesture';
+import { Directive, ElementRef, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Gesture } from 'ionic-angular/gestures/gesture';
 import { ViewController } from 'ionic-angular';
 
 declare var Hammer: any;
@@ -23,7 +23,7 @@ export class SwipeVertical implements OnInit, OnDestroy {
     ngOnInit() {
         this.swipeGesture = new Gesture(this.el, {
             recognizers: [
-                [Hammer.Swipe, {direction: Hammer.DIRECTION_VERTICAL}]
+                [Hammer.Swipe, { direction: Hammer.DIRECTION_VERTICAL }]
             ]
         });
         this.swipeGesture.listen();
