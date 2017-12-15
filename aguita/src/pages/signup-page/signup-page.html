@@ -1,62 +1,62 @@
-
-<ion-content padding [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }" >
+<ion-content padding [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }">
     <div class="overlay" style="overflow: scroll">
-        <button class="volver" ion-button clear (click)="volver()"><ion-icon name="arrow-back"></ion-icon>&emsp;Volver</button>
+        <button class="volver" ion-button clear (click)="volver()">
+            <ion-icon name="arrow-back"></ion-icon>&emsp;Volver</button>
         <div style="max-width: 480px;    margin: 0 auto;">
-        
-       
 
-        <ion-list style="padding: 5%" no-lines>
-            <form [formGroup]="registroForm">
-                <ion-item *ngIf="submitAttempt">
-                     <p  style="color: #ea6153;">Por favor ingresar datos validos.</p>
-                </ion-item>
-                <ion-item>
-                    <ion-input formControlName="nombre" type="text" placeholder="Nombre" [class.invalid]="!registroForm.controls.nombre.valid && (registroForm.controls.nombre.dirty || submitAttempt)"></ion-input>
-                </ion-item>
+
+
+            <ion-list style="padding: 5%" no-lines>
+                <form [formGroup]="registroForm">
+                    <ion-item *ngIf="submitAttempt">
+                        <p style="color: #ea6153;">Por favor ingresar datos validos.</p>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input formControlName="nombre" type="text" placeholder="Nombre" [class.invalid]="!registroForm.controls.nombre.valid && (registroForm.controls.nombre.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
                     <ion-item *ngIf="!registroForm.controls.nombre.valid  && (registroForm.controls.nombre.touched || submitAttempt)">
                         <p>CAMPO OBLIGATORIO. Ingrese un nombre</p>
                     </ion-item>
-                <ion-item>
-                    <ion-input formControlName="apellido" type="text" placeholder="Apellido" [class.invalid]="!registroForm.controls.apellido.valid && (registroForm.controls.apellido.dirty || submitAttempt)"></ion-input>
-                </ion-item>
+                    <ion-item>
+                        <ion-input formControlName="apellido" type="text" placeholder="Apellido" [class.invalid]="!registroForm.controls.apellido.valid && (registroForm.controls.apellido.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
                     <ion-item *ngIf="!registroForm.controls.apellido.valid  && (registroForm.controls.apellido.touched || submitAttempt)">
                         <p>CAMPO OBLIGATORIO. Ingrese un apellido</p>
                     </ion-item>
-                <ion-item>
-                    <ion-input formControlName="residencia" type="text" placeholder="Residencia (Ej: Tafi Viejo) OPCIONAL"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-input formControlName="institucion" type="text" placeholder="Institución (Ej: UNT)" [class.invalid]="!registroForm.controls.institucion.valid && (registroForm.controls.institucion.dirty || submitAttempt)"></ion-input>
-                </ion-item>
+                    <ion-item>
+                        <ion-input formControlName="residencia" type="text" placeholder="Residencia (Ej: Tafi Viejo) OPCIONAL"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input formControlName="institucion" type="text" placeholder="Institución (Ej: UNT)" [class.invalid]="!registroForm.controls.institucion.valid && (registroForm.controls.institucion.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
                     <ion-item *ngIf="!registroForm.controls.institucion.valid  && (registroForm.controls.institucion.touched || submitAttempt)">
                         <p>CAMPO OBLIGATORIO. Ingrese una institución</p>
                     </ion-item>
-                <ion-item>
-                    <ion-input formControlName="grado" type="text" placeholder="Grado (Ej: 8vo año) OPCIONAL"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-input formControlName="mail" type="text" placeholder="Correo electronico" [class.invalid]="!registroForm.controls.mail.valid && (registroForm.controls.mail.dirty || submitAttempt)"></ion-input>
-                </ion-item>
+                    <ion-item>
+                        <ion-input formControlName="grado" type="text" placeholder="Grado (Ej: 8vo año) OPCIONAL"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input formControlName="mail" type="text" placeholder="Correo electronico" [class.invalid]="!registroForm.controls.mail.valid && (registroForm.controls.mail.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
                     <ion-item *ngIf="!registroForm.controls.mail.valid  && (registroForm.controls.mail.touched || submitAttempt)">
                         <p>Por favor ingrese una direccion de mail valida</p>
                     </ion-item>
-                <ion-item>
-                    <ion-input formControlName="username" type="text" placeholder="Usuario" [class.invalid]="!registroForm.controls.username.valid && (registroForm.controls.username.dirty || submitAttempt)"></ion-input>
-                </ion-item>
-                     <ion-item *ngIf="!registroForm.controls.username.valid  && (registroForm.controls.username.touched || submitAttempt)">
+                    <ion-item>
+                        <ion-input formControlName="username" type="text" placeholder="Usuario" [class.invalid]="!registroForm.controls.username.valid && (registroForm.controls.username.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="!registroForm.controls.username.valid  && (registroForm.controls.username.touched || submitAttempt)">
                         <p>CAMPO OBLIGATORIO. Ingrese un nombre de usuario con al menos 5 caracteres</p>
                     </ion-item>
-                <ion-item>
-                    <ion-input formControlName="password" [type]="verPass" placeholder="Contraseña" [class.invalid]="!registroForm.controls.password.valid && (registroForm.controls.password.dirty || submitAttempt)"></ion-input>
-                </ion-item>
+                    <ion-item>
+                        <ion-input formControlName="password" [type]="verPass" placeholder="Contraseña" [class.invalid]="!registroForm.controls.password.valid && (registroForm.controls.password.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
                     <ion-item *ngIf="!registroForm.controls.password.valid  && (registroForm.controls.password.touched || submitAttempt)">
                         <p>CAMPO OBLIGATORIO. Ingrese una contraseña con al menos 5 caracteres</p>
                     </ion-item>
-                <a [style.color]="isActive? '#d14836':'white'" style="font-size: 1em; text-decoration: underline;"  (click)="verPassword()">
-                    {{tituloBoton}}
-                </a>
-                <!--<ion-item>
+                    <a [style.color]="isActive? '#d14836':'white'" style="font-size: 1em; text-decoration: underline;" (click)="verPassword()">
+                        {{tituloBoton}}
+                    </a>
+                    <!--<ion-item>
                     <ion-label>Role</ion-label>
                     <ion-select [(ngModel)]="role">
                         <ion-option value="reader">Reader</ion-option>
@@ -64,11 +64,12 @@
                         <ion-option value="editor">Editor</ion-option>
                     </ion-select>
                 </ion-item>-->
-            </form>
-        </ion-list>
-        <button ion-button style="display: block; width: 90%; margin: 0px auto 10% auto; font-family: 'Oswald', sans-serif;" color="white" (click)="register()">
-            Registrarse
-        </button>
-    </div>
+                </form>
+            </ion-list>
+            <button ion-button style="display: block; width: 90%; margin: 0px auto 10% auto; font-family: 'Oswald', sans-serif;" color="white"
+                (click)="register()">
+                Registrarse
+            </button>
+        </div>
     </div>
 </ion-content>

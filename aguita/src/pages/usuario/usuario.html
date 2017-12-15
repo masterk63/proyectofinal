@@ -1,65 +1,68 @@
-
 <ion-header no-border>
-<ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>
-      Usuario
-    </ion-title>
-    <ion-buttons start>
-    <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
-  </ion-buttons>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            Usuario
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button icon-only (click)="logout()">
+                <ion-icon name="power"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content>
     <div *ngIf="usuario" style="background-color: #d14836; margin-top: -1px;" class="col-md-12 col-lg-12" align="center">
-            <div class="outter"><img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" class="image-circle"/></div>
-            <h1 *ngIf="!editar">{{usuario.nombre}} {{usuario.apellido}}</h1>
-            <ion-input class="inputHeader" [(ngModel)]="usuario.nombre" *ngIf="editar" type="text" value="{{usuario.nombre}}"></ion-input>
-            <ion-input class="inputHeader" [(ngModel)]="usuario.apellido" *ngIf="editar" type="text" value="{{usuario.apellido}}"></ion-input>
-            <h2>Usted tiene {{usuario.registros}} registros</h2>  
-	    </div>
+        <div class="outter">
+            <img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" class="image-circle" />
+        </div>
+        <h1 *ngIf="!editar">{{usuario.nombre}} {{usuario.apellido}}</h1>
+        <ion-input class="inputHeader" [(ngModel)]="usuario.nombre" *ngIf="editar" type="text" value="{{usuario.nombre}}"></ion-input>
+        <ion-input class="inputHeader" [(ngModel)]="usuario.apellido" *ngIf="editar" type="text" value="{{usuario.apellido}}"></ion-input>
+        <h2>Usted tiene {{usuario.registros}} registros</h2>
+    </div>
 
-<div class="contenedor">
-    <div class="contenedorTabla" *ngIf="usuario">
-        <table>
-            <tbody>
-                <tr>
-                    <td style="font-weight: bold;">Residencia</td>
-                    <td *ngIf="!editar">{{usuario.residencia}}</td>
-                    <ion-input class="inputBody" [(ngModel)]="usuario.residencia" *ngIf="editar" type="text" value="{{usuario.residencia}}"></ion-input>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Institucion</td>
-                    <td *ngIf="!editar">{{usuario.institucion}}</td>
-                    <ion-input class="inputBody" [(ngModel)]="usuario.institucion" *ngIf="editar" type="text" value="{{usuario.institucion}}"></ion-input>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Grado</td>
-                    <td *ngIf="!editar">{{usuario.grado}}</td>
-                    <ion-input class="inputBody"[(ngModel)]="usuario.grado" *ngIf="editar" type="text" value="{{usuario.grado}}"></ion-input>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Usuario</td>
-                    <td>{{usuario.usuario}}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Mail</td>
-                    <td>{{usuario.mail}}</td>
-                </tr>
-            </tbody>
-        </table>   
+    <div class="contenedor">
+        <div class="contenedorTabla" *ngIf="usuario">
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: bold;">Residencia</td>
+                        <td *ngIf="!editar">{{usuario.residencia}}</td>
+                        <ion-input class="inputBody" [(ngModel)]="usuario.residencia" *ngIf="editar" type="text" value="{{usuario.residencia}}"></ion-input>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">Institucion</td>
+                        <td *ngIf="!editar">{{usuario.institucion}}</td>
+                        <ion-input class="inputBody" [(ngModel)]="usuario.institucion" *ngIf="editar" type="text" value="{{usuario.institucion}}"></ion-input>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">Grado</td>
+                        <td *ngIf="!editar">{{usuario.grado}}</td>
+                        <ion-input class="inputBody" [(ngModel)]="usuario.grado" *ngIf="editar" type="text" value="{{usuario.grado}}"></ion-input>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">Usuario</td>
+                        <td>{{usuario.usuario}}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">Mail</td>
+                        <td>{{usuario.mail}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="botones">
+            <button ion-button color="secondary" *ngIf="!editar" (click)="botonEditar()">Editar</button>
+            <button ion-button color="red" *ngIf="!editar" (click)="confirmarEliminar()">Eliminar</button>
+            <button ion-button color="favorite" *ngIf="editar" (click)="botonAceptar()">Aceptar</button>
+            <button ion-button *ngIf="editar" (click)="botonCancelar()">Cancelar</button>
+        </div>
     </div>
-    <div class="botones">
-        <button ion-button color="secondary" *ngIf="!editar" (click)="botonEditar()">Editar</button>
-        <button ion-button color="red" *ngIf="!editar" (click)="confirmarEliminar()">Eliminar</button>
-        <button ion-button color="favorite" *ngIf="editar" (click)="botonAceptar()">Aceptar</button>
-        <button ion-button *ngIf="editar" (click)="botonCancelar()">Cancelar</button>
-    </div>
-</div>
 
 
 </ion-content>

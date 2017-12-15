@@ -1,38 +1,40 @@
-<ion-content padding [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }" >
+<ion-content padding [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }">
   <div class="overlay">
-  <ion-slides pager="true" parallax="true" >
-    <ion-slide>
-      
-      <i primary class="fa fa-tint" style="font-size: 7em;"></i>
-      <h1>BIENVENIDOS A AGÜITA</h1>
-      <p>Gracias por confiar en nosotros</p>
-    </ion-slide>
+    <ion-slides pager="true" parallax="true">
+      <ion-slide>
 
-    <ion-slide>
-      <i primary class="fa fa-bug" style="font-size: 7em;"></i>
-      <h1>¿AGUA CONTAMINADA?</h1>
-      <p>Con nuestra aplicación, ud. podra<br>
-      registrar sus muestras de los bichos<br>
-      encontrados en cualquier lugar</p>
-    </ion-slide>
+        <i primary class="fa fa-tint" style="font-size: 7em;"></i>
+        <h1>BIENVENIDOS A AGÜITA</h1>
+        <p>Gracias por confiar en nosotros</p>
+      </ion-slide>
 
-    <ion-slide>
-      <i primary class="fa fa-map-o" style="font-size: 7em;"></i>
-      <!--<img src="assets/img/Elmidos.jpg">-->
-      <h1>¡IMPORTANTE!</h1>
-      <p>Para una mejor experiencia al usar la<br>
-           aplicacion, recomendamos seguir el<br>
-                siguiente tutorial para<br>
-                   descargar los mapas<br></p>
-      <button ion-button outline small style="color: white; border-color: white; font-size: 1.3em;" (click)="tutorial()">
-        TUTORIAL
-      </button>
-      <p style="margin-top: 13%;">o empieza a usar la aplicacion</p>       
-        <a style="color: white; font-size: 1em; text-decoration: underline;"  (click)="login()">
+      <ion-slide>
+        <i primary class="fa fa-bug" style="font-size: 7em;"></i>
+        <h1>¿AGUA CONTAMINADA?</h1>
+        <p>Con nuestra aplicación, ud. podra
+          <br> registrar sus muestras de los bichos
+          <br> encontrados en cualquier lugar</p>
+      </ion-slide>
+
+      <ion-slide>
+        <i primary class="fa fa-map-o" style="font-size: 7em;"></i>
+        <!--<img src="assets/img/Elmidos.jpg">-->
+        <h1>¡IMPORTANTE!</h1>
+        <p>Para una mejor experiencia al usar la
+          <br> aplicacion, recomendamos seguir el
+          <br> siguiente tutorial para
+          <br> descargar los mapas
+          <br>
+        </p>
+        <button ion-button outline small style="color: white; border-color: white; font-size: 1.3em;" (click)="tutorial()">
+          TUTORIAL
+        </button>
+        <p style="margin-top: 13%;">o empieza a usar la aplicacion</p>
+        <a style="color: white; font-size: 1em; text-decoration: underline;" (click)="login()">
           REGISTRARSE / INICIAR SESIÓN
         </a>
 
-    </ion-slide>
-  </ion-slides>
+      </ion-slide>
+    </ion-slides>
   </div>
 </ion-content>
