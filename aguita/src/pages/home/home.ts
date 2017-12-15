@@ -84,35 +84,29 @@ export class HomePage {
 
         //FOTOS PARA PASO 2 RADIO BUTTON
         if (this.platform.is('android') || this.platform.is('ios')) {
-            this.fotoElmido = "../www/assets/img/Elmidos.jpg";
+            this.fotoElmido = "../www/assets/img/Elmidos.png";
         } else {
-            this.fotoElmido = "../assets/img/Elmidos.jpg";
+            this.fotoElmido = "../assets/img/Elmidos.png";
         }
 
         if (this.platform.is('android') || this.platform.is('ios')) {
-            this.fotoPatudo = "../www/assets/img/Patudo.jpg";
+            this.fotoPatudo = "../www/assets/img/Patudos.png";
         } else {
-            this.fotoPatudo = "../assets/img/Patudo.jpg";
+            this.fotoPatudo = "../assets/img/Patudos.png";
         }
 
         if (this.platform.is('android') || this.platform.is('ios')) {
-            this.fotoPlecoptero = "../www/assets/img/Plecoptero.jpg";
+            this.fotoPlecoptero = "../www/assets/img/Plecoptero.png";
         } else {
-            this.fotoPlecoptero = "../assets/img/Plecoptero.jpg";
+            this.fotoPlecoptero = "../assets/img/Plecoptero.png";
         }
 
         if (this.platform.is('android') || this.platform.is('ios')) {
-            this.fotoTricoptero = "../www/assets/img/Tricoptero.jpg";
+            this.fotoTricoptero = "../www/assets/img/Tricoptero.png";
         } else {
-            this.fotoTricoptero = "../assets/img/Tricoptero.jpg";
+            this.fotoTricoptero = "../assets/img/Tricoptero.png";
         }
-
-        if (this.platform.is('android') || this.platform.is('ios')) {
-            this.fotoElmido = "../www/assets/img/Elmidos.jpg";
-        } else {
-            this.fotoElmido = "../assets/img/Elmidos.jpg";
-        }
-
+        
         //FOTOS REALES PARA MODAL!
         if (this.platform.is('android') || this.platform.is('ios')) {
             this.realElmido = "../www/assets/img/fElmido.jpg";
