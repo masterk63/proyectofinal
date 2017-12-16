@@ -20,6 +20,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Wheel } from '../pages/wheel/wheel';
 import { RegistroPage } from '../pages/registro/registro';
 import { UsuarioPage } from '../pages/usuario/usuario';
+import { MenuPage } from '../pages/menu/menu';
 
 // Providers
 import { Todos } from '../providers/todos';
@@ -60,6 +61,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Mapajshtml,
     ModalPage,
     SignupPage,
+    MenuPage,
     MapasnativoPage,
     MapasnativoPage,
     MisRegistrosPage,
@@ -89,6 +91,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MapaGeneralPage,
     Mapajshtml,
     ModalPage,
+    MenuPage,
     SignupPage,
     MapasnativoPage,
     MapasnativoPage,

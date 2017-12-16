@@ -29,7 +29,7 @@ export class MyApp {
         if (token === '' || token === null || token === undefined) {
           this.rootPage = LoginPage;
         } else {
-          this.rootPage = MisRegistrosPage;
+          this.rootPage = TabsPage;
         }
       }).catch((err) => {
         console.log(err);
