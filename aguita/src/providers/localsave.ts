@@ -184,8 +184,7 @@ export class Localsave {
 
   constructor(public http: Http,
               public storage: Storage,) {
-    this.init();
-    
+    //this.init();
   }
 
   // No defino esto en el constructor porque necesito instancialo

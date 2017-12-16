@@ -15,18 +15,18 @@ export class ConnectivityService {
   }
 
   isOnline(): boolean {
-    if (this.onDevice && (navigator.connection.type !== Connection.NONE)) {
-      return navigator.connection.type !== Connection.NONE;
-    } else {
+    // if (this.onDevice && (navigator.connection.type !== Connection.NONE)) {
+    //   return navigator.connection.type !== Connection.NONE;
+    // } else {
       return navigator.onLine;
-    }
+    // }
   }
 
   isOffline(): boolean {
-    if (this.onDevice && (navigator.connection.type !== Connection.NONE)) {
-      return (navigator.connection.type !== Connection.NONE) === Connection.NONE;
-    } else {
+    // if (this.onDevice && (navigator.connection.type !== Connection.NONE)) {
+    //   return (navigator.connection.type !== Connection.NONE) === Connection.NONE;
+    // } else {
       return !navigator.onLine;
-    }
+    // }
   }
 }

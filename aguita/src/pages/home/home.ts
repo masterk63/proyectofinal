@@ -29,6 +29,7 @@ export class HomePage {
     @ViewChild('micontenedor') contenedor: ElementRef;
     @ViewChild(Content) content: Content;
     altoMapa: number;
+    urlImg: string;
     registro: string = "mapa";
     fotoPaisajeURL = 'data:image/jpeg;base64,';
     fotoPaisaje: any;
@@ -78,59 +79,25 @@ export class HomePage {
         this.ubicacion();
 
         //Para usar mapa nativo o mapaHTML
-        if (this.platform.is('android') || this.platform.is('ios')) {
+        if (this.platform.is('cordova')) {
             this.muestroMapaNativo = true;
         }
 
         //FOTOS PARA PASO 2 RADIO BUTTON
-        if (this.platform.is('android') || this.platform.is('ios')) {
-            this.fotoElmido = "../www/assets/img/Elmidos.png";
+        if (this.platform.is('cordova')) {
+            this.urlImg = '../www/'
         } else {
-            this.fotoElmido = "../assets/img/Elmidos.png";
+            this.urlImg = '../'
         }
-
-        if (this.platform.is('android') || this.platform.is('ios')) {
-            this.fotoPatudo = "../www/assets/img/Patudos.png";
-        } else {
-            this.fotoPatudo = "../assets/img/Patudos.png";
-        }
-
-        if (this.platform.is('android') || this.platform.is('ios')) {
-            this.fotoPlecoptero = "../www/assets/img/Plecoptero.png";
-        } else {
-            this.fotoPlecoptero = "../assets/img/Plecoptero.png";
-        }
-
-        if (this.platform.is('android') || this.platform.is('ios')) {
-            this.fotoTricoptero = "../www/assets/img/Tricoptero.png";
-        } else {
-            this.fotoTricoptero = "../assets/img/Tricoptero.png";
-        }
-        
-        //FOTOS REALES PARA MODAL!
-        if (this.platform.is('android') || this.platform.is('ios')) {
-            this.realElmido = "../www/assets/img/fElmido.jpg";
-        } else {
-            this.realElmido = "../assets/img/fElmido.jpg";
-        }
-
-        if (this.platform.is('android') || this.platform.is('ios')) {
-            this.realPatudo = "../www/assets/img/fPatudo.jpg";
-        } else {
-            this.realPatudo = "../assets/img/fPatudo.jpg";
-        }
-
-        if (this.platform.is('android') || this.platform.is('ios')) {
-            this.realPlecoptero = "../www/assets/img/fPlecoptero.jpg";
-        } else {
-            this.realPlecoptero = "../assets/img/fPlecoptero.jpg";
-        }
-
-        if (this.platform.is('android') || this.platform.is('ios')) {
-            this.realTricoptero = "../www/assets/img/fTricoptero.jpg";
-        } else {
-            this.realTricoptero = "../assets/img/fTricoptero.jpg";
-        }
+        this.fotoElmido = this.urlImg + "assets/img/Elmidos.png";
+        this.fotoPatudo = this.urlImg + "assets/img/Patudos.png";
+        this.fotoPlecoptero = this.urlImg + "assets/img/Plecoptero.png";
+        this.fotoTricoptero = this.urlImg + "assets/img/Tricoptero.png";
+        // Para fotos reales del modal
+        this.realElmido = this.urlImg + "assets/img/fElmido.jpg";
+        this.realPatudo = this.urlImg + "assets/img/fPatudo.jpg";
+        this.realPlecoptero = this.urlImg + "assets/img/fPlecoptero.jpg";
+        this.realTricoptero = this.urlImg + "assets/img/fTricoptero.jpg";
     }
 
 
@@ -138,14 +105,7 @@ export class HomePage {
         let yOffset = document.getElementById(bicho).offsetTop;
         this.content.scrollTo(0, yOffset, 1000);
     }
-
-    ngOnInit() {
-
-    }
-    ngAfterViewInit() {
-
-    }
-
+    
     ionViewDidLoad() {
         this.altoMapa = (this.contenedor.nativeElement.offsetHeight) - 200;
     }
@@ -157,7 +117,7 @@ export class HomePage {
 
     takefotoPaisaje() {
         this.camaraCtrl.takePicture64().then((data) => {
-        this.fotoPaisaje = data;
+            this.fotoPaisaje = data;
             this.fotoPaisajeURL = this.fotoPaisajeURL + this.fotoPaisaje;
             this.fotoPaisajeURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL);
         });
@@ -165,7 +125,7 @@ export class HomePage {
 
     takefotoMuestra() {
         this.camaraCtrl.takePicture64().then((data) => {
-        this.fotoMuestra = data;
+            this.fotoMuestra = data;
             this.fotoMuestraURL = this.fotoMuestraURL + this.fotoMuestra;
             this.fotoMuestraURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL);
         });

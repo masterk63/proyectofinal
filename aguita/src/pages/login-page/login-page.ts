@@ -6,6 +6,7 @@ import { SignupPage } from '../signup-page/signup-page';
 import { Storage } from '@ionic/storage';
 import { IntroPage } from '../intro/intro';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
+import { TabsPage } from '../tabs/tabs';
 import { Localsave } from '../../providers/localsave';
 import { MenuController } from 'ionic-angular';
 
@@ -22,6 +23,7 @@ export class LoginPage {
     tam: any;
     width: any;
     fotoIntro: any;
+    urlImg: string;
 
     constructor(public navCtrl: NavController,
         public plt: Platform,
@@ -32,7 +34,7 @@ export class LoginPage {
         public storage: Storage,
         private toastCtrl: ToastController
     ) {
-        this.menu.enable(false);
+        //this.menu.enable(false);
         this.sliderOptions = {
             pager: true
         };
@@ -46,13 +48,13 @@ export class LoginPage {
         } else if (this.width > 600) {
             this.tam = "100% 100%";
         }
-        //this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
-        if (this.plt.is('android') || this.plt.is('ios')) {
-            this.fotoIntro = "../www/assets/img/cascadaRioNoque.jpg";
-        } else {
-            this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
-        }
 
+        if (this.plt.is('cordova')) {
+            this.urlImg = '../'
+        } else {
+            this.urlImg = '../'
+        }
+        this.fotoIntro = this.urlImg + "assets/img/cascadaRioNoque.jpg";
     }
 
     shouldShow() {
@@ -96,15 +98,7 @@ export class LoginPage {
             this.loading.dismiss();
             this.presentToast();
             this.localSaveCtrl.init();
-            console.log('el usario desde la base datos tiene el rol de ', this.resultadoDelLogin.user.rol);
-            if (this.resultadoDelLogin.user.rol === 'usuario') {
-                this.menu.enable(false, 'admin');
-                this.menu.enable(true, 'user');
-            } else {
-                this.menu.enable(true, 'admin');
-                this.menu.enable(false, 'user');
-            }
-            this.navCtrl.setRoot(MisRegistrosPage);
+            this.navCtrl.setRoot(TabsPage);
         }, (err) => {
             this.loading.dismiss();
             console.log(err);
@@ -117,13 +111,10 @@ export class LoginPage {
     }
 
     showLoader() {
-
         this.loading = this.loadingCtrl.create({
             content: 'Inciando sesión...'
         });
-
         this.loading.present();
-
     }
 
     presentToast() {

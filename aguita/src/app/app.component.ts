@@ -11,7 +11,7 @@ import { MisRegistrosPage } from '../pages/mis-registros/mis-registros';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = TabsPage;
+  rootPage: any;
 
   constructor(
     platform: Platform, statusBar: StatusBar,
@@ -23,7 +23,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-
       this.storage.get('token').then((token) => {
         console.log('token is', token);
         if (token === '' || token === null || token === undefined) {
