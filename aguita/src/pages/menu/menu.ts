@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform ,NavController,NavParams} from 'ionic-angular';
+import { Nav, Platform, NavController, NavParams } from 'ionic-angular';
 import { MapasnativoPage } from '../../pages/mapasnativo/mapasnativo';
 import { HomePage } from '../../pages/home/home';
 import { Wheel } from '../../pages/wheel/wheel';
@@ -16,14 +16,18 @@ import { MenuController } from 'ionic-angular';
 import { UsuarioPage } from '../../pages/usuario/usuario';
 
 
+
 @Component({
   selector: 'page-menu',
   templateUrl: 'menu.html',
 })
 export class MenuPage {
-  pagesUser: Array<{title: string, component: any}>;
+  pagesUser: Array<{ title: string, component: any }>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+    public authService: Auth,
+    public navParams: NavParams) {
+
     this.pagesUser = [
       { title: 'Mapa General', component: MapaGeneralPage },
       { title: 'Mis Registros', component: MisRegistrosPage },
@@ -43,5 +47,13 @@ export class MenuPage {
 
   openPage(page) {
     this.navCtrl.setRoot(page.component);
+  }
+
+  logout() {
+    console.log('saliendo logout');
+    this.authService.logout().then(() => {
+      console.log('listo borrado, dirijiendo a registrar');
+      this.navCtrl.setRoot(LoginPage);
+    });
   }
 }
