@@ -12,11 +12,14 @@ var localLogin = new LocalStrategy(
   function(username, password, done) {
     process.nextTick(function () {
         var user = '"'+username+'"';
+        console.log('en local login passport')
         User.login(user, function(user) {
             var usuario = user[0];
             if(usuario.codigo != 0){
                 if(usuario.contrasenia === password){
                     return done(null, user);
+                }else{
+                    return done(null, false);
                 }
             }else{
                 return done(null, false);

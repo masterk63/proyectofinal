@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import { Localsave } from '../providers/localsave';
+import * as configServer from './../server'
 
 @Injectable()
 export class Auth {
@@ -73,15 +74,14 @@ export class Auth {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      this.http.post('http://rickybruno.sytes.net:3000/api/auth/login', JSON.stringify(credentials), { headers: headers })
+      this.http.post(configServer.data.urlServidor + '/api/auth/login', JSON.stringify(credentials), { headers: headers })
         .subscribe(res => {
-
-          let data = res.json();
-          this.token = data.token;
-          this.storage.set('token', data.token);
-          this.storage.set('idUsuario', data.user._id);
-          this.storage.set('rol', data.user.rol);
-          resolve(data);
+            let data = res.json();
+            this.token = data.token;
+            this.storage.set('token', data.token);
+            this.storage.set('idUsuario', data.user._id);
+            this.storage.set('rol', data.user.rol);
+            resolve(data);
         }, (err) => {
           reject(err);
         });

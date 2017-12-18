@@ -16,7 +16,10 @@ function setUserInfo(request){
         rol:request.rol,
     };
 }
- 
+
+//Esta funcion se llama, solo luego de haber pasado por passport
+// y vuelvo a consultar el usuario a la base de datos
+// para poder formar el token
 exports.login = function(req, res, next){
     var username = '"'+req.body.username+'"';
     User.login(username, function(user) {

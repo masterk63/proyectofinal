@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController, Platform, NavController, LoadingController } from 'ionic-angular';
+import { ToastController, Platform, NavController, LoadingController,AlertController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { HomePage } from '../home/home';
 import { SignupPage } from '../signup-page/signup-page';
@@ -28,6 +28,7 @@ export class LoginPage {
     constructor(public navCtrl: NavController,
         public plt: Platform,
         public authService: Auth,
+        public alertCtrl: AlertController,
         public loadingCtrl: LoadingController,
         public localSaveCtrl: Localsave,
         private menu: MenuController,
@@ -101,6 +102,7 @@ export class LoginPage {
             this.navCtrl.setRoot(TabsPage);
         }, (err) => {
             this.loading.dismiss();
+            this.mostrarAlerta('Error','Hay un error en el Usuario o Contraseña')
             console.log(err);
         });
     }
@@ -129,5 +131,14 @@ export class LoginPage {
 
         toast.present();
     }
+
+    mostrarAlerta(titulo,mensaje) {
+        let alert = this.alertCtrl.create({
+        title: titulo,
+        subTitle: mensaje,
+        buttons: ['ACEPTAR']
+        });
+        alert.present();
+      }
 
 }
