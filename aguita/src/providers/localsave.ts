@@ -306,7 +306,7 @@ public replicar(){
 
   //Obtener los registros de la base de datos Locales
   public getTodos(){
-
+    this.init();
     //Si ya se consulto se devuelve, sin consultar nuevamente la base 
     // de datos
     // if (registrosLocales) {

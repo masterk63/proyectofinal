@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController, Platform, NavController, LoadingController,AlertController } from 'ionic-angular';
+import { ToastController, Platform, NavController, LoadingController, AlertController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { HomePage } from '../home/home';
 import { SignupPage } from '../signup-page/signup-page';
@@ -51,7 +51,7 @@ export class LoginPage {
         }
 
         if (this.plt.is('cordova')) {
-            this.urlImg = '../'
+            this.urlImg = '../www/'
         } else {
             this.urlImg = '../'
         }
@@ -86,7 +86,6 @@ export class LoginPage {
     }
 
     login() {
-
         this.showLoader();
 
         let credentials = {
@@ -102,7 +101,11 @@ export class LoginPage {
             this.navCtrl.setRoot(TabsPage);
         }, (err) => {
             this.loading.dismiss();
-            this.mostrarAlerta('Error','Hay un error en el Usuario o Contraseña')
+            if(err.status === 0){
+                this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
+            }else{
+                this.mostrarAlerta('Error', 'Hay un error en el Usuario o Contraseña')
+            }
             console.log(err);
         });
     }
@@ -132,13 +135,13 @@ export class LoginPage {
         toast.present();
     }
 
-    mostrarAlerta(titulo,mensaje) {
+    mostrarAlerta(titulo, mensaje) {
         let alert = this.alertCtrl.create({
-        title: titulo,
-        subTitle: mensaje,
-        buttons: ['ACEPTAR']
+            title: titulo,
+            subTitle: mensaje,
+            buttons: ['ACEPTAR']
         });
         alert.present();
-      }
+    }
 
 }

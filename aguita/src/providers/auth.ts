@@ -27,7 +27,7 @@ export class Auth {
         let headers = new Headers();
         headers.append('Authorization', this.token);
 
-        this.http.get('http://rickybruno.sytes.net:3000/api/auth/protected', { headers: headers })
+        this.http.get(configServer.data.urlServidor +'/api/auth/protected', { headers: headers })
           .subscribe(res => {
             resolve(res);
           }, (err) => {
@@ -47,7 +47,7 @@ export class Auth {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      this.http.post('http://rickybruno.sytes.net:3000/api/auth/register', JSON.stringify(details), { headers: headers })
+      this.http.post(configServer.data.urlServidor +'/api/auth/register', JSON.stringify(details), { headers: headers })
         .subscribe(res => {
 
           let data = res.json();
@@ -77,6 +77,7 @@ export class Auth {
       this.http.post(configServer.data.urlServidor + '/api/auth/login', JSON.stringify(credentials), { headers: headers })
         .subscribe(res => {
             let data = res.json();
+            console.log('datos de usuario',data)
             this.token = data.token;
             this.storage.set('token', data.token);
             this.storage.set('idUsuario', data.user._id);
