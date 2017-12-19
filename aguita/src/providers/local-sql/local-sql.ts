@@ -74,8 +74,10 @@ export class LocalSqlProvider {
 
   create(task: any) {
     let sql = 'INSERT INTO tasks(indice, fecha, latitud, longitud,fotoPaisaje,fotoMuestra, observacion, elmido, patudo, plecoptero, tricoptero, idUsuario) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)';
-    this.db.executeSql(sql, [task.indice, task.fecha,task.latitud,task.longitud,task.fotoPaisaje,task.fotoMuestra,task.observacion,task.elmido,task.patudo,task.plecoptero,task.tricoptero,task.idUsuario]);
-    console.log('registro agregado con exito')
+    return this.db.executeSql(sql, [task.indice, task.fecha,task.latitud,task.longitud,task.fotoPaisaje,task.fotoMuestra,task.observacion,task.elmido,task.patudo,task.plecoptero,task.tricoptero,task.idUsuario]).then( res => {
+      console.log('registro agregado con exito')
+      return Promise.resolve(res);
+    }).catch(error => Promise.reject(error));
   }
 
   update(task: any) {

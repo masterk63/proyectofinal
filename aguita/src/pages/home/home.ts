@@ -21,6 +21,7 @@ import { MisRegistrosPage } from '../mis-registros/mis-registros';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Content } from 'ionic-angular';
 
+
 @Component({
     selector: 'home-page',
     templateUrl: 'home.html',
@@ -184,16 +185,24 @@ export class HomePage {
                 let mensaje = "Debe seleccionar SI o NO en cada bicho."
                 this.mostrarAlerta(titulo, mensaje);
             } else {
-
-                // this.localSaveCtrl.crear(this.fotoPaisaje, this.fotoMuestra, patudos, elmidos, plecopteros, tricopteros, this.latitud, this.longitud, observaciones).then((estado) => {
-                //     if (estado === 1) {
-                //         this.presentToast('Registro creado con Exito');
-                //         let i = this.calcularIndice(patudos, elmidos, plecopteros, tricopteros);
-                //         this.navCtrl.setRoot(Wheel, { indice: i });
-                //     } else {
-                //         this.presentToast(estado);
-                //     }
-                // });
+                let i = this.calcularIndice(patudos, elmidos, plecopteros, tricopteros)
+                let registro = {
+                    indice:i,
+                    fecha:'2017-04-28 22:01:51',
+                    latitud:this.latitud,
+                    longitud:this.longitud,
+                    fotoPaisaje: this.fotoPaisaje,
+                    fotoMuestra: this.fotoMuestra,
+                    observacion:observaciones,
+                    elmido: elmidos,
+                    patudo: patudos,
+                    plecoptero:plecopteros,
+                    tricoptero:tricopteros,
+                    idUsuario:2,
+                }
+                this.localSQL.create(registro).then((res) => {
+                    this.navCtrl.setRoot(Wheel, { indice: i });
+                });
             }
         } else {
             if (this.fotoPaisaje == null && this.fotoMuestra == null) {

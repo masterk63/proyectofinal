@@ -53,7 +53,7 @@ export class MisRegistrosPage {
    agregarItem(){
     console.log('agregando item')
     let task = {
-        indice:3,
+        indice:'hola',
         fecha:'2017-04-28 22:01:51',
         latitud:'-26.8122',
         longitud:'-65.255',

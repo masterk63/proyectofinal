@@ -42,6 +42,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Network } from '@ionic-native/network';
 import { SQLite } from '@ionic-native/sqlite';
+import { Geolocation } from '@ionic-native/geolocation';
 
 //Importaciones
 import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
@@ -116,6 +117,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     SQLite,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,ConnectivityService,RegistrosService,Storage,
     LocalSqlProvider]

@@ -11,11 +11,30 @@ declare var google;
 export class Ubicacion {
   markers: any;
 
-  constructor(public http: Http) {
+  constructor(public http: Http,
+    private geolocation: Geolocation) {
     console.log('Hello Ubicacion Provider');
   }
 
+
   public obtenerCoordenadas() {
+    return new Promise((resolve, reject) => {
+      this.geolocation.getCurrentPosition().then((resp) => {
+        let crd = resp.coords;
+        console.log('Your current position is:');
+        console.log('Latitude : ' + crd.latitude);
+        console.log('Longitude: ' + crd.longitude);
+        console.log('More or less ' + crd.accuracy + ' meters.');
+        resolve(crd);
+      }).catch((error) => {
+        console.log('Error getting location', error);
+        let resultado = -1;
+        resolve(resultado);
+      });
+    });
+  }
+
+  public obtenerCoordenadasNavegador() {
     return new Promise((resolve, reject) => {
 
       var options = {
