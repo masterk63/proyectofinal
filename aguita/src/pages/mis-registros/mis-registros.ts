@@ -39,15 +39,17 @@ export class MisRegistrosPage {
 
       if (this.platform.is('cordova')) {
          this.fotoMapaNoDisponible = "../www/assets/img/mapNotAvalible.jpg";
+         this.localSQL.getAll().then((tasks)=>{
+            console.log(tasks);
+        });
       } else {
          this.fotoMapaNoDisponible = "../assets/img/mapNotAvalible.jpg";
       }
    }
 
    ionViewDidLoad() {
-    this.localSQL.getAll().then((tasks)=>{
-        console.log(tasks);
-    });
+
+    
    }
    
    agregarItem(){
