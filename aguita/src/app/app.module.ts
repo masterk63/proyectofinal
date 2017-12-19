@@ -31,6 +31,8 @@ import { ConnectivityService } from '../providers/connectivity-service';
 import { UsuariosService } from '../providers/usuariosService';
 import { RegistrosService } from '../providers/registrosService';
 import { Auth } from '../providers/auth';
+import { LocalSqlProvider } from '../providers/local-sql/local-sql';
+
 
 //Provaider NativeComponents
 import { Camera } from '@ionic-native/camera';
@@ -39,6 +41,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { FilePath } from '@ionic-native/file-path';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Network } from '@ionic-native/network';
+import { SQLite } from '@ionic-native/sqlite';
 
 //Importaciones
 import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
@@ -49,6 +52,7 @@ import { Storage } from '@ionic/storage';
 //Native
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
 
 @NgModule({
   declarations: [
@@ -111,7 +115,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     PhotoViewer,
     StatusBar,
     SplashScreen,
+    SQLite,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,ConnectivityService,RegistrosService,Storage]
+    Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,ConnectivityService,RegistrosService,Storage,
+    LocalSqlProvider]
 })
 export class AppModule {}

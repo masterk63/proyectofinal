@@ -97,7 +97,6 @@ export class LoginPage {
             this.resultadoDelLogin = result;
             this.loading.dismiss();
             this.presentToast();
-            this.localSaveCtrl.init();
             this.navCtrl.setRoot(TabsPage);
         }, (err) => {
             this.loading.dismiss();

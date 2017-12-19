@@ -11,6 +11,7 @@ import { ModalPage } from '../modal/modal';
 import { Camara } from '../../providers/camara';
 import { Ubicacion } from '../../providers/ubicacion';
 import { Localsave } from '../../providers/localsave';
+import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Wheel } from '../wheel/wheel';
 import { Auth } from '../../providers/auth';
@@ -73,6 +74,7 @@ export class HomePage {
         private sanitizer: DomSanitizer,
         public ubicacionCtrl: Ubicacion,
         public localSaveCtrl: Localsave,
+        public localSQL: LocalSqlProvider,
         public alertCtrl: AlertController
     ) {
         //Detecta la ubicacion
@@ -182,15 +184,16 @@ export class HomePage {
                 let mensaje = "Debe seleccionar SI o NO en cada bicho."
                 this.mostrarAlerta(titulo, mensaje);
             } else {
-                this.localSaveCtrl.crear(this.fotoPaisaje, this.fotoMuestra, patudos, elmidos, plecopteros, tricopteros, this.latitud, this.longitud, observaciones).then((estado) => {
-                    if (estado === 1) {
-                        this.presentToast('Registro creado con Exito');
-                        let i = this.calcularIndice(patudos, elmidos, plecopteros, tricopteros);
-                        this.navCtrl.setRoot(Wheel, { indice: i });
-                    } else {
-                        this.presentToast(estado);
-                    }
-                });
+
+                // this.localSaveCtrl.crear(this.fotoPaisaje, this.fotoMuestra, patudos, elmidos, plecopteros, tricopteros, this.latitud, this.longitud, observaciones).then((estado) => {
+                //     if (estado === 1) {
+                //         this.presentToast('Registro creado con Exito');
+                //         let i = this.calcularIndice(patudos, elmidos, plecopteros, tricopteros);
+                //         this.navCtrl.setRoot(Wheel, { indice: i });
+                //     } else {
+                //         this.presentToast(estado);
+                //     }
+                // });
             }
         } else {
             if (this.fotoPaisaje == null && this.fotoMuestra == null) {

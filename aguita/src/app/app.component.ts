@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login-page/login-page';
 import { TabsPage } from '../pages/tabs/tabs';
 import { MisRegistrosPage } from '../pages/mis-registros/mis-registros';
+import { LocalSqlProvider } from '../providers/local-sql/local-sql';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,15 +15,22 @@ export class MyApp {
   rootPage: any;
 
   constructor(
-    platform: Platform, statusBar: StatusBar,
+    public platform: Platform,
+    statusBar: StatusBar,
+    public localSQL: LocalSqlProvider,
     public storage: Storage,
     splashScreen: SplashScreen) {
-    platform.ready().then(() => {
 
+    platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      if (this.platform.is('cordova')) {
+        this.localSQL.createDatabase();
+      }
+  
       this.storage.get('token').then((token) => {
         console.log('token is', token);
         if (token === '' || token === null || token === undefined) {

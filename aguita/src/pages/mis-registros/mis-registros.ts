@@ -8,7 +8,7 @@ import { LoginPage } from '../login-page/login-page';
 import { RegistroPage } from '../registro/registro';
 import { MenuController, Platform } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
-
+import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
 
 
 declare var Connection: any;
@@ -29,20 +29,15 @@ export class MisRegistrosPage {
       public localSaveCtrl: Localsave,
       private network: Network,
       public platform: Platform,
+      public localSQL: LocalSqlProvider,
       private menu: MenuController,
       private _zone: NgZone) {
-      this.localSaveCtrl.getTodos().subscribe((data) => {
-         this._zone.run(() => this.registros = data);
-         console.log(this.registros);
-      });
-
-      // watch network for a connection
+     
+      // verifico la conexion a internet
       this.network.onConnect().subscribe(() => {
-         this.localSaveCtrl.replicar();
       });
 
-
-      if (this.platform.is('android') || this.platform.is('ios')) {
+      if (this.platform.is('cordova')) {
          this.fotoMapaNoDisponible = "../www/assets/img/mapNotAvalible.jpg";
       } else {
          this.fotoMapaNoDisponible = "../assets/img/mapNotAvalible.jpg";
@@ -50,47 +45,32 @@ export class MisRegistrosPage {
    }
 
    ionViewDidLoad() {
-
+    this.localSQL.getAll().then((tasks)=>{
+        console.log(tasks);
+    });
+   }
+   
+   agregarItem(){
+    console.log('agregando item')
+    let task = {
+        indice:3,
+        fecha:'2017-04-28 22:01:51',
+        latitud:'-26.8122',
+        longitud:'-65.255',
+        fotoPaisaje: 'longblob NOT NULL',
+        fotoMuestra: 'longblob NOT NULL',
+        observacion:'hola',
+        elmido:'si',
+        patudo:'si',
+        plecoptero:'si',
+        tricoptero:'no',
+        idUsuario:2,
+    }
+    this.localSQL.create(task);
    }
 
-   controlarFotoMapa(reg) {
-      if (Object.keys(reg._attachments).length > 2) {
-         return true;
-      }
-      else {
-         return false;
-      }
+   destruirDB(){
+       console.log('destruyendoDB')
+       this.localSQL.destruirDB();
    }
-
-   logout() {
-      console.log('saliendo logout');
-      this.authService.logout().then(() => {
-         console.log('listo borrado, dirijiendo a registrar');
-
-         this.navCtrl.setRoot(LoginPage);
-      });
-   }
-
-   verRegistro(attachments, fecha, ciudad, provincia, pais, latitud, longitud, indice, elmido, patudo, plecoptero, tricoptero, observacion) {
-      console.log(fecha);
-      this.navCtrl.push(RegistroPage, {
-         donde: "mis registros",
-         attachments,
-         fecha,
-         ciudad,
-         provincia,
-         pais,
-         latitud,
-         longitud,
-         indice,
-         elmido,
-         patudo,
-         plecoptero,
-         tricoptero,
-         observacion
-      });
-   }
-
-
-
 }
