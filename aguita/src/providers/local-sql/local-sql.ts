@@ -41,7 +41,6 @@ export class LocalSqlProvider {
   }
 
   createTable() {
-    console.log('creadnod tabla')
     let sql = `CREATE TABLE IF NOT EXISTS tasks
     (idRegistro INTEGER PRIMARY KEY AUTOINCREMENT, 
     indice int(11) NOT NULL,

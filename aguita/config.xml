@@ -91,4 +91,12 @@
     <allow-navigation href="http://192.168.1.9:8100" />
     <engine name="android" spec="~6.3.0" />
     <plugin name="cordova-sqlite-storage" spec="^2.1.4" />
+    <allow-navigation href="http://192.168.1.7:8100" />
+    <allow-navigation href="http://localhost:8100" />
+    <plugin name="cordova.plugins.diagnostic" spec="^3.7.3" />
+    <allow-navigation href="http://192.168.1.90:8100" />
+    <plugin name="cordova-plugin-googlemaps" spec="^2.1.1">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDgvGKPGqI8NHne4tdO4ZMIHE_QcCeEWbk" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyDEVLTEbFcVgNm2anHlKEfiqvnJYUYa6No" />
+    </plugin>
 </widget>

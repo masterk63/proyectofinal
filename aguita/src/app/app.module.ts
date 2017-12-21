@@ -43,6 +43,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Network } from '@ionic-native/network';
 import { SQLite } from '@ionic-native/sqlite';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Diagnostic } from '@ionic-native/diagnostic';
 
 //Importaciones
 import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
@@ -53,6 +54,7 @@ import { Storage } from '@ionic/storage';
 //Native
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { DiagnosticProvider } from '../providers/diagnostic/diagnostic';
 
 
 @NgModule({
@@ -118,8 +120,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SplashScreen,
     SQLite,
     Geolocation,
+    Diagnostic,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,ConnectivityService,RegistrosService,Storage,
-    LocalSqlProvider]
+    LocalSqlProvider,
+    DiagnosticProvider]
 })
 export class AppModule {}

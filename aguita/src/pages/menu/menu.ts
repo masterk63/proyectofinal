@@ -17,6 +17,7 @@ import { UsuarioPage } from '../../pages/usuario/usuario';
 
 
 
+
 @Component({
   selector: 'page-menu',
   templateUrl: 'menu.html',
@@ -37,6 +38,7 @@ export class MenuPage {
       { title: 'LoginPage', component: LoginPage },
       { title: 'Introduccion', component: IntroPage },
       { title: 'Tutorial', component: TutorialPage },
+      { title: 'MapaNativo', component: MapasnativoPage },
       { title: 'Usuarios', component: UsuarioPage },
     ];
   }

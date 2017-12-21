@@ -17,7 +17,7 @@ export class Ubicacion {
   }
 
 
-  public obtenerCoordenadas() {
+  public obtenerCoordenadasNativas() {
     return new Promise((resolve, reject) => {
       this.geolocation.getCurrentPosition().then((resp) => {
         let crd = resp.coords;
@@ -34,7 +34,7 @@ export class Ubicacion {
     });
   }
 
-  public obtenerCoordenadasNavegador() {
+  public obtenerCoordenadas() {
     return new Promise((resolve, reject) => {
 
       var options = {

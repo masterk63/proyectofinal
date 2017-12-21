@@ -11,6 +11,7 @@ import { ModalPage } from '../modal/modal';
 import { Camara } from '../../providers/camara';
 import { Ubicacion } from '../../providers/ubicacion';
 import { Localsave } from '../../providers/localsave';
+import { DiagnosticProvider } from '../../providers/diagnostic/diagnostic';
 import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Wheel } from '../wheel/wheel';
@@ -76,8 +77,10 @@ export class HomePage {
         public ubicacionCtrl: Ubicacion,
         public localSaveCtrl: Localsave,
         public localSQL: LocalSqlProvider,
+        public diagnosticProvider: DiagnosticProvider,
         public alertCtrl: AlertController
     ) {
+
         //Detecta la ubicacion
         this.ubicacion();
 
