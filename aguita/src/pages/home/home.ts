@@ -191,7 +191,7 @@ export class HomePage {
                 let i = this.calcularIndice(patudos, elmidos, plecopteros, tricopteros)
                 let registro = {
                     indice:i,
-                    fecha:'2017-04-28 22:01:51',
+                    fecha: new Date(),
                     latitud:this.latitud,
                     longitud:this.longitud,
                     fotoPaisaje: this.fotoPaisaje,

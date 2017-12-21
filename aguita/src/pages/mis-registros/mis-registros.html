@@ -14,16 +14,13 @@
 </ion-header>
 
 <ion-content>
-  <button (click)="agregarItem()"> agregar item</button>
-
-  <button (click)="destruirDB()"> destruir</button>
   <ion-row>
     <ion-col col-md-6 col-lg-4 *ngFor="let reg of registros">
-      <ion-card (click)="verRegistro(reg._attachments,reg.fecha,reg.ciudad,reg.provincia,reg.pais,reg.latitud,reg.longitud,reg.indice,reg.elmidos,reg.patudos,reg.plecopteros,reg.tricopteros,reg.observaciones)"
+      <ion-card 
         style="position: relative;">
 
-        <img [src]="'data:image/jpeg;base64,'+reg._attachments['fotoMapa.png'].data" *ngIf="controlarFotoMapa(reg)">
-        <img [src]="fotoMapaNoDisponible" *ngIf="!controlarFotoMapa(reg)">
+        <!-- <img [src]="'data:image/jpeg;base64,'+reg._attachments['fotoMapa.png'].data" *ngIf="controlarFotoMapa(reg)"> -->
+        <img [src]="fotoMapaNoDisponible">
         <ion-fab right top>
           <button ion-fab>
             <ion-icon name="pin"></ion-icon>
@@ -33,7 +30,7 @@
         <ion-item>
           <ion-icon name="calendar" item-left large></ion-icon>
           <h2>{{reg.fecha | date:'dd/MM/yy'}}</h2>
-          <p>{{reg.ciudad}}, {{reg.provincia}}, {{reg.pais}}</p>
+          <!-- <p>{{reg.ciudad}}, {{reg.provincia}}, {{reg.pais}}</p> -->
         </ion-item>
 
         <ion-item>

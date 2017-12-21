@@ -39,8 +39,9 @@ export class MisRegistrosPage {
 
       if (this.platform.is('cordova')) {
          this.fotoMapaNoDisponible = "../www/assets/img/mapNotAvalible.jpg";
-         this.localSQL.getAll().then((tasks)=>{
-            console.log(tasks);
+         this.localSQL.getAll().then((reg)=>{
+            console.log(reg);
+            this.registros = reg;
         });
       } else {
          this.fotoMapaNoDisponible = "../assets/img/mapNotAvalible.jpg";
@@ -52,27 +53,4 @@ export class MisRegistrosPage {
     
    }
    
-   agregarItem(){
-    console.log('agregando item')
-    let task = {
-        indice:'hola',
-        fecha:'2017-04-28 22:01:51',
-        latitud:'-26.8122',
-        longitud:'-65.255',
-        fotoPaisaje: 'longblob NOT NULL',
-        fotoMuestra: 'longblob NOT NULL',
-        observacion:'hola',
-        elmido:'si',
-        patudo:'si',
-        plecoptero:'si',
-        tricoptero:'no',
-        idUsuario:2,
-    }
-    this.localSQL.create(task);
-   }
-
-   destruirDB(){
-       console.log('destruyendoDB')
-       this.localSQL.destruirDB();
-   }
 }
