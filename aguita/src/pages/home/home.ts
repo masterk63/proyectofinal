@@ -13,6 +13,7 @@ import { Ubicacion } from '../../providers/ubicacion';
 import { Localsave } from '../../providers/localsave';
 import { DiagnosticProvider } from '../../providers/diagnostic/diagnostic';
 import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
+import { RegistrosService } from '../../providers/registrosService';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Wheel } from '../wheel/wheel';
 import { Auth } from '../../providers/auth';
@@ -77,6 +78,7 @@ export class HomePage {
         private sanitizer: DomSanitizer,
         public ubicacionCtrl: Ubicacion,
         public localSaveCtrl: Localsave,
+        public registroController: RegistrosService,
         public localSQL: LocalSqlProvider,
         public diagnosticProvider: DiagnosticProvider,
         public alertCtrl: AlertController
@@ -210,6 +212,7 @@ export class HomePage {
                     idUsuario:2,
                 }
                 this.localSQL.create(registro).then((res) => {
+                    this.registroController.crearRegistro(registro);
                     this.navCtrl.setRoot(Wheel, { indice: i });
                 });
             }

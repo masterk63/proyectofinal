@@ -34,6 +34,7 @@ module.exports = function(app){
     apiUsuarios.post('/forgot',UsuariosController.forgotPassword);
     //API Registros
     apiRegistros.get('/registrosListar',RegistrosController.registrosListar);
+    apiRegistros.post('/registroNuevo',RegistrosController.registroNuevo);
     apiRegistros.get('/listarMarkers',RegistrosController.registrosListarMarkers);
     apiRegistros.get('/registroDame/:id',RegistrosController.registroDame);
     apiRegistros.get('/registroValidar/:id',RegistrosController.registroValidar);

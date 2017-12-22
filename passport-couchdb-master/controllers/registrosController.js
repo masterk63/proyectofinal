@@ -33,3 +33,10 @@ exports.registroInvalidar = function(req,res){
         res.json(consulta);
     });
 }
+
+exports.registroNuevo = function(req, res, next){
+    let registro = req.body.registro;
+    Registro.nuevo(registro,function(consulta){
+        res.json(consulta);
+    });
+}
