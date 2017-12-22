@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http,Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
+import * as configServer from './../server';
 
 /*
   Generated class for the RegistrosService provider.
@@ -22,10 +23,10 @@ export class RegistrosService {
 
   }
 
-
+  'configServer.data.urlServidor +'
   cargarRegistros() {
     return new Promise((resolve, reject) => {
-      this.http.get('http://rickybruno.sytes.net:3000/api/registrosListar')
+      this.http.get(configServer.data.urlServidor + '/api/registrosListar')
         .subscribe(resultado => {
           this.registros = resultado;
           this.registros = JSON.parse(this.registros._body);
@@ -37,7 +38,7 @@ export class RegistrosService {
 
   registroDame(idRegistro) {
     return new Promise((resolve, reject) => {
-      this.http.get('http://rickybruno.sytes.net:3000/api/registroDame/' + idRegistro)
+      this.http.get(configServer.data.urlServidor + '/api/registroDame/' + idRegistro)
         .map(res => res.json())
         .subscribe(resultado => {
           this.registro = resultado;
@@ -49,7 +50,7 @@ export class RegistrosService {
 
   registroValidar(idRegistro) {
     return new Promise((resolve, reject) => {
-      this.http.get('http://rickybruno.sytes.net:3000/api/registroValidar/' + idRegistro)
+      this.http.get(configServer.data.urlServidor + '/api/registroValidar/' + idRegistro)
         .map(res => res.json())
         .subscribe(resultado => {
           this.mensajeValidar = resultado;
@@ -61,13 +62,29 @@ export class RegistrosService {
 
   registroInvalidar(idRegistro) {
     return new Promise((resolve, reject) => {
-      this.http.get('http://rickybruno.sytes.net:3000/api/registroInvalidar/' + idRegistro)
+      this.http.get(configServer.data.urlServidor + '/api/registroInvalidar/' + idRegistro)
         .map(res => res.json())
         .subscribe(resultado => {
           this.mensajeInvalidar = resultado;
           resolve(this.mensajeInvalidar);
         }, error => reject("Error de conexion")
         );
+    });
+  }
+
+  crearRegistro(registro) {
+    return new Promise((resolve, reject) => {
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(`${configServer.data.urlServidor}/api/listarOperacionesPorFecha/`, JSON.stringify(registro), { headers: headers })
+        .map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
     });
   }
 
