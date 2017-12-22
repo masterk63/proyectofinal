@@ -45,6 +45,7 @@ export class HomePage {
     imagenenBase64 = '';
     fotoPaisajeURLSafe: any;
     fotoMuestraURLSafe: any;
+    fotoMapa: any;
     muestroMapaNativo = false;
     loading: any;
     fotoElmido;
@@ -166,7 +167,11 @@ export class HomePage {
     public siguientePaso() {
         switch (this.registro) {
             case "mapa":
-                return this.registro = "fotos";
+                if(this.fotoMapa){
+                    return this.registro = "fotos";
+                }else{
+                    return this.mostrarAlerta('Error','Por favor deje que el mapa se cargue')
+                }
             case "fotos":
                 return this.registro = "obseravaciones";
             case "obseravaciones":
@@ -196,6 +201,7 @@ export class HomePage {
                     longitud:this.longitud,
                     fotoPaisaje: this.fotoPaisaje,
                     fotoMuestra: this.fotoMuestra,
+                    fotoMapa: this.fotoMapa,
                     observacion:observaciones,
                     elmido: elmidos,
                     patudo: patudos,
@@ -295,5 +301,10 @@ export class HomePage {
             position: 'top'
         });
         toast.present();
+    }
+
+    imgMapData64(event){
+        //console.log('desde el home',event.data64)
+        this.fotoMapa = event.data64;
     }
 }

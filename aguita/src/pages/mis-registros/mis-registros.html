@@ -14,13 +14,14 @@
 </ion-header>
 
 <ion-content>
+  <button (click)="borarDB()">destruirDB</button>
   <ion-row>
     <ion-col col-md-6 col-lg-4 *ngFor="let reg of registros">
       <ion-card 
         style="position: relative;">
 
-        <!-- <img [src]="'data:image/jpeg;base64,'+reg._attachments['fotoMapa.png'].data" *ngIf="controlarFotoMapa(reg)"> -->
-        <img [src]="fotoMapaNoDisponible">
+        <img [src]="reg.fotoMapa">
+        <!-- <img [src]="fotoMapaNoDisponible"> -->
         <ion-fab right top>
           <button ion-fab>
             <ion-icon name="pin"></ion-icon>

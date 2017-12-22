@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { NavController, NavParams } from 'ionic-angular';
 import {
@@ -7,7 +7,8 @@ import {
     LatLng,
     CameraPosition,
     MarkerOptions,
-    Marker
+    Marker,
+    GoogleMapsMapTypeId
 } from '@ionic-native/google-maps';
 
 
@@ -18,6 +19,7 @@ import {
 export class MapasnativoPage {
     @Input() latitud;
     @Input() longitud;
+    @Output() mapaImg = new EventEmitter<any>();
 
     map: GoogleMap;
 
@@ -50,24 +52,46 @@ export class MapasnativoPage {
                 'tilt': false,
                 'rotate': false,
                 'zoom': false
-            }
+            },
+            'mapType': GoogleMapsMapTypeId.SATELLITE
         });
-    
+
         this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
             console.log('Map is ready!');
-            this.moveCamara(location);    
+            this.moveCamara(location);
         });
 
     }
 
-    moveCamara(location){
+    pausaCasero(millis) 
+    {   
+        let date:any;
+        let curDate:any;
+        date = new Date();
+        curDate = null;
+        do { curDate = new Date(); } 
+        while(curDate-date < millis);
+    } 
+
+    moveCamara(location) {
         let options: CameraPosition<object> = {
-                target:location,
-                tilt: 0,
-                zoom: 15,
-                bearing: 50
+            target: location,
+            //tilt: 0,
+            zoom: 15,
+            //bearing: 50
         }
-        this.map.moveCamera(options);
+        this.map.animateCamera({
+            target: location,
+            zoom: 15,
+            duration: 2500
+        }).then((r) => {
+            this.pausaCasero(500);
+            this.map.toDataURL().then(data => {
+                this.mapaImg.emit({
+                    data64: data
+                });
+            })
+        });
     }
 }
 

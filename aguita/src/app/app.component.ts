@@ -7,6 +7,7 @@ import { LoginPage } from '../pages/login-page/login-page';
 import { TabsPage } from '../pages/tabs/tabs';
 import { MisRegistrosPage } from '../pages/mis-registros/mis-registros';
 import { LocalSqlProvider } from '../providers/local-sql/local-sql';
+import { ConnectivityService } from '../providers/connectivity-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,6 +18,7 @@ export class MyApp {
   constructor(
     public platform: Platform,
     statusBar: StatusBar,
+    conexion: ConnectivityService,
     public localSQL: LocalSqlProvider,
     public storage: Storage,
     splashScreen: SplashScreen) {

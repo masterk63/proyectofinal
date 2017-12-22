@@ -53,4 +53,7 @@ export class MisRegistrosPage {
     
    }
    
+   borarDB(){
+     this.localSQL.destruirDB();
+   }
 }

@@ -34,7 +34,7 @@
         <p>GEOLOCALIZACION OBETENIDA, PULSE
           <STRONG>SIGUIENTE</STRONG> PARA CONTINUAR</p>
         <div class="mapaConteiner" [style.height.px]="altoMapa">
-          <page-mapasnativo [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="muestroMapaNativo"> </page-mapasnativo>
+          <page-mapasnativo [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="muestroMapaNativo" (mapaImg)="imgMapData64($event)"> </page-mapasnativo>
           <mapajshtml [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="!muestroMapaNativo"></mapajshtml>
         </div>
         <span style="color:gray">Usted esta aqui!!!</span>
