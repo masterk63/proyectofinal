@@ -9,6 +9,8 @@ var connection = mysql.createConnection({
     database: databaseConfig.database,
 });
 
+var NodeGeocoder = require('node-geocoder');
+
 
 exports.listar = function (fn) {
     connection.query('call registros_listar()', function (err, rows) {
@@ -44,29 +46,74 @@ exports.invalidar = function (id, fn) {
     });
 }
 
-exports.nuevo = function (registro,fn) {
+exports.nuevo = function (registro, fn) {
     console.log('en el modelo')
-    // var indice = parseInt(registro.indice);
-    // var fecha = '"' + registro.fecha + '"';
-    // var latitud = registro.latitud;
-    // var longitud = registro.longitud;
-    // var fotoPaisaje = '"' + registro.fotoPaisaje + '"';
-    // var fotoMuestra = '"' + registro.fotoMuestra + '"';
-    // var fotoMapa = '"' + registro.fotoMapa + '"';
-    // var observaciones = '"' + registro.observacion + '"';
-    // var idUsuario = parseInt(registro.idUsuario);
-    // var ciudad = '"' + registro.ciudad + '"';
-    // var provincia = '"' + registro.provincia + '"';
-    // var pais = '"' + registro.pais + '"';
-    // var elmidos = '"' + registro.elmidos + '"';
-    // var patudos = '"' + registro.patudos + '"';
-    // var plecopteros = '"' + registro.plecopteros + '"';
-    // var tricopteros = '"' + registro.tricopteros + '"';
+    obtenerDireccion(registro.latitud, registro.longitud, function (direccion) {
+        if (!direccion) {
+            consulta = [{ 'codigo': 0, 'mensaje': "Error al obtener la geolocalizacion inversa" }]
+            fn(consulta);
+        } else {
+            var indice = parseInt(registro.indice);
+            var fecha = '"' + registro.fecha + '"';
+            var latitud = registro.latitud;
+            var longitud = registro.longitud;
+            var fotoPaisaje = '"' + registro.fotoPaisaje + '"';
+            var fotoMuestra = '"' + registro.fotoMuestra + '"';
+            var fotoMapa = '"' + registro.fotoMapa + '"';
+            var observaciones = '"' + registro.observacion + '"';
+            var idUsuario = parseInt(registro.idUsuario);
+            var ciudad = '"' + registro.ciudad + '"';
+            var provincia = '"' + registro.provincia + '"';
+            var pais = '"' + registro.pais + '"';
+            var elmidos = '"' + registro.elmidos + '"';
+            var patudos = '"' + registro.patudos + '"';
+            var plecopteros = '"' + registro.plecopteros + '"';
+            var tricopteros = '"' + registro.tricopteros + '"';
 
-    // connection.query('CALL registro_nuevo_completo(' + indice + ',' + fecha + ',' + latitud + ',' + longitud + ',' + fotoPaisaje + ',' + fotoMuestra + ',' + fotoMapa + ',' + observaciones + ',' + idUsuario + ',' + ciudad + ',' + provincia + ',' + pais + ',' + elmidos + ',' + patudos + ',' + plecopteros + ',' + tricopteros + ')', function (err, rows) {
-    //     if (err) {
-    //         consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
-    //         fn(consulta);
-    //     } else fn(rows[0]);
-    // });
+            connection.query('CALL registro_nuevo_completo(' + indice + ',' + fecha + ',' + latitud + ',' + longitud + ',' + fotoPaisaje + ',' + fotoMuestra + ',' + fotoMapa + ',' + observaciones + ',' + idUsuario + ',' + ciudad + ',' + provincia + ',' + pais + ',' + elmidos + ',' + patudos + ',' + plecopteros + ',' + tricopteros + ')', function (err, rows) {
+                if (err) {
+                    consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
+                    fn(consulta);
+                } else fn(rows[0]);
+            });
+        }
+    });
 }
+
+
+function obtenerDireccion(latitud, longitud, fn) {
+    var options = {
+        provider: 'google',
+        // Optional depending on the providers 
+        httpAdapter: 'https', // Default
+        apiKey: 'AIzaSyA4h0qNqE_K6GuDT5-BH2g2Mx_XcwbLSys', // for Mapquest, OpenCage, Google Premier
+        formatter: null         // 'gpx', 'string', ...
+    };
+
+    var geocoder = NodeGeocoder(options);
+
+    geocoder.reverse({ lat: latitud, lon: longitud }, function (err, res) {
+        if (err) {
+            console.log(err)
+            fn(null);
+        } else {
+            res = res[0];
+            if (res.city === undefined || res.city === '' || res.city === null) {
+                res.city = ' ';
+            }
+            if (res.administrativeLevels.level1long === undefined || res.administrativeLevels.level1long === '' || res.administrativeLevels.level1long === null) {
+                res.administrativeLevels.level1long = ' ';
+            }
+            if (res.country === undefined || res.country === '' || res.country === null) {
+                res.country = ' ';
+            }
+            direccion = {
+                ciudad: res.city,
+                provincia: res.administrativeLevels.level1long,
+                pais: res.country
+            }
+            fn(direccion)
+        }
+    });
+}
+
