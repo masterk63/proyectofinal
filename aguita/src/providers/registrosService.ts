@@ -23,7 +23,7 @@ export class RegistrosService {
 
   }
 
-  'configServer.data.urlServidor +'
+  
   cargarRegistros() {
     return new Promise((resolve, reject) => {
       this.http.get(configServer.data.urlServidor + '/api/registrosListar')

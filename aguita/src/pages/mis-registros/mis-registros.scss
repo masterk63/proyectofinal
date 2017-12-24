@@ -31,4 +31,16 @@ page-mis-registros {
     ion-card ion-item {
         background: #FAFAFA !important;
     }
+
+    ion-item:nth-child(odd) {
+        background: #FAFAFA;
+    }
+
+    ion-list-header{
+        margin-bottom: -10px !important;
+        min-height: 2.5rem !important;
+        font-size: 2rem !important;
+    }
+    
+    
 }

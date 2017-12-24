@@ -9,7 +9,7 @@ import { RegistroPage } from '../registro/registro';
 import { MenuController, Platform } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
-
+import { RegistrosService } from '../../providers/registrosService';
 
 declare var Connection: any;
 
@@ -21,26 +21,29 @@ declare var Connection: any;
 export class MisRegistrosPage {
 
    registros: any;
+   registrosOnline:any;
    fotoMapaNoDisponible: any;
 
    constructor(public navCtrl: NavController,
       public authService: Auth,
       public navParams: NavParams,
       public localSaveCtrl: Localsave,
+      public registrosCtrl: RegistrosService,
       private network: Network,
       public platform: Platform,
       public localSQL: LocalSqlProvider,
       private menu: MenuController,
       private _zone: NgZone) {
      
-      // verifico la conexion a internet
-      this.network.onConnect().subscribe(() => {
-      });
-
+      this.registrosCtrl.cargarRegistros().then((registros)=>{
+        console.log('registros en el servidor',registros);
+        this.registrosOnline = registros;
+      })
+      
       if (this.platform.is('cordova')) {
          this.fotoMapaNoDisponible = "../www/assets/img/mapNotAvalible.jpg";
          this.localSQL.getAll().then((reg)=>{
-            console.log(reg);
+            console.log('registros locales',reg);
             this.registros = reg;
         });
       } else {
