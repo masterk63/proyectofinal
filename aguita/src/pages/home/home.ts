@@ -198,22 +198,26 @@ export class HomePage {
                 let i = this.calcularIndice(patudos, elmidos, plecopteros, tricopteros)
                 let registro = {
                     indice:i,
-                    fecha: new Date(),
+                    fecha: new Date().toISOString(),
                     latitud:this.latitud,
                     longitud:this.longitud,
                     fotoPaisaje: this.fotoPaisaje,
                     fotoMuestra: this.fotoMuestra,
                     fotoMapa: this.fotoMapa,
                     observacion:observaciones,
-                    elmido: elmidos,
-                    patudo: patudos,
-                    plecoptero:plecopteros,
-                    tricoptero:tricopteros,
+                    elmidos: elmidos,
+                    patudos: patudos,
+                    plecopteros:plecopteros,
+                    tricopteros:tricopteros,
                     idUsuario:2,
                 }
+                let inicio = registro.fecha.split('T');
+                registro.fecha = inicio[0];
                 this.localSQL.create(registro).then((res) => {
-                    this.registroController.crearRegistro(registro);
-                    this.navCtrl.setRoot(Wheel, { indice: i });
+                    this.registroController.crearRegistro(registro).then((res)=>{
+                        console.log(res)
+                    }); 
+                    //this.navCtrl.setRoot(Wheel, { indice: i });
                 });
             }
         } else {
