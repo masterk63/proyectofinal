@@ -14,14 +14,30 @@
 </ion-header>
 
 <ion-content>
-  <button (click)="borarDB()">destruirDB</button>
-  <ion-row>
+  <!-- <button (click)="borarDB()">destruirDB</button> -->
+  <ion-list>
+    <ion-list-header>
+      Local
+    </ion-list-header>
+    <ion-item *ngFor="let reg of registros">
+      <ion-thumbnail item-start>
+        <img [src]="reg.fotoMapa">
+      </ion-thumbnail>
+      <h2>My Neighbor Totoro</h2>
+      <p>
+        <ion-icon name="ios-bug" item-left large></ion-icon> {{reg.indice}}
+        <ion-icon name="calendar" item-left large></ion-icon> {{reg.fecha | date:'dd/MM/yy'}}
+      </p>
+      <button ion-button clear item-end>View</button>
+    </ion-item>
+  </ion-list>
+  <!-- <ion-row>
     <ion-col col-md-6 col-lg-4 *ngFor="let reg of registros">
       <ion-card 
         style="position: relative;">
 
         <img [src]="reg.fotoMapa">
-        <!-- <img [src]="fotoMapaNoDisponible"> -->
+        <img [src]="fotoMapaNoDisponible">
         <ion-fab right top>
           <button ion-fab>
             <ion-icon name="pin"></ion-icon>
@@ -31,7 +47,7 @@
         <ion-item>
           <ion-icon name="calendar" item-left large></ion-icon>
           <h2>{{reg.fecha | date:'dd/MM/yy'}}</h2>
-          <!-- <p>{{reg.ciudad}}, {{reg.provincia}}, {{reg.pais}}</p> -->
+          <p>{{reg.ciudad}}, {{reg.provincia}}, {{reg.pais}}</p>
         </ion-item>
 
         <ion-item>
@@ -42,5 +58,5 @@
 
       </ion-card>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
 </ion-content>
