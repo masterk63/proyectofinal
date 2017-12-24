@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule} from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 //Pages
 import { HomePage } from '../pages/home/home';
@@ -80,6 +82,7 @@ import { DiagnosticProvider } from '../providers/diagnostic/diagnostic';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: 'Ir Atras',

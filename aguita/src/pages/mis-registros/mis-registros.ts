@@ -10,53 +10,76 @@ import { MenuController, Platform } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
 import { RegistrosService } from '../../providers/registrosService';
+import { ChangeDetectorRef } from '@angular/core';
+import { trigger, state, style, animate, transition,query,stagger} from '@angular/animations';
+import 'web-animations-js/web-animations.min';
+
 
 declare var Connection: any;
 
 
 @Component({
-   selector: 'page-mis-registros',
-   templateUrl: 'mis-registros.html'
+  selector: 'page-mis-registros',
+  templateUrl: 'mis-registros.html',
+  animations: [
+    trigger('photosAnimation', [
+      transition('* => *', [
+        query('img',style({ transform: 'translateX(-100%)'})),
+        query('img',
+          stagger('600ms', [
+            animate('900ms', style({ transform: 'translateX(0)'}))
+        ]))
+      ])
+    ])
+  ]
 })
 export class MisRegistrosPage {
 
-   registros: any;
-   registrosOnline:any;
-   fotoMapaNoDisponible: any;
+  registros: any;
+  registrosOnline: any;
+  fotoMapaNoDisponible: any;
 
-   constructor(public navCtrl: NavController,
-      public authService: Auth,
-      public navParams: NavParams,
-      public localSaveCtrl: Localsave,
-      public registrosCtrl: RegistrosService,
-      private network: Network,
-      public platform: Platform,
-      public localSQL: LocalSqlProvider,
-      private menu: MenuController,
-      private _zone: NgZone) {
-     
-      this.registrosCtrl.cargarRegistros().then((registros)=>{
-        console.log('registros en el servidor',registros);
-        this.registrosOnline = registros;
-      })
-      
-      if (this.platform.is('cordova')) {
-         this.fotoMapaNoDisponible = "../www/assets/img/mapNotAvalible.jpg";
-         this.localSQL.getAll().then((reg)=>{
-            console.log('registros locales',reg);
-            this.registros = reg;
-        });
-      } else {
-         this.fotoMapaNoDisponible = "../assets/img/mapNotAvalible.jpg";
-      }
-   }
+  constructor(public navCtrl: NavController,
+    public authService: Auth,
+    public navParams: NavParams,
+    public localSaveCtrl: Localsave,
+    public registrosCtrl: RegistrosService,
+    private network: Network,
+    public platform: Platform,
+    public localSQL: LocalSqlProvider,
+    private menu: MenuController,
+    private _zone: NgZone) {
 
-   ionViewDidLoad() {
+    this.registrosCtrl.cargarRegistros().then((registros) => {
+      console.log('registros en el servidor', registros);
+      this.registrosOnline = registros;
+      this.registrosOnline = this.registrosOnline.reverse();
+    })
 
-    
-   }
-   
-   borarDB(){
-     this.localSQL.destruirDB();
-   }
+    if (this.platform.is('cordova')) {
+      this.fotoMapaNoDisponible = "../www/assets/img/mapNotAvalible.jpg";
+      this.localSQL.getAll().then((reg) => {
+        console.log('registros locales', reg);
+        this.registros = reg;
+      });
+    } else {
+      this.fotoMapaNoDisponible = "../assets/img/mapNotAvalible.jpg";
+    }
+  }
+
+  ionViewDidLoad() {
+
+
+  }
+
+  borarDB() {
+    this.localSQL.destruirDB();
+  }
+
+  borrarRegistro(id) {
+    let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
+    let reg = this.registros.splice(index, 1);
+    reg = reg[0];
+    this.registrosOnline.unshift(reg);
+  }
 }
