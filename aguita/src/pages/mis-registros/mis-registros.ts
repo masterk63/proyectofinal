@@ -11,7 +11,7 @@ import { Network } from '@ionic-native/network';
 import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
 import { RegistrosService } from '../../providers/registrosService';
 import { ChangeDetectorRef } from '@angular/core';
-import { trigger, state, style, animate, transition,query,stagger} from '@angular/animations';
+import { trigger, state, style, animate, transition,query,stagger,keyframes} from '@angular/animations';
 import 'web-animations-js/web-animations.min';
 
 
@@ -22,22 +22,35 @@ declare var Connection: any;
   selector: 'page-mis-registros',
   templateUrl: 'mis-registros.html',
   animations: [
-    trigger('photosAnimation', [
+
+    trigger('listAnimation', [
       transition('* => *', [
-        query('img',style({ transform: 'translateX(-100%)'})),
-        query('img',
-          stagger('600ms', [
-            animate('900ms', style({ transform: 'translateX(0)'}))
-        ]))
+
+        query(':enter', style({ opacity: 0 }), {optional: true}),
+
+        query(':enter', stagger('300ms', [
+          animate('1s ease-in', keyframes([
+            style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
+            style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
+            style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
+          ]))]), {optional: true}),
+
+          query(':leave', stagger('300ms', [
+            animate('1s ease-in', keyframes([
+              style({opacity: 1, transform: 'translateY(0)', offset: 0}),
+              style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
+              style({opacity: 0, transform: 'translateY(-75%)',     offset: 1.0}),
+            ]))]), {optional: true})
       ])
     ])
+
   ]
 })
 export class MisRegistrosPage {
 
   registros: any;
-  registrosOnline: any;
-  fotoMapaNoDisponible: any;
+  registrosOnline: any = [];
+  fotoMapaNoDisponible: any; 
 
   constructor(public navCtrl: NavController,
     public authService: Auth,

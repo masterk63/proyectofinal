@@ -19,7 +19,7 @@
     <ion-list-header>
       <ion-icon name="folder" item-left large></ion-icon> Local
     </ion-list-header>
-    <ion-item *ngFor="let reg of registros" [@photosAnimation]="registros.length">
+    <ion-item *ngFor="let reg of registros">
       <ion-thumbnail item-start>
         <img [src]="'data:image/png;base64,'+reg.fotoPaisaje">
       </ion-thumbnail>
@@ -33,11 +33,11 @@
     </ion-item>
   </ion-list>
 
-  <ion-list *ngIf="registrosOnline">
+  <ion-list *ngIf="registrosOnline" [@listAnimation]="registrosOnline.length">
     <ion-list-header>
       <ion-icon name="globe" item-left large></ion-icon> Online
     </ion-list-header>
-    <ion-item *ngFor="let reg of registrosOnline"  [@photosAnimation]="registrosOnline.length">
+    <ion-item *ngFor="let reg of registrosOnline"  >
       <h2><ion-icon name="locate" item-left large></ion-icon>{{reg.ciudad}}, {{reg.provincia}}</h2>
       <h2 style="margin-left: 24px;">{{reg.pais}}</h2>
       <p>
