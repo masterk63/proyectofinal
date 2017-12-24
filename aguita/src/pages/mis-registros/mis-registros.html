@@ -15,7 +15,7 @@
 
 <ion-content>
   <!-- <button (click)="borarDB()">destruirDB</button> -->
-  <ion-list *ngIf="registros">
+  <ion-list *ngIf="registros" [@listAnimation]="registros.length">
     <ion-list-header>
       <ion-icon name="folder" item-left large></ion-icon> Local
     </ion-list-header>

@@ -29,7 +29,7 @@ import { Todos } from '../providers/todos';
 import { Camara } from '../providers/camara';
 import { Localsave } from '../providers/localsave';
 import { Ubicacion } from '../providers/ubicacion';
-import { ConnectivityService } from '../providers/connectivity-service';
+import { ConnectivityService } from '../providers/connectivityService';
 import { UsuariosService } from '../providers/usuariosService';
 import { RegistrosService } from '../providers/registrosService';
 import { Auth } from '../providers/auth';

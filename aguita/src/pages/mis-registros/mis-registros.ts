@@ -30,16 +30,16 @@ declare var Connection: any;
 
         query(':enter', stagger('300ms', [
           animate('1s ease-in', keyframes([
-            style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
-            style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
-            style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
+            style({opacity: 0, offset: 0}),
+            style({opacity: .5, offset: 0.3}),
+            style({opacity: 1, offset: 1.0}),
           ]))]), {optional: true}),
 
           query(':leave', stagger('300ms', [
-            animate('1s ease-in', keyframes([
-              style({opacity: 1, transform: 'translateY(0)', offset: 0}),
-              style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
-              style({opacity: 0, transform: 'translateY(-75%)',     offset: 1.0}),
+            animate('800ms ease-in', keyframes([
+              style({opacity: 1,  offset: 0}),
+              style({opacity: .5, offset: 0.3}),
+              style({opacity: 0, offset: 1.0}),
             ]))]), {optional: true})
       ])
     ])
@@ -93,6 +93,8 @@ export class MisRegistrosPage {
     let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
     let reg = this.registros.splice(index, 1);
     reg = reg[0];
-    this.registrosOnline.unshift(reg);
+    setTimeout(() => {
+      this.registrosOnline.unshift(reg);
+    }, 1000);
   }
 }

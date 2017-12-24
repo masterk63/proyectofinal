@@ -14,6 +14,7 @@ import { Localsave } from '../../providers/localsave';
 import { DiagnosticProvider } from '../../providers/diagnostic/diagnostic';
 import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
 import { RegistrosService } from '../../providers/registrosService';
+import { ConnectivityService } from '../../providers/connectivityService';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Wheel } from '../wheel/wheel';
 import { Auth } from '../../providers/auth';
@@ -76,6 +77,7 @@ export class HomePage {
         public camaraCtrl: Camara,
         public authService: Auth,
         private sanitizer: DomSanitizer,
+        public conexionProvider:ConnectivityService,
         public ubicacionCtrl: Ubicacion,
         public localSaveCtrl: Localsave,
         public registroController: RegistrosService,

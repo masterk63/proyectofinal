@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Ubicacion } from '../../providers/ubicacion';
-import { ConnectivityService } from '../../providers/connectivity-service';
+import { ConnectivityService } from '../../providers/connectivityService';
 
 declare var google;
 

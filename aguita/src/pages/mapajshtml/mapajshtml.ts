@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { ConnectivityService } from '../../providers/connectivity-service';
+import { ConnectivityService } from '../../providers/connectivityService';
 
 declare var google;
 
