@@ -12,6 +12,7 @@ import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
 import { RegistrosService } from '../../providers/registrosService';
 import { ChangeDetectorRef } from '@angular/core';
 import { trigger, state, style, animate, transition,query,stagger,keyframes} from '@angular/animations';
+import { ConnectivityService } from '../../providers/connectivityService';
 import 'web-animations-js/web-animations.min';
 
 
@@ -57,6 +58,7 @@ export class MisRegistrosPage {
     public navParams: NavParams,
     public localSaveCtrl: Localsave,
     public registrosCtrl: RegistrosService,
+    public conexionProvider:ConnectivityService,
     private network: Network,
     public platform: Platform,
     public localSQL: LocalSqlProvider,
@@ -90,11 +92,11 @@ export class MisRegistrosPage {
   }
 
   borrarRegistro(id) {
-    let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
-    let reg = this.registros.splice(index, 1);
-    reg = reg[0];
-    setTimeout(() => {
-      this.registrosOnline.unshift(reg);
-    }, 1000);
+    // let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
+    // let reg = this.registros.splice(index, 1);
+    // reg = reg[0];
+    // setTimeout(() => {
+    //   this.registrosOnline.unshift(reg);
+    // }, 1000);
   }
 }
