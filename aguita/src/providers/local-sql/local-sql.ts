@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class LocalSqlProvider {
@@ -74,7 +75,7 @@ export class LocalSqlProvider {
 
   create(task: any) {
     let sql = 'INSERT INTO tasks(indice, fecha, latitud, longitud,fotoPaisaje,fotoMuestra,fotoMapa, observacion, elmido, patudo, plecoptero, tricoptero, idUsuario) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
-    return this.db.executeSql(sql, [task.indice, task.fecha,task.latitud,task.longitud,task.fotoPaisaje,task.fotoMuestra,task.fotoMapa,task.observacion,task.elmido,task.patudo,task.plecoptero,task.tricoptero,task.idUsuario]).then( res => {
+    return this.db.executeSql(sql, [task.indice, task.fecha, task.latitud, task.longitud, task.fotoPaisaje, task.fotoMuestra, task.fotoMapa, task.observacion, task.elmido, task.patudo, task.plecoptero, task.tricoptero, task.idUsuario]).then(res => {
       console.log('registro agregado con exito')
       return Promise.resolve(res);
     }).catch(error => Promise.reject(error));
@@ -88,6 +89,32 @@ export class LocalSqlProvider {
   delete(task: any) {
     let sql = 'DELETE FROM tasks WHERE id=?';
     return this.db.executeSql(sql, [task.id]);
+  }
+
+  dame(id) {
+    let sql = 'SELECT * FROM tasks WHERE idRegistro =='+id;
+    return this.db.executeSql(sql, [])
+      .then(response => {
+        let tasks = [];
+        for (let index = 0; index < response.rows.length; index++) {
+          tasks.push(response.rows.item(index));
+        }
+        return Promise.resolve(tasks);
+      })
+      .catch(error => Promise.reject(error));
+  }
+
+
+  fakeRegistro() {
+    return Observable.create(observer => {
+      let sql = 'INSERT INTO tasks(indice, fecha, latitud, longitud,fotoPaisaje,fotoMuestra,fotoMapa, observacion, elmido, patudo, plecoptero, tricoptero, idUsuario) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+      this.db.executeSql(sql, [3, '2017/12/25', -26.81, -65.25, 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'hola', 'si', 'si', 'si', 'si', 2]).then(res => {
+        console.log('registro agregado con exito')
+        this.dame(res.insertId).then((reg)=>{
+          observer.next(reg);
+        })
+      }).catch(error => observer.next(error));
+    });
   }
 
 }

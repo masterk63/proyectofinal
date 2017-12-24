@@ -77,6 +77,7 @@ export class MisRegistrosPage {
         console.log('registros locales', reg);
         this.registros = reg;
       });
+
     } else {
       this.fotoMapaNoDisponible = "../assets/img/mapNotAvalible.jpg";
     }
@@ -98,5 +99,12 @@ export class MisRegistrosPage {
     // setTimeout(() => {
     //   this.registrosOnline.unshift(reg);
     // }, 1000);
+  }
+
+  fakeRegitro(){
+    this.localSQL.fakeRegistro().subscribe((res)=>{
+      res = res[0];
+      this.registros.unshift(res);
+    });
   }
 }
