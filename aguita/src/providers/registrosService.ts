@@ -73,6 +73,7 @@ export class RegistrosService {
   }
 
   crearRegistro(registroCompleto) {
+    
     return new Promise((resolve, reject) => {
 
       let headers = new Headers();
@@ -82,9 +83,12 @@ export class RegistrosService {
         registro:registroCompleto
       }
 
+      console.log(reg)
+
       this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, JSON.stringify(reg), { headers: headers })
         .map(res => res.json())
         .subscribe(res => {
+          console.log(res)
           resolve(res);
         }, (err) => {
           reject(err);

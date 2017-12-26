@@ -217,7 +217,7 @@ export class HomePage {
                 registro.fecha = inicio[0];
                 this.localSQL.create(registro).then((res) => {
                     this.registroController.crearRegistro(registro).then((res)=>{
-                        console.log(res)
+                        console.log(res) 
                     }); 
                     //this.navCtrl.setRoot(Wheel, { indice: i });
                 });

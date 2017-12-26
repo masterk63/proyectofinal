@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Network } from '@ionic-native/network';
 import { Platform } from 'ionic-angular';
+import { LocalSqlProvider } from './local-sql/local-sql';
+import { RegistrosService } from './registrosService';
 
 @Injectable()
 export class ConnectivityService {
 
-  constructor(private network: Network) {
+  constructor(private network: Network,
+              public regSrv:RegistrosService,
+              public localSQLPrv:LocalSqlProvider) {
     
     console.log('en el network provider');
 
@@ -21,6 +25,17 @@ export class ConnectivityService {
       setTimeout(() => {
         if (this.network.type === 'wifi') {
           console.log('we got a wifi connection, woohoo!');
+          this.localSQLPrv.getAll().then((registros)=>{
+            for(let r of registros){
+              this.regSrv.crearRegistro(r).then((res)=>{
+                let rOnline =res[0];
+                r.ciudad = rOnline.ciudad;
+                r.provincia = rOnline.provincia;
+                r.pais = rOnline.pais;
+                this.localSQLPrv.delete(r);
+              })
+            }
+          })
         }
       }, 3000);
     });

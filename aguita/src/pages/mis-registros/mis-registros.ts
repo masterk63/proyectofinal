@@ -14,7 +14,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { trigger, state, style, animate, transition,query,stagger,keyframes} from '@angular/animations';
 import { ConnectivityService } from '../../providers/connectivityService';
 import 'web-animations-js/web-animations.min';
-
+import { Events } from 'ionic-angular';
 
 declare var Connection: any;
 
@@ -60,6 +60,7 @@ export class MisRegistrosPage {
     public registrosCtrl: RegistrosService,
     public conexionProvider:ConnectivityService,
     private network: Network,
+    public events: Events,
     public platform: Platform,
     public localSQL: LocalSqlProvider,
     private menu: MenuController,
@@ -78,6 +79,11 @@ export class MisRegistrosPage {
         this.registros = reg;
       });
 
+      events.subscribe('registro:eliminado', (reg, time) => {
+        console.log('eliminar registro, evento disparado',reg)
+       this.borrarRegistro(reg);
+      });
+
     } else {
       this.fotoMapaNoDisponible = "../assets/img/mapNotAvalible.jpg";
     }
@@ -92,13 +98,13 @@ export class MisRegistrosPage {
     this.localSQL.destruirDB();
   }
 
-  borrarRegistro(id) {
-    // let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
-    // let reg = this.registros.splice(index, 1);
-    // reg = reg[0];
-    // setTimeout(() => {
-    //   this.registrosOnline.unshift(reg);
-    // }, 1000);
+  borrarRegistro(registro) {
+    let id = registro.idRegistro;
+    let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
+    this._zone.run(() => this.registros.splice(index, 1));
+    setTimeout(() => {
+      this._zone.run(()=>this.registrosOnline.unshift(registro));
+    }, 1000);
   }
 
   fakeRegitro(){

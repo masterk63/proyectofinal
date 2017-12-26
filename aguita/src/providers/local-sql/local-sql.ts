@@ -3,12 +3,15 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Observable } from 'rxjs/Observable';
+import { Events } from 'ionic-angular';
+
 
 @Injectable()
 export class LocalSqlProvider {
   db: SQLiteObject = null;
 
-  constructor(public http: Http,
+  constructor(public http: Http,  
+    public events: Events,
     private sqlite: SQLite) {
   }
 
@@ -86,10 +89,13 @@ export class LocalSqlProvider {
     return this.db.executeSql(sql, [task.title, task.completed, task.id]);
   }
 
-  delete(task: any) {
-    let sql = 'DELETE FROM tasks WHERE id=?';
-    return this.db.executeSql(sql, [task.id]);
-  }
+  delete(reg: any) {
+    let sql = 'DELETE FROM tasks WHERE idRegistro=?';
+    this.db.executeSql(sql, [reg.idRegistro]).then((regEliminado)=>{
+      console.log('Registro eliminado exitosamente.')
+      this.events.publish('registro:eliminado', reg, Date.now());
+    });
+  } 
 
   dame(id) {
     let sql = 'SELECT * FROM tasks WHERE idRegistro =='+id;
@@ -116,5 +122,7 @@ export class LocalSqlProvider {
       }).catch(error => observer.next(error));
     });
   }
+  
+
 
 }
