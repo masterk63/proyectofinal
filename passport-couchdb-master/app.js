@@ -9,7 +9,6 @@ var express       = require('express'),
     flash = require('express-flash'),
     session = require('express-session'),
     logger        = require('morgan');
-
 var router = require('./routes/index');
 
 
