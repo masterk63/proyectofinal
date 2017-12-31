@@ -10,6 +10,7 @@ import { MenuController, Platform } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
 import { RegistrosService } from '../../providers/registrosService';
+import { SocketProvider } from '../../providers/socket/socket';
 import { ChangeDetectorRef } from '@angular/core';
 import { trigger, state, style, animate, transition,query,stagger,keyframes} from '@angular/animations';
 import { ConnectivityService } from '../../providers/connectivityService';
@@ -57,6 +58,7 @@ export class MisRegistrosPage {
     public authService: Auth,
     public navParams: NavParams,
     public registrosCtrl: RegistrosService,
+    public socketPrv: SocketProvider,
     public conexionProvider:ConnectivityService,
     private network: Network,
     public events: Events,
@@ -83,6 +85,10 @@ export class MisRegistrosPage {
        this.borrarRegistro(reg);
       });
 
+      events.subscribe('registro:creado', (reg, time) => {
+        console.log('registro creado, evento disparado',reg)
+      });
+
     } else {
       this.fotoMapaNoDisponible = "../assets/img/mapNotAvalible.jpg";
     }
@@ -107,10 +113,10 @@ export class MisRegistrosPage {
   }
 
   fakeRegitro(){
-    // this.localSQL.fakeRegistro().subscribe((res)=>{
-    //   res = res[0];
-    //   this.registros.unshift(res);
-    // });
-    this.registrosCtrl.crearRegistro(this.registrosOnline).then(()=>{}).catch((error)=>{console.error(error)})
+    this.localSQL.fakeRegistro().subscribe((res)=>{
+      res = res[0];
+      this.registros.unshift(res);
+      this.socketPrv.publicar(res);
+    });
   }
 }

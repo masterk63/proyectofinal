@@ -15,7 +15,7 @@ module.exports = function (server) {
 
         connection.on('enviarInfo', function (data) {
             console.log('enviando info a quien corresponda, en este caso', data)
-            socket.to(data.user).emit('mensaje', { mensaje: 'esto es solo para mi' });
+            socket.to(data.user).emit('mensaje', { mensaje: 'esto es solo para mi', registro: data.registro });
         });
 
 
