@@ -34,14 +34,16 @@ export class MyApp {
       if (this.platform.is('cordova')) {
         this.localSQL.createDatabase();
       }
-  
+
       this.storage.get('token').then((token) => {
         console.log('token is', token);
         if (token === '' || token === null || token === undefined) {
           this.rootPage = LoginPage;
         } else {
-          this.scoketPrv.init(token);
-          this.rootPage = TabsPage;
+          this.storage.get('idUsuario').then((idUsuario) => {
+            this.scoketPrv.init(idUsuario);
+            this.rootPage = TabsPage;
+          })
         }
       }).catch((err) => {
         console.log(err);

@@ -11,7 +11,7 @@ function generateToken(user){
 function setUserInfo(request){
     console.log(request);
     return {
-        _id: request.idUsuario,
+        idUsuario: request.idUsuario,
         username: request.usuario,
         rol:request.rol,
     };

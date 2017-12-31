@@ -99,7 +99,7 @@ export class LoginPage {
             this.resultadoDelLogin = result;
             this.loading.dismiss();
             this.presentToast();
-            this.socketPrv.init(this.resultadoDelLogin.token);
+            this.socketPrv.init(this.resultadoDelLogin.user.idUsuario);
             this.navCtrl.setRoot(TabsPage);
         }, (err) => {
             this.loading.dismiss();
