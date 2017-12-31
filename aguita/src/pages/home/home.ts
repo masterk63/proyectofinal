@@ -77,7 +77,7 @@ export class HomePage {
         public camaraCtrl: Camara,
         public authService: Auth,
         private sanitizer: DomSanitizer,
-        public conexionProvider:ConnectivityService,
+        public conexionProvider: ConnectivityService,
         public ubicacionCtrl: Ubicacion,
         public localSaveCtrl: Localsave,
         public registroController: RegistrosService,
@@ -116,7 +116,7 @@ export class HomePage {
         let yOffset = document.getElementById(bicho).offsetTop;
         this.content.scrollTo(0, yOffset, 1000);
     }
-    
+
     ionViewDidLoad() {
         this.altoMapa = (this.contenedor.nativeElement.offsetHeight) - 200;
     }
@@ -171,10 +171,10 @@ export class HomePage {
     public siguientePaso() {
         switch (this.registro) {
             case "mapa":
-                if(this.fotoMapa){
+                if (this.fotoMapa) {
                     return this.registro = "fotos";
-                }else{
-                    return this.mostrarAlerta('Error','Por favor deje que el mapa se cargue')
+                } else {
+                    return this.mostrarAlerta('Error', 'Por favor deje que el mapa se cargue')
                 }
             case "fotos":
                 return this.registro = "obseravaciones";
@@ -197,30 +197,7 @@ export class HomePage {
                 let mensaje = "Debe seleccionar SI o NO en cada bicho."
                 this.mostrarAlerta(titulo, mensaje);
             } else {
-                let i = this.calcularIndice(patudos, elmidos, plecopteros, tricopteros)
-                let registro = {
-                    indice:i,
-                    fecha: new Date().toISOString(),
-                    latitud:this.latitud,
-                    longitud:this.longitud,
-                    fotoPaisaje: this.fotoPaisaje,
-                    fotoMuestra: this.fotoMuestra,
-                    fotoMapa: this.fotoMapa,
-                    observacion:observaciones,
-                    elmidos: elmidos,
-                    patudos: patudos,
-                    plecopteros:plecopteros,
-                    tricopteros:tricopteros,
-                    idUsuario:2,
-                }
-                let inicio = registro.fecha.split('T');
-                registro.fecha = inicio[0];
-                this.localSQL.create(registro).then((res) => {
-                    this.registroController.crearRegistro(registro).then((res)=>{
-                        console.log(res) 
-                    }); 
-                    //this.navCtrl.setRoot(Wheel, { indice: i });
-                });
+                this.crearRegistro(patudos, elmidos, plecopteros, tricopteros, observaciones);
             }
         } else {
             if (this.fotoPaisaje == null && this.fotoMuestra == null) {
@@ -260,6 +237,47 @@ export class HomePage {
         return i;
     }
 
+    public crearRegistro(patudos, elmidos, plecopteros, tricopteros, observaciones) {
+        let i = this.calcularIndice(patudos, elmidos, plecopteros, tricopteros)
+        let registro = {
+            indice: i,
+            fecha: new Date().toISOString(),
+            latitud: this.latitud,
+            longitud: this.longitud,
+            fotoPaisaje: this.fotoPaisaje,
+            fotoMuestra: this.fotoMuestra,
+            fotoMapa: this.fotoMapa,
+            observacion: observaciones,
+            elmidos: elmidos,
+            patudos: patudos,
+            plecopteros: plecopteros,
+            tricopteros: tricopteros,
+            idUsuario: 2,
+        }
+        let inicio = registro.fecha.split('T');
+        registro.fecha = inicio[0];
+        this.localSQL.create(registro).then((res) => {
+            this.presentToast('Registro local, creado exitosamente.');
+            //this.navCtrl.setRoot(Wheel, { indice: i });
+            if (this.conexionProvider.isOnline) {
+                this.registroController.crearRegistro(registro).then((res) => {
+                    console.log(res)
+                }).catch((error) => {
+                    console.error(error);
+                    if (error.status === 0) {
+                        this.presentToast('No se detecto conexion a internet,los registros se subiran solos, al detectar internet');
+                    }
+                });
+            } else {
+                this.mostrarAlerta('Info', 'No se detecto ningun tipo de conexion, los registros se subiran solos, al detectar internet');
+                this.navCtrl.setRoot(MisRegistrosPage);
+            }
+        }).catch((error) => {
+            this.mostrarAlerta('Error', 'No se pudo crear el registro local.');
+            this.navCtrl.setRoot(MisRegistrosPage);
+        });;
+    }
+
     mostrarAlerta(titulo, mensaje) {
         let alert = this.alertCtrl.create({
             title: titulo,
@@ -288,14 +306,6 @@ export class HomePage {
         });
     }
 
-    logout() {
-        console.log('saliendo logout');
-        this.authService.logout().then(() => {
-            console.log('listo borrado, dirijiendo a registrar');
-            this.navCtrl.setRoot(LoginPage);
-        });
-    }
-
     showLoader(text) {
         this.loading = this.loadingCtrl.create({
             content: text
@@ -312,8 +322,4 @@ export class HomePage {
         toast.present();
     }
 
-    imgMapData64(event){
-        //console.log('desde el home',event.data64)
-        this.fotoMapa = event.data64;
-    }
 }

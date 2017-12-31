@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
-import { Localsave } from '../providers/localsave';
+import { LocalSqlProvider } from '../providers/local-sql/local-sql';
 import * as configServer from './../server'
 
 @Injectable()
@@ -12,7 +12,7 @@ export class Auth {
 
   constructor(public http: Http,
     public storage: Storage,
-    public localSaveCtrl: Localsave) { }
+    public localSqlPrv: LocalSqlProvider) { }
 
   //verifica con el token si el usuario existe en la base de dato
   checkAuthentication() {
@@ -96,7 +96,7 @@ export class Auth {
       this.storage.set('token', '');
       this.storage.set('idUsuario', '');
       this.storage.set('rol', '');
-      this.localSaveCtrl.destruirDB();
+      this.localSqlPrv.destruirDB();
       resolve(42);
     });
   }

@@ -7,6 +7,7 @@ import { LoginPage } from '../pages/login-page/login-page';
 import { TabsPage } from '../pages/tabs/tabs';
 import { MisRegistrosPage } from '../pages/mis-registros/mis-registros';
 import { LocalSqlProvider } from '../providers/local-sql/local-sql';
+import { SocketProvider } from '../providers/socket/socket';
 import { ConnectivityService } from '../providers/connectivityService';
 
 @Component({
@@ -20,6 +21,7 @@ export class MyApp {
     statusBar: StatusBar,
     conexion: ConnectivityService,
     public localSQL: LocalSqlProvider,
+    public scoketPrv: SocketProvider,
     public storage: Storage,
     splashScreen: SplashScreen) {
 
@@ -38,6 +40,7 @@ export class MyApp {
         if (token === '' || token === null || token === undefined) {
           this.rootPage = LoginPage;
         } else {
+          this.scoketPrv.init(token);
           this.rootPage = TabsPage;
         }
       }).catch((err) => {

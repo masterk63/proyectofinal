@@ -8,6 +8,7 @@ import { IntroPage } from '../intro/intro';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
 import { TabsPage } from '../tabs/tabs';
 import { Localsave } from '../../providers/localsave';
+import { SocketProvider } from '../../providers/socket/socket';
 import { MenuController } from 'ionic-angular';
 
 @Component({
@@ -31,6 +32,7 @@ export class LoginPage {
         public alertCtrl: AlertController,
         public loadingCtrl: LoadingController,
         public localSaveCtrl: Localsave,
+        public socketPrv: SocketProvider,
         private menu: MenuController,
         public storage: Storage,
         private toastCtrl: ToastController
@@ -97,6 +99,7 @@ export class LoginPage {
             this.resultadoDelLogin = result;
             this.loading.dismiss();
             this.presentToast();
+            this.socketPrv.init(this.resultadoDelLogin.token);
             this.navCtrl.setRoot(TabsPage);
         }, (err) => {
             this.loading.dismiss();

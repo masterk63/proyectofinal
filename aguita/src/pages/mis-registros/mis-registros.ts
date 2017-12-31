@@ -56,7 +56,6 @@ export class MisRegistrosPage {
   constructor(public navCtrl: NavController,
     public authService: Auth,
     public navParams: NavParams,
-    public localSaveCtrl: Localsave,
     public registrosCtrl: RegistrosService,
     public conexionProvider:ConnectivityService,
     private network: Network,
@@ -108,9 +107,10 @@ export class MisRegistrosPage {
   }
 
   fakeRegitro(){
-    this.localSQL.fakeRegistro().subscribe((res)=>{
-      res = res[0];
-      this.registros.unshift(res);
-    });
+    // this.localSQL.fakeRegistro().subscribe((res)=>{
+    //   res = res[0];
+    //   this.registros.unshift(res);
+    // });
+    this.registrosCtrl.crearRegistro(this.registrosOnline).then(()=>{}).catch((error)=>{console.error(error)})
   }
 }

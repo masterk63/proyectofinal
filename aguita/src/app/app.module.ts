@@ -57,6 +57,7 @@ import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DiagnosticProvider } from '../providers/diagnostic/diagnostic';
+import { SocketProvider } from '../providers/socket/socket';
 
 
 @NgModule({
@@ -129,6 +130,7 @@ import { DiagnosticProvider } from '../providers/diagnostic/diagnostic';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,ConnectivityService,RegistrosService,Storage,
     LocalSqlProvider,
-    DiagnosticProvider]
+    DiagnosticProvider,
+    SocketProvider]
 })
 export class AppModule {}
