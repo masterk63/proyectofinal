@@ -7,7 +7,7 @@ import { Events } from 'ionic-angular';
 @Injectable()
 export class SocketProvider {
 
-  socket:any
+  public socket:any
   public token:any;
 
   constructor(public events: Events,) {
@@ -22,6 +22,7 @@ export class SocketProvider {
     });
 
     this.socket.on('mensaje', (msg) => {
+      console.log('recibe un mensaje',msg)
       this.events.publish('registro:creado', msg, Date.now());
     });
   }

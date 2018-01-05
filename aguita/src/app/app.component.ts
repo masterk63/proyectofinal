@@ -9,6 +9,7 @@ import { MisRegistrosPage } from '../pages/mis-registros/mis-registros';
 import { LocalSqlProvider } from '../providers/local-sql/local-sql';
 import { SocketProvider } from '../providers/socket/socket';
 import { ConnectivityService } from '../providers/connectivityService';
+import { Events } from 'ionic-angular';
 
 @Component({
   templateUrl: 'app.html'
@@ -22,6 +23,7 @@ export class MyApp {
     conexion: ConnectivityService,
     public localSQL: LocalSqlProvider,
     public scoketPrv: SocketProvider,
+    public events: Events,
     public storage: Storage,
     splashScreen: SplashScreen) {
 
