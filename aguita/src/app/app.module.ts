@@ -46,6 +46,7 @@ import { Network } from '@ionic-native/network';
 import { SQLite } from '@ionic-native/sqlite';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
+import { Keyboard } from '@ionic-native/keyboard';
 
 //Importaciones
 import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
@@ -127,6 +128,7 @@ import { SocketProvider } from '../providers/socket/socket';
     SQLite,
     Geolocation,
     Diagnostic,
+    Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,ConnectivityService,RegistrosService,Storage,
     LocalSqlProvider,

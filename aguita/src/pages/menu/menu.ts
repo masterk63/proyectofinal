@@ -14,8 +14,7 @@ import { Storage } from '@ionic/storage';
 import { Auth } from '../../providers/auth';
 import { MenuController } from 'ionic-angular';
 import { UsuarioPage } from '../../pages/usuario/usuario';
-
-
+import { App } from 'ionic-angular';
 
 
 @Component({
@@ -27,6 +26,7 @@ export class MenuPage {
 
   constructor(public navCtrl: NavController,
     public authService: Auth,
+    public app: App,
     public navParams: NavParams) {
 
     this.pagesUser = [
@@ -55,7 +55,7 @@ export class MenuPage {
     console.log('saliendo logout');
     this.authService.logout().then(() => {
       console.log('listo borrado, dirijiendo a registrar');
-      this.navCtrl.setRoot(LoginPage);
+      this.app.getRootNav().setRoot( LoginPage );
     });
   }
 }

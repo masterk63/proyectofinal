@@ -10,6 +10,7 @@ import { LocalSqlProvider } from '../providers/local-sql/local-sql';
 import { SocketProvider } from '../providers/socket/socket';
 import { ConnectivityService } from '../providers/connectivityService';
 import { Events } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard';
 
 @Component({
   templateUrl: 'app.html'
@@ -24,6 +25,7 @@ export class MyApp {
     public localSQL: LocalSqlProvider,
     public scoketPrv: SocketProvider,
     public events: Events,
+    private keyboard: Keyboard,
     public storage: Storage,
     splashScreen: SplashScreen) {
 
@@ -35,6 +37,14 @@ export class MyApp {
 
       if (this.platform.is('cordova')) {
         this.localSQL.createDatabase();
+
+        keyboard.onKeyboardShow().subscribe(() => {
+          document.body.classList.add('keyboard-is-open');
+        });
+
+        keyboard.onKeyboardHide().subscribe(() => {
+          document.body.classList.remove('keyboard-is-open');
+        });
       }
 
       this.storage.get('token').then((token) => {

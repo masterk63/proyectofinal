@@ -24,6 +24,8 @@ import { MisRegistrosPage } from '../mis-registros/mis-registros';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Content } from 'ionic-angular';
 import { Events } from 'ionic-angular';
+import { App } from 'ionic-angular';
+
 
 
 @Component({
@@ -79,6 +81,7 @@ export class HomePage {
         public modalCtrl: ModalController,
         public camaraCtrl: Camara,
         public authService: Auth,
+        public app: App,
         public events: Events,
         private sanitizer: DomSanitizer,
         public conexionProvider: ConnectivityService,
@@ -262,7 +265,6 @@ export class HomePage {
         registro.fecha = inicio[0];
         this.localSQL.create(registro).then((res) => {
             this.presentToast('Registro local, creado exitosamente.');
-            //this.navCtrl.setRoot(Wheel, { indice: i });
             if (this.conexionProvider.isOnline) {
                 this.registroController.crearRegistro(registro).then((res) => {
                     this.respuesta = res[0];
@@ -275,6 +277,7 @@ export class HomePage {
                     this.registroCompleto.fotoMapa = '';
                     console.log('registro online creado exitosamente', this.registroCompleto);
                     this.events.publish('registro:eliminado', this.registroCompleto);
+                    this.app.getRootNav().setRoot( Wheel, { indice: i } );
                 }).catch((error) => {
                     console.error(error);
                     if (error.status === 0) {

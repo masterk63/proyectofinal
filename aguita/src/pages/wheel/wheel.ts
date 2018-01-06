@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
+import { TabsPage } from '../tabs/tabs';
 
 var isStopped = false;
 var myReq;
@@ -39,9 +40,13 @@ export class Wheel {
          this.riverCartoon = "../www/assets/img/riverCartoon.png";
       } else {
          this.riverCartoon = "../assets/img/riverCartoon.png";
-      }
+      }  
    }
 
+
+   ionViewWillEnter() {
+
+   }
 
    ionViewWillLeave() {
       //Evita que el proceso se siga ejecutando, incluso al salir de la vista
@@ -74,7 +79,7 @@ export class Wheel {
    }
 
    public siguiente() {
-      this.navCtrl.setRoot(MisRegistrosPage);
+      this.navCtrl.setRoot(TabsPage);
    }
 
    public rand(min, max) {
