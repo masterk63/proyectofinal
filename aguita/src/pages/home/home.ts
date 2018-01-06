@@ -261,7 +261,7 @@ export class HomePage {
             //this.navCtrl.setRoot(Wheel, { indice: i });
             if (this.conexionProvider.isOnline) {
                 this.registroController.crearRegistro(registro).then((res) => {
-                    console.log(res)
+                    console.log('registro online creado exitosamente',res)
                 }).catch((error) => {
                     console.error(error);
                     if (error.status === 0) {

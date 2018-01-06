@@ -24,7 +24,6 @@ export class SocketProvider {
     });
 
     this.socket.on('mensaje', (reg) => {
-      console.log('recibe un mensaje',reg)
       this.events.publish('registro:creado', reg);
     });
   }

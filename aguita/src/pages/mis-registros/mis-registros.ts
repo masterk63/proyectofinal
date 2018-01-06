@@ -85,9 +85,10 @@ export class MisRegistrosPage {
       });
     }
 
-    events.subscribe('registro:creado', (reg, time) => {
-      console.log('registro creado, evento disparado', reg)
+    events.subscribe('registro:creado', (reg) => {
+      this._zone.run(() => this.registrosOnline.unshift(reg));
     });
+
   }
 
   ionViewDidLoad() {
@@ -104,7 +105,7 @@ export class MisRegistrosPage {
     let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
     this._zone.run(() => this.registros.splice(index, 1));
     setTimeout(() => {
-      this._zone.run(() => this.registrosOnline.unshift(registro));
+      this.events.publish('registro:creado', registro);
     }, 1000);
   }
 
