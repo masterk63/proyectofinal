@@ -12,7 +12,7 @@ import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
 import { RegistrosService } from '../../providers/registrosService';
 import { SocketProvider } from '../../providers/socket/socket';
 import { ChangeDetectorRef } from '@angular/core';
-import { trigger, state, style, animate, transition,query,stagger,keyframes} from '@angular/animations';
+import { trigger, state, style, animate, transition, query, stagger, keyframes } from '@angular/animations';
 import { ConnectivityService } from '../../providers/connectivityService';
 import 'web-animations-js/web-animations.min';
 import { Events } from 'ionic-angular';
@@ -28,21 +28,21 @@ declare var Connection: any;
     trigger('listAnimation', [
       transition('* => *', [
 
-        query(':enter', style({ opacity: 0 }), {optional: true}),
+        query(':enter', style({ opacity: 0 }), { optional: true }),
 
         query(':enter', stagger('300ms', [
           animate('1s ease-in', keyframes([
-            style({opacity: 0, offset: 0}),
-            style({opacity: .5, offset: 0.3}),
-            style({opacity: 1, offset: 1.0}),
-          ]))]), {optional: true}),
+            style({ opacity: 0, offset: 0 }),
+            style({ opacity: .5, offset: 0.3 }),
+            style({ opacity: 1, offset: 1.0 }),
+          ]))]), { optional: true }),
 
-          query(':leave', stagger('300ms', [
-            animate('800ms ease-in', keyframes([
-              style({opacity: 1,  offset: 0}),
-              style({opacity: .5, offset: 0.3}),
-              style({opacity: 0, offset: 1.0}),
-            ]))]), {optional: true})
+        query(':leave', stagger('300ms', [
+          animate('800ms ease-in', keyframes([
+            style({ opacity: 1, offset: 0 }),
+            style({ opacity: .5, offset: 0.3 }),
+            style({ opacity: 0, offset: 1.0 }),
+          ]))]), { optional: true })
       ])
     ])
 
@@ -52,14 +52,14 @@ export class MisRegistrosPage {
 
   registros: any;
   registrosOnline: any = [];
-  fotoMapaNoDisponible: any; 
+  fotoMapaNoDisponible: any;
 
   constructor(public navCtrl: NavController,
     public authService: Auth,
     public navParams: NavParams,
     public registrosCtrl: RegistrosService,
     public socketPrv: SocketProvider,
-    public conexionProvider:ConnectivityService,
+    public conexionProvider: ConnectivityService,
     private network: Network,
     public events: Events,
     public platform: Platform,
@@ -74,24 +74,20 @@ export class MisRegistrosPage {
     })
 
     if (this.platform.is('cordova')) {
-      this.fotoMapaNoDisponible = "../www/assets/img/mapNotAvalible.jpg";
       this.localSQL.getAll().then((reg) => {
         console.log('registros locales', reg);
         this.registros = reg;
       });
 
       events.subscribe('registro:eliminado', (reg, time) => {
-        console.log('eliminar registro, evento disparado',reg)
-       this.borrarRegistro(reg);
+        console.log('eliminar registro, evento disparado', reg)
+        this.borrarRegistro(reg);
       });
-
-      events.subscribe('registro:creado', (reg, time) => {
-        console.log('registro creado, evento disparado',reg)
-      });
-
-    } else {
-      this.fotoMapaNoDisponible = "../assets/img/mapNotAvalible.jpg";
     }
+
+    events.subscribe('registro:creado', (reg, time) => {
+      console.log('registro creado, evento disparado', reg)
+    });
   }
 
   ionViewDidLoad() {
@@ -108,12 +104,12 @@ export class MisRegistrosPage {
     let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
     this._zone.run(() => this.registros.splice(index, 1));
     setTimeout(() => {
-      this._zone.run(()=>this.registrosOnline.unshift(registro));
+      this._zone.run(() => this.registrosOnline.unshift(registro));
     }, 1000);
   }
 
-  fakeRegitro(){
-    this.localSQL.fakeRegistro().subscribe((res)=>{
+  fakeRegitro() {
+    this.localSQL.fakeRegistro().subscribe((res) => {
       res = res[0];
       this.registros.unshift(res);
       this.socketPrv.publicar(res);

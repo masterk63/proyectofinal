@@ -16,19 +16,25 @@ export class SocketProvider {
 
   public init(token){
     this.token = token;
+
     this.socket = io(configServer.data.urlServidor);
+
     this.socket.on('handShake', (msg) => {
       this.socket.emit('crearRoom', { user:token });
     });
 
-    this.socket.on('mensaje', (msg) => {
-      console.log('recibe un mensaje',msg)
-      this.events.publish('registro:creado', msg, Date.now());
+    this.socket.on('mensaje', (reg) => {
+      console.log('recibe un mensaje',reg)
+      this.events.publish('registro:creado', reg);
     });
   }
 
   public publicar(reg){
     this.socket.emit('enviarInfo', { user:this.token, registro:reg});
+  }
+
+  public getSocket(){
+    return this.socket;
   }
 
 }
