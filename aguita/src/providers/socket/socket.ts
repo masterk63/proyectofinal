@@ -8,19 +8,19 @@ import { Events } from 'ionic-angular';
 export class SocketProvider {
 
   public socket:any
-  public token:any;
+  public idUsuario:any;
 
   constructor(public events: Events,) {
   
   }
 
-  public init(token){
-    this.token = token;
+  public init(idUsuario){
+    this.idUsuario = idUsuario;
 
     this.socket = io(configServer.data.urlServidor);
 
     this.socket.on('handShake', (msg) => {
-      this.socket.emit('crearRoom', { user:token });
+      this.socket.emit('crearRoom', { user:idUsuario });
     });
 
     this.socket.on('mensaje', (reg) => {
@@ -29,7 +29,7 @@ export class SocketProvider {
   }
 
   public publicar(reg){
-    this.socket.emit('enviarInfo', { user:this.token, registro:reg});
+    this.socket.emit('enviarInfo', { user:this.idUsuario, registro:reg});
   }
 
   public getSocket(){

@@ -23,6 +23,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Content } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 
 
 @Component({
@@ -59,6 +60,8 @@ export class HomePage {
     fotoTricoptero;
     realTricoptero;
     observaciones;
+    respuesta;
+    registroCompleto;
     coincidencia = new FormGroup({
         "elmidos": new FormControl(),
         "patudos": new FormControl(),
@@ -76,6 +79,7 @@ export class HomePage {
         public modalCtrl: ModalController,
         public camaraCtrl: Camara,
         public authService: Auth,
+        public events: Events,
         private sanitizer: DomSanitizer,
         public conexionProvider: ConnectivityService,
         public ubicacionCtrl: Ubicacion,
@@ -261,7 +265,16 @@ export class HomePage {
             //this.navCtrl.setRoot(Wheel, { indice: i });
             if (this.conexionProvider.isOnline) {
                 this.registroController.crearRegistro(registro).then((res) => {
-                    console.log('registro online creado exitosamente',res)
+                    this.respuesta = res[0];
+                    this.registroCompleto = registro;
+                    this.registroCompleto.ciudad = this.respuesta.ciudad;
+                    this.registroCompleto.provincia = this.respuesta.ciudad;
+                    this.registroCompleto.pais = this.respuesta.ciudad;
+                    this.registroCompleto.fotoPaisaje = '';
+                    this.registroCompleto.fotoMuestra = '';
+                    this.registroCompleto.fotoMapa = '';
+                    console.log('registro online creado exitosamente', this.registroCompleto);
+                    this.events.publish('registro:eliminado', this.registroCompleto);
                 }).catch((error) => {
                     console.error(error);
                     if (error.status === 0) {
@@ -304,6 +317,11 @@ export class HomePage {
                 this.obtenerUbicacion();
             }
         });
+    }
+
+    imgMapData64(event) {
+        //console.log('desde el home',event.data64)		
+        this.fotoMapa = event.data64;
     }
 
     showLoader(text) {

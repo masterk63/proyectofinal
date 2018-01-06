@@ -86,7 +86,7 @@ export class MisRegistrosPage {
     }
 
     events.subscribe('registro:creado', (reg) => {
-      this._zone.run(() => this.registrosOnline.unshift(reg));
+      this._zone.run(() => this.registrosOnline.unshift(reg.registro));
     });
 
   }
@@ -105,7 +105,7 @@ export class MisRegistrosPage {
     let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
     this._zone.run(() => this.registros.splice(index, 1));
     setTimeout(() => {
-      this.events.publish('registro:creado', registro);
+      this.socketPrv.publicar(registro);
     }, 1000);
   }
 
