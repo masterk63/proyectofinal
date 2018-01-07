@@ -1,6 +1,7 @@
 //fix ios device 
 .col {
     flex: 1 0 100%;
+    position: initial !important;
 }
 
 .contenedor {
@@ -24,14 +25,14 @@
     padding: 15px;
 }
 
-body.keyboard-is-open ion-tabbar {
-    display: none;
-  }
-  
-  body.keyboard-is-open scroll-content {
-    margin-bottom: 0 !important;
-  }
-  
+
+body.keyboard-is-open .tabbar,body.keyboard-is-open .footer{
+  display: none;
+}
+
+body.keyboard-is-open .scroll-content {
+  margin-bottom: 0 !important;
+}  
 
 @font-face {
     font-family: 'Pacifico';

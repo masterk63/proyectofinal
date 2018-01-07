@@ -94,7 +94,7 @@ export class HomePage {
     ) {
 
         //Detecta la ubicacion
-        this.ubicacion();
+        //this.ubicacion();
 
         //Para usar mapa nativo o mapaHTML
         if (this.platform.is('cordova')) {

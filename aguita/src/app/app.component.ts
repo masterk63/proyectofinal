@@ -39,6 +39,7 @@ export class MyApp {
         this.localSQL.createDatabase();
 
         keyboard.onKeyboardShow().subscribe(() => {
+          console.log('se abrio el teclado')
           document.body.classList.add('keyboard-is-open');
         });
 
