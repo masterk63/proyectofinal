@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import * as configServer from './../server';
 
 declare var google;
 
@@ -64,7 +65,7 @@ export class Ubicacion {
 
   public obtenerTodasLasCoordenadas() {
     return new Promise(resolve => {
-      this.http.get('http://rickybruno.sytes.net:3000/api/listarMarkers')
+      this.http.get(configServer.data.urlServidor +'/api/listarMarkers')
         .map(res => res.json())
         .subscribe(resultado => {
           this.markers = resultado;

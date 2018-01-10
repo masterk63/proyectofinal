@@ -25,17 +25,7 @@ export class ConnectivityService {
       setTimeout(() => {
         if (this.network.type === 'wifi') {
           console.log('we got a wifi connection, woohoo!');
-          this.localSQLPrv.getAll().then((registros)=>{
-            for(let r of registros){
-              this.regSrv.crearRegistro(r).then((res)=>{
-                let rOnline =res[0];
-                r.ciudad = rOnline.ciudad;
-                r.provincia = rOnline.provincia;
-                r.pais = rOnline.pais;
-                this.localSQLPrv.delete(r);
-              })
-            }
-          })
+          this.subir();
         }
       }, 3000);
     });
@@ -48,6 +38,20 @@ export class ConnectivityService {
 
   isOffline(): boolean {
       return !navigator.onLine;
+  }
+
+  public subir(){
+    this.localSQLPrv.getAll().then((registros)=>{
+      for(let r of registros){
+        this.regSrv.crearRegistro(r).then((res)=>{
+          let rOnline =res[0];
+          r.ciudad = rOnline.ciudad;
+          r.provincia = rOnline.provincia;
+          r.pais = rOnline.pais;
+          this.localSQLPrv.delete(r);
+        })
+      }
+    })
   }
 
 }

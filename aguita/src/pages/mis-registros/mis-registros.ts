@@ -77,6 +77,9 @@ export class MisRegistrosPage {
       this.localSQL.getAll().then((reg) => {
         console.log('registros locales', reg);
         this.registros = reg;
+        if(this.registros.length > 0){
+          this.conexionProvider.subir();
+        }
       });
 
       events.subscribe('registro:eliminado', (reg, time) => {

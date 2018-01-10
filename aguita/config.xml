@@ -103,4 +103,5 @@
     <engine name="ios" spec="^4.5.4" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <engine name="android" spec="~6.3.0" />
+    <allow-navigation href="http://192.168.1.11:8100" />
 </widget>
