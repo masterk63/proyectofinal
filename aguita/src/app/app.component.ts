@@ -11,6 +11,7 @@ import { SocketProvider } from '../providers/socket/socket';
 import { ConnectivityService } from '../providers/connectivityService';
 import { Events } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
+import { MapaGeneralPage } from '../pages/mapa-general/mapa-general';
 
 @Component({
   templateUrl: 'app.html'
@@ -55,7 +56,8 @@ export class MyApp {
         } else {
           this.storage.get('idUsuario').then((idUsuario) => {
             this.scoketPrv.init(idUsuario);
-            this.rootPage = TabsPage;
+            // this.rootPage = TabsPage;
+            this.rootPage = MapaGeneralPage;
           })
         }
       }).catch((err) => {

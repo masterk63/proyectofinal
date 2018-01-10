@@ -4,6 +4,7 @@ import { Ubicacion } from '../../providers/ubicacion';
 import { ConnectivityService } from '../../providers/connectivityService';
 
 declare var google;
+declare var MarkerClusterer;
 
 @Component({
     selector: 'page-mapa-general',
@@ -43,14 +44,18 @@ export class MapaGeneralPage {
 
                 let script = document.createElement("script");
                 script.id = "googleMaps";
+                //let script2 = document.createElement("script");
+                //script2.id = "googleMaps";
 
                 if (this.apiKey) {
                     script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=mapInit';
                 } else {
                     script.src = 'http://maps.google.com/maps/api/js?callback=mapInit';
                 }
-
+                //script2.src = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
+                
                 document.body.appendChild(script);
+                //document.body.appendChild(script2);
 
             }
         }
@@ -113,7 +118,7 @@ export class MapaGeneralPage {
     initMap() {
         this.ubicacionCtrl.obtenerTodasLasCoordenadas().then((resultado) => {
             this.markers = resultado;
-            console.log('Resultados de los marcadores',this.markers)
+            console.log('Resultados de los marcadores', this.markers)
             let mapOptions = {
                 scrollwheel: false,
                 navigationControl: false,
@@ -129,28 +134,40 @@ export class MapaGeneralPage {
 
             var bounds = new google.maps.LatLngBounds();
 
-            for (let m of this.markers) {
-                var marker = new google.maps.Marker({
+            var marcadores = this.markers.map( m => {
+                new google.maps.Marker({
                     position: new google.maps.LatLng(m.latitud, m.longitud),
-                    map: map
-                });
+                })
+            });
 
-                bounds.extend(marker.position);
+            console.log('mostrando markers',marcadores)
 
-                google.maps.event.addListener(marker, 'click', (function (marker) {
-                    console.log(m);
-                    // var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
-                    var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
-                    return function () {
-                        infowindow.setContent(content);
-                        infowindow.open(map, marker);
-                    }
-                })(marker));
-            }
+            // var markerCluster = new MarkerClusterer(map, markers,
+            //     {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+        
 
-            map.fitBounds(bounds);
+        for (let m of this.markers) {
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(m.latitud, m.longitud),
+                map: map
+            });
+
+            bounds.extend(marker.position);
+
+            google.maps.event.addListener(marker, 'click', (function (marker) {
+                console.log(m);
+                // var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
+                var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
+                return function () {
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+                }
+            })(marker));
         }
-        );
+
+        map.fitBounds(bounds);
     }
+        );
+}
 
 }
