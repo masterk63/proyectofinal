@@ -144,26 +144,44 @@ export class MapaGeneralPage {
             var bounds = new google.maps.LatLngBounds();
 
             var marcadores = [];
+            var arryPosiciones = [];
             var i;
+
             for (let m of this.markers) {
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(m.latitud, m.longitud),
-                    map: map
+                    map: map,
+                    gridSize: 80
                 });
 
                 marcadores.push(marker);
 
+                arryPosiciones.push(marker.position);
+
                 bounds.extend(marker.position);
 
-
-                // google.maps.event.addListener(marker, 'click', (function (marker) {
-                //     var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
-                //     return function () {
-                //         infowindow.setContent(content);
-                //         infowindow.open(map, marker);
-                //     }
-                // })(marker));
+                google.maps.event.addListener(marker, 'click', (function (marker) {
+                    var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
+                    return function () {
+                        infowindow.setContent(content);
+                        infowindow.open(map, marker);
+                    }
+                })(marker));
             }
+
+
+            //definimos la línea
+            var linea = new google.maps.Polyline({
+                path: arryPosiciones,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+
+            //dibujamos la línea sobre el mapa
+            linea.setMap(map);
+
 
             // La opcion de cluster, lo que me hace es mediante IA, agrupar todos los puntos cercanos.
             var clusterOptions = {
@@ -174,16 +192,6 @@ export class MapaGeneralPage {
             var markerCluster = new MarkerClusterer(map, marcadores, clusterOptions);
 
             //Agrego el evento click al cluster.
-            // google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
-            //     var marks_in_cluster = cluster.getMarkers();
-            //     console.log(marks_in_cluster);
-            //     var content = 'hola';
-            //     return function () {
-            //         infowindow.setContent(content);
-            //         infowindow.setPosition(cluster.getCenter());
-            //         infowindow.open(map);
-            //     }
-            // }(markerCluster));
             google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
 
                 var markers = cluster.getMarkers();
@@ -200,16 +208,6 @@ export class MapaGeneralPage {
                 infowindow.setPosition(cluster.getCenter());
                 infowindow.open(map);
             });
-
-            for (i = 0; i < marcadores.length; i++) {
-                var marker = marcadores[i];
-                google.maps.event.addListener(marker, 'click', (function (marker) {
-                    return function () {
-                        infowindow.setContent(this.getTitle());
-                        infowindow.open(map, this);
-                    }
-                })(marker));
-            }
 
             //Termino de centrar el mapa
             map.fitBounds(bounds);
