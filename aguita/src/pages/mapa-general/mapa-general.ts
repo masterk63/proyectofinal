@@ -44,6 +44,7 @@ export class MapaGeneralPage {
                 }
 
                 let script = document.createElement("script");
+                let script2 = document.createElement("script");
                 script.id = "googleMaps";
 
                 if (this.apiKey) {
@@ -53,7 +54,9 @@ export class MapaGeneralPage {
                 }
 
                 document.body.appendChild(script);
-
+                script2.id = "markerclusterer";
+                script2.src = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
+                document.body.appendChild(script2);
             }
         }
         else {
@@ -141,7 +144,7 @@ export class MapaGeneralPage {
             var bounds = new google.maps.LatLngBounds();
 
             var marcadores = [];
-
+            var i;
             for (let m of this.markers) {
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(m.latitud, m.longitud),
@@ -152,13 +155,14 @@ export class MapaGeneralPage {
 
                 bounds.extend(marker.position);
 
-                google.maps.event.addListener(marker, 'click', (function (marker) {
-                    var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
-                    return function () {
-                        infowindow.setContent(content);
-                        infowindow.open(map, marker);
-                    }
-                })(marker));
+
+                // google.maps.event.addListener(marker, 'click', (function (marker) {
+                //     var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
+                //     return function () {
+                //         infowindow.setContent(content);
+                //         infowindow.open(map, marker);
+                //     }
+                // })(marker));
             }
 
             // La opcion de cluster, lo que me hace es mediante IA, agrupar todos los puntos cercanos.
@@ -170,16 +174,42 @@ export class MapaGeneralPage {
             var markerCluster = new MarkerClusterer(map, marcadores, clusterOptions);
 
             //Agrego el evento click al cluster.
+            // google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
+            //     var marks_in_cluster = cluster.getMarkers();
+            //     console.log(marks_in_cluster);
+            //     var content = 'hola';
+            //     return function () {
+            //         infowindow.setContent(content);
+            //         infowindow.setPosition(cluster.getCenter());
+            //         infowindow.open(map);
+            //     }
+            // }(markerCluster));
             google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
-                var marks_in_cluster = cluster.getMarkers();
-                console.log(marks_in_cluster);
-                var content = 'hola';
-                return function () {
-                    infowindow.setContent(content);
-                    //infowindow.setPosition(cluster.getCenter());
-                    infowindow.open(map);
+
+                var markers = cluster.getMarkers();
+
+                var array = [];
+                var num = 0;
+
+                for (i = 0; i < markers.length; i++) {
+                    num++;
+                    array.push(markers[i].getTitle() + '<br>');
                 }
-            }(markerCluster));
+
+                infowindow.setContent(markers.length + " markers<br>" + array);
+                infowindow.setPosition(cluster.getCenter());
+                infowindow.open(map);
+            });
+
+            for (i = 0; i < marcadores.length; i++) {
+                var marker = marcadores[i];
+                google.maps.event.addListener(marker, 'click', (function (marker) {
+                    return function () {
+                        infowindow.setContent(this.getTitle());
+                        infowindow.open(map, this);
+                    }
+                })(marker));
+            }
 
             //Termino de centrar el mapa
             map.fitBounds(bounds);
