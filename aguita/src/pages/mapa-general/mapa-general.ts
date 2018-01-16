@@ -6,6 +6,7 @@ import { ConnectivityService } from '../../providers/connectivityService';
 declare var google;
 declare var MarkerClusterer;
 
+
 @Component({
     selector: 'page-mapa-general',
     templateUrl: 'mapa-general.html'
@@ -118,6 +119,29 @@ export class MapaGeneralPage {
     // 
 
     initMap() {
+
+
+        google.maps.Map.prototype.getMapScale = function (opt) {
+            var circumference = 40075040,
+                zoom, lat, scale;
+
+            if (typeof (opt['zoom']) == 'number' && typeof (opt['lat']) == 'number') {
+                zoom = opt['zoom'];
+                lat = opt['lat'];
+            } else {
+                zoom = this.getZoom();
+                lat = this.getCenter().lat();
+            }
+
+            scale = (circumference * Math.cos(lat) / Math.pow(2, zoom + 8));
+
+            if (typeof (opt['precision']) == 'number') {
+                scale = Number(scale.toFixed(opt['precision']));
+            }
+
+            return scale;
+        }
+
         //Una vez iniciado el mapa, obtengo las coordenadas de mis registros.
         this.ubicacionCtrl.obtenerTodasLasCoordenadas().then((resultado) => {
             this.markers = resultado;
@@ -151,7 +175,7 @@ export class MapaGeneralPage {
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(m.latitud, m.longitud),
                     map: map,
-                    gridSize: 80
+                    gridSize: 10
                 });
 
                 marcadores.push(marker);
@@ -164,6 +188,7 @@ export class MapaGeneralPage {
                     var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
                     return function () {
                         infowindow.setContent(content);
+
                         infowindow.open(map, marker);
                     }
                 })(marker));
@@ -207,10 +232,18 @@ export class MapaGeneralPage {
                 infowindow.setContent(markers.length + " markers<br>" + array);
                 infowindow.setPosition(cluster.getCenter());
                 infowindow.open(map);
+                // console.log('zoom', map.getZoom());
+                console.log('grid Size', markerCluster.getGridSize());
+                console.log('maps scale', map.getMapScale({}));
+                console.log('en metros', map.getMapScale({}) * markerCluster.getGridSize());
             });
 
             //Termino de centrar el mapa
             map.fitBounds(bounds);
         });
     }
+
 }
+
+
+
