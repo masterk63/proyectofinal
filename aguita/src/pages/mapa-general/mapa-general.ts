@@ -220,22 +220,35 @@ export class MapaGeneralPage {
             google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
 
                 var markers = cluster.getMarkers();
-
+                console.log('markers',markers)
                 var array = [];
                 var num = 0;
 
                 for (i = 0; i < markers.length; i++) {
                     num++;
                     array.push(markers[i].getTitle() + '<br>');
+                    console.log('radio',google.maps.geometry.spherical.computeDistanceBetween (markers[i].position, cluster.getCenter()));
                 }
 
                 infowindow.setContent(markers.length + " markers<br>" + array);
                 infowindow.setPosition(cluster.getCenter());
                 infowindow.open(map);
+                //computeDistanceBetween
+                console.log('centro del cluster',cluster.getCenter())
+                // var cityCircle = new google.maps.Circle({
+                //     strokeColor: '#FF0000',
+                //     strokeOpacity: 0.8,
+                //     strokeWeight: 2,
+                //     fillColor: '#FF0000',
+                //     fillOpacity: 0.35,
+                //     map: map,
+                //     center: cluster.getCenter(),
+                //     radius: 60
+                // });
                 // console.log('zoom', map.getZoom());
-                console.log('grid Size', markerCluster.getGridSize());
-                console.log('maps scale', map.getMapScale({}));
-                console.log('en metros', map.getMapScale({}) * markerCluster.getGridSize());
+                // console.log('grid Size', markerCluster.getGridSize());
+                // console.log('maps scale', map.getMapScale({}));
+                // console.log('en metros', map.getMapScale({}) * markerCluster.getGridSize());
             });
 
             //Termino de centrar el mapa
