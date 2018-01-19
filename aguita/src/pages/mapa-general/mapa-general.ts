@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Ubicacion } from '../../providers/ubicacion';
 import { ConnectivityService } from '../../providers/connectivityService';
+import { ArgumentType } from '@angular/core/src/view';
 
 declare var google;
 declare var MarkerClusterer;
-
+var clusterPintados = new Array();
+var cityCircle;
 
 @Component({
     selector: 'page-mapa-general',
@@ -21,7 +23,6 @@ export class MapaGeneralPage {
         public navParams: NavParams,
         public connectivityService: ConnectivityService,
         public ubicacionCtrl: Ubicacion) {
-
     }
 
     ionViewDidLoad() {
@@ -175,7 +176,7 @@ export class MapaGeneralPage {
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(m.latitud, m.longitud),
                     map: map,
-                    gridSize: 10
+                    idRegistro: m.idRegistro
                 });
 
                 marcadores.push(marker);
@@ -188,7 +189,6 @@ export class MapaGeneralPage {
                     var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
                     return function () {
                         infowindow.setContent(content);
-
                         infowindow.open(map, marker);
                     }
                 })(marker));
@@ -205,12 +205,13 @@ export class MapaGeneralPage {
             });
 
             //dibujamos la línea sobre el mapa
-            linea.setMap(map);
+            //linea.setMap(map);
 
 
             // La opcion de cluster, lo que me hace es mediante IA, agrupar todos los puntos cercanos.
             var clusterOptions = {
                 zoomOnClick: false,
+                averageCenter: true,
                 imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
             }
 
@@ -218,42 +219,48 @@ export class MapaGeneralPage {
 
             //Agrego el evento click al cluster.
             google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
-
                 var markers = cluster.getMarkers();
-                console.log('markers',markers)
                 var array = [];
                 var num = 0;
-
+                let radio = 0;
                 for (i = 0; i < markers.length; i++) {
                     num++;
-                    array.push(markers[i].getTitle() + '<br>');
-                    console.log('radio',google.maps.geometry.spherical.computeDistanceBetween (markers[i].position, cluster.getCenter()));
+                    array.push(markers[i].idRegistro + '<br>');
+                    let radioTemp = google.maps.geometry.spherical.computeDistanceBetween(markers[i].position, cluster.getCenter());
+                    (radio < radioTemp) ? radio = radioTemp : '';
                 }
-
                 infowindow.setContent(markers.length + " markers<br>" + array);
                 infowindow.setPosition(cluster.getCenter());
                 infowindow.open(map);
-                //computeDistanceBetween
-                console.log('centro del cluster',cluster.getCenter())
-                // var cityCircle = new google.maps.Circle({
-                //     strokeColor: '#FF0000',
-                //     strokeOpacity: 0.8,
-                //     strokeWeight: 2,
-                //     fillColor: '#FF0000',
-                //     fillOpacity: 0.35,
-                //     map: map,
-                //     center: cluster.getCenter(),
-                //     radius: 60
-                // });
-                // console.log('zoom', map.getZoom());
-                // console.log('grid Size', markerCluster.getGridSize());
-                // console.log('maps scale', map.getMapScale({}));
-                // console.log('en metros', map.getMapScale({}) * markerCluster.getGridSize());
+                let latlong = cluster.getCenter().lat() + '' + cluster.getCenter().lng();
+                let index = clusterPintados.indexOf(latlong);
+                if (index === -1) {
+                    clusterPintados.push(latlong);
+                        cityCircle = new google.maps.Circle({
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.35,
+                        map: map,
+                        center: cluster.getCenter(),
+                        radius: radio
+                    });
+                    console.log('agregado')
+                }else{
+                    clusterPintados.splice(index,1);
+                }
+                console.log(clusterPintados)
+
             });
 
             //Termino de centrar el mapa
             map.fitBounds(bounds);
         });
+    }
+
+    borrarCirculos(){
+        cityCircle.setMap(null);
     }
 
 }
