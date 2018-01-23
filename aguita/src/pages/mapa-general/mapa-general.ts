@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Ubicacion } from '../../providers/ubicacion';
 import { ConnectivityService } from '../../providers/connectivityService';
 import { ArgumentType } from '@angular/core/src/view';
+import { NgSwitchCase } from '@angular/common/src/directives/ng_switch';
 
 declare var google;
 declare var MarkerClusterer;
@@ -176,7 +177,8 @@ export class MapaGeneralPage {
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(m.latitud, m.longitud),
                     map: map,
-                    idRegistro: m.idRegistro
+                    idRegistro: m.idRegistro,
+                    indice: m.indice
                 });
 
                 marcadores.push(marker);
@@ -221,37 +223,62 @@ export class MapaGeneralPage {
             google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
                 var markers = cluster.getMarkers();
                 var array = [];
-                var num = 0;
                 let radio = 0;
-                for (i = 0; i < markers.length; i++) {
-                    num++;
-                    array.push(markers[i].idRegistro + '<br>');
-                    let radioTemp = google.maps.geometry.spherical.computeDistanceBetween(markers[i].position, cluster.getCenter());
+                let prom = 0;
+                for (let m of markers) {
+                    array.push(m.idRegistro + '<br>');
+                    let radioTemp = google.maps.geometry.spherical.computeDistanceBetween(m.position, cluster.getCenter());
                     (radio < radioTemp) ? radio = radioTemp : '';
+                    prom = prom + m.indice;
                 }
-                infowindow.setContent(markers.length + " markers<br>" + array);
+                radio = Math.round(radio);
+                prom = Math.round(prom / markers.length);
+
+                let content = `Se encontraron ` + markers.length + ` registros. <br>
+                               En un radio de `+ radio + ` mts <br>
+                               Con un indice promedio de `+ prom;
+                infowindow.setContent(content);
                 infowindow.setPosition(cluster.getCenter());
                 infowindow.open(map);
+                let color;
+                switch (prom) {
+                    case 1:
+                        color = 'purple';
+                        break;
+                    case 2:
+                        color = 'red';
+                        break;
+                    case 3:
+                        color = 'yellow';
+                        break;
+                    case 4:
+                        color = 'green';
+                        break;
+                    default:
+                        break;
+                }
                 let latlong = cluster.getCenter().lat() + '' + cluster.getCenter().lng();
-                let index = clusterPintados.indexOf(latlong);
+                let index = clusterPintados.map(c => c.id).indexOf(latlong);
                 if (index === -1) {
-                    clusterPintados.push(latlong);
-                        cityCircle = new google.maps.Circle({
-                        strokeColor: '#FF0000',
+                    cityCircle = new google.maps.Circle({
+                        strokeColor: color,
                         strokeOpacity: 0.8,
                         strokeWeight: 2,
-                        fillColor: '#FF0000',
+                        fillColor: color,
                         fillOpacity: 0.35,
                         map: map,
                         center: cluster.getCenter(),
                         radius: radio
                     });
-                    console.log('agregado')
-                }else{
-                    clusterPintados.splice(index,1);
+                    let cPintados = {
+                        circulo: cityCircle,
+                        id: latlong
+                    }
+                    clusterPintados.push(cPintados);
+                } else {
+                    let clusterDelete = clusterPintados.splice(index, 1)[0];
+                    clusterDelete.circulo.setMap(null);
                 }
-                console.log(clusterPintados)
-
             });
 
             //Termino de centrar el mapa
@@ -259,7 +286,7 @@ export class MapaGeneralPage {
         });
     }
 
-    borrarCirculos(){
+    borrarCirculos() {
         cityCircle.setMap(null);
     }
 
