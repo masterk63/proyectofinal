@@ -1,12 +1,11 @@
 Autentificacion con google y facebook
 Vincular boton olvide contraseña con la funcion
-Hacer carteles de error de contrasña o dado de baja
+//Hacer carteles de error de contrasña o dado de baja
 estilo modal para los bichos
-consultar y mostrar mapas con todos los registros con los estilos
-crear los daemon en el sever
+//consultar y mostrar mapas con todos los registros con los estilos
+detalles de los markadores, y cluster en una barra lateral
 contraseñas encriptadas.
-hacer el toast "subiendo registros"
-en crear nuevo registo al hacer clcik deslizar
 ver el tema del mapa sin conexion en el registro
-Deshabilitar el click en mapa nativo
+armar toda la seccion de aministracion.
+
 

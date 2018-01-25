@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Ubicacion } from '../../providers/ubicacion';
 import { ConnectivityService } from '../../providers/connectivityService';
 import { ArgumentType } from '@angular/core/src/view';
 import { NgSwitchCase } from '@angular/common/src/directives/ng_switch';
+import { trigger, state, style, animate, transition, query, stagger, keyframes } from '@angular/animations';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare var google;
 declare var MarkerClusterer;
@@ -12,16 +14,35 @@ var cityCircle;
 
 @Component({
     selector: 'page-mapa-general',
-    templateUrl: 'mapa-general.html'
+    templateUrl: 'mapa-general.html',
+    animations: [
+        trigger('photosAnimation', [
+            transition('void => *', [
+                style({ transform: 'translateX(-100%)' }),
+                animate('300ms ease-out')
+            ]),
+            transition('* => void', [
+                animate('300ms ease-out'),
+                style({ transform: 'translateX(-100%)' }),
+            ])
+        ])
+    ]
+
 })
 export class MapaGeneralPage {
     markers: any;
     mapInitialised: boolean = false;
     apiKey: any = 'AIzaSyA4h0qNqE_K6GuDT5-BH2g2Mx_XcwbLSys';
-
-
+    public mostrarInfo: boolean = false;
+    public imagenInfo:any;
+    public indice:any;
+    public fecha:any;
+    
+    
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
+        private _zone: NgZone,
+        private sanitizer: DomSanitizer,
         public connectivityService: ConnectivityService,
         public ubicacionCtrl: Ubicacion) {
     }
@@ -174,11 +195,12 @@ export class MapaGeneralPage {
             var i;
 
             for (let m of this.markers) {
+                console.log(m)
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(m.latitud, m.longitud),
                     map: map,
                     idRegistro: m.idRegistro,
-                    indice: m.indice
+                    indice: m.indice,
                 });
 
                 marcadores.push(marker);
@@ -187,11 +209,17 @@ export class MapaGeneralPage {
 
                 bounds.extend(marker.position);
 
-                google.maps.event.addListener(marker, 'click', (function (marker) {
-                    var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
-                    return function () {
-                        infowindow.setContent(content);
-                        infowindow.open(map, marker);
+                google.maps.event.addListener(marker, 'click', ((marker) => {
+
+                    // var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
+                    return () => {
+                        // infowindow.setContent(content);
+                        // infowindow.open(map, marker);
+                        this.indice = m.indice;
+                        this.fecha = m.fecha;
+                        this.imagenInfo = this.sanitizer.bypassSecurityTrustUrl(m.fotoPaisaje);
+                        this._zone.run(() => this.mostrarInfo = true);
+                        console.log(this.mostrarInfo)
                     }
                 })(marker));
             }
@@ -290,6 +318,9 @@ export class MapaGeneralPage {
         cityCircle.setMap(null);
     }
 
+    cerrar(){
+        this.mostrarInfo = false;
+    }
 }
 
 
