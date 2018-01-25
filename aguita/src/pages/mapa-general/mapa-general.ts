@@ -6,6 +6,7 @@ import { ArgumentType } from '@angular/core/src/view';
 import { NgSwitchCase } from '@angular/common/src/directives/ng_switch';
 import { trigger, state, style, animate, transition, query, stagger, keyframes } from '@angular/animations';
 import { DomSanitizer } from '@angular/platform-browser';
+import { RegistroPage } from '../registro/registro';
 
 declare var google;
 declare var MarkerClusterer;
@@ -37,7 +38,7 @@ export class MapaGeneralPage {
     public imagenInfo:any;
     public indice:any;
     public fecha:any;
-    
+    public idRegistro:any;
     
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -195,7 +196,6 @@ export class MapaGeneralPage {
             var i;
 
             for (let m of this.markers) {
-                console.log(m)
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(m.latitud, m.longitud),
                     map: map,
@@ -217,6 +217,7 @@ export class MapaGeneralPage {
                         // infowindow.open(map, marker);
                         this.indice = m.indice;
                         this.fecha = m.fecha;
+                        this.idRegistro = m.idRegistro;
                         this.imagenInfo = this.sanitizer.bypassSecurityTrustUrl(m.fotoPaisaje);
                         this._zone.run(() => this.mostrarInfo = true);
                         console.log(this.mostrarInfo)
@@ -270,17 +271,20 @@ export class MapaGeneralPage {
                 infowindow.open(map);
                 let color;
                 switch (prom) {
+                    case 0:
+                        color = '#BD393C';
+                        break;
                     case 1:
-                        color = 'purple';
+                        color = '#CF6D31';
                         break;
                     case 2:
-                        color = 'red';
+                        color = '#F8F131';
                         break;
                     case 3:
-                        color = 'yellow';
+                        color = '#31B353';
                         break;
                     case 4:
-                        color = 'green';
+                        color = '#3F3470';
                         break;
                     default:
                         break;
@@ -320,6 +324,10 @@ export class MapaGeneralPage {
 
     cerrar(){
         this.mostrarInfo = false;
+    }
+
+    public irAlRegistro(){
+        this.navCtrl.push(RegistroPage,{idRegistro:this.idRegistro})
     }
 }
 

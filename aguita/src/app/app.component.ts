@@ -57,7 +57,7 @@ export class MyApp {
           this.storage.get('idUsuario').then((idUsuario) => {
             this.scoketPrv.init(idUsuario);
             // this.rootPage = TabsPage;
-            this.rootPage = MapaGeneralPage;
+            this.rootPage = TabsPage;
           })
         }
       }).catch((err) => {
