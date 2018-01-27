@@ -218,7 +218,8 @@ export class MapaGeneralPage {
                         this.indice = m.indice;
                         this.fecha = m.fecha;
                         this.idRegistro = m.idRegistro;
-                        this.imagenInfo = this.sanitizer.bypassSecurityTrustUrl(m.fotoPaisaje);
+                        let fotoPaisaje = 'data:image/jpeg;base64,'+m.fotoPaisaje
+                        this.imagenInfo = this.sanitizer.bypassSecurityTrustUrl(fotoPaisaje);
                         this._zone.run(() => this.mostrarInfo = true);
                         console.log(this.mostrarInfo)
                     }

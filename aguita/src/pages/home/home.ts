@@ -324,7 +324,7 @@ export class HomePage {
 
     imgMapData64(event) {
         //console.log('desde el home',event.data64)		
-        this.fotoMapa = event.data64;
+        this.fotoMapa = event.data64.split(",")[1];
     }
 
     showLoader(text) {

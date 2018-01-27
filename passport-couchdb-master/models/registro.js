@@ -28,7 +28,12 @@ exports.listarMarkets = function (fn) {
 exports.dame = function (id, fn) {
     connection.query('call registro_dame(' + id + ')', function (err, rows) {
         if (err) fn(err);
-        fn(rows[0]);
+        try {
+            fn(rows[0]);
+        } catch (e) {
+            fn(e);
+            console.log(e)
+        }
     });
 }
 

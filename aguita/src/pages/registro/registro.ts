@@ -19,34 +19,14 @@ export class RegistroPage {
   idRegistro: any;
   posicion: any;
   registro: any;
-  fotoPaisajeURL = 'data:image/jpeg;base64,';
   fotoMuestraURL = 'data:image/jpeg;base64,';
   fotoMapaURL = 'data:image/jpeg;base64,';
+  fotoPaisajeURL = 'data:image/jpeg;base64,';
   fotoMuestraURLSafe: any;
   fotoMapaURLSafe: any;
-  fotoMapaNoDisponible: any;
+  fotoPaisajeURLSafe: any;
   valido: any;
   rol = null;
-  // Atributos del registro que viene de mysql:
-  // *idRegistro
-  // *indice
-  // *fecha
-  // *latitud
-  // *longitud
-  // *observacion
-  // *valido
-  // **idUsuario
-  // **nombreUsuario ** inner join con usuarios en idUsuario
-  // *elmido
-  // *patudo
-  // *plecoptero
-  // *tricoptero
-  // *ciudad
-  // *provincia
-  // *pais
-  // *fotoPaisaje
-  // *fotoMuestra
-  // *fotoMapa
 
   constructor(public navCtrl: NavController,
     public params: NavParams,
@@ -66,24 +46,25 @@ export class RegistroPage {
   registroDame() {
     this.showLoader();
     this.regService.registroDame(this.idRegistro).then(data => {
-        this.registro = data;
-        this.registro = this.registro[0];
-        console.log(this.registro);
-        this.fotoPaisajeURL = this.fotoPaisajeURL + this.registro.fotoPaisaje;
-        this.fotoMuestraURL = this.fotoMuestraURL + this.registro.fotoMuestra;
-        this.fotoMapaURL = this.fotoMapaURL + this.registro.fotoMapa;
-        this.fotoMuestraURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL);
-        this.fotoMapaURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMapaURL);
-        this.validoToArray();
-        if (this.registro.observacion == "null") {
-          this.registro.observacion = "No hay observaciones."
-        }
-        this.loading.dismiss();
-      }).catch((err) => {
-        this.loading.dismiss(),
-          this.mostrarAlerta("No se puede conectar con el servidor", err),
-          this.navCtrl.push(MisRegistrosPage);
-      });
+      this.registro = data;
+      this.registro = this.registro[0];
+      console.log(this.registro);
+      this.fotoPaisajeURL = this.fotoPaisajeURL + this.registro.fotoPaisaje;
+      this.fotoMuestraURL = this.fotoMuestraURL + this.registro.fotoMuestra;
+      this.fotoMapaURL = this.fotoMapaURL + this.registro.fotoMapa;
+      this.fotoMuestraURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL);
+      this.fotoMapaURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMapaURL);
+      this.fotoPaisajeURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL);
+      // this.validoToArray();
+      // if (this.registro.observacion == "null") {
+      //   this.registro.observacion = "No hay observaciones."
+      // }
+      this.loading.dismiss();
+    }).catch((err) => {
+      this.loading.dismiss(),
+      this.mostrarAlerta("No se puede conectar con el servidor", err),
+      this.navCtrl.push(MisRegistrosPage);
+    });
   }
 
   validoToArray() {
@@ -189,7 +170,6 @@ export class RegistroPage {
   }
 
   showLoader() {
-    console.log("llamando a loading");
     this.loading = this.loadingCtrl.create({
       content: "Cargando registro. Espere por favor..."
     });
