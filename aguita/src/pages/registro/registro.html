@@ -12,19 +12,36 @@
 
 <ion-content>
   <div *ngIf="registro">
-    <div class="fotoPaisaje" [ngStyle]="{'background-image': 'url(' + fotoPaisajeURL + ')'}">
-      <!-- *ngIf="rol == 'administrador' && registro.usuario !== null "  -->
-      <div class="titulo">
-        <div class="background"></div>
-        <p>Creado por {{registro.usuario}} -
-          <a style="margin-left: 0px;margin-right: 0px; text-decoration: underline;" (click)="verUsuario(registro.idUsuario)">Ver Perfil</a>
-          - Fecha {{registro.fecha | date:'dd/MM/yy'}}
-        </p>
-      </div>
-    </div>
-    <ion-grid>
+    <ion-grid class="contenedor">
       <ion-row>
-        <ion-col col-12 col-xl-8 class="center">
+          <ion-list>
+              <ion-item>
+                <ion-thumbnail item-start>
+                  <img [src]="fotoPaisajeURL">
+                </ion-thumbnail>
+                <h2>My Neighbor Totoro</h2>
+                <p>Hayao Miyazaki • 1988</p>
+                <button ion-button clear item-end>View</button>
+              </ion-item>
+            </ion-list>
+        <ion-col col-12 style="padding:0px" class="center">
+          <div class="fotoPaisaje" [ngStyle]="{'background-image': 'url(' + fotoPaisajeURL + ')'}">
+            <!-- *ngIf="rol == 'administrador' && registro.usuario !== null "  -->
+            <div class="titulo">
+              <h1>Creado por
+                <a style="margin-left: 0px;margin-right: 0px; text-decoration: underline;" (click)="verUsuario(registro.idUsuario)">{{registro.usuario}}</a>
+                <span>{{registro.fecha | date:'dd/MM/yy'}}</span>
+              </h1>
+            </div>
+          </div>
+          <ion-row>
+            <ion-col col-12>
+              <h2>Observaciones</h2>
+              <p *ngIf="registro.observacion == '' || registro.observacion == null">El usuario no hizo observaciones</p>
+              <p *ngIf="registro.observacion !== '' || registro.observacion !== null">{{registro.observacion}}</p>
+            </ion-col>
+          </ion-row>
+
           <ion-row>
             <ion-col col-12 col-sm-5 col-md-4>
               <ion-card class="contenedorImg">

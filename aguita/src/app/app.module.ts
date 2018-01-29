@@ -87,7 +87,7 @@ import { SocketProvider } from '../providers/socket/socket';
     BrowserAnimationsModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
-      backButtonText: 'Ir Atras',
+      backButtonText: '',
       mode: "md",
       iconMode: 'md',
       modalEnter: 'modal-slide-in',

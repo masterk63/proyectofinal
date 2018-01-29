@@ -77,7 +77,7 @@ export class MisRegistrosPage {
       this.localSQL.getAll().then((reg) => {
         console.log('registros locales', reg);
         this.registros = reg;
-        if(this.registros.length > 0){
+        if (this.registros.length > 0) {
           this.conexionProvider.subir();
         }
       });
@@ -118,5 +118,9 @@ export class MisRegistrosPage {
       this.registros.unshift(res);
       this.socketPrv.publicar(res);
     });
+  }
+
+  irAlRegistro(id) {
+    this.navCtrl.push(RegistroPage, { idRegistro: id })
   }
 }
