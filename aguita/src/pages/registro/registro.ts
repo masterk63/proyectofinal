@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 import { LoginPage } from '../login-page/login-page';
 import { UsuarioPage } from '../usuario/usuario';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
+import { ImageViewerController } from 'ionic-img-viewer';
 
 @Component({
   selector: 'page-registro',
@@ -27,6 +28,7 @@ export class RegistroPage {
   fotoPaisajeURLSafe: any;
   valido: any;
   rol = null;
+  _imageViewerCtrl: ImageViewerController;
 
   constructor(public navCtrl: NavController,
     public params: NavParams,
@@ -34,11 +36,13 @@ export class RegistroPage {
     public authService: Auth,
     private sanitizer: DomSanitizer,
     public storage: Storage,
+    public imageViewerCtrl: ImageViewerController,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public platform: Platform,
   ) {
     // this.dameRol();
+    this._imageViewerCtrl = imageViewerCtrl;
     this.idRegistro = this.params.get('idRegistro');
     this.registroDame();
   }
@@ -48,6 +52,19 @@ export class RegistroPage {
     this.regService.registroDame(this.idRegistro).then(data => {
       this.registro = data;
       this.registro = this.registro[0];
+
+      /* 
+      
+      Codigo Harcodeado, arreglar la consulta en el SP de dame 
+      registro, para que realmente devuelva los valores correspodientes
+
+      */
+      this.registro.elmido = 'si'
+      this.registro.patudo = 'si'
+      this.registro.plecoptero = 'si'
+      this.registro.tricoptero = 'si'
+
+
       console.log(this.registro);
       this.fotoPaisajeURL = this.fotoPaisajeURL + this.registro.fotoPaisaje;
       this.fotoMuestraURL = this.fotoMuestraURL + this.registro.fotoMuestra;
@@ -125,6 +142,14 @@ export class RegistroPage {
 
   verUsuario(idUsuario) {
     this.navCtrl.push(UsuarioPage, { idUsuario });
+  }
+
+  presentImage(imagen){
+    let img = document.createElement("img");
+    img.src = imagen;
+    img.id = "picture";
+    const imageViewer = this._imageViewerCtrl.create(img);
+    imageViewer.present();
   }
 
   mensajeConfirmar(idRegistro, accion, fab: FabContainer) {

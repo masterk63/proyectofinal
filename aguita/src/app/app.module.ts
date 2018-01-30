@@ -50,7 +50,7 @@ import { Keyboard } from '@ionic-native/keyboard';
 
 //Importaciones
 import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
-// import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { Storage } from '@ionic/storage';
 
 
@@ -84,6 +84,7 @@ import { SocketProvider } from '../providers/socket/socket';
   ],
   imports: [
     BrowserModule,
+    IonicImageViewerModule,
     BrowserAnimationsModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
