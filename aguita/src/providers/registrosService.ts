@@ -3,12 +3,6 @@ import { Http,Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as configServer from './../server';
 
-/*
-  Generated class for the RegistrosService provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class RegistrosService {
   //lista de usuarios para gestion

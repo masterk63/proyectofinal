@@ -103,6 +103,7 @@ import { SocketProvider } from '../providers/socket/socket';
     TabsPage,
     IntroPage,
     LoginPage,
+    UsuarioPage,
     MapaGeneralPage,
     Mapajshtml,
     ModalPage,

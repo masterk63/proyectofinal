@@ -4,8 +4,10 @@ page-registro {
     }
     
     .cardAcostada{
-        margin: 15px auto !important;
+        margin: 10px auto !important;
+        border-radius: 8px;
         box-shadow: 0 9px 6px rgba(0,0,0,0.16), 0 6px 6px rgba(0,0,0,0.23);
+        width: calc(100% - 20px);
     }
 
     .cardAcostada ion-col{
@@ -45,8 +47,8 @@ page-registro {
     }
 
     h2, p {
-        color: #899194;
-        margin: 8px;
+        color: #899194 !important;
+        margin: 8px !important;
     }
 
     .center {
@@ -105,24 +107,27 @@ page-registro {
           }
     }
     .titulo {
-        position: absolute;
-        bottom: 0;
         width: 100%;
+        padding: 9px;
+    }
+
+    .titulo h2{
+        font-size: 3em;
+        color:black !important;
     }
     .titulo h1{
-        position: relative;
         font-size: 1.4em;
-        color: white;
-        left: 6px;
+        color:#899194;
+        margin-left: 8px;
+        margin: 0px 8px;
     }
 
     .titulo span{
         float:right;
-        margin-right: 3%;
     }
 
     .titulo a{
-        color: white;
+        color:#899194;
     }
 
     th {
@@ -139,20 +144,53 @@ page-registro {
         font-size: 15px;
     }
 
+    .card-md {
+        border-radius: 8px !important;
+    }
+
+    #cardAcostada1{
+        border-top-left-radius:8px;
+        border-bottom-left-radius:8px
+    } 
+    #cardAcostada2{
+        border-top-right-radius:8px;
+        border-bottom-right-radius:8px
+    }    
+    #cardAcostada3{
+        border-top-right-radius:8px;
+        border-bottom-right-radius:8px
+    }    
+    #cardAcostada4{
+        border-top-left-radius:8px;
+        border-bottom-left-radius:8px
+    }       
     @media only screen and (max-width: 1000px) {
 
     }
     @media only screen and (max-width: 767px) {
-        .cardAcostada{
-            max-width: 400px;
-        }
+          
     }
-    @media only screen and (max-width: 500px) {
-        .cardAcostada ion-col:nth-child(1) {
-            height: 200px;
-        }
-        .cardAcostada ion-col:nth-child(2){
-            height: 200px;
-        }
+
+    @media only screen and (max-width: 575px) {
+        #cardAcostada1{
+            border-top-left-radius:8px;
+            border-top-right-radius:8px;
+            border-bottom-left-radius:0px;
+        } 
+        #cardAcostada2{
+            border-top-right-radius:0px;
+            border-bottom-right-radius:8px;
+            border-bottom-left-radius:8px
+        }    
+        #cardAcostada3{
+            border-top-left-radius:8px;
+            border-top-right-radius:8px;
+            border-bottom-right-radius:0px
+        }    
+        #cardAcostada4{
+            border-top-right-radius:0px;
+            border-bottom-right-radius:8px;
+            border-bottom-left-radius:8px
+        }  
     }
 }

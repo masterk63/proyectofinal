@@ -6,17 +6,13 @@
         <ion-title>
             Usuario
         </ion-title>
-        <ion-buttons start>
-            <button ion-button icon-only (click)="logout()">
-                <ion-icon name="power"></ion-icon>
-            </button>
-        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
 
 <ion-content>
-    <div *ngIf="usuario" style="background-color: #d14836; margin-top: -1px;" class="col-md-12 col-lg-12" align="center">
+    
+    <!-- <div *ngIf="usuario" style="background-color: #d14836; margin-top: -1px;" class="col-md-12 col-lg-12" align="center">
         <div class="outter">
             <img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" class="image-circle" />
         </div>
@@ -62,7 +58,7 @@
             <button ion-button color="favorite" *ngIf="editar" (click)="botonAceptar()">Aceptar</button>
             <button ion-button *ngIf="editar" (click)="botonCancelar()">Cancelar</button>
         </div>
-    </div>
+    </div> -->
 
 
 </ion-content>
