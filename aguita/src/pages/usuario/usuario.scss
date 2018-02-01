@@ -1,8 +1,50 @@
 page-usuario {
-
-    ion-content{
+    ion-content {
         background-color: #F2F2F2 !important;
     }
-    
-    
+    .contenedorImagen {
+        background: $primary;
+        padding: 5%; // border-top-left-radius: 10px;
+        // border-top-right-radius: 10px;
+    }
+    .contenedorImagen img {
+        border-radius: 50%;
+        width: 130px;
+    }
+    .contenedorImagen div {
+        margin: 0 auto;
+    }
+
+    .contenedorImagen h2 {
+        margin: 0 auto;
+        color:white;
+        text-align: center;
+    }
+
+    .tabla table{
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .tabla th,.tabla td{
+        padding: 5px;
+    }
+
+    .tabla td{
+        color:#5874B6;
+        font-size: 1.5em;
+    }
+
+    .contenidoProfile div {
+        margin: 0 auto;
+        color: #B3BBC0;
+        background: white;
+        width: 100%;
+        margin-bottom: 10px 0px; // border-bottom-left-radius: 10px;
+        // border-bottom-right-radius: 10px;
+    }
+    .profile {
+        box-shadow: 0 9px 6px rgba(0, 0, 0, 0.16), 0 6px 6px rgba(0, 0, 0, 0.23);
+        padding: 0px !important;
+    }
 }

@@ -50,6 +50,7 @@ export class UsuarioPage {
       .then(data => {
         this.usuario = data;
         this.usuario = this.usuario[0];
+        console.log(this.usuario)
         this.loading.dismiss();
       }).catch((err) => {
         this.loading.dismiss(),
@@ -134,7 +135,6 @@ export class UsuarioPage {
               bandera++;
             }
           }
-          this.controlLogout();
         } else {
           let titulo = "Error";
           let mensaje = mensajeBaja[0].mensaje;
@@ -173,17 +173,6 @@ export class UsuarioPage {
       content: "Cargando usuario. Espere por favor..."
     });
     this.loading.present();
-  }
-
-  controlLogout() {
-    this.storage.get('idUsuario').then((value) => {
-      let id = value;
-      if (id == this.usuario.idUsuario) {
-        this.logout();
-      } else {
-        this.navCtrl.pop();
-      }
-    });
-  }
+  } 
 
 }

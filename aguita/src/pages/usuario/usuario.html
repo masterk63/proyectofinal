@@ -1,18 +1,93 @@
 <ion-header no-border>
-    <ion-navbar color="primary">
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>
-            Usuario
-        </ion-title>
-    </ion-navbar>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Usuario
+    </ion-title>
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content>
-    
-    <!-- <div *ngIf="usuario" style="background-color: #d14836; margin-top: -1px;" class="col-md-12 col-lg-12" align="center">
+  <ion-grid>
+    <ion-row>
+
+      <ion-col col-12 col-md-6>
+        <ion-row>
+          <ion-col col-12 class="profile">
+            <ion-row class="contenedorImagen">
+              <div>
+                <img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" />
+                <h2>{{usuario?.usuario}}</h2>
+              </div>
+            </ion-row>
+            <ion-row class="contenidoProfile">
+              <div class="tabla">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">C. Registros</th>
+                      <th scope="col">Fecha Activo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td data-label="">4</td>
+                      <td data-label="">20/12/1989</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                  <button ion-button color="danger" round><ion-icon name="close"></ion-icon>Baja</button>
+                  <button ion-button color="verde" round><ion-icon ios="ios-create" md="md-create"></ion-icon>Editar</button>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <div padding>
+          <ion-segment [(ngModel)]="pet">
+            <ion-segment-button value="kittens">
+              Kittens
+            </ion-segment-button>
+            <ion-segment-button value="puppies">
+              Puppies
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+
+        <div [ngSwitch]="pet">
+          <ion-list *ngSwitchCase="'puppies'">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img src="img/thumbnail-puppy-1.jpg">
+              </ion-thumbnail>
+              <h2>Ruby</h2>
+            </ion-item>
+            ...
+          </ion-list>
+
+          <ion-list *ngSwitchCase="'kittens'">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img src="img/thumbnail-kitten-1.jpg">
+              </ion-thumbnail>
+              <h2>Luna</h2>
+            </ion-item>
+            ...
+          </ion-list>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <div *ngIf="usuario" style="background-color: #d14836; margin-top: -1px;" class="col-md-12 col-lg-12" align="center">
         <div class="outter">
             <img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" class="image-circle" />
         </div>
