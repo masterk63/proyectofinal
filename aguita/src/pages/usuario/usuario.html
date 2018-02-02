@@ -12,8 +12,12 @@
 
 <ion-content>
   <ion-grid>
+    <!-- <ion-row>
+      <div class="titulo">
+        <h2>Usuario</h2>
+      </div>
+    </ion-row> -->
     <ion-row>
-
       <ion-col col-12 col-md-6>
         <ion-row>
           <ion-col col-12 class="profile">
@@ -41,10 +45,12 @@
                 </table>
               </div>
             </ion-row>
-            <ion-row>
+            <ion-row class="profileBottom">
               <ion-col>
-                  <button ion-button color="danger" round><ion-icon name="close"></ion-icon>Baja</button>
-                  <button ion-button color="verde" round><ion-icon ios="ios-create" md="md-create"></ion-icon>Editar</button>
+                <button ion-button color="danger" round>
+                  <ion-icon name="close"></ion-icon>Baja</button>
+                <button ion-button color="verde" round>
+                  <ion-icon ios="ios-create" md="md-create"></ion-icon>Editar</button>
               </ion-col>
             </ion-row>
           </ion-col>
@@ -52,37 +58,53 @@
       </ion-col>
 
       <ion-col col-12 col-md-6>
-        <div padding>
-          <ion-segment [(ngModel)]="pet">
-            <ion-segment-button value="kittens">
-              Kittens
+        <div class="segmento">
+          <ion-segment [(ngModel)]="infoUsuarios">
+            <ion-segment-button value="info">
+              Informacion
             </ion-segment-button>
-            <ion-segment-button value="puppies">
-              Puppies
+            <ion-segment-button value="registros">
+              Registros
             </ion-segment-button>
           </ion-segment>
-        </div>
 
-        <div [ngSwitch]="pet">
-          <ion-list *ngSwitchCase="'puppies'">
-            <ion-item>
-              <ion-thumbnail item-start>
-                <img src="img/thumbnail-puppy-1.jpg">
-              </ion-thumbnail>
-              <h2>Ruby</h2>
-            </ion-item>
-            ...
-          </ion-list>
+          <div [ngSwitch]="infoUsuarios">
 
-          <ion-list *ngSwitchCase="'kittens'">
-            <ion-item>
-              <ion-thumbnail item-start>
-                <img src="img/thumbnail-kitten-1.jpg">
-              </ion-thumbnail>
-              <h2>Luna</h2>
-            </ion-item>
-            ...
-          </ion-list>
+            <form [formGroup]="formularioUsuario" *ngSwitchCase="'info'">
+              <ion-item>
+                <ion-label stacked>Nombre</ion-label>
+                <ion-input type="text" formControlName="nombre"></ion-input>
+              </ion-item>
+              <p class="text-danger" *ngIf="!formularioUsuario.controls.nombre.valid  && submitAttempt">Debe Ingresar un Nombre</p>
+              <ion-item>
+                <ion-label stacked>Apellido</ion-label>
+                <ion-input type="text" formControlName="apellido"></ion-input>
+              </ion-item>
+              <p class="text-danger" *ngIf="!formularioUsuario.controls.apellido.valid  && submitAttempt">Debe Ingresar un Apellido</p>
+              <ion-item>
+                <ion-label stacked>Residencia</ion-label>
+                <ion-input type="text" formControlName="residencia"></ion-input>
+              </ion-item>
+              <p class="text-danger" *ngIf="!formularioUsuario.controls.residencia.valid  && submitAttempt">Debe Ingresar una Residencia</p>
+              <ion-item>
+                <ion-label stacked>Institucion</ion-label>
+                <ion-input type="text" formControlName="institucion"></ion-input>
+              </ion-item>
+              <p class="text-danger" *ngIf="!formularioUsuario.controls.institucion.valid  && submitAttempt">Debe Ingresar una Institucion</p>
+              <ion-item>
+                <ion-label stacked>Grado</ion-label>
+                <ion-input type="text" formControlName="grado"></ion-input>
+              </ion-item>
+              <p class="text-danger" *ngIf="!formularioUsuario.controls.grado.valid  && submitAttempt">Debe Ingresar el Grado</p>
+              <ion-item>
+                <button float-right color="azul" ion-button type="submit" (click)="actualizar()">Actualizar</button>
+              </ion-item>
+            </form>
+
+            <div style="height: 400px;" *ngSwitchCase="'registros'">
+              <page-mis-registros ></page-mis-registros>
+            </div>
+          </div>
         </div>
       </ion-col>
     </ion-row>

@@ -5,6 +5,7 @@ import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import { Storage } from '@ionic/storage';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /*
   Generated class for the Usuario page.
@@ -30,12 +31,16 @@ export class UsuarioPage {
   residencia: any;
   institucion: any;
   grado: any;
+  infoUsuarios:any;
+  formularioUsuario:any;
+  submitAttempt:boolean = false;
 
   constructor(public navCtrl: NavController,
     public params: NavParams,
     public userService: UsuariosService,
     public storage: Storage,
     public authService: Auth,
+    public formBuilder:FormBuilder,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
   ) {
@@ -43,6 +48,16 @@ export class UsuarioPage {
     // this.posicion = this.params.get('posicion');
     this.idUsuario = this.params.get('idUsuario');
     this.dameId();
+    this.infoUsuarios = 'info';
+
+    this.formularioUsuario = formBuilder.group({
+      nombre: ['',Validators.compose([Validators.required])],
+      apellido: ['',Validators.compose([Validators.required])],
+      residencia: ['',Validators.compose([Validators.required])],
+      institucion: ['',Validators.compose([Validators.required])],
+      grado: ['',Validators.compose([Validators.required])],
+    });
+  
   }
 
   dameId() {
@@ -173,6 +188,15 @@ export class UsuarioPage {
       content: "Cargando usuario. Espere por favor..."
     });
     this.loading.present();
-  } 
+  }
+
+  actualizar(){
+    if(!this.formularioUsuario.valid){
+      console.log("formulario invalido");
+        this.submitAttempt = true;
+    }else{
+      console.log("form valido");
+    }
+  }
 
 }
