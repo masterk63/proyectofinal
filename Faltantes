@@ -7,5 +7,10 @@ detalles de los markadores, y cluster en una barra lateral
 contraseñas encriptadas.
 ver el tema del mapa sin conexion en el registro
 armar toda la seccion de aministracion.
+en la parte mostrar un registro en particular.. hacer que realmente devuelva lo bichos correpondinetes
+a la hora de creaer un registro.. controlar dos cosas.. primero.. que se cuando se crean.. se guarden que bichos estan..
+la segunda.. que a la hora de guardar el mapa.. no se guarde el mapa que capturo la foto.. ya que mpuede fallar.. hacerlo mediante
+la API de Google..
+
 
 

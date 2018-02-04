@@ -5,14 +5,9 @@ import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import { Storage } from '@ionic/storage';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
+import { ListaRegistrosPage } from '../lista-registros/lista-registros';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-/*
-  Generated class for the Usuario page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-usuario',
   templateUrl: 'usuario.html'

@@ -1,4 +1,4 @@
-<!-- <ion-header>
+<ion-header>
   <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -8,68 +8,8 @@
     </ion-title>
   </ion-navbar>
 
-</ion-header> -->
+</ion-header>
 
 <ion-content>
-  <!-- <button (click)="fakeRegitro()">fakeRegitro</button> -->
-  <ion-list *ngIf="registros" [@listAnimation]="registros.length">
-    <ion-list-header>
-      <ion-icon name="folder" item-left large></ion-icon> Local
-    </ion-list-header>
-    <ion-item *ngFor="let reg of registros">
-      <ion-thumbnail item-start>
-        <img [src]="'data:image/png;base64,'+reg.fotoPaisaje">
-      </ion-thumbnail>
-      <h2><ion-icon name="locate" item-left large></ion-icon> {{reg.latitud}}</h2>
-      <h2 style="margin-left: 28px;">{{reg.longitud}}</h2>
-      <p>
-        <ion-icon name="ios-bug" item-left large></ion-icon> {{reg.indice}}
-        <ion-icon name="calendar" item-left large></ion-icon> {{reg.fecha | date:'dd/MM/yy'}}
-      </p>
-      <button ion-button clear item-end (click)="borrarRegistro(reg.idRegistro)">View</button>
-    </ion-item>
-  </ion-list>
-
-  <ion-list *ngIf="registrosOnline" [@listAnimation]="registrosOnline.length">
-    <ion-list-header>
-      <ion-icon name="globe" item-left large></ion-icon> Online
-    </ion-list-header>
-    <ion-item *ngFor="let reg of registrosOnline"  >
-      <h2><ion-icon name="locate" item-left large></ion-icon>{{reg.ciudad}}, {{reg.provincia}}</h2>
-      <h2 style="margin-left: 24px;">{{reg.pais}}</h2>
-      <p>
-        <ion-icon name="ios-bug" item-left large></ion-icon> {{reg.indice}}
-        <ion-icon name="calendar" item-left large></ion-icon> {{reg.fecha | date:'dd/MM/yy'}}
-      </p>
-      <button ion-button clear item-end (click)="irAlRegistro(reg.idRegistro)">View</button>
-    </ion-item>
-  </ion-list>
-  <!-- <ion-row>
-    <ion-col col-md-6 col-lg-4 *ngFor="let reg of registros">
-      <ion-card 
-        style="position: relative;">
-
-        <img [src]="reg.fotoMapa">
-        <img [src]="fotoMapaNoDisponible">
-        <ion-fab right top>
-          <button ion-fab>
-            <ion-icon name="pin"></ion-icon>
-          </button>
-        </ion-fab>
-
-        <ion-item>
-          <ion-icon name="calendar" item-left large></ion-icon>
-          <h2>{{reg.fecha | date:'dd/MM/yy'}}</h2>
-          <p>{{reg.ciudad}}, {{reg.provincia}}, {{reg.pais}}</p>
-        </ion-item>
-
-        <ion-item>
-          <ion-icon name="ios-bug" item-left large></ion-icon>
-          <h2>INDICE DEL REGISTRO</h2>
-          <p>{{reg.indice}}</p>
-        </ion-item>
-
-      </ion-card>
-    </ion-col>
-  </ion-row> -->
+  <lista-registros></lista-registros>
 </ion-content>

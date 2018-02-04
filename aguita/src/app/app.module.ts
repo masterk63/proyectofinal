@@ -23,6 +23,7 @@ import { Wheel } from '../pages/wheel/wheel';
 import { RegistroPage } from '../pages/registro/registro';
 import { UsuarioPage } from '../pages/usuario/usuario';
 import { MenuPage } from '../pages/menu/menu';
+import { ListaRegistrosPage } from '../pages/lista-registros/lista-registros';
 
 // Providers
 import { Todos } from '../providers/todos';
@@ -80,7 +81,8 @@ import { SocketProvider } from '../providers/socket/socket';
     MisRegistrosPage,
     TutorialPage,
     Wheel,
-    RegistroPage
+    RegistroPage,
+    ListaRegistrosPage
   ],
   imports: [
     BrowserModule,
@@ -116,7 +118,8 @@ import { SocketProvider } from '../providers/socket/socket';
     Wheel,
     RegistroPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ListaRegistrosPage
   ],
   providers: [
     File,
