@@ -106,6 +106,9 @@
         <variable name="APP_ID" value="164639320988358" />
         <variable name="APP_NAME" value="Aguita" />
     </plugin>
+    <plugin name="cordova-plugin-googleplus" spec="^5.2.1">
+        <variable name="REVERSED_CLIENT_ID" value="166102314443-sn7v3u0277d3dln0rmof5sj9djpcjol3.apps.googleusercontent.com" />
+    </plugin>
     <engine name="android" spec="~6.3.0" />
     <engine name="ios" spec="~4.5.4" />
 </widget>

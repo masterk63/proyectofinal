@@ -49,6 +49,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Keyboard } from '@ionic-native/keyboard';
 import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 //Importaciones
 import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
@@ -133,6 +134,7 @@ import { SocketProvider } from '../providers/socket/socket';
     SplashScreen,
     SQLite,
     Facebook,
+    GooglePlus,
     Geolocation,
     Diagnostic,
     Keyboard,

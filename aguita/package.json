@@ -30,6 +30,7 @@
     "@ionic-native/file-transfer": "^4.1.0",
     "@ionic-native/geolocation": "^4.5.2",
     "@ionic-native/google-maps": "^4.1.0",
+    "@ionic-native/google-plus": "^4.5.3",
     "@ionic-native/keyboard": "^4.5.2",
     "@ionic-native/network": "^4.5.2",
     "@ionic-native/photo-viewer": "^4.1.0",
@@ -48,6 +49,7 @@
     "cordova-plugin-facebook4": "^1.9.1",
     "cordova-plugin-googlemaps": "^2.1.1",
     "cordova-plugin-googlemaps-sdk": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk.git",
+    "cordova-plugin-googleplus": "^5.2.1",
     "cordova-plugin-network-information": "^2.0.0",
     "cordova-plugin-splashscreen": "^5.0.0",
     "cordova-plugin-statusbar": "^2.3.0",
@@ -97,6 +99,9 @@
       "cordova-plugin-facebook4": {
         "APP_ID": "164639320988358",
         "APP_NAME": "Aguita"
+      },
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "166102314443-sn7v3u0277d3dln0rmof5sj9djpcjol3.apps.googleusercontent.com"
       }
     }
   }

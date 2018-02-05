@@ -11,6 +11,8 @@ import { Localsave } from '../../providers/localsave';
 import { SocketProvider } from '../../providers/socket/socket';
 import { MenuController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
+
 
 @Component({
   selector: 'login-page',
@@ -35,6 +37,7 @@ export class LoginPage {
     public loadingCtrl: LoadingController,
     public localSaveCtrl: Localsave,
     public fb: Facebook,
+    private googlePlus: GooglePlus,
     public socketPrv: SocketProvider,
     private menu: MenuController,
     public storage: Storage,
@@ -106,6 +109,43 @@ export class LoginPage {
       }, function (error) {
         console.log(error);
       });
+  }
+
+  doGoogleLogin(){
+    let nav = this.navCtrl;
+    let env = this;
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+    this.googlePlus.login({
+      'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+      'webClientId': 'webClientId.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+      'offline': true
+    })
+    .then(function (user) {
+      loading.dismiss();
+      let user2 = {
+        name: user.displayName,
+        email: user.email,
+        picture: user.imageUrl
+      }
+
+      console.log(user2);
+      // env.nativeStorage.setItem('user', {
+      //   name: user.displayName,
+      //   email: user.email,
+      //   picture: user.imageUrl
+      // })
+      // .then(function(){
+      //   nav.push(UserPage);
+      // }, function (error) {
+      //   console.log(error);
+      // })
+    }, function (error) {
+      console.log(error)
+      loading.dismiss();
+    });
   }
 
   shouldShow() {

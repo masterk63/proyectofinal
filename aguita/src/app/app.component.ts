@@ -31,9 +31,10 @@ export class MyApp {
     splashScreen: SplashScreen) {
 
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
+      
+      // StyleLightContent setea el menu en blanco. para que el StatusBar
+      // se pueda leer bien.. ya que nuestro menu es Rojo.
+      statusBar.styleLightContent();
       splashScreen.hide();
 
       if (this.platform.is('cordova')) {
