@@ -24,6 +24,7 @@
     "@ionic-native/camera": "^4.1.0",
     "@ionic-native/core": "4.5.2",
     "@ionic-native/diagnostic": "^4.5.2",
+    "@ionic-native/facebook": "^4.5.3",
     "@ionic-native/file": "^4.1.0",
     "@ionic-native/file-path": "^4.1.0",
     "@ionic-native/file-transfer": "^4.1.0",
@@ -39,11 +40,12 @@
     "@types/pouchdb": "6.3.2",
     "cordova": "8.0.0",
     "cordova-android": "6.3.0",
-    "cordova-ios": "^4.5.4",
+    "cordova-ios": "4.5.4",
     "cordova-plugin-camera": "^4.0.0",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-device": "^2.0.0",
+    "cordova-plugin-facebook4": "^1.9.1",
     "cordova-plugin-googlemaps": "^2.1.1",
     "cordova-plugin-googlemaps-sdk": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk.git",
     "cordova-plugin-network-information": "^2.0.0",
@@ -74,8 +76,8 @@
   "description": "An Ionic project",
   "cordova": {
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ],
     "plugins": {
       "ionic-plugin-keyboard": {},
@@ -91,7 +93,11 @@
         "API_KEY_FOR_ANDROID": "AIzaSyDgvGKPGqI8NHne4tdO4ZMIHE_QcCeEWbk",
         "API_KEY_FOR_IOS": "AIzaSyDEVLTEbFcVgNm2anHlKEfiqvnJYUYa6No"
       },
-      "cordova-plugin-network-information": {}
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "164639320988358",
+        "APP_NAME": "Aguita"
+      }
     }
   }
 }

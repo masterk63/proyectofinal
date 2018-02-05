@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MyApp</name>
+<widget id="lillo.aguita.registros" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Aguita</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
@@ -102,6 +102,10 @@
     <allow-navigation href="http://192.168.1.15:8100" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <allow-navigation href="http://192.168.1.11:8100" />
-    <engine name="ios" spec="^4.5.4" />
-    <engine name="android" spec="6.3.0" />
+    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
+        <variable name="APP_ID" value="164639320988358" />
+        <variable name="APP_NAME" value="Aguita" />
+    </plugin>
+    <engine name="android" spec="~6.3.0" />
+    <engine name="ios" spec="~4.5.4" />
 </widget>

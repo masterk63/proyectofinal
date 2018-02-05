@@ -48,6 +48,7 @@ import { SQLite } from '@ionic-native/sqlite';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Keyboard } from '@ionic-native/keyboard';
+import { Facebook } from '@ionic-native/facebook';
 
 //Importaciones
 import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
@@ -131,6 +132,7 @@ import { SocketProvider } from '../providers/socket/socket';
     StatusBar,
     SplashScreen,
     SQLite,
+    Facebook,
     Geolocation,
     Diagnostic,
     Keyboard,
