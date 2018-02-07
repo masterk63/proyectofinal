@@ -101,7 +101,7 @@
         "APP_NAME": "Aguita"
       },
       "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "166102314443-sn7v3u0277d3dln0rmof5sj9djpcjol3.apps.googleusercontent.com"
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.166102314443-sn7v3u0277d3dln0rmof5sj9djpcjol3"
       }
     }
   }

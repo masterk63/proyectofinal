@@ -14,6 +14,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 
 
+
 @Component({
   selector: 'login-page',
   templateUrl: 'login-page.html'
@@ -29,6 +30,8 @@ export class LoginPage {
   fotoIntro: any;
   urlImg: string;
   FB_APP_ID: number = 164639320988358;
+  respuestaGoogle: any;
+  
 
   constructor(public navCtrl: NavController,
     public plt: Platform,
@@ -120,18 +123,18 @@ export class LoginPage {
     loading.present();
     this.googlePlus.login({
       'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-      'webClientId': 'webClientId.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+      'webClientId': '166102314443-8d6u9cfthhbe76a9mpdb458ltegea2n0.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
       'offline': true
     })
-    .then(function (user) {
+    .then((user) => {
       loading.dismiss();
       let user2 = {
         name: user.displayName,
         email: user.email,
         picture: user.imageUrl
       }
-
-      console.log(user2);
+      this.respuestaGoogle = JSON.stringify(user2);
+      console.log(this.respuestaGoogle);
       // env.nativeStorage.setItem('user', {
       //   name: user.displayName,
       //   email: user.email,
@@ -142,8 +145,9 @@ export class LoginPage {
       // }, function (error) {
       //   console.log(error);
       // })
-    }, function (error) {
-      console.log(error)
+    }).catch((error) => {
+      this.respuestaGoogle = error;
+      console.log(this.respuestaGoogle)
       loading.dismiss();
     });
   }
