@@ -92,7 +92,6 @@ export class HomePage {
         public diagnosticProvider: DiagnosticProvider,
         public alertCtrl: AlertController
     ) {
-
         //Detecta la ubicacion
         this.ubicacion();
 

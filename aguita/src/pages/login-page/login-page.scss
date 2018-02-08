@@ -5,7 +5,7 @@
             // font-family: 'Fascinate Inline', cursive;
             font-family: 'Leckerli One', cursive !important;
             text-align: center; 
-            margin: 63px 15%;
+            margin: 63px 0px;
             font-size: 3em;
         }
 
@@ -28,13 +28,9 @@
         }
 
         .overlay{
-            position: fixed;
-            width: 100%;
+            position: relative;
             height: 100%;
             background: rgba(0,0,0,0.7);
-            z-index: 20;
-            top: 0;
-            left: 0;
         }
 
         ion-content{
@@ -50,6 +46,7 @@
         .entreLineas span {
             display: inline-block;
             position: relative;  
+            width: 25%;
         }
         .entreLineas span:before,
         .entreLineas span:after {
@@ -72,16 +69,19 @@
 
         .logFace{
             background-color: #1b4d7f;
-            float: left;
-            width: 44.5%;
-            margin-left: 5%;
-            margin-right: 1%;
+            width: 90%;
+            margin: 0 auto;
         }
 
-        .logGoogle{
-            background-color: #d14836;
-            float: left;
-            width: 44.5%;
+        .logFace:hover{
+            background-color: #062e56;
+        }
+
+        .boton{
+            display: block;
+            width: 90%;
+            margin: 0 auto;
+            font-family: 'Oswald', sans-serif;
         }
     }
 }

@@ -11,9 +11,8 @@ import { Localsave } from '../../providers/localsave';
 import { SocketProvider } from '../../providers/socket/socket';
 import { MenuController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
-import { GooglePlus } from '@ionic-native/google-plus';
-
-
+import { AuthService } from "angular4-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 
 @Component({
   selector: 'login-page',
@@ -31,7 +30,7 @@ export class LoginPage {
   urlImg: string;
   FB_APP_ID: number = 164639320988358;
   respuestaGoogle: any;
-  
+
 
   constructor(public navCtrl: NavController,
     public plt: Platform,
@@ -40,7 +39,7 @@ export class LoginPage {
     public loadingCtrl: LoadingController,
     public localSaveCtrl: Localsave,
     public fb: Facebook,
-    private googlePlus: GooglePlus,
+    private authServiceFacebook: AuthService,
     public socketPrv: SocketProvider,
     private menu: MenuController,
     public storage: Storage,
@@ -69,6 +68,20 @@ export class LoginPage {
     this.fotoIntro = this.urlImg + "assets/img/cascadaRioNoque.jpg";
 
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
+  }
+
+  ngOnInit() {
+    this.authServiceFacebook.authState.subscribe((user) => {
+      console.log(user);
+    });
+  }
+
+  signInWithFB(): void {
+    this.authServiceFacebook.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  signOut(): void {
+    this.authServiceFacebook.signOut();
   }
 
   doFbLogin() {
@@ -112,44 +125,6 @@ export class LoginPage {
       }, function (error) {
         console.log(error);
       });
-  }
-
-  doGoogleLogin(){
-    let nav = this.navCtrl;
-    let env = this;
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-    loading.present();
-    this.googlePlus.login({
-      'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-      'webClientId': '166102314443-8d6u9cfthhbe76a9mpdb458ltegea2n0.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
-      'offline': true
-    })
-    .then((user) => {
-      loading.dismiss();
-      let user2 = {
-        name: user.displayName,
-        email: user.email,
-        picture: user.imageUrl
-      }
-      this.respuestaGoogle = JSON.stringify(user2);
-      console.log(this.respuestaGoogle);
-      // env.nativeStorage.setItem('user', {
-      //   name: user.displayName,
-      //   email: user.email,
-      //   picture: user.imageUrl
-      // })
-      // .then(function(){
-      //   nav.push(UserPage);
-      // }, function (error) {
-      //   console.log(error);
-      // })
-    }).catch((error) => {
-      this.respuestaGoogle = error;
-      console.log(this.respuestaGoogle)
-      loading.dismiss();
-    });
   }
 
   shouldShow() {

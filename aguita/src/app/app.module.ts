@@ -35,7 +35,9 @@ import { UsuariosService } from '../providers/usuariosService';
 import { RegistrosService } from '../providers/registrosService';
 import { Auth } from '../providers/auth';
 import { LocalSqlProvider } from '../providers/local-sql/local-sql';
-
+import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
+ 
 
 //Provaider NativeComponents
 import { Camera } from '@ionic-native/camera';
@@ -49,7 +51,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Keyboard } from '@ionic-native/keyboard';
 import { Facebook } from '@ionic-native/facebook';
-import { GooglePlus } from '@ionic-native/google-plus';
+
 
 //Importaciones
 import { SwipeVertical } from '../components/swipe-vertical/swipe-vertical';
@@ -63,6 +65,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DiagnosticProvider } from '../providers/diagnostic/diagnostic';
 import { SocketProvider } from '../providers/socket/socket';
 
+let config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("164639320988358")
+  }
+]);
 
 @NgModule({
   declarations: [
@@ -91,6 +99,7 @@ import { SocketProvider } from '../providers/socket/socket';
     IonicImageViewerModule,
     BrowserAnimationsModule,
     HttpModule,
+    SocialLoginModule.initialize(config),
     IonicModule.forRoot(MyApp, {
       backButtonText: '',
       mode: "md",
@@ -134,7 +143,6 @@ import { SocketProvider } from '../providers/socket/socket';
     SplashScreen,
     SQLite,
     Facebook,
-    GooglePlus,
     Geolocation,
     Diagnostic,
     Keyboard,
