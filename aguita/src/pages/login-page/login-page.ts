@@ -19,7 +19,6 @@ import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-logi
   templateUrl: 'login-page.html'
 })
 export class LoginPage {
-  resultadoDelLogin: any;
   username: string;
   password: string;
   loading: any;
@@ -162,11 +161,10 @@ export class LoginPage {
       password: this.password
     };
 
-    this.authService.login(credentials).then((result) => {
-      this.resultadoDelLogin = result;
+    this.authService.login(credentials).then((result:any) => {
       this.loading.dismiss();
       this.presentToast();
-      this.socketPrv.init(this.resultadoDelLogin.user.idUsuario);
+      this.socketPrv.init(result.user.idUsuario);
       this.navCtrl.setRoot(TabsPage);
     }, (err) => {
       this.loading.dismiss();
