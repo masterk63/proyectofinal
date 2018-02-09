@@ -22,7 +22,6 @@ function setUserInfo(request) {
 // para poder formar el token
 exports.login = function (req, res, next) {
   var username = req.user;
-  console.log('mostrando el contenido despues del middlewear', username)
   if (username.codigo != 0) {
       var userInfo = setUserInfo(username);
       res.status(200).json({

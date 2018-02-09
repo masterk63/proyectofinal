@@ -22,7 +22,10 @@ module.exports = function(app){
     //Para el login, pongo primero el middleware de passport, con la llamada a 
     // requireLogin, y depues llamo al login propiamente dicho, para armar el token
     authRoutes.post('/login', requireLogin, AuthenticationController.login);
- 
+    
+    //Ruta de prueba que se usa para ver si el Token con JWT, esta funcionando
+    // correctamente, se usa el middlewear requireAuth de ahora en mas, para hacer
+    // las consultas.
     authRoutes.get('/protected', requireAuth, function(req, res){
         res.send({ content: 'Success'});
     });
