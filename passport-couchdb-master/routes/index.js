@@ -35,6 +35,13 @@ module.exports = function(app){
     apiUsuarios.post('/usuarioModificar',UsuariosController.usuarioModificar);
     apiUsuarios.get('/usuarioBaja/:id',UsuariosController.usuarioBaja);
     apiUsuarios.post('/forgot',UsuariosController.forgotPassword);
+    app.get('/forgot', function(req, res) {
+        res.render('forgot', {
+            user: req.user
+        });
+    });
+    app.get('/reset/:token', UsuariosController.resetPassword);
+    app.post('/reset/:token', UsuariosController.resetPasswordPOST);
     //API Registros
     apiRegistros.get('/registrosListar',RegistrosController.registrosListar);
     apiRegistros.post('/registroNuevo',RegistrosController.registroNuevo);
@@ -49,16 +56,8 @@ module.exports = function(app){
     // Set up routes
     //Esto es para que use la ruta! sino error
     app.use('/api', apiRoutes,apiUsuarios,apiRegistros);
-    
-    app.get('/reset/:token', UsuariosController.resetPassword);
-    app.post('/reset/:token', UsuariosController.resetPasswordPOST);
-    
+
     app.get('/', function(req, res) {
         res.render('index', { title: 'Express' });
-    });
-    app.get('/forgot', function(req, res) {
-        res.render('forgot', {
-            user: req.user
-        });
     });
 }

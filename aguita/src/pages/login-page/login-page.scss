@@ -1,51 +1,45 @@
-.ios, .md {
+.ios,
+.md {
     login-page {
-        .titulo{
+        .titulo {
             // font-family: 'Pacifico', cursive; 
             // font-family: 'Fascinate Inline', cursive;
             font-family: 'Leckerli One', cursive !important;
-            text-align: center; 
+            text-align: center;
             margin: 63px 0px;
             font-size: 3em;
         }
-
-        a{
-            font-weight: bold; 
-            color: lightgray; 
+        a {
+            font-weight: bold;
+            color: lightgray;
             text-decoration: underline;
             font-size: 12px;
         }
-
-        .pIzq{
-            float:left; 
-            margin-left: 10%; 
-            
+        .pIzq {
+            float: left;
+            margin-left: 10%;
         }
-
-        .pDer{
-            float:right; 
-            margin-right: 10%; 
+        .pDer {
+            float: right;
+            margin-right: 10%;
         }
-
-        .overlay{
+        .overlay {
             position: relative;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
         }
-
-        ion-content{
+        ion-content {
             // background-image: url("../assets/img/cascadaRioNoque.jpg");
             background-position: center;
             color: white;
         }
-
         .entreLineas {
             line-height: 0.5;
             text-align: center;
         }
         .entreLineas span {
             display: inline-block;
-            position: relative;  
+            position: relative;
             width: 25%;
         }
         .entreLineas span:before,
@@ -53,8 +47,7 @@
             content: "";
             position: absolute;
             height: 3px;
-            border-bottom: 1px solid grey;
-            // border-top: 1px solid grey;
+            border-bottom: 1px solid grey; // border-top: 1px solid grey;
             top: 0;
             width: 100%;
         }
@@ -66,18 +59,15 @@
             left: 100%;
             margin-left: 15px;
         }
-
-        .logFace{
+        .logFace {
             background-color: #1b4d7f;
             width: 90%;
             margin: 0 auto;
         }
-
-        .logFace:hover{
+        .logFace:hover {
             background-color: #062e56;
         }
-
-        .boton{
+        .boton {
             display: block;
             width: 90%;
             margin: 0 auto;

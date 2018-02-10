@@ -13,6 +13,7 @@ import { MenuController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { AuthService } from "angular4-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
 @Component({
   selector: 'login-page',
@@ -56,7 +57,7 @@ export class LoginPage {
     } else if (this.width <= 600) {
       this.tam = "110% 100%";
     } else if (this.width > 600) {
-      this.tam = "100% 100%";
+      this.tam = "200% 100%";
     }
 
     if (this.plt.is('cordova')) {
@@ -179,6 +180,10 @@ export class LoginPage {
 
   crearCuenta() {
     this.navCtrl.push(SignupPage);
+  }
+
+  forgotPassword() {
+    this.navCtrl.push(ForgotPasswordPage);
   }
 
   showLoader() {

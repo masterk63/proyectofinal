@@ -16,14 +16,11 @@ export class Auth {
 
   //verifica con el token si el usuario existe en la base de dato
   checkAuthentication() {
-
     return new Promise((resolve, reject) => {
-
       //Load token if exists
       this.storage.get('token').then((value) => {
-
         this.token = value;
-
+        
         let headers = new Headers();
         headers.append('Authorization', this.token);
 
