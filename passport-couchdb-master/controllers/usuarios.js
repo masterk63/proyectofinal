@@ -2,6 +2,7 @@ var User = require('./../models/user');
 var async = require('async'),
   crypto = require('crypto');
 const nodemailer = require('nodemailer');
+var configServer = require('./../server.js' );
 
 exports.dameUsuario = function (req, res) {
   User.dame(req.params.id, function (consulta) {
@@ -42,7 +43,8 @@ exports.resetPassword = function (req, res) {
   User.buscarToken(req.params.token, function (err, consulta) {
     if (consulta[0].codigo === 0) {
       req.flash('error', consulta[0].mensaje);
-      return res.redirect('/');
+      // return res.redirect('/');
+      return res.render('resetError');
     } else {
       res.render('reset', {
         user: req.user
@@ -68,12 +70,12 @@ exports.resetPasswordPOST = function (req, res) {
       User.buscarToken(req.params.token, function (err, consulta) {
         if (consulta[0].codigo === 0) {
           req.flash('error', consulta[0].mensaje);
-          return res.redirect('/');
+          return res.render('resetError');
         } else {
           User.actualizarContrasenia(req.body.password, consulta[0].idUsuario, function (err, consulta) {
             if (consulta[0].codigo === 0) {
               req.flash('error', consulta[0].mensaje);
-              return res.redirect('/');
+              return res.render('resetError');
             } else {
               done(err, consulta[0].mail);
             }
@@ -108,7 +110,6 @@ exports.resetPasswordPOST = function (req, res) {
 
 
 exports.forgotPassword = function (req, res) {
-
   async.waterfall([
     function (done) {
       crypto.randomBytes(20, function (err, buf) {
@@ -145,10 +146,10 @@ exports.forgotPassword = function (req, res) {
         to: mail,
         from: 'restablecercontrasenia@aguita.com',
         subject: 'Restablecer Contrasenia',
-        text: 'Recibiste este mail porque tu (o alguien mas) pidio un restablecimiento de contrasenia para tu cuenta en aguieta. \n\n' +
-          'Porfavor click aqui en el siguiente enlace, o pega esto en tu navegador para completar el proceso: \n\n' +
-          'http://rickybruno.sytes.net/reset/' + token + '\n\n' +
-          'Si tu no lo solicitaste, por favor ignora este mail y tu contrasenia no sera cambiada.\n'
+        text: 'Recibiste este mail porque tu (o alguien mas) pidio un restablecimiento de contrasenia para tu cuenta en Aguita. \n\n' +
+          'Hace click aqui en el siguiente enlace, o pega esto en tu navegador para completar el proceso: \n\n' +
+          configServer.data.urlServidor + '/reset/' + token + '\n\n' +
+          'Si tu no lo solicitaste, por favor ignora este e-mail.\n'
       };
       transporter.sendMail(mailOptions, function (error, info) {
         console.log('mail enviado');

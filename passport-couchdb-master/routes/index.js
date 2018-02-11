@@ -35,11 +35,11 @@ module.exports = function(app){
     apiUsuarios.post('/usuarioModificar',UsuariosController.usuarioModificar);
     apiUsuarios.get('/usuarioBaja/:id',UsuariosController.usuarioBaja);
     apiUsuarios.post('/forgot',UsuariosController.forgotPassword);
-    app.get('/forgot', function(req, res) {
-        res.render('forgot', {
-            user: req.user
-        });
-    });
+    // app.get('/forgot', function(req, res) {
+    //     res.render('forgot', {
+    //         user: req.user
+    //     });
+    // });
     app.get('/reset/:token', UsuariosController.resetPassword);
     app.post('/reset/:token', UsuariosController.resetPasswordPOST);
     //API Registros
@@ -50,9 +50,6 @@ module.exports = function(app){
     apiRegistros.get('/registroValidar/:id',RegistrosController.registroValidar);
     apiRegistros.get('/registroInvalidar/:id',RegistrosController.registroInvalidar);
     
-    
-
-
     // Set up routes
     //Esto es para que use la ruta! sino error
     app.use('/api', apiRoutes,apiUsuarios,apiRegistros);

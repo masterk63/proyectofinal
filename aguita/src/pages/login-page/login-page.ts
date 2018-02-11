@@ -57,7 +57,7 @@ export class LoginPage {
     } else if (this.width <= 600) {
       this.tam = "110% 100%";
     } else if (this.width > 600) {
-      this.tam = "200% 100%";
+      this.tam = "100% 100%";
     }
 
     if (this.plt.is('cordova')) {

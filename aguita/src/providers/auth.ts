@@ -88,6 +88,25 @@ export class Auth {
 
   }
 
+  forgotPassword(credentials) {
+
+    return new Promise((resolve, reject) => {
+      
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(configServer.data.urlServidor + '/api/forgot', JSON.stringify(credentials), { headers: headers })
+        .subscribe(res => {
+            let data = res.json();
+            resolve(data);
+        }, (err) => {
+          reject(err);
+        });
+
+    });
+
+  }
+
   logout() {
     return new Promise((resolve, reject) => {
       this.storage.set('token', '');

@@ -4,23 +4,31 @@ html
     title= title
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
     script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
     script(src='//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js')
+    style(type='text/css').
+        .container {
+            margin: 1.6em !important;
+        }
+        .btn{
+          float:right;
+        }
   body
-    .navbar.navbar-inverse.navbar-static-top(role='navigation')
-      .container
-        .navbar-header
-          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-            span.sr-only Toggle navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand(href='/') Project name
-        .collapse.navbar-collapse
-          ul.nav.navbar-nav
-            li.active
-              a(href='/') Home
-            li
-              a(href='/forgot') Forgot
+    //- .navbar.navbar-inverse.navbar-static-top(role='navigation')
+    //-   .container
+    //-     .navbar-header
+    //-       button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+    //-         span.sr-only Toggle navigation
+    //-         span.icon-bar
+    //-         span.icon-bar
+    //-         span.icon-bar
+    //-       a.navbar-brand(href='/') Project name
+    //-     .collapse.navbar-collapse
+    //-       ul.nav.navbar-nav
+    //-         li.active
+    //-           a(href='/') Home
+    //-         li
+    //-           a(href='/forgot') Forgot
               
     .container
       if messages.error

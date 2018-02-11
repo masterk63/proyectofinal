@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    script(src='//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js')
+    style(type='text/css').
+        .alert {
+            margin: 0.6em 10% 0.8em !important;
+        }
+  body              
+    .container
+      if messages.error
+        .alert.alert-danger
+          ul
+            li= messages.error
+      block content
