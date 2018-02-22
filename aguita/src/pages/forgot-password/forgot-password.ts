@@ -58,16 +58,19 @@ export class ForgotPasswordPage {
   forgotPassword() {
     if (!this.registroForm.valid) {
       this.submitAttempt = true;
+      this.mostrarAlerta('Advertencia','Por favor complete todos los campos.')
     } else {
       this.showLoader();
       let details = {
         email: this.registroForm.value.mail,
       };
-      this.authService.forgotPassword(details).then((result) => {
+      this.authService.forgotPassword(details).then((result:any) => {
         this.loading.dismiss();
-        this.mostrarAlerta('Atencion','Por favor revise su casilla de correo electonico, para continuar con el procesos de restablecimiento de contraseña')
+        console.log(result);
+        this.mostrarAlerta('Atencion',result.mensaje)
         this.navCtrl.pop();
       }, (err) => {
+        this.mostrarAlerta('Error',err)
         this.loading.dismiss();
       });
     }

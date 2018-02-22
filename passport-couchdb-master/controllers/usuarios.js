@@ -56,9 +56,9 @@ exports.resetPassword = function (req, res) {
 exports.resetPasswordPOST = function (req, res) {
 
   //validacion de datos
-  req.assert('password', 'La contresenia debe poseer al menos 5 caracteres').notEmpty().len(5, 20);
-  req.assert('password_confirm', 'La contresenia de confirmacion debe poseer al menos 5 caracteres').notEmpty().len(5, 20);
-  req.assert('password_confirm', 'La contresenia debe coincidir').equals(req.body.password);
+  req.assert('password', 'La contreseña debe poseer al menos 5 caracteres').notEmpty().len(5, 20);
+  req.assert('password_confirm', 'La contreseña de confirmacion debe poseer al menos 5 caracteres').notEmpty().len(5, 20);
+  req.assert('password_confirm', 'Las contreseñas deben coincidir').equals(req.body.password);
 
   var errors = req.validationErrors();
   if (errors) {
@@ -128,12 +128,17 @@ exports.forgotPassword = function (req, res) {
           if (consulta[0].codigo === 0) {
             return res.json(consulta[0]);
           }
-          done(err, token, req.body.email); // siempre el done() tiene que llevar el error
-          // por definicion
+          if (consulta[0].codigo === 200) {
+            console.log(consulta[0].mensaje)
+            done(err, consulta[0].token, req.body.email, consulta[0].mensaje); 
+          }else{
+            done(err, token, req.body.email, consulta[0].mensaje); // siempre el done() tiene que llevar el error
+            // por definicion 
+          }
         });
       });
     },
-    function (token, mail, done) {
+    function (token, mail,mensaje, done) {
 
       var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -153,12 +158,12 @@ exports.forgotPassword = function (req, res) {
       };
       transporter.sendMail(mailOptions, function (error, info) {
         console.log('mail enviado');
-        done(error, 'done');
+        done(error, mensaje);
       });
     }
-  ], function (err) {
+  ], function (err,mensaje) {
     console.log('fin del proceso');
     if (err) return res.send(err);;
-    res.json({ 'codigo': 1, 'mensaje': 'listo' });
+    res.json({ 'codigo': 1, 'mensaje': mensaje });
   });
 }
