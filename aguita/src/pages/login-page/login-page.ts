@@ -14,6 +14,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { AuthService } from "angular4-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
+import UsuarioModelo from '../../modelos/usuario';
 
 @Component({
   selector: 'login-page',
@@ -75,19 +76,42 @@ export class LoginPage {
     if (!(this.plt.is('cordova'))) {
       this.authServiceFacebook.authState.subscribe((user) => {
         console.log(user);
-        if(user){
-          console.log('hay algo')
+        if (user) {
+          this.fbLoginWebStore(user);
         }
       });
     }
   }
-  
-  signOutWeb(){
+
+
+  signOutWeb() {
     this.authServiceFacebook.signOut();
   }
-  
+
+  loginFacebook() {
+    if (this.plt.is('cordova')) {
+      this.fbLoginNative();
+    } else {
+      this.fbLoginWeb();
+    }
+  }
+
   fbLoginWeb(): void {
     this.authServiceFacebook.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  async fbLoginWebStore(user) {
+    let usuario = new UsuarioModelo();
+    usuario.apellido = user.lastName;
+    usuario.nombre = user.firstName;
+    usuario.mail = user.email;
+    usuario.fotoPerfil = (await this.imgURLtoBase64('https://graph.facebook.com/10213916464658747/picture?type=normal')).toString().split(",")[1];
+    console.log(usuario)
+    // this.authService.createAccount().then(()=>{
+
+    // }).catch( e => {
+
+    // });
   }
 
   fbLoginNative() {
@@ -168,7 +192,7 @@ export class LoginPage {
       password: this.password
     };
 
-    this.authService.login(credentials).then((result:any) => {
+    this.authService.login(credentials).then((result: any) => {
       this.loading.dismiss();
       this.presentToast();
       this.socketPrv.init(result.user.idUsuario);
@@ -190,6 +214,22 @@ export class LoginPage {
 
   forgotPassword() {
     this.navCtrl.push(ForgotPasswordPage);
+  }
+
+  async imgURLtoBase64(url) {
+    return new Promise((resolve, reject) => {
+      let xhr = new XMLHttpRequest();
+      xhr.onload = () => {
+        let reader = new FileReader();
+        reader.onloadend = () => {
+          resolve(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+      };
+      xhr.open('GET', url);
+      xhr.responseType = 'blob';
+      xhr.send();
+    });
   }
 
   showLoader() {
