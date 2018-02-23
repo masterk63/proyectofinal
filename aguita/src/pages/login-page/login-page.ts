@@ -45,10 +45,11 @@ export class LoginPage {
     public storage: Storage,
     private toastCtrl: ToastController
   ) {
-    //this.menu.enable(false);
+
     this.sliderOptions = {
       pager: true
     };
+
     this.width = plt.width();
     if (this.width <= 320) {
       this.tam = "170% 100%";
@@ -71,20 +72,25 @@ export class LoginPage {
   }
 
   ngOnInit() {
-    this.authServiceFacebook.authState.subscribe((user) => {
-      console.log(user);
-    });
+    if (!(this.plt.is('cordova'))) {
+      this.authServiceFacebook.authState.subscribe((user) => {
+        console.log(user);
+        if(user){
+          console.log('hay algo')
+        }
+      });
+    }
   }
-
-  signInWithFB(): void {
+  
+  signOutWeb(){
+    this.authServiceFacebook.signOut();
+  }
+  
+  fbLoginWeb(): void {
     this.authServiceFacebook.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
-  signOut(): void {
-    this.authServiceFacebook.signOut();
-  }
-
-  doFbLogin() {
+  fbLoginNative() {
     let permissions = new Array<string>();
     let nav = this.navCtrl;
     let env = this;
