@@ -38,7 +38,6 @@ export class Auth {
   }
 
   createAccount(details) {
-
     return new Promise((resolve, reject) => {
 
       let headers = new Headers();
@@ -46,7 +45,6 @@ export class Auth {
 
       this.http.post(configServer.data.urlServidor +'/api/auth/register', JSON.stringify(details), { headers: headers })
         .subscribe(res => {
-
           let data = res.json();
           if (data.codigo > 0) {
             console.log(data.token);
@@ -59,9 +57,31 @@ export class Auth {
         }, (err) => {
           reject(err);
         });
-
     });
+  }
 
+  fbLogin(details) {
+    return new Promise((resolve, reject) => {
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(configServer.data.urlServidor +'/api/auth/fb', JSON.stringify(details), { headers: headers })
+        .map(res => res.json())
+        .subscribe(res => {
+          // let data = res.json();
+          // if (data.codigo > 0) {
+          //   console.log(data.token);
+          //   this.token = data.token;
+          //   this.storage.set('token', data.token);
+          //   this.storage.set('idUsuario', data.user.idUsuario);
+          //   this.storage.set('rol', data.user.rol);
+          // }
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
   }
 
   login(credentials) {

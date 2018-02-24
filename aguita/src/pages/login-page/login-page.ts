@@ -106,12 +106,13 @@ export class LoginPage {
     usuario.nombre = user.firstName;
     usuario.mail = user.email;
     usuario.fotoPerfil = (await this.imgURLtoBase64('https://graph.facebook.com/10213916464658747/picture?type=normal')).toString().split(",")[1];
+    usuario.password = user.id;
     console.log(usuario)
-    // this.authService.createAccount().then(()=>{
-
-    // }).catch( e => {
-
-    // });
+    this.authService.fbLogin(usuario).then((res)=>{
+      console.log(res);
+    }).catch( e => {
+      console.log(e);
+    });
   }
 
   fbLoginNative() {
