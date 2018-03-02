@@ -47,7 +47,6 @@ function convertirLaPrimeraLetraAMayuscula(str) {
 }
 
 exports.fb = function (req, res, next) {
-  res.json(req.body)
   if (!req.body.mail) {
     res.status(400).json({
       mensaje: "ERROR!!! Controlar los Campos Ingresados",
@@ -63,22 +62,22 @@ exports.fb = function (req, res, next) {
     fotoPerfil: '"' + req.body.fotoPerfil + '"'
   };
 
-  // User.crexarUsuario(details, function (respuesta) {
-  //   if (respuesta[0][0].codigo != 0) {
-  //     var id = '"' + respuesta[0][0].codigo + '"';
-  //     User.dame(id, function (data) {
-  //       var userInfo = setUserInfo(data[0]);
-  //       res.status(200).json({
-  //         token: 'JWT ' + generateToken(userInfo),
-  //         user: userInfo,
-  //         mensaje: "Usuario creado con exito",
-  //         codigo: 200
-  //       });
-  //     });
-  //   } else {
-  //     res.json(respuesta[0][0]);
-  //   }
-  // });
+  User.usuarioFaceBook(details, function (respuesta) {
+    if (respuesta[0][0].codigo != 0) {
+      var id = '"' + respuesta[0][0].codigo + '"';
+      User.dame(id, function (data) {
+        var userInfo = setUserInfo(data[0]);
+        res.status(200).json({
+          token: 'JWT ' + generateToken(userInfo),
+          user: userInfo,
+          mensaje: "Usuario creado con exito",
+          codigo: 200
+        });
+      });
+    } else {
+      res.json(respuesta[0][0]);
+    }
+  });
 }
 
 // creacion de usuarios 

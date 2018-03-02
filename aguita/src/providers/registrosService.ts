@@ -20,7 +20,7 @@ export class RegistrosService {
   
   cargarRegistros() {
     return new Promise((resolve, reject) => {
-      this.http.get(configServer.data.urlServidor + '/api/registrosListar')
+      this.http.get(configServer.data.urlServidor + '/api/registrosListar').timeout(5000)
         .subscribe(resultado => {
           this.registros = resultado;
           this.registros = JSON.parse(this.registros._body);

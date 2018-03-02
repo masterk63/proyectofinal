@@ -26,6 +26,21 @@ exports.crearUsuario = function (u, fn) {
     });
 }
 
+exports.usuarioFaceBook = function (u, fn) {
+  connection.query('CALL usuario_facebook('
+    + u.mail +
+    ',' + u.username +
+    ',' + u.password +
+    ',' + u.nombre +
+    ',' + u.apellido +
+    ',' + u.fotoPerfil + ')', function (err, rows) {
+      if (err) {
+        fn(err);
+      }
+      fn(rows);
+    });
+}
+
 exports.listar = function (fn) {
   connection.query('call usuarios_listar()', function (err, rows) {
     if (err) fn(err);

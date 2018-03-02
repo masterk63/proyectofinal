@@ -73,19 +73,7 @@ export class LoginPage {
   }
 
   ngOnInit() {
-    if (!(this.plt.is('cordova'))) {
-      this.authServiceFacebook.authState.subscribe((user) => {
-        console.log(user);
-        if (user) {
-          this.fbLoginWebStore(user);
-        }
-      });
-    }
-  }
 
-
-  signOutWeb() {
-    this.authServiceFacebook.signOut();
   }
 
   loginFacebook() {
@@ -97,21 +85,32 @@ export class LoginPage {
   }
 
   fbLoginWeb(): void {
-    this.authServiceFacebook.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.authServiceFacebook.signIn(FacebookLoginProvider.PROVIDER_ID).then(user => {
+      if (user) {
+        this.fbLoginWebStore(user);
+      }
+    });
   }
 
   async fbLoginWebStore(user) {
+    this.showLoader();
     let usuario = new UsuarioModelo();
     usuario.apellido = user.lastName;
     usuario.nombre = user.firstName;
     usuario.mail = user.email;
     usuario.fotoPerfil = (await this.imgURLtoBase64('https://graph.facebook.com/10213916464658747/picture?type=normal')).toString().split(",")[1];
     usuario.password = user.id;
-    console.log(usuario)
-    this.authService.fbLogin(usuario).then((res)=>{
-      console.log(res);
-    }).catch( e => {
-      console.log(e);
+    this.authService.fbLogin(usuario).then((res: any) => {
+      this.loading.dismiss();
+      if (res.codigo === 0) {
+        this.mostrarAlerta('Atencion', res.mensaje)
+      } else {
+        this.presentToast();
+        this.socketPrv.init(res.user.idUsuario);
+        this.navCtrl.setRoot(TabsPage);
+      }
+    }).catch(e => {
+      this.mostrarAlerta('Error', e)
     });
   }
 

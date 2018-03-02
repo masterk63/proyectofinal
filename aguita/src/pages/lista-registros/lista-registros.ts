@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,AlertController } from 'ionic-angular';
 import { Localsave } from '../../providers/localsave';
 import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
@@ -59,6 +59,7 @@ export class ListaRegistrosPage {
     public navParams: NavParams,
     public registrosCtrl: RegistrosService,
     public socketPrv: SocketProvider,
+    public alertCtrl: AlertController,
     public conexionProvider: ConnectivityService,
     private network: Network,
     public events: Events,
@@ -71,7 +72,9 @@ export class ListaRegistrosPage {
       console.log('registros en el servidor', registros);
       this.registrosOnline = registros;
       this.registrosOnline = this.registrosOnline.reverse();
-    })
+    }).catch(e => {
+      this.mostrarAlerta('Error','No se puede comunicar con el servidor')
+    }) 
 
     if (this.platform.is('cordova')) {
       this.localSQL.getAll().then((reg) => {
@@ -95,7 +98,6 @@ export class ListaRegistrosPage {
   }
 
   ionViewDidLoad() {
-
 
   }
 
@@ -122,5 +124,14 @@ export class ListaRegistrosPage {
 
   irAlRegistro(id) {
     this.navCtrl.push(RegistroPage, { idRegistro: id })
+  }
+
+  mostrarAlerta(titulo, mensaje) {
+    let alert = this.alertCtrl.create({
+      title: titulo,
+      subTitle: mensaje,
+      buttons: ['ACEPTAR']
+    });
+    alert.present();
   }
 }
