@@ -87,18 +87,18 @@ export class LoginPage {
   fbLoginWeb(): void {
     this.authServiceFacebook.signIn(FacebookLoginProvider.PROVIDER_ID).then(user => {
       if (user) {
-        this.fbLoginWebStore(user);
+        this.fbLoginStore(user);
       }
     });
   }
 
-  async fbLoginWebStore(user) {
+  async fbLoginStore(user) {
     this.showLoader();
     let usuario = new UsuarioModelo();
     usuario.apellido = user.lastName;
     usuario.nombre = user.firstName;
     usuario.mail = user.email;
-    usuario.fotoPerfil = (await this.imgURLtoBase64('https://graph.facebook.com/10213916464658747/picture?type=normal')).toString().split(",")[1];
+    usuario.fotoPerfil = (await this.imgURLtoBase64(user.photoUrl)).toString().split(",")[1];
     usuario.password = user.id;
     this.authService.fbLogin(usuario).then((res: any) => {
       this.loading.dismiss();
@@ -121,39 +121,28 @@ export class LoginPage {
     //the permissions your facebook app needs from the user
     permissions = ["public_profile"];
 
-
     this.fb.login(permissions)
-      .then(function (response) {
+      .then((response) => {
         let userId = response.authResponse.userID;
         let params = new Array<string>();
 
         //Getting name and gender properties
-        env.fb.api("/me?fields=name,gender", params)
-          .then(function (user) {
-            user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
-
+        env.fb.api("/me?fields=name,email,last_name,first_name", params)
+          .then( (user) => {
+            user.pic = "https://graph.facebook.com/" + userId + "/picture?type=normal";
             let usuario = {
-              name: user.name,
-              gender: user.gender,
-              picture: user.picture
+              firstName: user.first_name,
+              lastName: user.last_name,
+              email: user.email,
+              photoUrl: user.pic,
+              id: user.id
             }
-
-            console.log(usuario);
-            //now we have the users info, let's save it in the NativeStorage
-            // env.nativeStorage.setItem('user',
-            //   {
-            //     name: user.name,
-            //     gender: user.gender,
-            //     picture: user.picture
-            //   })
-            //   .then(function () {
-            //     nav.push(UserPage);
-            //   }, function (error) {
-            //     console.log(error);
-            //   })
+            this.fbLoginStore(usuario);
+          }).catch( e =>{
+            this.mostrarAlerta('Error',e)
           })
-      }, function (error) {
-        console.log(error);
+      }, (error) => {
+        this.mostrarAlerta('Error',error)
       });
   }
 

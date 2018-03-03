@@ -107,6 +107,7 @@
         <variable name="APP_NAME" value="Aguita" />
     </plugin>
     <allow-navigation href="http://192.168.0.20:8100" />
+    <allow-navigation href="http://192.168.1.19:8100" />
     <engine name="android" spec="6.3.0" />
     <engine name="ios" spec="4.5.4" />
 </widget>
