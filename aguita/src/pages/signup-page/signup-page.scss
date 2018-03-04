@@ -1,56 +1,39 @@
-.ios, .md {
- 
+.ios,
+.md {
     signup-page {
- 
-        .overlay{
+        .overlay {
             position: fixed;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 20;
             top: 0;
             left: 0;
         }
-
-        ion-content{
+        ion-content {
             // background-image: url("../assets/img/cascadaRioNoque.jpg");
             background-position: center;
             color: white;
         }
-
-        ion-icon{
+        ion-icon {
             font-size: 1.8em;
             font-weight: bold;
         }
-
-        .volver{
+        .volver {
             font-weight: bolder;
             font-size: 1.2em;
             color: white;
         }
-
         p {
             font-size: 0.8em;
             color: #ea6153;
         }
- 
         .swiper-slide {
             display: block;
         }
- 
-        ion-label, .select-text {
-            margin-left: 10px;
-        }
- 
-        ion-input, ion-select, ion-textarea {
-            background-color: #f2f2f2;
-            padding: 5px 10px;
-        }
- 
+        
         .invalid {
             border: 1px solid #ea6153;
         }
- 
     }
- 
 }

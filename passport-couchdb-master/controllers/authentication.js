@@ -9,7 +9,6 @@ function generateToken(user) {
 }
 
 function setUserInfo(request) {
-  console.log(request);
   return {
     idUsuario: request.idUsuario,
     username: request.usuario,
