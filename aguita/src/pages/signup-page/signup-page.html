@@ -2,78 +2,78 @@
   <div class="overlay" style="overflow: scroll">
     <button class="volver" ion-button clear (click)="volver()">
       <ion-icon name="arrow-back"></ion-icon>&emsp;Volver</button>
-    <div style="max-width: 480px;    margin: 0 auto;">
+    <div style="max-width: 480px;    margin: 0 auto;     padding: 15px;">
 
 
 
-      <ion-list no-lines>
+      <ion-list>
         <form [formGroup]="registroForm">
           <ion-item *ngIf="submitAttempt">
             <p style="color: #ea6153;">Por favor ingresar datos validos.</p>
           </ion-item>
           <ion-item>
             <ion-label>
-              <ion-icon name="person"></ion-icon> PSN
+              <ion-icon name="person"></ion-icon> Nombre
             </ion-label>
-            <ion-input clearInput formControlName="nombre" type="text" placeholder="Nombre" [class.invalid]="!registroForm.controls.nombre.valid && (registroForm.controls.nombre.dirty || submitAttempt)"></ion-input>
+            <ion-input clearInput formControlName="nombre" type="text" [class.invalid]="!registroForm.controls.nombre.valid && (registroForm.controls.nombre.dirty || submitAttempt)"></ion-input>
           </ion-item>
           <ion-item *ngIf="!registroForm.controls.nombre.valid  && (registroForm.controls.nombre.touched || submitAttempt)">
             <p>CAMPO OBLIGATORIO. Ingrese un nombre</p>
           </ion-item>
           <ion-item>
             <ion-label>
-              <ion-icon name="person"></ion-icon> PSN
+              <ion-icon name="person"></ion-icon> Apellido
             </ion-label>
-            <ion-input clearInput formControlName="apellido" type="text" placeholder="Apellido" [class.invalid]="!registroForm.controls.apellido.valid && (registroForm.controls.apellido.dirty || submitAttempt)"></ion-input>
+            <ion-input clearInput formControlName="apellido" type="text" [class.invalid]="!registroForm.controls.apellido.valid && (registroForm.controls.apellido.dirty || submitAttempt)"></ion-input>
           </ion-item>
           <ion-item *ngIf="!registroForm.controls.apellido.valid  && (registroForm.controls.apellido.touched || submitAttempt)">
             <p>CAMPO OBLIGATORIO. Ingrese un apellido</p>
           </ion-item>
           <ion-item>
             <ion-label>
-              <ion-icon name="pin"></ion-icon> PSN
+              <ion-icon name="pin"></ion-icon> Residencia
             </ion-label>
-            <ion-input clearInput formControlName="residencia" type="text" placeholder="Residencia (Ej: Tafi Viejo) OPCIONAL"></ion-input>
+            <ion-input clearInput formControlName="residencia" type="text"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>
-              <ion-icon name="home"></ion-icon> PSN
+              <ion-icon name="home"></ion-icon> Institución
             </ion-label>
-            <ion-input clearInput formControlName="institucion" type="text" placeholder="Institución (Ej: UNT)" [class.invalid]="!registroForm.controls.institucion.valid && (registroForm.controls.institucion.dirty || submitAttempt)"></ion-input>
+            <ion-input clearInput formControlName="institucion" type="text" [class.invalid]="!registroForm.controls.institucion.valid && (registroForm.controls.institucion.dirty || submitAttempt)"></ion-input>
           </ion-item>
           <ion-item *ngIf="!registroForm.controls.institucion.valid  && (registroForm.controls.institucion.touched || submitAttempt)">
             <p>CAMPO OBLIGATORIO. Ingrese una institución</p>
           </ion-item>
           <ion-item>
             <ion-label>
-              <ion-icon name="logo-playstation"></ion-icon> PSN
+              <ion-icon name="school"></ion-icon> Grado
             </ion-label>
-            <ion-input clearInput formControlName="grado" type="number" placeholder="Grado (Ej: 8vo año) OPCIONAL"></ion-input>
+            <ion-input clearInput formControlName="grado" type="number"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>
-              <ion-icon name="at"></ion-icon> PSN
+              <ion-icon name="at"></ion-icon> e-Mail
             </ion-label>
-            <ion-input clearInput formControlName="mail" type="email" placeholder="Correo electronico" [class.invalid]="!registroForm.controls.mail.valid && (registroForm.controls.mail.dirty || submitAttempt)"></ion-input>
+            <ion-input clearInput formControlName="mail" type="email" [class.invalid]="!registroForm.controls.mail.valid && (registroForm.controls.mail.dirty || submitAttempt)"></ion-input>
           </ion-item>
           <ion-item *ngIf="!registroForm.controls.mail.valid  && (registroForm.controls.mail.touched || submitAttempt)">
             <p>Por favor ingrese una direccion de mail valida</p>
           </ion-item>
           <ion-item>
             <ion-label>
-              <ion-icon name="contact"></ion-icon> PSN
+              <ion-icon name="contact"></ion-icon> Usuario
             </ion-label>
-            <ion-input clearInput formControlName="username" type="text" placeholder="Usuario" [class.invalid]="!registroForm.controls.username.valid && (registroForm.controls.username.dirty || submitAttempt)"></ion-input>
+            <ion-input clearInput formControlName="username" type="text" [class.invalid]="!registroForm.controls.username.valid && (registroForm.controls.username.dirty || submitAttempt)"></ion-input>
           </ion-item>
           <ion-item *ngIf="!registroForm.controls.username.valid  && (registroForm.controls.username.touched || submitAttempt)">
             <p>CAMPO OBLIGATORIO. Ingrese un nombre de usuario con al menos 5 caracteres</p>
           </ion-item>
           <ion-item>
-            <ion-icon name="eye" item-end></ion-icon>
+            <ion-icon name="eye" id="eye" item-end (click)="verPassword()"></ion-icon>
             <ion-label>
-              <ion-icon name="lock"></ion-icon> PSN
+              <ion-icon name="lock"></ion-icon> Contraseña
             </ion-label>
-            <ion-input clearInput formControlName="password" [type]="verPass" placeholder="Contraseña" [class.invalid]="!registroForm.controls.password.valid && (registroForm.controls.password.dirty || submitAttempt)"></ion-input>
+            <ion-input clearInput formControlName="password" [type]="verPass" [class.invalid]="!registroForm.controls.password.valid && (registroForm.controls.password.dirty || submitAttempt)"></ion-input>
           </ion-item>
           <ion-item *ngIf="!registroForm.controls.password.valid  && (registroForm.controls.password.touched || submitAttempt)">
             <p>CAMPO OBLIGATORIO. Ingrese una contraseña con al menos 5 caracteres</p>
@@ -91,8 +91,7 @@
                 </ion-item>-->
         </form>
       </ion-list>
-      <button ion-button style="display: block; width: 90%; margin: 0px auto 10% auto; font-family: 'Oswald', sans-serif;" color="white"
-        (click)="register()">
+      <button ion-button color="primary" id="registrar" (click)="register()">
         Registrarse
       </button>
     </div>

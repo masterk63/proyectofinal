@@ -18,11 +18,13 @@
         ion-icon {
             font-size: 1.8em;
             font-weight: bold;
+            margin-left: 1px;
         }
         .volver {
             font-weight: bolder;
             font-size: 1.2em;
             color: white;
+            margin-top: 30px;
         }
         p {
             font-size: 0.8em;
@@ -31,9 +33,22 @@
         .swiper-slide {
             display: block;
         }
-        
         .invalid {
             border: 1px solid #ea6153;
+        }
+        ion-label {
+            margin: 0 !important;
+        }
+        #eye {
+            color: #999;
+            cursor: pointer;
+        }
+        #eye:hover {
+            color: #827878;
+        }
+
+        #registrar{
+          width: 100%
         }
     }
 }

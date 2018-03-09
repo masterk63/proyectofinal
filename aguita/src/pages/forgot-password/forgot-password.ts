@@ -21,6 +21,7 @@ export class ForgotPasswordPage {
   verPass = "password";
   tituloBoton = "Mostrar contraseña";
   isActive = false;
+  urlImg: string;
 
   constructor(public navCtrl: NavController,
     public plt: Platform,
@@ -47,12 +48,14 @@ export class ForgotPasswordPage {
     } else if (this.width > 600) {
       this.tam = "100% 100%";
     }
-    this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
-    // if(this.plt.is('android') || this.plt.is('ios')){
-    //     this.fotoIntro = "../www/assets/img/cascadaRioNoque.jpg";
-    // }else{
-    //     this.fotoIntro = "../assets/img/cascadaRioNoque.jpg";
-    // }
+    
+    if (this.plt.is('cordova')) {
+      this.urlImg = '../www/'
+    } else {
+      this.urlImg = '../'
+    }
+    this.fotoIntro = this.urlImg + "assets/img/cascadaRioNoque.jpg";
+
   }
 
   forgotPassword() {
