@@ -93,6 +93,7 @@ export class LoginPage {
   }
 
   async fbLoginStore(user) {
+    console.log('viende fb',JSON.stringify(user))
     this.showLoader();
     let usuario = new UsuarioModelo();
     usuario.apellido = user.lastName;
@@ -100,6 +101,7 @@ export class LoginPage {
     usuario.mail = user.email;
     usuario.fotoPerfil = (await this.imgURLtoBase64(user.photoUrl)).toString().split(",")[1];
     usuario.password = user.id;
+    console.log('lo q arme',JSON.stringify(usuario))
     this.authService.fbLogin(usuario).then((res: any) => {
       this.loading.dismiss();
       if (res.codigo === 0) {
@@ -129,6 +131,7 @@ export class LoginPage {
         //Getting name and gender properties
         env.fb.api("/me?fields=name,email,last_name,first_name", params)
           .then( (user) => {
+            console.log('lo que retorno la api',JSON.stringify(user))
             user.pic = "https://graph.facebook.com/" + userId + "/picture?type=normal";
             let usuario = {
               firstName: user.first_name,

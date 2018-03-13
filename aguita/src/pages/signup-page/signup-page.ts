@@ -98,7 +98,7 @@ export class SignupPage {
         grado: this.registroForm.value.grado,
         residencia: this.registroForm.value.residencia
       };
-
+      
       this.authService.createAccount(details).then((result) => {
         this.loading.dismiss();
         this.localSaveCtrl.init();
@@ -110,13 +110,11 @@ export class SignupPage {
   }
 
   showLoader() {
-
     this.loading = this.loadingCtrl.create({
-      content: 'Authenticating...'
+      content: 'Registrando...'
     });
 
     this.loading.present();
-
   }
 
   volver() {

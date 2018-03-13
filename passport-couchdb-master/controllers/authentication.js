@@ -87,6 +87,7 @@ exports.register = function (req, res, next) {
       codigo: 0
     });
   }
+
   var details = {
     mail: '"' + req.body.mail.toLowerCase() + '"',
     username: '"' + req.body.username.toLowerCase() + '"',
@@ -97,7 +98,6 @@ exports.register = function (req, res, next) {
     grado: '"' + req.body.grado + '"',
     residencia: '"' + convertirLaPrimeraLetraAMayuscula(req.body.residencia) + '"',
   };
-
   User.crearUsuario(details, function (respuesta) {
     if (respuesta[0][0].codigo != 0) {
       var id = '"' + respuesta[0][0].codigo + '"';
