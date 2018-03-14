@@ -29,317 +29,334 @@ import { App } from 'ionic-angular';
 
 
 @Component({
-    selector: 'home-page',
-    templateUrl: 'home.html',
+  selector: 'home-page',
+  templateUrl: 'home.html',
 })
 
 export class HomePage {
-    @ViewChild('micontenedor') contenedor: ElementRef;
-    @ViewChild(Content) content: Content;
-    altoMapa: number;
-    urlImg: string;
-    registro: string = "mapa";
-    fotoPaisajeURL = 'data:image/jpeg;base64,';
-    fotoPaisaje: any;
-    fotoMuestra: any;
-    fotoMuestraURL = 'data:image/jpeg;base64,';
-    listaDBlocal: any;
-    latitud: any;
-    longitud: any;
-    coordenadas: any;
-    imagenenBase64 = '';
-    fotoPaisajeURLSafe: any;
-    fotoMuestraURLSafe: any;
-    fotoMapa: any;
-    muestroMapaNativo = false;
-    loading: any;
-    fotoElmido;
-    realElmido;
-    fotoPatudo;
-    realPatudo;
-    fotoPlecoptero;
-    realPlecoptero;
-    fotoTricoptero;
-    realTricoptero;
-    observaciones;
-    respuesta;
-    registroCompleto;
-    coincidencia = new FormGroup({
-        "elmidos": new FormControl(),
-        "patudos": new FormControl(),
-        "plecopteros": new FormControl(),
-        "tricopteros": new FormControl(),
-        "observaciones": new FormControl(),
+  @ViewChild('micontenedor') contenedor: ElementRef;
+  @ViewChild(Content) content: Content;
+  altoMapa: number;
+  urlImg: string;
+  registro: string = "mapa";
+  fotoPaisajeURL = 'data:image/jpeg;base64,';
+  fotoPaisaje: any;
+  fotoMuestra: any;
+  fotoMapa: any = '';
+  fotoMuestraURL = 'data:image/jpeg;base64,';
+  listaDBlocal: any;
+  latitud: any;
+  longitud: any;
+  coordenadas: any;
+  imagenenBase64 = '';
+  fotoPaisajeURLSafe: any;
+  fotoMuestraURLSafe: any;
+  muestroMapaNativo = false;
+  loading: any;
+  fotoElmido;
+  realElmido;
+  fotoPatudo;
+  realPatudo;
+  fotoPlecoptero;
+  realPlecoptero;
+  fotoTricoptero;
+  realTricoptero;
+  observaciones;
+  respuesta;
+  registroCompleto;
+  coincidencia = new FormGroup({
+    "elmidos": new FormControl(),
+    "patudos": new FormControl(),
+    "plecopteros": new FormControl(),
+    "tricopteros": new FormControl(),
+    "observaciones": new FormControl(),
+  });
+
+  constructor(public navCtrl: NavController,
+    public actionSheetCtrl: ActionSheetController,
+    public toastCtrl: ToastController,
+    public platform: Platform,
+    private photoViewer: PhotoViewer,
+    public loadingCtrl: LoadingController,
+    public modalCtrl: ModalController,
+    public camaraCtrl: Camara,
+    public authService: Auth,
+    public app: App,
+    public events: Events,
+    private sanitizer: DomSanitizer,
+    public conexionProvider: ConnectivityService,
+    public ubicacionCtrl: Ubicacion,
+    public localSaveCtrl: Localsave,
+    public registroController: RegistrosService,
+    public localSQL: LocalSqlProvider,
+    public diagnosticProvider: DiagnosticProvider,
+    public alertCtrl: AlertController
+  ) {
+    //Detecta la ubicacion
+    this.ubicacion();
+
+    //Para usar mapa nativo o mapaHTML
+    if (this.platform.is('cordova')) {
+      this.muestroMapaNativo = true;
+    }
+
+    //FOTOS PARA PASO 2 RADIO BUTTON
+    if (this.platform.is('cordova')) {
+      this.urlImg = '../www/'
+    } else {
+      this.urlImg = '../'
+    }
+    this.fotoElmido = this.urlImg + "assets/img/Elmidos.png";
+    this.fotoPatudo = this.urlImg + "assets/img/Patudos.png";
+    this.fotoPlecoptero = this.urlImg + "assets/img/Plecoptero.png";
+    this.fotoTricoptero = this.urlImg + "assets/img/Tricoptero.png";
+    // Para fotos reales del modal
+    this.realElmido = this.urlImg + "assets/img/fElmido.jpg";
+    this.realPatudo = this.urlImg + "assets/img/fPatudo.jpg";
+    this.realPlecoptero = this.urlImg + "assets/img/fPlecoptero.jpg";
+    this.realTricoptero = this.urlImg + "assets/img/fTricoptero.jpg";
+  }
+
+
+  public move(bicho) {
+    let yOffset = document.getElementById(bicho).offsetTop;
+    this.content.scrollTo(0, yOffset, 1000);
+  }
+
+  ionViewDidLoad() {
+    this.altoMapa = (this.contenedor.nativeElement.offsetHeight) - 200;
+  }
+
+  openModal(pic, name) {
+    let modal = this.modalCtrl.create(ModalPage, { foto: pic, nombre: name });
+    modal.present();
+  }
+
+  takefotoPaisaje() {
+    this.camaraCtrl.takePicture64().then((data) => {
+      this.fotoPaisaje = data;
+      this.fotoPaisajeURL = this.fotoPaisajeURL + this.fotoPaisaje;
+      this.fotoPaisajeURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL);
     });
+  }
 
-    constructor(public navCtrl: NavController,
-        public actionSheetCtrl: ActionSheetController,
-        public toastCtrl: ToastController,
-        public platform: Platform,
-        private photoViewer: PhotoViewer,
-        public loadingCtrl: LoadingController,
-        public modalCtrl: ModalController,
-        public camaraCtrl: Camara,
-        public authService: Auth,
-        public app: App,
-        public events: Events,
-        private sanitizer: DomSanitizer,
-        public conexionProvider: ConnectivityService,
-        public ubicacionCtrl: Ubicacion,
-        public localSaveCtrl: Localsave,
-        public registroController: RegistrosService,
-        public localSQL: LocalSqlProvider,
-        public diagnosticProvider: DiagnosticProvider,
-        public alertCtrl: AlertController
-    ) {
-        //Detecta la ubicacion
-        this.ubicacion();
+  takefotoMuestra() {
+    this.camaraCtrl.takePicture64().then((data) => {
+      this.fotoMuestra = data;
+      this.fotoMuestraURL = this.fotoMuestraURL + this.fotoMuestra;
+      this.fotoMuestraURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL);
+    });
+  }
 
-        //Para usar mapa nativo o mapaHTML
-        if (this.platform.is('cordova')) {
-            this.muestroMapaNativo = true;
-        }
+  mostrarFoto(pic) {
+    let picture = 'data:image/jpeg;base64,' + pic;
+    this.photoViewer.show(picture);
+  }
 
-        //FOTOS PARA PASO 2 RADIO BUTTON
-        if (this.platform.is('cordova')) {
-            this.urlImg = '../www/'
+  deleteFoto(del) {
+    if (del === 'paisaje') {
+      this.fotoPaisaje = null;
+      this.fotoPaisajeURL = 'data:image/jpeg;base64,';
+    }
+    else {
+      this.fotoMuestra = null;
+      this.fotoMuestraURL = 'data:image/jpeg;base64,';
+    }
+  }
+
+
+  public pasoAnterior() {
+    switch (this.registro) {
+      case "fotos":
+        return this.registro = "mapa";
+      case "obseravaciones":
+        return this.registro = "fotos";
+    }
+  }
+
+  public siguientePaso() {
+    switch (this.registro) {
+      case "mapa":
+        return this.registro = "fotos";
+      case "fotos":
+        return this.registro = "obseravaciones";
+      case "obseravaciones":
+        this.controlDeDatos();
+    }
+  }
+
+  controlDeDatos() {
+
+    let elmidos = this.coincidencia.value.elmidos;
+    let plecopteros = this.coincidencia.value.plecopteros;
+    let tricopteros = this.coincidencia.value.tricopteros;
+    let patudos = this.coincidencia.value.patudos;
+    let observaciones = this.coincidencia.value.observaciones;
+
+    if (this.fotoPaisaje != null && this.fotoMuestra != null) {
+      if (elmidos == null || plecopteros == null || tricopteros == null || patudos == null) {
+        let titulo = "Encuesta";
+        let mensaje = "Debe seleccionar SI o NO en cada bicho."
+        this.mostrarAlerta(titulo, mensaje);
+      } else {
+        this.crearRegistro(patudos, elmidos, plecopteros, tricopteros, observaciones);
+      }
+    } else {
+      if (this.fotoPaisaje == null && this.fotoMuestra == null) {
+        let titulo = "Fotos no tomadas";
+        let mensaje = "Por favor, tomar las fotos correspondientes para poder continuar";
+        this.mostrarAlerta(titulo, mensaje);
+      } else {
+        if (this.fotoPaisaje == null) {
+          let titulo = "Foto paisaje";
+          let mensaje = "Por favor, tomar una foto del paisaje antes de continuar";
+          this.mostrarAlerta(titulo, mensaje);
         } else {
-            this.urlImg = '../'
+          if (this.fotoMuestra == null) {
+            let titulo = "Foto muestra";
+            let mensaje = "Por favor, tomar una foto de la muestra antes de continuar";
+            this.mostrarAlerta(titulo, mensaje);
+          }
         }
-        this.fotoElmido = this.urlImg + "assets/img/Elmidos.png";
-        this.fotoPatudo = this.urlImg + "assets/img/Patudos.png";
-        this.fotoPlecoptero = this.urlImg + "assets/img/Plecoptero.png";
-        this.fotoTricoptero = this.urlImg + "assets/img/Tricoptero.png";
-        // Para fotos reales del modal
-        this.realElmido = this.urlImg + "assets/img/fElmido.jpg";
-        this.realPatudo = this.urlImg + "assets/img/fPatudo.jpg";
-        this.realPlecoptero = this.urlImg + "assets/img/fPlecoptero.jpg";
-        this.realTricoptero = this.urlImg + "assets/img/fTricoptero.jpg";
+      }
     }
+  }
 
-
-    public move(bicho) {
-        let yOffset = document.getElementById(bicho).offsetTop;
-        this.content.scrollTo(0, yOffset, 1000);
+  public calcularIndice(patudos, elmidos, plecopteros, tricopteros) {
+    let i = 0;
+    if (patudos === 'si') {
+      i++;
     }
-
-    ionViewDidLoad() {
-        this.altoMapa = (this.contenedor.nativeElement.offsetHeight) - 200;
+    if (elmidos === 'si') {
+      i++;
     }
-
-    openModal(pic, name) {
-        let modal = this.modalCtrl.create(ModalPage, { foto: pic, nombre: name });
-        modal.present();
+    if (plecopteros === 'si') {
+      i++;
     }
-
-    takefotoPaisaje() {
-        this.camaraCtrl.takePicture64().then((data) => {
-            this.fotoPaisaje = data;
-            this.fotoPaisajeURL = this.fotoPaisajeURL + this.fotoPaisaje;
-            this.fotoPaisajeURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL);
-        });
+    if (tricopteros === 'si') {
+      i++;
     }
+    return i;
+  }
 
-    takefotoMuestra() {
-        this.camaraCtrl.takePicture64().then((data) => {
-            this.fotoMuestra = data;
-            this.fotoMuestraURL = this.fotoMuestraURL + this.fotoMuestra;
-            this.fotoMuestraURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL);
-        });
+  public crearRegistro(patudos, elmidos, plecopteros, tricopteros, observaciones) {
+    let i = this.calcularIndice(patudos, elmidos, plecopteros, tricopteros)
+    let registro = {
+      indice: i,
+      fecha: new Date().toISOString(),
+      latitud: this.latitud,
+      longitud: this.longitud,
+      fotoPaisaje: this.fotoPaisaje,
+      fotoMuestra: this.fotoMuestra,
+      fotoMapa: '',
+      observacion: observaciones,
+      elmidos: elmidos,
+      patudos: patudos,
+      plecopteros: plecopteros,
+      tricopteros: tricopteros,
+      idUsuario: 2,
     }
-
-    mostrarFoto(pic) {
-        let picture = 'data:image/jpeg;base64,' + pic;
-        this.photoViewer.show(picture);
-    }
-
-    deleteFoto(del) {
-        if (del === 'paisaje') {
-            this.fotoPaisaje = null;
-            this.fotoPaisajeURL = 'data:image/jpeg;base64,';
-        }
-        else {
-            this.fotoMuestra = null;
-            this.fotoMuestraURL = 'data:image/jpeg;base64,';
-        }
-    }
-
-
-    public pasoAnterior() {
-        switch (this.registro) {
-            case "fotos":
-                return this.registro = "mapa";
-            case "obseravaciones":
-                return this.registro = "fotos";
-        }
-    }
-
-    public siguientePaso() {
-        switch (this.registro) {
-            case "mapa":
-                if (this.fotoMapa) {
-                    return this.registro = "fotos";
-                } else {
-                    return this.mostrarAlerta('Error', 'Por favor deje que el mapa se cargue')
-                }
-            case "fotos":
-                return this.registro = "obseravaciones";
-            case "obseravaciones":
-                this.controlDeDatos();
-        }
-    }
-
-    controlDeDatos() {
-
-        let elmidos = this.coincidencia.value.elmidos;
-        let plecopteros = this.coincidencia.value.plecopteros;
-        let tricopteros = this.coincidencia.value.tricopteros;
-        let patudos = this.coincidencia.value.patudos;
-        let observaciones = this.coincidencia.value.observaciones;
-
-        if (this.fotoPaisaje != null && this.fotoMuestra != null) {
-            if (elmidos == null || plecopteros == null || tricopteros == null || patudos == null) {
-                let titulo = "Encuesta";
-                let mensaje = "Debe seleccionar SI o NO en cada bicho."
-                this.mostrarAlerta(titulo, mensaje);
-            } else {
-                this.crearRegistro(patudos, elmidos, plecopteros, tricopteros, observaciones);
-            }
-        } else {
-            if (this.fotoPaisaje == null && this.fotoMuestra == null) {
-                let titulo = "Fotos no tomadas";
-                let mensaje = "Por favor, tomar las fotos correspondientes para poder continuar";
-                this.mostrarAlerta(titulo, mensaje);
-            } else {
-                if (this.fotoPaisaje == null) {
-                    let titulo = "Foto paisaje";
-                    let mensaje = "Por favor, tomar una foto del paisaje antes de continuar";
-                    this.mostrarAlerta(titulo, mensaje);
-                } else {
-                    if (this.fotoMuestra == null) {
-                        let titulo = "Foto muestra";
-                        let mensaje = "Por favor, tomar una foto de la muestra antes de continuar";
-                        this.mostrarAlerta(titulo, mensaje);
-                    }
-                }
-            }
-        }
-    }
-
-    public calcularIndice(patudos, elmidos, plecopteros, tricopteros) {
-        let i = 0;
-        if (patudos === 'si') {
-            i++;
-        }
-        if (elmidos === 'si') {
-            i++;
-        }
-        if (plecopteros === 'si') {
-            i++;
-        }
-        if (tricopteros === 'si') {
-            i++;
-        }
-        return i;
-    }
-
-    public crearRegistro(patudos, elmidos, plecopteros, tricopteros, observaciones) {
-        let i = this.calcularIndice(patudos, elmidos, plecopteros, tricopteros)
-        let registro = {
-            indice: i,
-            fecha: new Date().toISOString(),
-            latitud: this.latitud,
-            longitud: this.longitud,
-            fotoPaisaje: this.fotoPaisaje,
-            fotoMuestra: this.fotoMuestra,
-            fotoMapa: this.fotoMapa,
-            observacion: observaciones,
-            elmidos: elmidos,
-            patudos: patudos,
-            plecopteros: plecopteros,
-            tricopteros: tricopteros,
-            idUsuario: 2,
-        }
-        let inicio = registro.fecha.split('T');
-        registro.fecha = inicio[0];
-        this.localSQL.create(registro).then((res) => {
-            this.presentToast('Registro local, creado exitosamente.');
-            if (this.conexionProvider.isOnline) {
-                this.registroController.crearRegistro(registro).then((res) => {
-                    this.respuesta = res[0];
-                    this.registroCompleto = registro;
-                    this.registroCompleto.ciudad = this.respuesta.ciudad;
-                    this.registroCompleto.provincia = this.respuesta.ciudad;
-                    this.registroCompleto.pais = this.respuesta.ciudad;
-                    this.registroCompleto.fotoPaisaje = '';
-                    this.registroCompleto.fotoMuestra = '';
-                    this.registroCompleto.fotoMapa = '';
-                    console.log('registro online creado exitosamente', this.registroCompleto);
-                    this.events.publish('registro:eliminado', this.registroCompleto);
-                    this.app.getRootNav().setRoot( Wheel, { indice: i } );
-                }).catch((error) => {
-                    console.error(error);
-                    if (error.status === 0) {
-                        this.presentToast('No se detecto conexion a internet,los registros se subiran solos, al detectar internet');
-                    }
-                });
-            } else {
-                this.mostrarAlerta('Info', 'No se detecto ningun tipo de conexion, los registros se subiran solos, al detectar internet');
-                this.navCtrl.setRoot(MisRegistrosPage);
-            }
+    let inicio = registro.fecha.split('T');
+    registro.fecha = inicio[0];
+    this.localSQL.create(registro).then((res) => {
+      this.presentToast('Registro local, creado exitosamente.');
+      if (this.conexionProvider.isOnline) {
+        this.registroController.crearRegistro(registro).then((res) => {
+          this.respuesta = res[0];
+          this.registroCompleto = registro;
+          this.registroCompleto.ciudad = this.respuesta.ciudad;
+          this.registroCompleto.provincia = this.respuesta.ciudad;
+          this.registroCompleto.pais = this.respuesta.ciudad;
+          this.registroCompleto.fotoPaisaje = '';
+          this.registroCompleto.fotoMuestra = '';
+          this.registroCompleto.fotoMapa = '';
+          console.log('registro online creado exitosamente', this.registroCompleto);
+          this.events.publish('registro:eliminado', this.registroCompleto);
+          this.app.getRootNav().setRoot(Wheel, { indice: i });
         }).catch((error) => {
-            this.mostrarAlerta('Error', 'No se pudo crear el registro local.');
-            this.navCtrl.setRoot(MisRegistrosPage);
-        });;
-    }
-
-    mostrarAlerta(titulo, mensaje) {
-        let alert = this.alertCtrl.create({
-            title: titulo,
-            subTitle: mensaje,
-            buttons: ['ACEPTAR']
+          console.error(error);
+          if (error.status === 0) {
+            this.presentToast('No se detecto conexion a internet,los registros se subiran solos, al detectar internet');
+          }
         });
-        alert.present();
-    }
+      } else {
+        this.mostrarAlerta('Info', 'No se detecto ningun tipo de conexion, los registros se subiran solos, al detectar internet');
+        this.navCtrl.setRoot(MisRegistrosPage);
+      }
+    }).catch((error) => {
+      this.mostrarAlerta('Error', 'No se pudo crear el registro local.');
+      this.navCtrl.setRoot(MisRegistrosPage);
+    });;
+  }
 
-    ubicacion() {
-        let text = 'Espere mientras cargamos la ubicacion';
-        this.showLoader(text);
+  mostrarAlerta(titulo, mensaje) {
+    let alert = this.alertCtrl.create({
+      title: titulo,
+      subTitle: mensaje,
+      buttons: ['ACEPTAR']
+    });
+    alert.present();
+  }
+
+  ubicacion() {
+    let text = 'Espere mientras cargamos la ubicacion';
+    this.showLoader(text);
+    this.obtenerUbicacion();
+  }
+
+  public obtenerUbicacion() {
+    this.ubicacionCtrl.obtenerCoordenadas().then((data) => {
+      if (data != -1) {
+        this.coordenadas = data;
+        this.latitud = this.coordenadas.latitude;
+        this.longitud = this.coordenadas.longitude;
+        this.obtenerFotoMapa();
+        this.loading.dismiss();
+      } else {
         this.obtenerUbicacion();
-    }
+      }
+    });
+  }
 
-    public obtenerUbicacion() {
-        this.ubicacionCtrl.obtenerCoordenadas().then((data) => {
-            if (data != -1) {
-                this.coordenadas = data;
-                this.latitud = this.coordenadas.latitude;
-                this.longitud = this.coordenadas.longitude;
-                this.loading.dismiss();
-            } else {
-                this.obtenerUbicacion();
-            }
-        });
+  async obtenerFotoMapa() {
+    if(this.conexionProvider.isOnline()){
+      let position = this.latitud + ',' + this.longitud;
+      let mapaURL = 'https://maps.googleapis.com/maps/api/staticmap?center=' + position + '&zoom=16&size=640x400&markers=color:red%7Clabel:%7C' + position + '&key=AIzaSyCmp-2Bj3yexAf_L5HN6G7TOzgIh_mKe7I';
+      console.log(mapaURL);
+      this.fotoMapa = (await this.imgURLtoBase64(mapaURL)).toString().split(",")[1];
     }
+  }
 
-    imgMapData64(event) {
-        //console.log('desde el home',event.data64)		
-        this.fotoMapa = event.data64.split(",")[1];
-    }
+  async imgURLtoBase64(url) {
+    return new Promise((resolve, reject) => {
+      let xhr = new XMLHttpRequest();
+      xhr.onload = () => {
+        let reader = new FileReader();
+        reader.onloadend = () => {
+          resolve(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+      };
+      xhr.open('GET', url);
+      xhr.responseType = 'blob';
+      xhr.send();
+    });
+  }
 
-    showLoader(text) {
-        this.loading = this.loadingCtrl.create({
-            content: text
-        });
-        this.loading.present();
-    }
+  showLoader(text) {
+    this.loading = this.loadingCtrl.create({
+      content: text
+    });
+    this.loading.present();
+  }
 
-    presentToast(text) {
-        let toast = this.toastCtrl.create({
-            message: text,
-            duration: 2000,
-            position: 'top'
-        });
-        toast.present();
-    }
+  presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
+  }
 
 }

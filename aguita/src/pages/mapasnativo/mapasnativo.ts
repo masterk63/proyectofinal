@@ -19,7 +19,6 @@ import {
 export class MapasnativoPage {
     @Input() latitud;
     @Input() longitud;
-    @Output() mapaImg = new EventEmitter<any>();
 
     map: GoogleMap;
 
@@ -84,13 +83,6 @@ export class MapasnativoPage {
             target: location,
             zoom: 15,
             duration: 2500
-        }).then((r) => {
-            this.pausaCasero(500);
-            this.map.toDataURL().then(data => {
-                this.mapaImg.emit({
-                    data64: data
-                });
-            })
         });
     }
 }
