@@ -48,7 +48,6 @@
     "cordova-plugin-device": "^2.0.0",
     "cordova-plugin-facebook4": "^1.9.1",
     "cordova-plugin-googlemaps": "^2.1.1",
-    "cordova-plugin-googlemaps-sdk": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk.git",
     "cordova-plugin-network-information": "^2.0.0",
     "cordova-plugin-splashscreen": "^5.0.0",
     "cordova-plugin-statusbar": "^2.3.0",
