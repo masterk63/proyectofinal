@@ -278,6 +278,7 @@ export class HomePage {
           if (error.status === 0) {
             this.presentToast('No se detecto conexion a internet,los registros se subiran solos, al detectar internet');
           }
+          //this.app.getRootNav().setRoot(Wheel, { indice: i });
         });
       } else {
         this.mostrarAlerta('Info', 'No se detecto ningun tipo de conexion, los registros se subiran solos, al detectar internet');
@@ -310,36 +311,10 @@ export class HomePage {
         this.coordenadas = data;
         this.latitud = this.coordenadas.latitude;
         this.longitud = this.coordenadas.longitude;
-        this.obtenerFotoMapa();
         this.loading.dismiss();
       } else {
         this.obtenerUbicacion();
       }
-    });
-  }
-
-  async obtenerFotoMapa() {
-    if(this.conexionProvider.isOnline()){
-      let position = this.latitud + ',' + this.longitud;
-      let mapaURL = 'https://maps.googleapis.com/maps/api/staticmap?center=' + position + '&zoom=16&size=640x400&markers=color:red%7Clabel:%7C' + position + '&key=AIzaSyCmp-2Bj3yexAf_L5HN6G7TOzgIh_mKe7I';
-      console.log(mapaURL);
-      this.fotoMapa = (await this.imgURLtoBase64(mapaURL)).toString().split(",")[1];
-    }
-  }
-
-  async imgURLtoBase64(url) {
-    return new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-      xhr.onload = () => {
-        let reader = new FileReader();
-        reader.onloadend = () => {
-          resolve(reader.result);
-        }
-        reader.readAsDataURL(xhr.response);
-      };
-      xhr.open('GET', url);
-      xhr.responseType = 'blob';
-      xhr.send();
     });
   }
 

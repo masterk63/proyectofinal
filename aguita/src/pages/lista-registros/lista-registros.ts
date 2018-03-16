@@ -101,6 +101,10 @@ export class ListaRegistrosPage {
 
   }
 
+  ngAfterViewInit() {
+    this.navCtrl.pop();
+  }
+
   borarDB() {
     this.localSQL.destruirDB();
   }

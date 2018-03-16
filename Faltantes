@@ -12,6 +12,8 @@ a la hora de creaer un registro.. controlar dos cosas.. primero.. que se cuando 
 la segunda.. que a la hora de guardar el mapa.. no se guarde el mapa que capturo la foto.. ya que mpuede fallar.. hacerlo mediante
 la API de Google..
 hacer que la tabla reset_password tenga una fecha, y que todos los dias a las 0:00 se borren.
+ver el error que cuando uso socket.. los regustros no se muestran bien, se desordenan
+actualizar la vista al usar tabs
 
 
 
