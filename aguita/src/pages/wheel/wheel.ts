@@ -28,7 +28,6 @@ export class Wheel {
       public platform: Platform,
       public navParams: NavParams) {
       this.indice = navParams.get('indice');
-      console.log('el indice es:', this.indice);
       this.colorArrow = this.calcularColorArrow();
       this.nivelDeContaminacion = this.calcularNivelDeContaminacion();
       if (this.platform.is('android') || this.platform.is('ios')) {

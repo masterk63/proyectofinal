@@ -261,6 +261,7 @@ export class HomePage {
     this.localSQL.create(registro).then((res) => {
       this.presentToast('Registro local, creado exitosamente.');
       if (this.conexionProvider.isOnline) {
+        console.log('creando registro felizmente')
         this.registroController.crearRegistro(registro).then((res) => {
           this.respuesta = res[0];
           this.registroCompleto = registro;
@@ -271,7 +272,7 @@ export class HomePage {
           this.registroCompleto.fotoMuestra = '';
           this.registroCompleto.fotoMapa = '';
           console.log('registro online creado exitosamente', this.registroCompleto);
-          this.events.publish('registro:eliminado', this.registroCompleto);
+          //this.events.publish('registro:eliminado', this.registroCompleto);
           this.app.getRootNav().setRoot(Wheel, { indice: i });
         }).catch((error) => {
           console.error(error);

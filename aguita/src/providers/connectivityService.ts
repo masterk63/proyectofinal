@@ -43,6 +43,7 @@ export class ConnectivityService {
   public subir(){
     this.localSQLPrv.getAll().then((registros)=>{
       for(let r of registros){
+        console.log('pasando por el service')
         this.regSrv.crearRegistro(r).then((res)=>{
           let rOnline =res[0];
           r.ciudad = rOnline.ciudad;

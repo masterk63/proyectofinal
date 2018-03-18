@@ -53,6 +53,7 @@ export class ListaRegistrosPage {
   registros: any;
   registrosOnline: any = [];
   fotoMapaNoDisponible: any;
+  ultimoRegistroLlamadoEnElEvento:any;
 
   constructor(public navCtrl: NavController,
     public authService: Auth,
@@ -86,8 +87,11 @@ export class ListaRegistrosPage {
       });
 
       events.subscribe('registro:eliminado', (reg, time) => {
-        console.log('eliminar registro, evento disparado', reg)
-        this.borrarRegistro(reg);
+        //esto lo hago porque por alguna razon el evento se llama varias veces
+        if( (this.ultimoRegistroLlamadoEnElEvento != reg.idRegistro)){
+          console.log('eliminar registro, evento disparado', reg);
+          this.borrarRegistro(reg);
+        }
       });
     }
 
@@ -111,6 +115,7 @@ export class ListaRegistrosPage {
 
   borrarRegistro(registro) {
     let id = registro.idRegistro;
+    this.ultimoRegistroLlamadoEnElEvento = id;
     let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
     this._zone.run(() => this.registros.splice(index, 1));
     setTimeout(() => {

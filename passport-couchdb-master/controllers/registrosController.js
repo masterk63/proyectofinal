@@ -51,7 +51,11 @@ function obtenerFotoMapa(registro) {
     let position = registro.latitud + ',' + registro.longitud;
     let mapaURL = 'https://maps.googleapis.com/maps/api/staticmap?center=' + position + '&zoom=16&size=640x400&markers=color:red%7Clabel:%7C' + position + '&key=AIzaSyCmp-2Bj3yexAf_L5HN6G7TOzgIh_mKe7I';
     i2b(mapaURL, function (err, data) {
-      resolve(data.base64);
+      if(err){
+        reject(err)
+      }else{
+        resolve(data.base64);
+      }
     });
   });
 }
