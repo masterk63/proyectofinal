@@ -40,7 +40,7 @@
     "@types/pouchdb": "6.3.2",
     "angular4-social-login": "^1.1.1",
     "cordova": "8.0.0",
-    "cordova-android": "6.3.0",
+    "cordova-android": "^6.3.0",
     "cordova-ios": "4.5.4",
     "cordova-plugin-camera": "^4.0.0",
     "cordova-plugin-compat": "^1.2.0",
@@ -76,8 +76,8 @@
   "description": "An Ionic project",
   "cordova": {
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ],
     "plugins": {
       "ionic-plugin-keyboard": {},

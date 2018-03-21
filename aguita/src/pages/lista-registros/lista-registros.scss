@@ -42,5 +42,14 @@ lista-registros{
         font-size: 2rem !important;
     }
     
-    
+    .titulo {
+        width: 100%;
+        padding: 9px;      
+        background: color($colors,primary);  ;
+    }
+
+    .titulo h2{
+        font-size: 3em;
+        color:white;
+    }
 }

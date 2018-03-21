@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
+import { ListaRegistrosPage } from '../lista-registros/lista-registros';
 import { MapaGeneralPage } from '../mapa-general/mapa-general';
 import { HomePage } from '../home/home';
 import { MenuPage } from '../../pages/menu/menu';
@@ -14,7 +15,7 @@ import { Events, Tabs } from 'ionic-angular';
 export class TabsPage {
 
    tab1Root = HomePage;
-   tab2Root = MisRegistrosPage;
+   tab2Root = ListaRegistrosPage;
    tab3Root = MenuPage;
    valueforngif=true;
 

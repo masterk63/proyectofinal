@@ -8,9 +8,9 @@ import { RegistrosService } from './registrosService';
 export class ConnectivityService {
 
   constructor(private network: Network,
-              public regSrv:RegistrosService,
-              public localSQLPrv:LocalSqlProvider) {
-    
+    public regSrv: RegistrosService,
+    public localSQLPrv: LocalSqlProvider) {
+
     console.log('en el network provider');
 
     let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
@@ -33,26 +33,33 @@ export class ConnectivityService {
   }
 
   isOnline(): boolean {
-      return navigator.onLine;
+    return navigator.onLine;
   }
 
   isOffline(): boolean {
-      return !navigator.onLine;
+    return !navigator.onLine;
   }
 
-  public subir(){
-    this.localSQLPrv.getAll().then((registros)=>{
-      for(let r of registros){
+  public subir() {
+    this.localSQLPrv.getAll().then((registros) => {
+      for (let r of registros) {
         console.log('pasando por el service')
-        this.regSrv.crearRegistro(r).then((res)=>{
-          let rOnline =res[0];
+        this.regSrv.crearRegistro(r).then((res) => {
+          let rOnline = res[0];
           r.ciudad = rOnline.ciudad;
           r.provincia = rOnline.provincia;
           r.pais = rOnline.pais;
           this.localSQLPrv.delete(r);
-        })
+        }).catch((error) => {
+          console.error(error);
+          // if (error.status === 0) {
+          //   this.presentToast('No se detecto conexion a internet,los registros se subiran solos, al detectar internet');
+          // }
+        });
       }
-    })
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 
 }

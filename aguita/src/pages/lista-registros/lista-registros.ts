@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams,AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Localsave } from '../../providers/localsave';
 import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
@@ -67,25 +67,17 @@ export class ListaRegistrosPage {
     public localSQL: LocalSqlProvider,
     private menu: MenuController,
     private _zone: NgZone) {
-
-    this.registrosCtrl.cargarRegistros().then((registros) => {
-      console.log('registros en el servidor', registros);
-      this.registrosOnline = registros;
-      this.registrosOnline = this.registrosOnline.reverse();
-    }).catch(e => {
-      this.mostrarAlerta('Error','No se puede comunicar con el servidor')
-    }) 
-
+    let ultimoRegistro = -1;
     if (this.platform.is('cordova')) {
-      this.localSQL.getAll().then((reg) => {
-        console.log('registros locales', reg);
-        this.registros = reg;
-        if (this.registros.length > 0) {
-          this.conexionProvider.subir();
+      events.subscribe('registro:eliminado', (reg, time) => {
+        if(ultimoRegistro != reg.idRegistro){
+          ultimoRegistro = reg.idRegistro;
+          console.log('eliminar registro, evento disparado', reg);
+          this.borrarRegistroDeLaVista(reg);
         }
       });
     }
-    
+
     events.subscribe('registro:creado', (reg) => {
       this._zone.run(() => this.registrosOnline.unshift(reg.registro));
     });
@@ -95,13 +87,43 @@ export class ListaRegistrosPage {
   ionViewDidLoad() {
 
   }
+  
+  ionViewWillEnter(){
+    if (this.platform.is('cordova')) {
+      this.obtenerRegistrosDBLocal();
+    }
 
-  ngAfterViewInit() {
-    this.navCtrl.pop();
+    this.registrosCtrl.cargarRegistros().then((registros) => {
+      console.log('registros en el servidor', registros);
+      this.registrosOnline = registros;
+      this.registrosOnline = this.registrosOnline.reverse();
+    }).catch(e => {
+      this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
+    })
+  }
+
+  obtenerRegistrosDBLocal(){
+    this.localSQL.getAll().then((reg) => {
+      console.log('registros locales', reg);
+      this.registros = reg;
+      if (this.registros.length > 0) {
+        this.conexionProvider.subir();
+      }
+    });
   }
 
   borarDB() {
     this.localSQL.destruirDB();
+  }
+
+  //esto lo llamo luego de eliminarlo de la base de datos local.
+  borrarRegistroDeLaVista(registro) {
+    let id = registro.idRegistro;
+    let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
+    this._zone.run(() => this.registros.splice(index, 1));
+    setTimeout(() => {
+      this.socketPrv.publicar(registro);
+    }, 1000);
   }
 
   fakeRegitro() {

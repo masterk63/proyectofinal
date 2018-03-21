@@ -7,5 +7,9 @@ import { ListaRegistrosPage } from '../lista-registros/lista-registros';
   templateUrl: 'mis-registros.html',
 })
 export class MisRegistrosPage {
-
+  ionViewWillEnter(){
+    console.log('enter registros')
+  }
 }
+
+

@@ -259,32 +259,31 @@ export class HomePage {
     let inicio = registro.fecha.split('T');
     registro.fecha = inicio[0];
     this.localSQL.create(registro).then((res) => {
-      this.presentToast('Registro local, creado exitosamente.');
-      if (this.conexionProvider.isOnline) {
-        console.log('creando registro felizmente')
-        this.registroController.crearRegistro(registro).then((res) => {
-          this.respuesta = res[0];
-          this.registroCompleto = registro;
-          this.registroCompleto.ciudad = this.respuesta.ciudad;
-          this.registroCompleto.provincia = this.respuesta.ciudad;
-          this.registroCompleto.pais = this.respuesta.ciudad;
-          this.registroCompleto.fotoPaisaje = '';
-          this.registroCompleto.fotoMuestra = '';
-          this.registroCompleto.fotoMapa = '';
-          console.log('registro online creado exitosamente', this.registroCompleto);
-          //this.events.publish('registro:eliminado', this.registroCompleto);
-          this.app.getRootNav().setRoot(Wheel, { indice: i });
-        }).catch((error) => {
-          console.error(error);
-          if (error.status === 0) {
-            this.presentToast('No se detecto conexion a internet,los registros se subiran solos, al detectar internet');
-          }
-          //this.app.getRootNav().setRoot(Wheel, { indice: i });
-        });
-      } else {
-        this.mostrarAlerta('Info', 'No se detecto ningun tipo de conexion, los registros se subiran solos, al detectar internet');
-        this.navCtrl.setRoot(MisRegistrosPage);
-      }
+      this.app.getRootNav().setRoot(Wheel, { indice: i });
+      // if (this.conexionProvider.isOnline) {
+      //   console.log('creando registro felizmente')
+      //   this.registroController.crearRegistro(registro).then((res) => {
+      //     this.respuesta = res[0];
+      //     this.registroCompleto = registro;
+      //     this.registroCompleto.ciudad = this.respuesta.ciudad;
+      //     this.registroCompleto.provincia = this.respuesta.ciudad;
+      //     this.registroCompleto.pais = this.respuesta.ciudad;
+      //     this.registroCompleto.fotoPaisaje = '';
+      //     this.registroCompleto.fotoMuestra = '';
+      //     this.registroCompleto.fotoMapa = '';
+      //     console.log('registro online creado exitosamente', this.registroCompleto);
+      //     //this.events.publish('registro:eliminado', this.registroCompleto);
+      //     this.app.getRootNav().setRoot(Wheel, { indice: i });
+      //   }).catch((error) => {
+      //     console.error(error);
+      //     if (error.status === 0) {
+      //       this.presentToast('No se detecto conexion a internet,los registros se subiran solos, al detectar internet');
+      //     }
+      //   });
+      // } else {
+      //   this.mostrarAlerta('Info', 'No se detecto ningun tipo de conexion, los registros se subiran solos, al detectar internet');
+      //   this.navCtrl.setRoot(MisRegistrosPage);
+      // }
     }).catch((error) => {
       this.mostrarAlerta('Error', 'No se pudo crear el registro local.');
       this.navCtrl.setRoot(MisRegistrosPage);
