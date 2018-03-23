@@ -4,13 +4,14 @@ import 'rxjs/add/operator/map';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Observable } from 'rxjs/Observable';
 import { Events } from 'ionic-angular';
-
+import { SocketProvider } from '../../providers/socket/socket';
 
 @Injectable()
 export class LocalSqlProvider {
   db: SQLiteObject = null;
 
-  constructor(public http: Http,  
+  constructor(public http: Http, 
+    public socketPrv: SocketProvider, 
     public events: Events,
     private sqlite: SQLite) {
   }
@@ -94,6 +95,9 @@ export class LocalSqlProvider {
     this.db.executeSql(sql, [reg.idRegistro]).then((regEliminado)=>{
       console.log('Registro eliminado exitosamente.')
       this.events.publish('registro:eliminado', reg, Date.now());
+      setTimeout(() => {
+        this.socketPrv.publicar(reg);
+      }, 1000);
     });
   } 
 

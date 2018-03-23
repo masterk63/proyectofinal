@@ -21,6 +21,7 @@ import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
+import { ListaRegistrosPage } from '../lista-registros/lista-registros';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Content } from 'ionic-angular';
 import { Events } from 'ionic-angular';
@@ -259,7 +260,9 @@ export class HomePage {
     let inicio = registro.fecha.split('T');
     registro.fecha = inicio[0];
     this.localSQL.create(registro).then((res) => {
-      this.app.getRootNav().setRoot(Wheel, { indice: i });
+      this.navCtrl.setRoot(ListaRegistrosPage);      
+      //this.app.getRootNav().setRoot(Wheel, { indice: i });
+
       // if (this.conexionProvider.isOnline) {
       //   console.log('creando registro felizmente')
       //   this.registroController.crearRegistro(registro).then((res) => {

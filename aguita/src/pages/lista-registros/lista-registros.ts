@@ -67,18 +67,16 @@ export class ListaRegistrosPage {
     public localSQL: LocalSqlProvider,
     private menu: MenuController,
     private _zone: NgZone) {
-    let ultimoRegistro = -1;
+
     if (this.platform.is('cordova')) {
       events.subscribe('registro:eliminado', (reg, time) => {
-        if(ultimoRegistro != reg.idRegistro){
-          ultimoRegistro = reg.idRegistro;
           console.log('eliminar registro, evento disparado', reg);
           this.borrarRegistroDeLaVista(reg);
-        }
       });
     }
 
     events.subscribe('registro:creado', (reg) => {
+      console.log('pasando por el evento registro creado',reg)
       this._zone.run(() => this.registrosOnline.unshift(reg.registro));
     });
 
@@ -121,9 +119,6 @@ export class ListaRegistrosPage {
     let id = registro.idRegistro;
     let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
     this._zone.run(() => this.registros.splice(index, 1));
-    setTimeout(() => {
-      this.socketPrv.publicar(registro);
-    }, 1000);
   }
 
   fakeRegitro() {

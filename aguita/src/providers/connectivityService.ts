@@ -4,11 +4,12 @@ import { Platform } from 'ionic-angular';
 import { LocalSqlProvider } from './local-sql/local-sql';
 import { RegistrosService } from './registrosService';
 
+
 @Injectable()
 export class ConnectivityService {
 
   constructor(private network: Network,
-    public regSrv: RegistrosService,
+    public regSrv: RegistrosService,   
     public localSQLPrv: LocalSqlProvider) {
 
     console.log('en el network provider');
@@ -42,8 +43,8 @@ export class ConnectivityService {
 
   public subir() {
     this.localSQLPrv.getAll().then((registros) => {
+      console.log('pasando por el service y mostrando los registros',registros)
       for (let r of registros) {
-        console.log('pasando por el service')
         this.regSrv.crearRegistro(r).then((res) => {
           let rOnline = res[0];
           r.ciudad = rOnline.ciudad;
