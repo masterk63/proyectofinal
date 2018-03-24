@@ -19,7 +19,6 @@ import { Events } from 'ionic-angular';
 
 declare var Connection: any;
 
-
 @Component({
   selector: 'lista-registros',
   templateUrl: 'lista-registros.html',
@@ -68,25 +67,13 @@ export class ListaRegistrosPage {
     private menu: MenuController,
     private _zone: NgZone) {
 
-    if (this.platform.is('cordova')) {
-      events.subscribe('registro:eliminado', (reg, time) => {
-          console.log('eliminar registro, evento disparado', reg);
-          this.borrarRegistroDeLaVista(reg);
-      });
-    }
-
-    events.subscribe('registro:creado', (reg) => {
-      console.log('pasando por el evento registro creado',reg)
-      this._zone.run(() => this.registrosOnline.unshift(reg.registro));
-    });
-
   }
 
   ionViewDidLoad() {
 
   }
-  
-  ionViewWillEnter(){
+
+  ionViewWillEnter() {
     if (this.platform.is('cordova')) {
       this.obtenerRegistrosDBLocal();
     }
@@ -98,9 +85,28 @@ export class ListaRegistrosPage {
     }).catch(e => {
       this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
     })
+
+    if (this.platform.is('cordova')) {
+      this.events.subscribe('registro:eliminado', (reg, time) => {
+        console.log('eliminar registro, evento disparado', reg);
+        this.borrarRegistroDeLaVista(reg);
+      });
+    }
+
+    this.events.subscribe('registro:creado', (reg) => {
+      console.log('pasando por el evento registro creado', reg)
+      this._zone.run(() => this.registrosOnline.unshift(reg.registro));
+    });
   }
 
-  obtenerRegistrosDBLocal(){
+  ionViewDidLeave() {
+    if (this.platform.is('cordova')) {
+      this.events.unsubscribe('registro:eliminado');
+    }
+    this.events.unsubscribe('registro:creado');
+  }
+
+  obtenerRegistrosDBLocal() {
     this.localSQL.getAll().then((reg) => {
       console.log('registros locales', reg);
       this.registros = reg;

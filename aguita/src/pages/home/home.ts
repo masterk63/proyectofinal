@@ -193,7 +193,9 @@ export class HomePage {
     let tricopteros = this.coincidencia.value.tricopteros;
     let patudos = this.coincidencia.value.patudos;
     let observaciones = this.coincidencia.value.observaciones;
-
+    if(observaciones === null){
+      observaciones = '';
+    }
     if (this.fotoPaisaje != null && this.fotoMuestra != null) {
       if (elmidos == null || plecopteros == null || tricopteros == null || patudos == null) {
         let titulo = "Encuesta";
@@ -260,33 +262,8 @@ export class HomePage {
     let inicio = registro.fecha.split('T');
     registro.fecha = inicio[0];
     this.localSQL.create(registro).then((res) => {
-      this.navCtrl.setRoot(ListaRegistrosPage);      
-      //this.app.getRootNav().setRoot(Wheel, { indice: i });
-
-      // if (this.conexionProvider.isOnline) {
-      //   console.log('creando registro felizmente')
-      //   this.registroController.crearRegistro(registro).then((res) => {
-      //     this.respuesta = res[0];
-      //     this.registroCompleto = registro;
-      //     this.registroCompleto.ciudad = this.respuesta.ciudad;
-      //     this.registroCompleto.provincia = this.respuesta.ciudad;
-      //     this.registroCompleto.pais = this.respuesta.ciudad;
-      //     this.registroCompleto.fotoPaisaje = '';
-      //     this.registroCompleto.fotoMuestra = '';
-      //     this.registroCompleto.fotoMapa = '';
-      //     console.log('registro online creado exitosamente', this.registroCompleto);
-      //     //this.events.publish('registro:eliminado', this.registroCompleto);
-      //     this.app.getRootNav().setRoot(Wheel, { indice: i });
-      //   }).catch((error) => {
-      //     console.error(error);
-      //     if (error.status === 0) {
-      //       this.presentToast('No se detecto conexion a internet,los registros se subiran solos, al detectar internet');
-      //     }
-      //   });
-      // } else {
-      //   this.mostrarAlerta('Info', 'No se detecto ningun tipo de conexion, los registros se subiran solos, al detectar internet');
-      //   this.navCtrl.setRoot(MisRegistrosPage);
-      // }
+      //this.navCtrl.setRoot(ListaRegistrosPage);      
+      this.app.getRootNav().setRoot(Wheel, { indice: i });
     }).catch((error) => {
       this.mostrarAlerta('Error', 'No se pudo crear el registro local.');
       this.navCtrl.setRoot(MisRegistrosPage);

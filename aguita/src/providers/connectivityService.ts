@@ -47,10 +47,15 @@ export class ConnectivityService {
       for (let r of registros) {
         this.regSrv.crearRegistro(r).then((res) => {
           let rOnline = res[0];
-          r.ciudad = rOnline.ciudad;
-          r.provincia = rOnline.provincia;
-          r.pais = rOnline.pais;
-          this.localSQLPrv.delete(r);
+          if(rOnline.codigo > 0){
+            r.idRegistroOnline = rOnline.codigo;
+            r.ciudad = rOnline.ciudad;
+            r.provincia = rOnline.provincia;
+            r.pais = rOnline.pais;
+            this.localSQLPrv.delete(r);
+          }else{
+          //   this.presentToast('No se detecto conexion a internet,los registros se subiran solos, al detectar internet');            
+          }
         }).catch((error) => {
           console.error(error);
           // if (error.status === 0) {

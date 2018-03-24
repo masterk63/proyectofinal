@@ -70,10 +70,10 @@ exports.nuevo = function (registro, fn) {
             var ciudad = '"' + direccion.ciudad + '"';
             var provincia = '"' + direccion.provincia + '"';
             var pais = '"' + direccion.pais + '"';
-            var elmidos = '"' + registro.elmidos + '"';
-            var patudos = '"' + registro.patudos + '"';
-            var plecopteros = '"' + registro.plecopteros + '"';
-            var tricopteros = '"' + registro.tricopteros + '"';
+            var elmidos = '"' + registro.elmido + '"';
+            var patudos = '"' + registro.patudo + '"';
+            var plecopteros = '"' + registro.plecoptero + '"';
+            var tricopteros = '"' + registro.tricoptero + '"';
 
             connection.query('CALL registro_nuevo_completo(' + indice + ',' + fecha + ',' + latitud + ',' + longitud + ',' + fotoPaisaje + ',' + fotoMuestra + ',' + fotoMapa + ',' + observaciones + ',' + idUsuario + ',' + ciudad + ',' + provincia + ',' + pais + ',' + elmidos + ',' + patudos + ',' + plecopteros + ',' + tricopteros + ')', function (err, rows) {
                 if (err) {

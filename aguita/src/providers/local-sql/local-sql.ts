@@ -79,7 +79,7 @@ export class LocalSqlProvider {
 
   create(task: any) {
     let sql = 'INSERT INTO tasks(indice, fecha, latitud, longitud,fotoPaisaje,fotoMuestra,fotoMapa, observacion, elmido, patudo, plecoptero, tricoptero, idUsuario) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
-    return this.db.executeSql(sql, [task.indice, task.fecha, task.latitud, task.longitud, task.fotoPaisaje, task.fotoMuestra, task.fotoMapa, task.observacion, task.elmido, task.patudo, task.plecoptero, task.tricoptero, task.idUsuario]).then(res => {
+    return this.db.executeSql(sql, [task.indice, task.fecha, task.latitud, task.longitud, task.fotoPaisaje, task.fotoMuestra, task.fotoMapa, task.observacion, task.elmidos, task.patudos, task.plecopteros, task.tricopteros, task.idUsuario]).then(res => {
       console.log('registro agregado con exito')
       return Promise.resolve(res);
     }).catch(error => Promise.reject(error));
@@ -95,6 +95,7 @@ export class LocalSqlProvider {
     this.db.executeSql(sql, [reg.idRegistro]).then((regEliminado)=>{
       console.log('Registro eliminado exitosamente.')
       this.events.publish('registro:eliminado', reg, Date.now());
+      reg.idRegistro = reg.idRegistroOnline;
       setTimeout(() => {
         this.socketPrv.publicar(reg);
       }, 1000);
