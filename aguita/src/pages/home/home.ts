@@ -192,10 +192,7 @@ export class HomePage {
     let plecopteros = this.coincidencia.value.plecopteros;
     let tricopteros = this.coincidencia.value.tricopteros;
     let patudos = this.coincidencia.value.patudos;
-    let observaciones = this.coincidencia.value.observaciones;
-    if(observaciones === null){
-      observaciones = '';
-    }
+    let observaciones = (this.coincidencia.value.observaciones === null) ? this.coincidencia.value.observaciones = '' : this.coincidencia.value.observaciones;
     if (this.fotoPaisaje != null && this.fotoMuestra != null) {
       if (elmidos == null || plecopteros == null || tricopteros == null || patudos == null) {
         let titulo = "Encuesta";
