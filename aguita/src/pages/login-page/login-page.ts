@@ -31,7 +31,7 @@ export class LoginPage {
   urlImg: string;
   FB_APP_ID: number = 164639320988358;
   respuestaGoogle: any;
-
+  titulo = 'Aguita'
 
   constructor(public navCtrl: NavController,
     public plt: Platform,
@@ -60,7 +60,10 @@ export class LoginPage {
       this.tam = "110% 100%";
     } else if (this.width > 600) {
       this.tam = "100% 100%";
-    }
+      if (this.width > 768) {
+        this.titulo = "Ingresá tus datos para operar";
+      }
+    } 
 
     if (this.plt.is('cordova')) {
       this.urlImg = '../www/'

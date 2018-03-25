@@ -1,9 +1,12 @@
-<ion-content padding [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }">
+<ion-content [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }">
   <div class="overlay" style="overflow: scroll">
-    <ion-grid>
-      <ion-row>
-        <ion-col col-12 col-md-8 style="margin: 0 auto;">
-          <h1 class="titulo">AGÜITA</h1>
+    <ion-grid style="height: 100%;">
+      <ion-row style="height: 100%;">
+        <ion-col col-12 col-md-8 id="lado">
+
+        </ion-col>
+        <ion-col col-12 col-md-4 style="margin: 0 auto;" class="aguita">
+          <h1 class="titulo">{{titulo}}</h1>
           <ion-row>
             <ion-col col-6>
               <a class="pIzq" (click)="forgotPassword()">
@@ -16,13 +19,13 @@
               </a>
             </ion-col>
           </ion-row>
-          <form (ngSubmit)="login()">
+          <form (ngSubmit)="login()" autocomplete="off">
             <ion-list style="padding: 5%">
               <ion-item>
-                <ion-input [(ngModel)]="username" type="text" name="username" placeholder="Usuario"></ion-input>
+                <ion-input [(ngModel)]="username" type="text" name="username" placeholder="Usuario" autocomplete="off"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input [(ngModel)]="password" type="password" name="password" placeholder="Contraseña"></ion-input>
+                <ion-input [(ngModel)]="password" type="password" name="password" placeholder="Contraseña" autocomplete="off"></ion-input>
               </ion-item>
             </ion-list>
             <button ion-button type="submit" class="boton" color="white">Iniciar sesión</button>

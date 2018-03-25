@@ -73,5 +73,27 @@
             margin: 0 auto;
             font-family: 'Oswald', sans-serif;
         }
+        @media (min-width: 768px) {
+            .aguita{
+                background: white;
+            }
+            .grid{
+                padding: 0px !important;
+            }
+            .titulo {
+                font-family: 'Roboto' !important;
+                margin: 63px auto;
+                font-size: 3em;
+                font-weight: 300;
+                text-align: left;
+                color: black;
+                width: 90%;
+            }
+        }
+        @media (max-width: 768px) {
+            #lado{
+                display: none;
+            }
+        }
     }
 }

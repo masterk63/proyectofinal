@@ -103,6 +103,7 @@ let config = new AuthServiceConfig([
     HttpModule,
     SocialLoginModule.initialize(config),
     IonicModule.forRoot(MyApp, {
+      autocomplete: 'off',
       backButtonText: '',
       mode: "md",
       iconMode: 'md',
