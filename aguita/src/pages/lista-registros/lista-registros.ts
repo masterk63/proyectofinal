@@ -66,7 +66,7 @@ export class ListaRegistrosPage {
     public localSQL: LocalSqlProvider,
     private menu: MenuController,
     private _zone: NgZone) {
-
+      
   }
 
   ionViewDidLoad() {
