@@ -3,7 +3,11 @@
     <ion-grid style="height: 100%;">
       <ion-row style="height: 100%;">
         <ion-col col-12 col-md-8 id="lado">
-
+          <div class="mesanjeBienvenida">
+            <p>
+              Bienvenido a <span>Aguita</span>
+            </p>
+          </div>
         </ion-col>
         <ion-col col-12 col-md-4 style="margin: 0 auto;" class="aguita">
           <h1 class="titulo">{{titulo}}</h1>
@@ -28,7 +32,7 @@
                 <ion-input [(ngModel)]="password" type="password" name="password" placeholder="Contraseña" autocomplete="off"></ion-input>
               </ion-item>
             </ion-list>
-            <button ion-button type="submit" class="boton" color="white">Iniciar sesión</button>
+            <button ion-button type="submit" class="boton" id="submit">Iniciar sesión</button>
           </form>
           <p class="entreLineas">
             <span style="color: lightgray">o ingresa con</span>

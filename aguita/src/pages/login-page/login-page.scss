@@ -14,6 +14,10 @@
             color: lightgray;
             text-decoration: underline;
             font-size: 12px;
+            font-family: 'Roboto';
+        }
+        .input {
+            font-family: 'Roboto';
         }
         .pIzq {
             float: left;
@@ -41,6 +45,7 @@
             display: inline-block;
             position: relative;
             width: 25%;
+            color: lightgray;
         }
         .entreLineas span:before,
         .entreLineas span:after {
@@ -73,11 +78,25 @@
             margin: 0 auto;
             font-family: 'Oswald', sans-serif;
         }
+        .mesanjeBienvenida {
+            font-family: 'Roboto' !important;
+        }
+        .mesanjeBienvenida p {
+            font-family: 'Roboto' !important;
+            font-size: 4em;
+            font-weight: 300;
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+        }
+        .mesanjeBienvenida span{
+            font-family: 'Leckerli One' !important;
+        }
         @media (min-width: 768px) {
-            .aguita{
+            .aguita {
                 background: white;
             }
-            .grid{
+            .grid {
                 padding: 0px !important;
             }
             .titulo {
@@ -89,9 +108,15 @@
                 color: black;
                 width: 90%;
             }
+            .entreLineas span {
+                color: #6f6b6b !important;
+            }
+            a {
+                color: #6f6b6b;
+            }
         }
         @media (max-width: 768px) {
-            #lado{
+            #lado {
                 display: none;
             }
         }
