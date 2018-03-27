@@ -1,5 +1,26 @@
-lista-registros{
-    .card-background-page { 
+lista-registros {
+    ion-content,
+    ion-list-header {
+        background-color: #f1f1f4 !important;
+    }
+    ion-list-header {
+        font-size: 2em !important;
+    }
+    .header {
+        font-size: 1.4em;
+        margin: 10px;
+        position: relative;
+    }
+    .header .icon{
+        color: slateblue;
+    }
+    .header span {
+        position: absolute;
+        bottom: 3px;
+        left: 45px;
+        font-size: 1.5em;
+    }
+    .card-background-page {
         ion-card {
             position: relative;
             text-align: center;
@@ -27,29 +48,18 @@ lista-registros{
         display: block;
         width: 100%;
     }
-    
-    ion-card ion-item {
-        background: #FAFAFA !important;
+    .icon {
+        font-size: 2em;
+        margin: 1px;
     }
-
-    ion-item:nth-child(odd) {
-        background: #FAFAFA;
-    }
-
-    ion-list-header{
-        margin-bottom: -10px !important;
-        min-height: 2.5rem !important;
-        font-size: 2rem !important;
-    }
-    
     .titulo {
         width: 100%;
-        padding: 9px;      
-        background: color($colors,primary);  ;
+        padding: 9px;
+        background: color($colors, primary);
+        ;
     }
-
-    .titulo h2{
+    .titulo h2 {
         font-size: 3em;
-        color:white;
+        color: white;
     }
 }

@@ -1,6 +1,6 @@
 export let data = {
     // "urlServidor": 'http://rickybruno.sytes.net:3000',
     // "urlServidor": 'http://localhost:3000',
-    "urlServidor": 'http://192.168.0.13:3000',
+    "urlServidor": 'http://192.168.1.16:3000', 
     "password": "false" 
 };

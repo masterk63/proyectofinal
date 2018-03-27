@@ -16,6 +16,11 @@
     margin: 0 auto;
 }
 
+.ajustarTexto{
+  white-space: normal;  
+  word-wrap:break-word;
+}
+
 @media (min-width: 992px) {
     ion-menu {
         max-width: 350px!important;
@@ -139,5 +144,7 @@ body.keyboard-is-open .scroll-content {
   }
   
   body, span, button, h1, h2, h3, h4, h5, h6, p, a, i, ion-item, ion-title {
-  font-family: 'Oswald', sans-serif;
+  // font-family: 'Oswald', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
   }
