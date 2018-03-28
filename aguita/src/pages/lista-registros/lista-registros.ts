@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone,Input } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Localsave } from '../../providers/localsave';
 import { FilePath } from '@ionic-native/file-path';
@@ -52,6 +52,7 @@ export class ListaRegistrosPage {
   registros: any;
   registrosOnline: any = [];
   fotoMapaNoDisponible: any;
+  @Input() idUsuario;
 
   constructor(public navCtrl: NavController,
     public authService: Auth,
@@ -73,30 +74,32 @@ export class ListaRegistrosPage {
 
   }
 
-  ionViewWillEnter() {
-    if (this.platform.is('cordova')) {
-      this.obtenerRegistrosDBLocal();
-    }
-
-    this.registrosCtrl.cargarRegistros().then((registros) => {
-      console.log('registros en el servidor', registros);
-      this.registrosOnline = registros;
-      this.registrosOnline = this.registrosOnline.reverse();
-    }).catch(e => {
-      this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
-    })
-
-    if (this.platform.is('cordova')) {
-      this.events.subscribe('registro:eliminado', (reg, time) => {
-        console.log('eliminar registro, evento disparado', reg);
-        this.borrarRegistroDeLaVista(reg);
+  ngOnChanges() {
+    if(this.idUsuario && this.idUsuario != 0){
+      if (this.platform.is('cordova')) {
+        this.obtenerRegistrosDBLocal();
+      }
+  
+      this.registrosCtrl.cargarRegistros().then((registros) => {
+        console.log('registros en el servidor', registros);
+        this.registrosOnline = registros;
+        this.registrosOnline = this.registrosOnline.reverse();
+      }).catch(e => {
+        this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
+      })
+  
+      if (this.platform.is('cordova')) {
+        this.events.subscribe('registro:eliminado', (reg, time) => {
+          console.log('eliminar registro, evento disparado', reg);
+          this.borrarRegistroDeLaVista(reg);
+        });
+      }
+  
+      this.events.subscribe('registro:creado', (reg) => {
+        console.log('pasando por el evento registro creado', reg)
+        this._zone.run(() => this.registrosOnline.unshift(reg.registro));
       });
     }
-
-    this.events.subscribe('registro:creado', (reg) => {
-      console.log('pasando por el evento registro creado', reg)
-      this._zone.run(() => this.registrosOnline.unshift(reg.registro));
-    });
   }
 
   ionViewDidLeave() {

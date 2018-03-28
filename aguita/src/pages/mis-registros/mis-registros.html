@@ -1,15 +1,12 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>
-      Mis Registros
-    </ion-title>
-  </ion-navbar>
-
-</ion-header>
-
 <ion-content>
-  <lista-registros></lista-registros>
+  <ion-grid style="height: 100%;">
+    <ion-row style="height: 100%;">
+      <ion-col col-4>
+        <lista-registros [idUsuario]="this.idUsuario"></lista-registros>
+      </ion-col>
+      <ion-col col-8>
+          <mapa-usuario [idUsuario]="this.idUsuario"></mapa-usuario>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
