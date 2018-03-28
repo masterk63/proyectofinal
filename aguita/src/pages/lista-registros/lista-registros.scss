@@ -12,13 +12,43 @@ lista-registros {
         position: relative;
     }
     .header .icon{
-        color: slateblue;
+        color: #4184f3;
+        font-size: 2em;
     }
     .header span {
         position: absolute;
         bottom: 3px;
         left: 45px;
         font-size: 1.5em;
+    }
+    ion-card span{
+        max-width: 46px;
+        color: white;
+        border-radius: 35px;
+        padding: 5px 7px;
+        display: -webkit-inline-box;
+    }
+    ion-card .icon{
+        font-size: 2em !important;
+    }
+    ion-card p{
+        font-size: 1.5em !important;
+        display: inline-block;
+    }
+    .segundaFila div{
+       text-align: center;
+    }
+    .primeraFila .col{
+        text-align: center;
+        margin: 0 auto;
+    }
+    .contenedorBoton{
+        background: #f8f8f8;
+        text-align: center;
+    }
+    .contenedorBoton .button span{
+        color: #515e70 !important;
+        font-weight: bold;
     }
     .card-background-page {
         ion-card {
@@ -49,8 +79,7 @@ lista-registros {
         width: 100%;
     }
     .icon {
-        font-size: 2em;
-        margin: 1px;
+        margin: 1px 2px;
     }
     .titulo {
         width: 100%;
@@ -61,5 +90,19 @@ lista-registros {
     .titulo h2 {
         font-size: 3em;
         color: white;
+    }
+
+    @media only screen and (max-width: 574px) {
+        .primeraFila [col-10] span{
+            display: none;
+        }
+        .primeraFila [col-10]{
+            text-align: left;
+        }
+    }
+    @media only screen and (min-width: 575px) {
+        .primeraFila [col-2]{
+            display: none;
+        }
     }
 }
