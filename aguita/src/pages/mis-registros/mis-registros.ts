@@ -22,9 +22,6 @@ export class MisRegistrosPage {
     });
   }
 
-  // ionViewWillLeave() {
-  //   console.log("Looks like I'm about to leave :(");
-  // }
 }
 
 

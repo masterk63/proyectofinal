@@ -1,12 +1,3 @@
 <ion-content>
-  <ion-grid style="height: 100%;">
-    <ion-row style="height: 100%;">
-      <ion-col id="contenedorRegistros">
-        <lista-registros [idUsuario]="this.idUsuario"></lista-registros>
-      </ion-col>
-      <ion-col id="contenedorMapa">
-          <mapa-usuario [idUsuario]="this.idUsuario"></mapa-usuario>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <lista-registros [idUsuario]="this.idUsuario"></lista-registros>
 </ion-content>

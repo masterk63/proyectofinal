@@ -34,55 +34,56 @@
     </ion-item>
   </ion-list>
 
-  <ion-list *ngIf="registrosOnline" [@listAnimation]="registrosOnline.length">
+  <div *ngIf="registrosOnline" [@listAnimation]="registrosOnline.length">
     <div class="header">
       <ion-icon name="globe" item-left large></ion-icon>
       <span>Online</span>
     </div>
     <ion-grid>
       <ion-row>
-        <ion-card *ngFor="let reg of registrosOnline">
-          <ion-grid>
-            <ion-row class="primeraFila">
-              <ion-col col-2>
-                <span style="background: #fa8c02">
-                  <ion-icon name="locate" item-left large></ion-icon>
-                </span>
-              </ion-col>
-              <ion-col col-10>
-                <p class="ajustarTexto">{{reg.ciudad}}, {{reg.provincia}} {{reg.pais}}</p>
-              </ion-col>
-            </ion-row>
-    
-            <ion-row class="segundaFila">
-              <ion-col col-6>
-                <div>
-                  <span style="background: #8d6e63">
-                    <ion-icon name="calendar" item-left large></ion-icon>
+        <ion-col col-12 col-sm-6 col-md-4 *ngFor="let reg of registrosOnline">
+          <ion-card >
+            <ion-grid>
+              <ion-row class="primeraFila">
+                <ion-col col-2>
+                  <span style="background: #fa8c02;float: right;">
+                    <ion-icon name="locate" item-left large></ion-icon>
                   </span>
-                  <p>{{reg.fecha | date:'dd/MM/yy'}}</p>
-                </div>
-              </ion-col>
-              <ion-col col-6>
-                <div>
-                  <span style="background: #4184f3">
-                    <ion-icon name="ios-bug" item-left large></ion-icon>
-                  </span>
-                  <p>{{reg.indice}}</p>
-                </div>
-              </ion-col>
-    
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <div class="contenedorBoton">
-                  <button ion-button clear item-end (click)="irAlRegistro(reg.idRegistro)">Ver</button>
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card>
+                </ion-col>
+                <ion-col col-10>
+                  <p class="ajustarTexto">{{reg.ciudad}}, {{reg.provincia}} {{reg.pais}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row class="segundaFila">
+                <ion-col col-6>
+                  <div>
+                    <span style="background: #8d6e63">
+                      <ion-icon name="calendar" item-left large></ion-icon>
+                    </span>
+                    <p>{{reg.fecha | date:'dd/MM/yy'}}</p>
+                  </div>
+                </ion-col>
+                <ion-col col-6>
+                  <div>
+                    <span style="background: #4184f3">
+                      <ion-icon name="ios-bug" item-left large></ion-icon>
+                    </span>
+                    <p>{{reg.indice}}</p>
+                  </div>
+                </ion-col>
+
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <div class="contenedorBoton">
+                    <button ion-button clear item-end (click)="irAlRegistro(reg.idRegistro)">Ver</button>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
       </ion-row>
     </ion-grid>
-  </ion-list>
+  </div>
 </ion-content>

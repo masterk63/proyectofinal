@@ -25,7 +25,7 @@ import { UsuarioPage } from '../pages/usuario/usuario';
 import { MenuPage } from '../pages/menu/menu';
 import { ListaRegistrosPage } from '../pages/lista-registros/lista-registros';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
-import { MapaUsuario } from '../pages/mapa-usuario/mapa-usuario';
+
 
 // Providers
 import { Todos } from '../providers/todos';
@@ -80,7 +80,6 @@ let config = new AuthServiceConfig([
     HomePage,
     TabsPage,
     IntroPage,
-    MapaUsuario,
     UsuarioPage,
     LoginPage,
     SwipeVertical,
@@ -124,7 +123,6 @@ let config = new AuthServiceConfig([
     UsuarioPage,
     MapaGeneralPage,
     Mapajshtml,
-    MapaUsuario,
     ModalPage,
     MenuPage,
     ForgotPasswordPage,
