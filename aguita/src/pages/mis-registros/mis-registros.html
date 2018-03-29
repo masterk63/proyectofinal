@@ -1,10 +1,10 @@
 <ion-content>
   <ion-grid style="height: 100%;">
     <ion-row style="height: 100%;">
-      <ion-col col-4>
+      <ion-col id="contenedorRegistros">
         <lista-registros [idUsuario]="this.idUsuario"></lista-registros>
       </ion-col>
-      <ion-col col-8>
+      <ion-col id="contenedorMapa">
           <mapa-usuario [idUsuario]="this.idUsuario"></mapa-usuario>
       </ion-col>
     </ion-row>

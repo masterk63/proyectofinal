@@ -1,3 +1,32 @@
 page-mis-registros {
-     
+  .grid{
+    padding: 0px !important;
+  }
+
+  #contenedorRegistros{
+    padding: 0px;
+    max-width: 310px;
+    width: 100%;
+  }
+
+  #contenedorMapa{
+    padding: 0px;
+    max-width: calc(100% - 311px);
+  }
+
+
+  @media only screen and (max-width: 720px) {
+    #contenedorMapa{
+      display: none;
+    }
+    #contenedorRegistros{
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  lista-registros .scroll-content{
+    margin-bottom: 0px !important;
+  }
+
 }

@@ -21,6 +21,10 @@ lista-registros {
         left: 45px;
         font-size: 1.5em;
     }
+    ion-card {
+        max-width: 290px;
+        margin: 10px !important;
+    }
     ion-card span{
         max-width: 46px;
         color: white;
@@ -39,7 +43,6 @@ lista-registros {
        text-align: center;
     }
     .primeraFila .col{
-        text-align: center;
         margin: 0 auto;
     }
     .contenedorBoton{
@@ -101,8 +104,8 @@ lista-registros {
         }
     }
     @media only screen and (min-width: 575px) {
-        .primeraFila [col-2]{
-            display: none;
-        }
+        // .primeraFila [col-2]{
+        //     display: none;
+        // }
     }
 }
