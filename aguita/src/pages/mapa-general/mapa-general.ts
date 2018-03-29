@@ -48,7 +48,22 @@ export class MapaGeneralPage {
     private sanitizer: DomSanitizer,
     public connectivityService: ConnectivityService,
     public ubicacionCtrl: Ubicacion) {
-      
+      let scripts = document.getElementsByTagName("script");  
+      console.log(scripts);
+      for (let i=0;i<scripts.length;i++){
+        if(scripts[i].id == "googleMaps"){
+          var googleMapsScript = scripts[i];
+        }if(scripts[i].id == "markerclusterer"){
+          var clusterMapsScript = scripts[i];
+        }
+      }
+      if(googleMapsScript){
+        document.body.removeChild(googleMapsScript);
+      }
+      if(clusterMapsScript){ 
+        document.body.removeChild(clusterMapsScript);
+      }
+      console.log(scripts);
   }
 
   ionViewDidLoad() {
