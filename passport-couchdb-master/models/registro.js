@@ -19,6 +19,13 @@ exports.listar = function (fn) {
     });
 }
 
+exports.listarUsuario = function (id,fn) {
+    connection.query('call registros_listar_usuario(' + id + ')', function (err, rows) {
+        if (err) fn(err);
+        fn(rows[0]);
+    });
+}
+
 exports.listarMarkets = function (fn) {
     connection.query('call registros_coordenadas()', function (err, rows) {
         fn(err, rows[0]);

@@ -11,6 +11,12 @@ exports.registrosListar = function (req, res) {
   });
 }
 
+exports.registrosListarUsuario = function (req, res) {
+  Registro.listarUsuario(req.params.id,function (consulta) {
+    res.json(consulta);
+  });
+}
+
 exports.registroDame = function (req, res) {
   Registro.dame(req.params.id, function (consulta) {
     res.json(consulta);

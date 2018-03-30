@@ -79,8 +79,8 @@ export class ListaRegistrosPage {
       if (this.platform.is('cordova')) {
         this.obtenerRegistrosDBLocal();
       }
-  
-      this.registrosCtrl.cargarRegistros().then((registros) => {
+   
+      this.registrosCtrl.cargarRegistrosUsuario(this.idUsuario).then((registros) => {
         console.log('registros en el servidor', registros);
         this.registrosOnline = registros;
         this.registrosOnline = this.registrosOnline.reverse();

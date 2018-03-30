@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http,Headers} from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as configServer from './../server';
 
@@ -17,10 +17,22 @@ export class RegistrosService {
 
   }
 
-  
+
   cargarRegistros() {
     return new Promise((resolve, reject) => {
       this.http.get(configServer.data.urlServidor + '/api/registrosListar').timeout(5000)
+        .subscribe(resultado => {
+          this.registros = resultado;
+          this.registros = JSON.parse(this.registros._body);
+          resolve(this.registros);
+        }, error => reject("Error de conexion")
+        );
+    });
+  }
+
+  cargarRegistrosUsuario(idRegistro) {
+    return new Promise((resolve, reject) => {
+      this.http.get(configServer.data.urlServidor + '/api/registrosListarUsuario/' + idRegistro).timeout(5000)
         .subscribe(resultado => {
           this.registros = resultado;
           this.registros = JSON.parse(this.registros._body);
@@ -67,14 +79,14 @@ export class RegistrosService {
   }
 
   crearRegistro(registroCompleto) {
-    
+
     return new Promise((resolve, reject) => {
 
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
       let reg = {
-        registro:registroCompleto
+        registro: registroCompleto
       }
 
       this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, JSON.stringify(reg), { headers: headers })
