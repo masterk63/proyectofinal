@@ -96,8 +96,9 @@ exports.register = function (req, res, next) {
     apellido: '"' + convertirLaPrimeraLetraAMayuscula(req.body.apellido) + '"',
     institucion: '"' + convertirLaPrimeraLetraAMayuscula(req.body.institucion) + '"',
     grado: '"' + req.body.grado + '"',
-    residencia: '"' + convertirLaPrimeraLetraAMayuscula(req.body.residencia) + '"',
+    residencia: '"' + convertirLaPrimeraLetraAMayuscula(req.body.residencia) + '"'
   };
+
   User.crearUsuario(details, function (respuesta) {
     if (respuesta[0][0].codigo != 0) {
       var id = '"' + respuesta[0][0].codigo + '"';

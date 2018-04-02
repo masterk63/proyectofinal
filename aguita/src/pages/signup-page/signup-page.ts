@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { Platform, NavController, LoadingController } from 'ionic-angular';
+import { Platform, NavController, LoadingController, AlertController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Auth } from '../../providers/auth';
 import { HomePage } from '../home/home';
+import { TabsPage } from '../tabs/tabs';
 import { Localsave } from '../../providers/localsave';
 
 @Component({
@@ -24,11 +25,12 @@ export class SignupPage {
   tituloBoton = "Mostrar contraseña";
   isActive = false;
   urlImg: string;
-
+  
   constructor(public navCtrl: NavController,
     public plt: Platform,
     public authService: Auth,
     public localSaveCtrl: Localsave,
+    public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public formBuilder: FormBuilder) {
 
@@ -88,6 +90,7 @@ export class SignupPage {
     } else {
       console.log(this.registroForm.value.nombre);
       this.showLoader();
+      
       let details = {
         mail: this.registroForm.value.mail,
         username: this.registroForm.value.username,
@@ -101,10 +104,10 @@ export class SignupPage {
       
       this.authService.createAccount(details).then((result) => {
         this.loading.dismiss();
-        this.localSaveCtrl.init();
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(TabsPage);
       }, (err) => {
         this.loading.dismiss();
+        this.mostrarAlerta('Error','No se establecido conexion con el servidor')
       });
     }
   }
@@ -130,6 +133,15 @@ export class SignupPage {
       this.verPass = "text"
       this.tituloBoton = "Ocultar contraseña";
     }
+  }
+
+  mostrarAlerta(titulo, mensaje) {
+    let alert = this.alertCtrl.create({
+      title: titulo,
+      subTitle: mensaje,
+      buttons: ['ACEPTAR']
+    });
+    alert.present();
   }
 
 }
