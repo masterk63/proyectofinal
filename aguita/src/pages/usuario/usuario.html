@@ -23,7 +23,7 @@
           <ion-col col-12 class="profile">
             <ion-row class="contenedorImagen">
               <div>
-                <img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" />
+                <img [src]="'data:image/jpeg;base64,'+this.usuario?.fotoPerfil" />
                 <h2>{{usuario?.usuario}}</h2>
               </div>
             </ion-row>
