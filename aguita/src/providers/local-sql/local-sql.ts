@@ -96,6 +96,8 @@ export class LocalSqlProvider {
       console.log('Registro eliminado exitosamente.')
       this.events.publish('registro:eliminado', reg, Date.now());
       reg.idRegistro = reg.idRegistroOnline;
+      delete reg.fotoMuestra;
+      delete reg.fotoPaisaje;
       setTimeout(() => {
         this.socketPrv.publicar(reg);
       }, 1000);

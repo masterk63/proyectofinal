@@ -140,12 +140,19 @@ export class LoginPage {
               photoUrl: user.pic,
               id: user.id
             }
-            this.fbLoginStore(usuario);
+            if(user.email){
+              this.fbLoginStore(usuario);
+            }else{
+              throw "No se pudo obtner un mail de Facebook."
+            }
           }).catch( e =>{
             this.mostrarAlerta('Error',e)
           })
       }, (error) => {
-        this.mostrarAlerta('Error',error)
+        if(error.errorCode != 4201){
+          let e = JSON.stringify(error)
+          this.mostrarAlerta('Error',e)
+        }
       });
   }
 

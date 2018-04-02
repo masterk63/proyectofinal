@@ -11,7 +11,7 @@
     </div>
     <ion-grid>
       <ion-row>
-        <ion-col col-12 col-sm-6 col-md-4 col-lg-3 *ngFor="let reg of registrosOnline">
+        <ion-col col-12 col-sm-6 col-md-4 col-lg-3 *ngFor="let reg of registros">
           <ion-card>
             <img [src]="'data:image/png;base64,'+reg.fotoPaisaje">
             <ion-fab right top>
@@ -35,10 +35,6 @@
             <ion-item>
               <span item-left>Fecha</span>
               <span item-left>{{reg.fecha | date:'dd/MM/yy'}}</span>
-              <button ion-button icon-left clear item-end (click)="irAlRegistro(reg.idRegistro)">
-                <ion-icon name="ios-eye"></ion-icon>
-                Ver
-              </button>
             </ion-item>
           </ion-card>
         </ion-col>

@@ -52,6 +52,7 @@ export class ConnectivityService {
             r.ciudad = rOnline.ciudad;
             r.provincia = rOnline.provincia;
             r.pais = rOnline.pais;
+            r.fotoMapa = rOnline.fotoMapa;
             this.localSQLPrv.delete(r);
           }else{
           //   this.presentToast('No se detecto conexion a internet,los registros se subiran solos, al detectar internet');            

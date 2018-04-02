@@ -7,20 +7,20 @@ import { Events } from 'ionic-angular';
 @Injectable()
 export class SocketProvider {
 
-  public socket:any
-  public idUsuario:any;
+  public socket: any
+  public idUsuario: any;
 
-  constructor(public events: Events,) {
-  
+  constructor(public events: Events, ) {
+
   }
 
-  public init(idUsuario){
+  public init(idUsuario) {
     this.idUsuario = idUsuario;
 
     this.socket = io(configServer.data.urlServidor);
 
     this.socket.on('handShake', (msg) => {
-      this.socket.emit('crearRoom', { user:idUsuario });
+      this.socket.emit('crearRoom', { user: idUsuario });
     });
 
     this.socket.on('mensaje', (reg) => {
@@ -28,11 +28,11 @@ export class SocketProvider {
     });
   }
 
-  public publicar(reg){
-    this.socket.emit('enviarInfo', { user:this.idUsuario, registro:reg});
+  public publicar(reg) {
+    this.socket.emit('enviarInfo', { user: this.idUsuario, registro: reg });
   }
 
-  public getSocket(){
+  public getSocket() {
     return this.socket;
   }
 

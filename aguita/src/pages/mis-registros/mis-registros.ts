@@ -10,7 +10,8 @@ import { Storage } from '@ionic/storage';
 
 export class MisRegistrosPage {
   idUsuario:number;
-  
+  leaving:boolean = false;
+
   constructor(public storage: Storage){
     
   }
@@ -20,6 +21,10 @@ export class MisRegistrosPage {
     this.storage.get('idUsuario').then((idUsuario) => {
       this.idUsuario = idUsuario;
     });
+  }
+
+  ionViewDidLeave(){
+    this.leaving = !this.leaving;    
   }
 
 }

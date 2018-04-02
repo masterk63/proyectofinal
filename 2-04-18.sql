@@ -327,9 +327,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -345,13 +345,38 @@ PROC: BEGIN
 		SELECT 0 as codigo, 'El registro no existe' mensaje;
         LEAVE PROC;
 	END IF;
+	
+	DROP TEMPORARY TABLE IF EXISTS filasAColumna;
+CREATE TEMPORARY TABLE IF NOT EXISTS filasAColumna AS 
+	(SELECT rtb.idRegistro,
+			IF( rtb.idBicho = 1, 1, 0 ) as elmido,
+			IF( rtb.idBicho = 2, 1, 0) as patudo,
+			IF( rtb.idBicho = 3, 1, 0 ) as plecoptero,
+            IF( rtb.idBicho = 4, 1, 0 ) as tricoptero
+	FROM registros_tienen_bichos AS rtb
+    LEFT JOIN bichos AS b ON b.idBicho=rtb.idBicho);
+
+DROP TEMPORARY TABLE IF EXISTS coincidencia;
+CREATE TEMPORARY TABLE IF NOT EXISTS coincidencia AS 
+	( SELECT idRegistro,
+    -- TODO ESTO y lo anterior es para transformar las filas de coincidencias en columnas
+    -- USAMOS SUM porque el if de arriba asigna INT = 1 o 0
+    -- En caso de no usar INT y usar String como "si" o "no" hay que usar GROUP_CONCAT
+        SUM(Elmido) as elmido, 
+		SUM(Patudo) as patudo,
+		SUM(Plecoptero) as plecoptero,
+		SUM(Tricoptero) as tricoptero 
+	FROM filasAColumna AS t GROUP by idRegistro);
+        
+		
     SELECT	uIdRegistro as codigo,r.idRegistro,r.indice,r.fecha,r.latitud,r.longitud,r.observacion,
 		r.estado,r.idUsuario, CONVERT(r.fotoMapa USING utf8) as fotoMapa,
 		CONVERT(r.fotoPaisaje USING utf8) as fotoPaisaje,CONVERT(r.fotoMuestra USING utf8) as fotoMuestra
-		,u.nombre,u.apellido,u.institucion,u.grado,u.residencia,u.usuario,ub.*
+		,u.nombre,u.apellido,u.institucion,u.grado,u.residencia,u.usuario,ub.*, t.elmido, t.patudo, t.plecoptero, t.tricoptero
     FROM	registros as r
 		INNER JOIN usuarios AS u ON u.idUsuario = r.idUsuario
 		INNER JOIN ubicaciones AS ub ON ub.idUbicacion = r.idUbicacion
+		LEFT JOIN coincidencia AS t ON r.idRegistro=t.idRegistro
     WHERE   r.idRegistro = uIdRegistro;
     
 END ;;
@@ -468,7 +493,7 @@ PROC: BEGIN
 		
 		SET rIdRegistro = 1 + (SELECT COALESCE(MAX(idRegistro),0) FROM registros);
 		INSERT INTO registros VALUES (rIdRegistro,rIndice,rFecha,rLatitud,rLongitud,rFotoPaisaje,rFotoMuestra,rFotoMapa,rObservacion,1,rIdUsuario,rIdUbicacion);
-		SELECT rIdRegistro AS codigo, 'Registro creado exitosamente' mensaje,uCiudad as ciudad,uProvincia as provincia,uPais as pais;
+		SELECT rIdRegistro AS codigo, 'Registro creado exitosamente' mensaje,uCiudad as ciudad,uProvincia as provincia,uPais as pais,CONVERT(rFotoMapa USING utf8) as fotoMapa;
         
       IF bElmidos='si' THEN 
 			INSERT INTO registros_tienen_bichos VALUES (rIdRegistro,1);
@@ -1186,4 +1211,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-30 13:09:09
+-- Dump completed on 2018-04-02 13:31:29

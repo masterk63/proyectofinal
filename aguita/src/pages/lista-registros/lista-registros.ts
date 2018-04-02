@@ -53,6 +53,7 @@ export class ListaRegistrosPage {
   registrosOnline: any = [];
   fotoMapaNoDisponible: any;
   @Input() idUsuario;
+  @Input() leavePage;
 
   constructor(public navCtrl: NavController,
     public authService: Auth,
@@ -74,19 +75,24 @@ export class ListaRegistrosPage {
 
   }
 
-  ngOnChanges() {
+  ngOnChanges($event) {
+    if($event.leavePage){
+      this.ionViewDidLeave();
+    }
     if(this.idUsuario && this.idUsuario != 0){
       if (this.platform.is('cordova')) {
         this.obtenerRegistrosDBLocal();
       }
-   
-      this.registrosCtrl.cargarRegistrosUsuario(this.idUsuario).then((registros) => {
-        console.log('registros en el servidor', registros);
-        this.registrosOnline = registros;
-        this.registrosOnline = this.registrosOnline.reverse();
-      }).catch(e => {
-        this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
-      })
+      
+      if(this.conexionProvider.isOnline()){
+        this.registrosCtrl.cargarRegistrosUsuario(this.idUsuario).then((registros) => {
+          console.log('registros en el servidor', registros);
+          this.registrosOnline = registros;
+          this.registrosOnline = this.registrosOnline.reverse();
+        }).catch(e => {
+          this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
+        })
+      }
   
       if (this.platform.is('cordova')) {
         this.events.subscribe('registro:eliminado', (reg, time) => {
@@ -103,6 +109,7 @@ export class ListaRegistrosPage {
   }
 
   ionViewDidLeave() {
+    console.log('yendome de la lista registros')
     if (this.platform.is('cordova')) {
       this.events.unsubscribe('registro:eliminado');
     }

@@ -52,19 +52,10 @@ export class RegistroPage {
     this.regService.registroDame(this.idRegistro).then(data => {
       this.registro = data;
       this.registro = this.registro[0];
-
-      /* 
-      
-      Codigo Harcodeado, arreglar la consulta en el SP de dame 
-      registro, para que realmente devuelva los valores correspodientes
-
-      */
-      this.registro.elmido = 'si'
-      this.registro.patudo = 'si'
-      this.registro.plecoptero = 'si'
-      this.registro.tricoptero = 'si'
-
-
+      (this.registro.elmido == 1) ? this.registro.elmido = 'SI' : this.registro.elmido = 'NO';
+      (this.registro.patudo == 1) ? this.registro.patudo = 'SI' : this.registro.patudo = 'NO';
+      (this.registro.plecoptero == 1) ? this.registro.plecoptero = 'SI' : this.registro.plecoptero = 'NO';
+      (this.registro.tricoptero == 1) ? this.registro.tricoptero = 'SI' : this.registro.tricoptero = 'NO';
       console.log(this.registro);
       this.fotoPaisajeURL = this.fotoPaisajeURL + this.registro.fotoPaisaje;
       this.fotoMuestraURL = this.fotoMuestraURL + this.registro.fotoMuestra;
@@ -72,10 +63,6 @@ export class RegistroPage {
       this.fotoMuestraURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL);
       this.fotoMapaURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMapaURL);
       this.fotoPaisajeURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL);
-      // this.validoToArray();
-      // if (this.registro.observacion == "null") {
-      //   this.registro.observacion = "No hay observaciones."
-      // }
       this.loading.dismiss();
     }).catch((err) => {
       this.loading.dismiss(),
