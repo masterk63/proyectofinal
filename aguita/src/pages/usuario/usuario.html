@@ -48,9 +48,14 @@
             <ion-row class="profileBottom">
               <ion-col>
                 <button ion-button color="danger" round>
-                  <ion-icon name="close"></ion-icon>Baja</button>
-                <button ion-button color="verde" round>
-                  <ion-icon ios="ios-create" md="md-create"></ion-icon>Editar</button>
+                  <ion-icon name="close"></ion-icon>Baja
+                </button>
+                <button ion-button color="verde" round (click)="botonEditar()" *ngIf="!editar">
+                  <ion-icon ios="ios-create" md="md-create"></ion-icon>Editar
+                </button>
+                <button ion-button color="verde" round *ngIf="editar" (click)="botonCancelar()">
+                  <ion-icon ios="ios-create" md="md-create"></ion-icon>Cancelar
+                </button>
               </ion-col>
             </ion-row>
           </ion-col>
@@ -73,31 +78,31 @@
             <form [formGroup]="formularioUsuario" *ngSwitchCase="'info'">
               <ion-item>
                 <ion-label stacked>Nombre</ion-label>
-                <ion-input type="text" formControlName="nombre"></ion-input>
+                <ion-input type="text" formControlName="nombre" [disabled]="!editar"></ion-input>
               </ion-item>
               <p class="text-danger" *ngIf="!formularioUsuario.controls.nombre.valid  && submitAttempt">Debe Ingresar un Nombre</p>
               <ion-item>
                 <ion-label stacked>Apellido</ion-label>
-                <ion-input type="text" formControlName="apellido"></ion-input>
+                <ion-input type="text" formControlName="apellido" [disabled]="!editar"></ion-input>
               </ion-item>
               <p class="text-danger" *ngIf="!formularioUsuario.controls.apellido.valid  && submitAttempt">Debe Ingresar un Apellido</p>
               <ion-item>
                 <ion-label stacked>Residencia</ion-label>
-                <ion-input type="text" formControlName="residencia"></ion-input>
+                <ion-input type="text" formControlName="residencia" [disabled]="!editar"></ion-input>
               </ion-item>
               <p class="text-danger" *ngIf="!formularioUsuario.controls.residencia.valid  && submitAttempt">Debe Ingresar una Residencia</p>
               <ion-item>
                 <ion-label stacked>Institucion</ion-label>
-                <ion-input type="text" formControlName="institucion"></ion-input>
+                <ion-input type="text" formControlName="institucion" [disabled]="!editar"></ion-input>
               </ion-item>
               <p class="text-danger" *ngIf="!formularioUsuario.controls.institucion.valid  && submitAttempt">Debe Ingresar una Institucion</p>
               <ion-item>
                 <ion-label stacked>Grado</ion-label>
-                <ion-input type="text" formControlName="grado"></ion-input>
+                <ion-input type="text" formControlName="grado" [disabled]="!editar"></ion-input>
               </ion-item>
               <p class="text-danger" *ngIf="!formularioUsuario.controls.grado.valid  && submitAttempt">Debe Ingresar el Grado</p>
               <ion-item>
-                <button float-right color="azul" ion-button type="submit" (click)="actualizar()">Actualizar</button>
+                <button float-right color="azul" ion-button type="submit" (click)="actualizar()" style="padding: 15px;" *ngIf="editar">Actualizar</button>
               </ion-item>
             </form>
 
@@ -151,7 +156,7 @@
         </div>
         <div class="botones">
             <button ion-button color="secondary" *ngIf="!editar" (click)="botonEditar()">Editar</button>
-            <button ion-button color="red" *ngIf="!editar" (click)="confirmarEliminar()">Eliminar</button>
+            <button ion-button color="favorite" *ngIf="!editar" (click)="confirmarEliminar()">Eliminar</button>
             <button ion-button color="favorite" *ngIf="editar" (click)="botonAceptar()">Aceptar</button>
             <button ion-button *ngIf="editar" (click)="botonCancelar()">Cancelar</button>
         </div>

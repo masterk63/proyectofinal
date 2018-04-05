@@ -95,6 +95,10 @@ page-usuario {
         box-shadow: inset 0 -1px 0 0 color($colors, azul)!important;
     }
 
+    lista-registros .titulo {
+        display: none !important;
+    }
+
     @media only screen and (max-width: 767px) {
         .col ,.row, .grid {
             padding: 0 !important;

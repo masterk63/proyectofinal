@@ -60,6 +60,11 @@ export class UsuarioPage {
       .then(data => {
         this.usuario = data;
         this.usuario = this.usuario[0];
+        this.formularioUsuario.controls['nombre'].setValue(this.usuario.nombre);
+        this.formularioUsuario.controls['apellido'].setValue(this.usuario.apellido);
+        this.formularioUsuario.controls['residencia'].setValue(this.usuario.residencia);
+        this.formularioUsuario.controls['institucion'].setValue(this.usuario.institucion);
+        this.formularioUsuario.controls['grado'].setValue(this.usuario.grado);
         console.log(this.usuario)
         this.loading.dismiss();
       }).catch((err) => {
@@ -71,14 +76,13 @@ export class UsuarioPage {
 
   botonEditar() {
     //guardo el estado actual de los parametros posibles a modificar
-    this.nombre = this.usuario.nombre;
-    this.apellido = this.usuario.apellido;
-    this.residencia = this.usuario.residencia;
-    this.institucion = this.usuario.institucion;
-    this.grado = this.usuario.grado;
+    this.nombre = this.formularioUsuario.controls.nombre.value;
+    this.apellido = this.formularioUsuario.controls.apellido.value;
+    this.residencia = this.formularioUsuario.controls.residencia.value;
+    this.institucion = this.formularioUsuario.controls.institucion.value;
+    this.grado = this.formularioUsuario.controls.grado.value;
     //variables para modificar el DOM CSS
     this.editar = !this.editar;
-    this.margen = 320;
   }
 
   botonAceptar() {
@@ -107,14 +111,12 @@ export class UsuarioPage {
   }
 
   botonCancelar() {
-    this.usuario.nombre = this.nombre;
-    this.usuario.apellido = this.apellido;
-    this.usuario.residencia = this.residencia;
-    this.usuario.institucion = this.institucion;
-    this.usuario.grado = this.grado;
-
+    this.formularioUsuario.controls['nombre'].setValue(this.nombre);
+    this.formularioUsuario.controls['apellido'].setValue(this.apellido);
+    this.formularioUsuario.controls['residencia'].setValue(this.residencia);
+    this.formularioUsuario.controls['institucion'].setValue(this.institucion);
+    this.formularioUsuario.controls['grado'].setValue(this.grado);
     this.editar = !this.editar;
-    this.margen = 275;
   }
 
   mostrarAlerta(mensaje, titulo) {
@@ -190,7 +192,7 @@ export class UsuarioPage {
       console.log("formulario invalido");
         this.submitAttempt = true;
     }else{
-      console.log("form valido");
+      this.botonAceptar();
     }
   }
 
