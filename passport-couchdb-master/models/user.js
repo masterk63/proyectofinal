@@ -64,13 +64,17 @@ exports.baja = function (id, fn) {
 }
 
 exports.modificar = function (u, fn) {
-  connection.query('call usuario_modificar('
-    + u.idUsuario +
-    ',' + u.nombre +
-    ',' + u.apellido +
-    ',' + u.residencia +
-    ',' + u.institucion +
-    ',' + u.grado + ')', function (err, rows) {
+  let query = 'call usuario_modificar('
+  + u.idUsuario +
+  ',' + u.nombre +
+  ',' + u.apellido +
+  ',' + u.residencia +
+  ',' + u.institucion +
+  ',' + u.grado + ')';
+
+  console.log(query);
+  
+  connection.query(query, function (err, rows) {
       if (err) fn(err);
       fn(rows[0]);
     });

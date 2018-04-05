@@ -31,14 +31,7 @@ export class MenuPage {
 
     this.pagesUser = [
       { title: 'Mapa General', component: MapaGeneralPage },
-      { title: 'Mis Registros', component: MisRegistrosPage },
-      { title: 'Nuevo Registro', component: HomePage },
-      { title: 'Wheel', component: Wheel },
-      { title: 'Registrarse', component: SignupPage },
-      { title: 'LoginPage', component: LoginPage },
-      { title: 'Introduccion', component: IntroPage },
       { title: 'Tutorial', component: TutorialPage },
-      { title: 'MapaNativo', component: MapasnativoPage },
       { title: 'Usuarios', component: UsuarioPage },
     ];
   }

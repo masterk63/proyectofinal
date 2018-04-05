@@ -13,13 +13,52 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-list>
+<ion-content padding class="card-background-page">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-sm-6 >
+        <ion-card>
+          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png" />
+          <div class="card-title">São Paulo</div>
+          <div class="card-subtitle">41 Listings</div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-12 col-sm-6 >
+        <ion-card>
+          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-amsterdam.png" />
+          <div class="card-title">Amsterdam</div>
+          <div class="card-subtitle">64 Listings</div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-12 col-sm-6 >
+        <ion-card>
+          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-sf.png" />
+          <div class="card-title">San Francisco</div>
+          <div class="card-subtitle">72 Listings</div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-12 col-sm-6 >
+        <ion-card>
+          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-madison.png" />
+          <div class="card-title">Madison</div>
+          <div class="card-subtitle">28 Listings</div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
+
+
+
+  <!-- <ion-list>
     <button menuClose ion-item *ngFor="let p of pagesUser" (click)="openPage(p)">
       {{p.title}}
     </button>
     <button menuClose ion-item (click)="logout()">
       Logout
     </button>
-  </ion-list>
+  </ion-list> -->
 </ion-content>

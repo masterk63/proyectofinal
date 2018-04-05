@@ -14,13 +14,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class UsuarioPage {
 
-  posicion: any;
   loading: any;
   idUsuario: any;
   public usuario: any;
   editar: boolean = false;
   margen: number = 275;
-  mensajeModificar: any;
   nombre: any;
   apellido: any;
   residencia: any;
@@ -40,7 +38,6 @@ export class UsuarioPage {
     public loadingCtrl: LoadingController,
   ) {
     this.showLoader();
-    // this.posicion = this.params.get('posicion');
     this.idUsuario = this.params.get('idUsuario');
     this.dameId();
     this.infoUsuarios = 'info';
@@ -86,22 +83,24 @@ export class UsuarioPage {
   }
 
   botonAceptar() {
+    this.usuario.nombre = this.formularioUsuario.controls.nombre.value;
+    this.usuario.apellido = this.formularioUsuario.controls.apellido.value;
+    this.usuario.residencia = this.formularioUsuario.controls.residencia.value;
+    this.usuario.institucion = this.formularioUsuario.controls.institucion.value;
+    this.usuario.grado = this.formularioUsuario.controls.grado.value;
 
     this.userService.usuarioModificar(this.usuario)
       .then(data => {
-        this.mensajeModificar = data;
-        if (this.mensajeModificar[0].codigo > 0) {
+        let mensajeModificar = data;
+        console.log(mensajeModificar)
+        if (mensajeModificar[0].codigo > 0) {
           let titulo = "Correcto";
-          let mensaje = this.mensajeModificar[0].mensaje;
+          let mensaje = mensajeModificar[0].mensaje;
           this.mostrarAlerta(mensaje, titulo);
-          //Modificamos lso cambios tambien en el array de usuarios service para modificar el DOM en la tabla de usuarios del gestor
-          this.userService.usuarios[this.posicion].nombre = this.usuario.nombre;
-          this.userService.usuarios[this.posicion].apellido = this.usuario.apellido;
           this.editar = !this.editar;
-          this.margen = 275;
         } else {
           let titulo = "Error";
-          let mensaje = this.mensajeModificar[0].mensaje;
+          let mensaje = mensajeModificar[0].mensaje;
           this.mostrarAlerta(mensaje, titulo);
         }
 
