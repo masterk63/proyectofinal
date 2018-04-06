@@ -16,7 +16,6 @@ import { MenuController } from 'ionic-angular';
 import { UsuarioPage } from '../../pages/usuario/usuario';
 import { App } from 'ionic-angular';
 
-
 @Component({
   selector: 'page-menu',
   templateUrl: 'menu.html',
@@ -27,6 +26,7 @@ export class MenuPage {
   constructor(public navCtrl: NavController,
     public authService: Auth,
     public app: App,
+    public storage: Storage,
     public navParams: NavParams) {
 
     this.pagesUser = [
@@ -49,6 +49,20 @@ export class MenuPage {
     this.authService.logout().then(() => {
       console.log('listo borrado, dirijiendo a registrar');
       this.app.getRootNav().setRoot( LoginPage );
+    });
+  }
+
+  mapa(){
+    this.navCtrl.setRoot(MapaGeneralPage);
+  }
+
+  tutorial(){
+    this.navCtrl.setRoot(TutorialPage);
+  }
+
+  verUsuario() {
+    this.storage.get('idUsuario').then((idUsuario) => {
+      this.navCtrl.push(UsuarioPage, { idUsuario });
     });
   }
 }

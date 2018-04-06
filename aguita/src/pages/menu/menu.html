@@ -1,62 +1,54 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>menu</ion-title>
+    <ion-title>MENU</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding class="card-background-page">
   <ion-grid class="centrado">
     <ion-row>
-      <ion-col col-6 col-md-3 class="cardMenu">
-        <div>
-          <ion-icon ios="ios-map" md="md-map"></ion-icon>
-        </div>
-        <div>
-          <p>Mapa</p>
-        </div>
-      </ion-col>
-      <ion-col col-6 col-md-3 class="cardMenu">
-        <div>
-          <ion-icon ios="ios-map" md="md-map"></ion-icon>
-        </div>
-        <div>
-          <p>Mapa</p>
+      <ion-col col-6 col-md-6>
+        <div class="cardMenu" (click)="mapa()">
+          <div>
+            <ion-icon ios="ios-map" md="md-map"></ion-icon>
+          </div>
+          <div>
+            <p>Mapa</p>
+          </div>
         </div>
       </ion-col>
-      <ion-col col-6 col-md-3 class="cardMenu">
-        <div>
-          <ion-icon ios="ios-map" md="md-map"></ion-icon>
-        </div>
-        <div>
-          <p>Mapa</p>
+      <ion-col col-6 col-md-6>
+        <div class="cardMenu" (click)="verUsuario()">
+          <div>
+            <ion-icon name="contact"></ion-icon>
+          </div>
+          <div>
+            <p>Mi Perfil</p>
+          </div>
         </div>
       </ion-col>
-      <ion-col col-6 col-md-3 class="cardMenu">
-        <div>
-          <ion-icon ios="ios-map" md="md-map"></ion-icon>
+      <ion-col col-6 col-md-6>
+        <div class="cardMenu" (click)="tutorial()">
+          <div>
+            <ion-icon name="book"></ion-icon>
+          </div>
+          <div>
+            <p>Tutorial</p>
+          </div>
         </div>
-        <div>
-          <p>Mapa</p>
+      </ion-col>
+      <ion-col col-6 col-md-6>
+        <div class="cardMenu" (click)="logout()">
+          <div>
+            <ion-icon name="exit"></ion-icon>
+          </div>
+          <div>
+            <p>Salir</p>
+          </div>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
-
-
-
-
-
-  <!-- <ion-list>
-    <button menuClose ion-item *ngFor="let p of pagesUser" (click)="openPage(p)">
-      {{p.title}}
-    </button>
-    <button menuClose ion-item (click)="logout()">
-      Logout
-    </button>
-  </ion-list> -->
 </ion-content>
