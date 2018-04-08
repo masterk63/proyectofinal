@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { UsuariosService } from '../../providers/usuariosService';
 import { Auth } from '../../providers/auth';
@@ -24,16 +24,17 @@ export class UsuarioPage {
   residencia: any;
   institucion: any;
   grado: any;
-  infoUsuarios:any;
-  formularioUsuario:any;
-  submitAttempt:boolean = false;
+  infoUsuarios: any;
+  formularioUsuario: any;
+  submitAttempt: boolean = false;
+  @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(public navCtrl: NavController,
     public params: NavParams,
     public userService: UsuariosService,
     public storage: Storage,
     public authService: Auth,
-    public formBuilder:FormBuilder,
+    public formBuilder: FormBuilder,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
   ) {
@@ -43,13 +44,31 @@ export class UsuarioPage {
     this.infoUsuarios = 'info';
 
     this.formularioUsuario = formBuilder.group({
-      nombre: ['',Validators.compose([Validators.required])],
-      apellido: ['',Validators.compose([Validators.required])],
-      residencia: ['',Validators.compose([Validators.required])],
-      institucion: ['',Validators.compose([Validators.required])],
-      grado: ['',Validators.compose([Validators.required])],
+      nombre: ['', Validators.compose([Validators.required])],
+      apellido: ['', Validators.compose([Validators.required])],
+      residencia: ['', Validators.compose([Validators.required])],
+      institucion: ['', Validators.compose([Validators.required])],
+      grado: ['', Validators.compose([Validators.required])],
     });
-  
+
+  }
+
+  llamarAlInput() {
+    this.fileInput.nativeElement.click()
+  }
+
+  subirImagen(fileInput) {
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const reader = new FileReader();
+      if ((fileInput.target.files[0].size / 1024) > 500) {
+        this.mostrarAlerta('La imagen debe ser menor a 500KB', 'Error')
+      } else {
+        reader.readAsDataURL(fileInput.target.files[0]);
+        reader.onload = ((e) => {
+          console.log(e.target['result'].split(",")[1]);
+        });
+      }
+    }
   }
 
   dameId() {
@@ -186,11 +205,11 @@ export class UsuarioPage {
     this.loading.present();
   }
 
-  actualizar(){
-    if(!this.formularioUsuario.valid){
+  actualizar() {
+    if (!this.formularioUsuario.valid) {
       console.log("formulario invalido");
-        this.submitAttempt = true;
-    }else{
+      this.submitAttempt = true;
+    } else {
       this.botonAceptar();
     }
   }

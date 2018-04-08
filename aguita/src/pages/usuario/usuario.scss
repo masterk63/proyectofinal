@@ -13,6 +13,17 @@ page-usuario {
     }
     .contenedorImagen div {
         margin: 0 auto;
+        position: relative;
+    }
+    .contenedorImagen #UploadButton {
+      position: absolute;
+      top: 90px;
+      left: 92px;
+      border-radius: 44px;
+      font-size: 19px;
+      background: #222;
+      color: white;
+      padding: 11px 12px;
     }
     .contenedorImagen h2 {
         margin: 0 auto;
@@ -73,7 +84,7 @@ page-usuario {
     .input-has-focus .label-md[stacked],
     .item-input-has-focus .label-md[floating],
     .input-has-focus .label-md[floating] {
-        color: color($colors, azul)!important;
+        color: color($colors, azul) !important;
     }
     .text-danger {
         color: red;
@@ -84,37 +95,33 @@ page-usuario {
         padding-top: 5px;
     }
     .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
-        border-bottom-color: color($colors, azul)!important;
-        -webkit-box-shadow: inset 0 -1px 0 0 color($colors, azul)!important;
-        box-shadow: inset 0 -1px 0 0 color($colors, azul)!important;
+        border-bottom-color: color($colors, azul) !important;
+        -webkit-box-shadow: inset 0 -1px 0 0 color($colors, azul) !important;
+        box-shadow: inset 0 -1px 0 0 color($colors, azul) !important;
     }
     .item-md.item-input.item-input-has-focus .item-inner,
     .item-md.item-input.input-has-focus .item-inner {
-        border-bottom-color: color($colors, azul)!important;
-        -webkit-box-shadow: inset 0 -1px 0 0 color($colors, azul)!important;
-        box-shadow: inset 0 -1px 0 0 color($colors, azul)!important;
+        border-bottom-color: color($colors, azul) !important;
+        -webkit-box-shadow: inset 0 -1px 0 0 color($colors, azul) !important;
+        box-shadow: inset 0 -1px 0 0 color($colors, azul) !important;
     }
-
     lista-registros .titulo {
         display: none !important;
     }
-
     lista-registros [col-md-4] {
         max-width: 100% !important;
     }
-
-    lista-registros .scroll-content{
+    lista-registros .scroll-content {
         margin-bottom: 0px !important;
     }
-
     @media only screen and (max-width: 767px) {
-        .col ,.row, .grid {
+        .col,
+        .row,
+        .grid {
             padding: 0 !important;
         }
-
         .contenedorImagen h2 {
             margin-bottom: 10px;
         }
     }
-
 }
