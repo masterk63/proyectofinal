@@ -120,6 +120,14 @@ exports.actualizarContrasenia = function (contrasenia, idUsuario, fn) {
   });
 }
 
+exports.actualizarFotoPerfil = function (idUsuario, fotoPerfil, fn) {
+  var id = '"' + idUsuario + '"';
+  var foto = '"' + fotoPerfil + '"';
+  connection.query('call usuario_actulizarFotoPerfil(' + id + ',' + foto + ')', function (err, rows) {
+    fn(err, rows[0]);
+  });
+}
+
 exports.insertarTokenUsuario = function (token, idUsuario, fn) {
   var t = '"' + token + '"';
   var i = '"' + idUsuario + '"';

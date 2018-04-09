@@ -34,6 +34,7 @@ module.exports = function(app){
     apiUsuarios.get('/usuariosListar',UsuariosController.listarUsuarios);
     apiUsuarios.get('/usuarioDame/:id',UsuariosController.dameUsuario);
     apiUsuarios.post('/usuarioModificar',UsuariosController.usuarioModificar);
+    apiUsuarios.post('/usuarioActualizarFotoPerfil',UsuariosController.actualizarFotoPerfil);
     apiUsuarios.get('/usuarioBaja/:id',UsuariosController.usuarioBaja);
     apiUsuarios.post('/forgot',UsuariosController.forgotPassword);
     // app.get('/forgot', function(req, res) {

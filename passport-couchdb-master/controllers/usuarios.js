@@ -38,6 +38,15 @@ exports.usuarioModificar = function (req, res) {
   });
 }
 
+exports.actualizarFotoPerfil = function (req,res){
+  User.actualizarFotoPerfil(req.body.idUsuario,req.body.fotoPerfil,function(err,consulta){
+    if(err){
+      res.jsno(err);
+    }else{
+      res.json(consulta);
+    }
+  })
+}
 
 exports.resetPassword = function (req, res) {
   User.buscarToken(req.params.token, function (err, consulta) {

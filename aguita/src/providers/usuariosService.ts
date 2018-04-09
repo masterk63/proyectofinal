@@ -72,6 +72,22 @@ export class UsuariosService {
     });
   }
 
+  actilizarFotoPerfil(usuario){
+    return new Promise((resolve,reject)=>{
+      this.http.post(configServer.data.urlServidor + '/api/usuarioActualizarFotoPerfil', usuario)
+      .map(res => res.json())
+      .subscribe(resultado => {
+        let res = resultado;
+        if(res.codigo > 0){
+          resolve(res);
+        }else{
+          reject("Se ah producido un error.");
+        }
+      }, error => reject("Error de conexion")
+      );
+    });
+  }
+
   usuarioModificar(usuario) {
     return new Promise((resolve, reject) => {
       this.http.post(configServer.data.urlServidor + '/api/usuarioModificar', usuario)
