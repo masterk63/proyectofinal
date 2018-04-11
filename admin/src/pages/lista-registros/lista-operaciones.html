@@ -1,0 +1,155 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title (click)="ir()">
+      <img class="titleMenu ocultarMenu" src="http://clubhonorarios.com/img/logo/logo-max.png" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content>
+  <div class="soporte-mesa-header">
+    <div class="container-content">
+      <h4>Filtra por fecha</h4>
+      <ion-row class="input-icon-container">
+        <ion-col col-12 col-sm>
+          <ion-item class="campoFiltro">
+            <ion-label>Fecha Inicio</ion-label>
+            <ion-datetime displayFormat="DD/MMM/YYYY" min="2016" [(ngModel)]="fechaInicio"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item class="campoFiltro" col-12 col-sm>
+            <ion-label>Fecha Fin</ion-label>
+            <ion-datetime displayFormat="DD/MMM/YYYY" min="2016" [(ngModel)]="fechaFin"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button (click)="filtrar()" ion-button color="letra" style="width:75%;padding: 22px 0px;" outline>Filtrar</button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+  <div class="contenedor">
+
+    <ion-row>
+      <ion-col col-6 col-sm>
+        <h3>Operaciones</h3>
+      </ion-col>
+      <ion-col col-6 col-sm>
+        <button *ngIf="mostrarTarjetas" (click)="exportar()" style="float: right;top: 28px;right: 8px;" ion-button color="light">
+          <ion-icon name="book"></ion-icon>
+          Exportar
+        </button>
+      </ion-col>
+      <ion-col col-6 col-sm>
+        <button (click)="nuevaOperacion()" style="float: right;top: 28px;right: 8px;" ion-button color="light">
+          <ion-icon name="book"></ion-icon>
+          Nueva Operacion MP
+        </button>
+      </ion-col>
+      <ion-col col-6 col-sm>
+        <button (click)="cargarOperacion()" style="float: right;top: 28px;right: 8px;" ion-button color="light">
+          <ion-icon name="book"></ion-icon>
+          Cargar Operacion en Base de Datos
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div *ngIf="mostrarTarjetas">
+          <p> Se encontraron {{Operaciones.length}} Operacion/es.</p>
+          <p>Monto total de venta: ${{montoTotal}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <div *ngIf="mostrarTarjetas">
+      <ion-card *ngFor="let o of Operaciones">
+        <ion-item>
+          <ion-avatar item-start>
+            <i class="fa fa-2x" [ngClass]="setClasses(o.tarjeta)" aria-hidden="true"></i>
+            <!-- <img src="img/marty-avatar.png"> -->
+          </ion-avatar>
+          <h2>Operacion Nº: {{ o.idOperacion }}</h2>
+          <p>Profesional: {{o.apellidoProfesional | uppercase}}, {{o.nombreProfesional}} - DNI: {{o.dniProfesional}}</p>
+        </ion-item>
+        <ion-card-content>
+          <!-- EN ESTE PIPE ESTA EL PROBLEMA, ionic al hacer el pipe, resta la hora original...  -->
+          Fecha: {{o.fechaTransaccion | date:'dd/MM/yy H:mm'}}
+          <br> {{o.tarjeta}} - {{o.cuotas}} cuotas &bull; CodAuto: {{o.codigoAuto}} &bull; Cupon: {{o.cupon}}
+        </ion-card-content>
+
+        <ion-row class="row" no-padding="">
+          <ion-col col-4 col-sm class="col">
+            <!-- 
+              Para snippet:
+              npm install @angular/animations@4.1.3 --save
+              npm install ionic-tooltips --save 
+              en module.ts
+              import { TooltipsModule } from 'ionic-tooltips';
+
+              imports: [
+                ....
+              TooltipsModule,
+              .....
+              tooltips propiedades::
+             tooltip="hello" positionV="top" arrow (este arrow saca una flecha del tag de donde viene)
+            duration="2500" (en ms)  -->
+            <button tooltip="Importe de venta" positionV="top" duration="1500" arrow clear="" color="secondary" icon-start="" ion-button=""
+              small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"
+              style="transition: none;">
+              <span class="button-inner">
+                <ion-icon name="cart"></ion-icon>
+                $ {{o.importeVenta}}
+              </span>
+              <div class="button-effect"></div>
+            </button>
+          </ion-col>
+          <ion-col col-4 col-sm class="col" text-center>
+            <button tooltip="Importe de carga" positionV="top" duration="1500" arrow clear="" color="secondary" icon-start="" ion-button=""
+              small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"
+              style="transition: none;">
+              <span class="button-inner">
+                <ion-icon name="card"></ion-icon>
+                $ {{o.importeCarga}}
+              </span>
+              <div class="button-effect"></div>
+            </button>
+          </ion-col>
+          <ion-col col-4 col-sm class="col" text-right>
+            <button tooltip="Importe a cobrar" positionV="top" duration="1500" arrow clear="" color="secondary" icon-start="" ion-button=""
+              small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary">
+              <span class="button-inner">
+                <ion-icon name="cash"></ion-icon>
+                $ {{o.importeCobrar}}
+              </span>
+              <div class="button-effect"></div>
+            </button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="col titulo" style="padding: 8px 28px;" text-center>
+            <button (click)="verOperacion(o)" style="color: #515e70;" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary">
+              <span class="button-inner">
+                <ion-icon name="share-alt" role="img" class="icon icon-md ion-md-share-alt" aria-label="share alt"></ion-icon>
+                Ver
+              </span>
+              <div class="button-effect"></div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </div>
+    <div *ngIf="!mostrarTarjetas">
+      <h3> No se encontraron Operaciones</h3>
+    </div>
+  </div>
+</ion-content>

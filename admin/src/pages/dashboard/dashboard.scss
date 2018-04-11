@@ -1,0 +1,35 @@
+page-dashboard {
+    .scroll-content {
+        background: #F1F1F1 !important;
+    }
+
+    .card {
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        max-width: 300px;
+        border-radius: 5px;
+        margin: 0 auto;
+        cursor: pointer;
+    }
+
+    .card:hover {
+        background: #002775 !important;
+    }
+
+    .card  ion-icon{
+        font-size: 4em;
+    }
+
+    .card p{
+        font-size: 2em;
+    }
+
+    .card p, .card  ion-icon{
+        color:white;
+    }
+
+}
