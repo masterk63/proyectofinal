@@ -805,7 +805,7 @@ PROC: BEGIN
 	 
     START TRANSACTION;
 		UPDATE 	usuarios as u
-        SET		fotoPerfil = 1
+        SET		fotoPerfil = uFotoPerfil
         WHERE	u.idUsuario = uIdUsuario;
         SELECT 1 as codigo, 'Foto Perfil Actulizado Con Exito.' mensaje;
 	COMMIT;
