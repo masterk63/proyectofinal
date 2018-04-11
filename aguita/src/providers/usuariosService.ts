@@ -77,7 +77,7 @@ export class UsuariosService {
       this.http.post(configServer.data.urlServidor + '/api/usuarioActualizarFotoPerfil', usuario)
       .map(res => res.json())
       .subscribe(resultado => {
-        let res = resultado;
+        let res = resultado[0];
         if(res.codigo > 0){
           resolve(res);
         }else{

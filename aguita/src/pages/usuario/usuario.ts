@@ -65,13 +65,13 @@ export class UsuarioPage {
       } else {
         reader.readAsDataURL(fileInput.target.files[0]);
         reader.onload = ((e) => {
-          let fotoPeril = e.target['result'].split(",")[1];
+          let fotoPerfil = e.target['result'].split(",")[1];
           let user = {
             idUsuario: this.idUsuario,
-            fotoPeril
+            fotoPerfil
           }
           this.userService.actilizarFotoPerfil(user).then( res => {
-            this.usuario.fotoPeril = fotoPeril;
+            this.usuario.fotoPerfil = fotoPerfil;
           }).catch( err => this.mostrarAlerta(err,'Error'))
         });
       }
