@@ -1,16 +1,5 @@
 import { Component,ElementRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController,LoadingController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
-import { SideMenu } from '../sideMenu/sideMenu';
-import { OperacionesProvider } from '../../providers/operaciones/operaciones';
-import { Operaciones } from '../../modelos/operaciones.interface';
-import { Observable } from 'rxjs/Observable';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { VerOperacionPage } from '../ver-operacion/ver-operacion';
-import * as configServer from './../../server'
-import { DashboardPage  } from '../dashboard/dashboard';
-import * as jwt from 'jsonwebtoken';
-
 
 @Component({
   selector: 'page-lista-operaciones',

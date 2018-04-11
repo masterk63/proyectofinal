@@ -1,16 +1,102 @@
-// http://ionicframework.com/docs/theming/
 
+.split-pane-md.split-pane-visible > .split-pane-side {
+    border-right: none !important;
+}
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
+.menuStyle .scroll-content{
+    // border-right: 1px solid #dedede;
+    background: rgb(75, 77, 86);
+    overflow: hidden;
+}
+    
+.titleMenu{
+    margin: 5px auto;
+    display: block;
+    width: 136px;
+    cursor: pointer;
+}
+
+.toolbar-md {
+    padding: 4px;
+    min-height: 67px !important;
+}
+
+.scroll-content {
+    height: auto !important;
+}
+
+.menuStyle ion-list-header{
+    font-size: 1em;
+    color: black !important;
+    font-weight: bold !important;
+    margin: 20px 0px !important;
+    cursor: pointer;
+    border-top: 0px solid !important;
+    background: rgb(75, 77, 86);
+    color: #F1F1F1 !important;
+}
+
+.menuStyle ion-icon{
+    margin-right: 18px !important;
+    font-size: 26px;
+}
+
+.menuStyle button{
+    margin-left: 7px;
+    background: #52555f !important;
+    color: #F1F1F1 !important;
+}
+
+.menuStyle button .item-inner{
+    border-bottom: 0px solid !important;
+} 
+
+.contenedor{
+    display: block;
+    margin: 0 auto;
+    max-width: 1006px;
+}
+
+.titulo {
+    display: block;
+    padding: 18px 28px;
+    font-weight: 600;
+    color: #515e70;
+    background-color: #f8f8f8;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: 32px;
+    line-height: 52px;
+    color: #5c5f69;
+    font-weight: 300;
+    margin-left: 8px;
+}
+
+@media (min-width: 768px) { 
+    ion-menu {
+        max-width: 250px!important;
+        margin-left: -198px;
+    }
+
+    ion-menu ion-title {
+        display: none;
+    }
+
+    ion-menu:hover {
+        margin-left: 0px;
+    }
+
+    ion-menu:hover ion-title {
+      display: block;
+    }
+
+    .contenedor{
+        padding: 15px 20px;
+    }
+
+    h3 {
+        font-size: 25px;
+    }
+}

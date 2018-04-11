@@ -1,1 +1,34 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-split-pane>
+    <ion-menu [content]="content">
+      <ion-header>
+        <ion-toolbar color="primary">
+          <!-- <ion-title><img class="titleMenu" src="http://clubhonorarios.com/img/logo/logo-max.png" /></ion-title> -->
+        </ion-toolbar>
+      </ion-header>
+  
+      <ion-content class="menuStyle">
+        <ion-list *ngFor="let p of pages">
+          <ion-list-header (click)="mostrarElementos(p)" class="item list-header">
+            {{p.tituloPrincipal | uppercase}}
+            <ion-icon name="{{p.iconoPrincipal}}" float-right></ion-icon>
+          </ion-list-header>
+          <div *ngIf="p.mostrarComponentes">
+            <button  *ngFor="let c of p.componenentes" (click)="openPage(c.componente)" menuClose ion-item>
+              {{c.titulo}}
+              <ion-icon name="{{c.icono}}" float-right></ion-icon>
+            </button>
+          </div>
+        </ion-list>
+        <ion-list>
+          <ion-list-header  (click)="logout()" class="item list-header">
+            SALIR
+            <ion-icon name="exit" float-right></ion-icon>
+          </ion-list-header>
+        </ion-list>
+      </ion-content>
+  
+    </ion-menu>
+  
+    <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+    <ion-nav main [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+  </ion-split-pane >
