@@ -5,26 +5,31 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 //Pages
-import { HomePage } from '../pages/home/home';
 import { DashboardPage } from '../pages/dashboard/dashboard';
+import { ListaRegistrosPage } from '../pages/lista-registros/lista-registros';
+import { ListaUsuariosPage } from '../pages/lista-usuarios/lista-usuarios';
 
 @NgModule({
   declarations: [
     MyApp,
     DashboardPage,
-    HomePage
+    ListaRegistrosPage,
+    ListaUsuariosPage
   ],
   imports: [
     BrowserModule,
+    NgxPaginationModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     DashboardPage,
-    HomePage
+    ListaRegistrosPage,
+    ListaUsuariosPage
   ],
   providers: [
     StatusBar,
