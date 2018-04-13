@@ -10,6 +10,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 //Pages
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { ListaRegistrosPage } from '../pages/lista-registros/lista-registros';
+import { PopoverPage } from '../pages/lista-registros/popOver';
 import { ListaUsuariosPage } from '../pages/lista-usuarios/lista-usuarios';
 
 //Providers
@@ -23,6 +24,7 @@ import { UsuariosService } from '../providers/usuariosService';
     MyApp,
     DashboardPage,
     ListaRegistrosPage,
+    PopoverPage,
     ListaUsuariosPage
   ],
   imports: [
@@ -35,6 +37,7 @@ import { UsuariosService } from '../providers/usuariosService';
   entryComponents: [
     MyApp,
     DashboardPage,
+    PopoverPage,
     ListaRegistrosPage,
     ListaUsuariosPage 
   ],
