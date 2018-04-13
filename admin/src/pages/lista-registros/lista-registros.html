@@ -9,8 +9,6 @@
   </ion-navbar>
 </ion-header>
 
-
-
 <ion-content>
   <div class="soporte-mesa-header">
     <div class="container-content">
@@ -38,10 +36,9 @@
   </div>
 
   <div class="contenedor">
-
     <ion-row>
       <ion-col col-6 col-sm>
-        <h3>Operaciones</h3>
+        <h3>Registros</h3>
       </ion-col>
       <ion-col col-6 col-sm>
         <button *ngIf="mostrarTarjetas" (click)="exportar()" style="float: right;top: 28px;right: 8px;" ion-button color="light">
@@ -49,66 +46,38 @@
           Exportar
         </button>
       </ion-col>
-      <ion-col col-6 col-sm>
-        <button (click)="nuevaOperacion()" style="float: right;top: 28px;right: 8px;" ion-button color="light">
-          <ion-icon name="book"></ion-icon>
-          Nueva Operacion MP
-        </button>
-      </ion-col>
-      <ion-col col-6 col-sm>
-        <button (click)="cargarOperacion()" style="float: right;top: 28px;right: 8px;" ion-button color="light">
-          <ion-icon name="book"></ion-icon>
-          Cargar Operacion en Base de Datos
-        </button>
-      </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <div *ngIf="mostrarTarjetas">
-          <p> Se encontraron {{Operaciones.length}} Operacion/es.</p>
-          <p>Monto total de venta: ${{montoTotal}}</p>
+          <p> Se encontraron {{registros.length}} Registro/s.</p>
         </div>
       </ion-col>
     </ion-row>
 
     <div *ngIf="mostrarTarjetas">
-      <ion-card *ngFor="let o of Operaciones">
+      <ion-card *ngFor="let o of registros">
         <ion-item>
           <ion-avatar item-start>
-            <i class="fa fa-2x" [ngClass]="setClasses(o.tarjeta)" aria-hidden="true"></i>
-            <!-- <img src="img/marty-avatar.png"> -->
+            <ion-icon name="book"></ion-icon>
           </ion-avatar>
-          <h2>Operacion Nº: {{ o.idOperacion }}</h2>
-          <p>Profesional: {{o.apellidoProfesional | uppercase}}, {{o.nombreProfesional}} - DNI: {{o.dniProfesional}}</p>
+          <h2>Registro Nº: {{ o.idRegistro }}</h2>
+          <p> Usuario: {{o.apellido | uppercase}}, {{o.nombre}}</p>
         </ion-item>
         <ion-card-content>
           <!-- EN ESTE PIPE ESTA EL PROBLEMA, ionic al hacer el pipe, resta la hora original...  -->
-          Fecha: {{o.fechaTransaccion | date:'dd/MM/yy H:mm'}}
-          <br> {{o.tarjeta}} - {{o.cuotas}} cuotas &bull; CodAuto: {{o.codigoAuto}} &bull; Cupon: {{o.cupon}}
+          Fecha: {{o.fecha | date:'dd/MM/yy'}}
+          <br> {{o.ciudad}}, {{o.provincia}}, {{o.pais}}
         </ion-card-content>
 
         <ion-row class="row" no-padding="">
           <ion-col col-4 col-sm class="col">
-            <!-- 
-              Para snippet:
-              npm install @angular/animations@4.1.3 --save
-              npm install ionic-tooltips --save 
-              en module.ts
-              import { TooltipsModule } from 'ionic-tooltips';
-
-              imports: [
-                ....
-              TooltipsModule,
-              .....
-              tooltips propiedades::
-             tooltip="hello" positionV="top" arrow (este arrow saca una flecha del tag de donde viene)
-            duration="2500" (en ms)  -->
             <button tooltip="Importe de venta" positionV="top" duration="1500" arrow clear="" color="secondary" icon-start="" ion-button=""
               small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"
               style="transition: none;">
               <span class="button-inner">
-                <ion-icon name="cart"></ion-icon>
-                $ {{o.importeVenta}}
+                <ion-icon name="bug"></ion-icon>
+                {{o.indice}}
               </span>
               <div class="button-effect"></div>
             </button>
@@ -118,8 +87,8 @@
               small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"
               style="transition: none;">
               <span class="button-inner">
-                <ion-icon name="card"></ion-icon>
-                $ {{o.importeCarga}}
+                <ion-icon name="locate"></ion-icon>
+                {{o.latitud}}
               </span>
               <div class="button-effect"></div>
             </button>
@@ -128,8 +97,8 @@
             <button tooltip="Importe a cobrar" positionV="top" duration="1500" arrow clear="" color="secondary" icon-start="" ion-button=""
               small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary">
               <span class="button-inner">
-                <ion-icon name="cash"></ion-icon>
-                $ {{o.importeCobrar}}
+                <ion-icon name="locate"></ion-icon>
+                {{o.longitud}}
               </span>
               <div class="button-effect"></div>
             </button>

@@ -11,7 +11,7 @@ import { ListaUsuariosPage } from '../pages/lista-usuarios/lista-usuarios';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = DashboardPage;
+  rootPage:any = ListaRegistrosPage;
   pages: Array<{tituloPrincipal: string,iconoPrincipal: string,mostrarComponentes: boolean, componenentes: Array<{titulo: string,icono: string, componente: any}>}>;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
