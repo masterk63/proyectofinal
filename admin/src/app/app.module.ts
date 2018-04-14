@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule} from '@angular/http';
 import { MyApp } from './app.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material/table';
 
 //Pages
 import { DashboardPage } from '../pages/dashboard/dashboard';
@@ -30,6 +32,8 @@ import { UsuariosService } from '../providers/usuariosService';
   imports: [
     BrowserModule,
     NgxPaginationModule,
+    BrowserAnimationsModule,
+    MatTableModule,
     HttpModule,
     IonicModule.forRoot(MyApp)
   ],
