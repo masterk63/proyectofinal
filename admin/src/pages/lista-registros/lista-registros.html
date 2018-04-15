@@ -13,11 +13,40 @@
   <div class="example-container mat-elevation-z4">
     <mat-table #table [dataSource]="dataSource">
 
-      <ng-container matColumnDef="position">
+      <ng-container matColumnDef="idRegistro">
         <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          ella
-          <br> {{element.idRegistro}}
+          {{element.idRegistro}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="fecha">
+        <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{element.fecha | date:'dd/MM/yy'}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="alumno">
+        <mat-header-cell *matHeaderCellDef> Alumno </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{element.apellido}}, {{element.nombre}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ubicacion">
+        <mat-header-cell *matHeaderCellDef> Ubicacion </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{element.ciudad}}, {{element.provincia}}, {{element.pais}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="indice">
+        <mat-header-cell *matHeaderCellDef> Indice </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{element.indice}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="acciones">
+        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          Ver
         </mat-cell>
       </ng-container>
 

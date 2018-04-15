@@ -16,7 +16,7 @@ export class ListaRegistrosPage {
   
   mostrarTarjetas:boolean = false;
   registros:Array<Registro>;
-  displayedColumns = ['idRegistro','Fecha','Alumno','Ubicacion','Indice','Acciones'];
+  displayedColumns = ['idRegistro','fecha','alumno','ubicacion','indice','acciones'];
   dataSource:any;
   @ViewChild('paginator') paginator: any;
   

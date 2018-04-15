@@ -1,49 +1,42 @@
 lista-registros {
-    .scroll-content{
+    .scroll-content {
         background: #F1F1F1 !important;
     }
-
     .soporte-mesa-header {
         background-color: #424551;
         background-image: url(https://micuenta.donweb.com/img/bg_soporte.jpg);
         text-align: center;
     }
-
     .soporte-mesa-header .container-content {
         // padding: 75px 75px 90px;
         padding: 5% 0% 8%;
     }
-
     .soporte-mesa-header h4 {
         color: #FFF;
         margin-bottom: 18px;
         font-weight: 400;
         font-size: 24px;
-        
     }
-
-    .soporte-mesa-header, .soporte-mesa-header * {
+    .soporte-mesa-header,
+    .soporte-mesa-header * {
         transition: all .3s ease-in-out;
     }
-
     .input-icon-container {
         position: relative;
         width: 75%;
         margin: 0 auto;
     }
-
     .soporte-mesa-header .campoFiltro {
         border: 1px solid #B0BFC6;
         color: #B0BFC6;
         border-radius: 3px;
-        background-color: rgba(0,0,0,0.15);
+        background-color: rgba(0, 0, 0, 0.15);
         padding: 5px 10px;
         font-size: 20px;
         height: inherit;
         box-sizing: border-box;
         width: 100%;
     }
-
     .input-icon-container ion-icon {
         position: absolute;
         right: 25px;
@@ -52,7 +45,6 @@ lista-registros {
         cursor: pointer;
         color: #B0BFC6;
     }
-
     h3 {
         font-size: 32px;
         line-height: 52px;
@@ -60,40 +52,44 @@ lista-registros {
         font-weight: 300;
         margin-left: 8px;
     }
-
-    .col ion-icon{
+    .col ion-icon {
         margin-right: 8px;
     }
-
-    ion-card-content{
+    ion-card-content {
         color: #868686 !important;
     }
-
-    p{
+    p {
         margin-left: 8px;
         word-break: break-word;
-        white-space: normal;    
+        white-space: normal;
     }
-
-    td{
+    td {
         word-break: break-all;
-        white-space: normal;   
+        white-space: normal;
     }
-
     .contenedor ion-card ion-avatar .icon {
         font-size: 3.2em;
     }
-
     .example-container {
         display: flex;
         flex-direction: column;
         min-width: 300px;
-      }
-      
-      .mat-table {
+    }
+    .mat-table {
         overflow: auto;
         max-height: 500px;
-      }
-      
+    }
 
+    .cdk-column-idRegistro {
+        flex: 0 0 3%;
+    }
+    .cdk-column-fecha {
+        flex: 0 0 7%;
+    }
+    .cdk-column-indice {
+        flex: 0 0 5%;
+    }
+    .cdk-column-acciones {
+        flex: 0 0 7%;
+    }
 }
