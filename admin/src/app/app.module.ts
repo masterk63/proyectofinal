@@ -8,11 +8,11 @@ import { MyApp } from './app.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 //Pages
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { ListaRegistrosPage } from '../pages/lista-registros/lista-registros';
-import { PopoverPage } from '../pages/lista-registros/popOver';
 import { ListaUsuariosPage } from '../pages/lista-usuarios/lista-usuarios';
 
 //Providers
@@ -20,13 +20,14 @@ import { Auth } from '../providers/auth';
 import { RegistrosService } from '../providers/registrosService';
 import { Ubicacion } from '../providers/ubicacion';
 import { UsuariosService } from '../providers/usuariosService';
+import { getSpanishPaginatorIntl } from '../providers/getSpanishPaginatorIntl';
+import {MatPaginatorIntl} from '@angular/material';
 
 @NgModule({
   declarations: [
     MyApp,
     DashboardPage,
     ListaRegistrosPage,
-    PopoverPage,
     ListaUsuariosPage
   ],
   imports: [
@@ -34,6 +35,7 @@ import { UsuariosService } from '../providers/usuariosService';
     NgxPaginationModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatPaginatorModule,
     HttpModule,
     IonicModule.forRoot(MyApp)
   ],
@@ -41,13 +43,13 @@ import { UsuariosService } from '../providers/usuariosService';
   entryComponents: [
     MyApp,
     DashboardPage,
-    PopoverPage,
     ListaRegistrosPage,
     ListaUsuariosPage 
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() },
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UsuariosService,
     Ubicacion,
