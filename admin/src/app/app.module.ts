@@ -26,6 +26,14 @@ import { getSpanishPaginatorIntl } from '../providers/getSpanishPaginatorIntl';
 import {MatPaginatorIntl, MatCheckboxModule} from '@angular/material';
 import {MatSortModule} from '@angular/material/sort';
 
+//Date Materialize
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
+
+//Form Input Material
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -39,8 +47,12 @@ import {MatSortModule} from '@angular/material/sort';
     NgxPaginationModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatSortModule,
     MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatPaginatorModule,
     HttpModule,
     IonicModule.forRoot(MyApp)

@@ -10,6 +10,41 @@
 </ion-header>
 
 <ion-content>
+  <div class="soporte-mesa-header">
+    <div class="container-content">
+      <h4>Filtra por fecha</h4>
+      <ion-row class="input-icon-container">
+        <ion-col col-12 col-sm>
+          <mat-form-field class="campoFiltro">
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <!-- <ion-item class="campoFiltro">
+            <ion-label>Fecha Inicio</ion-label>
+            <ion-datetime displayFormat="DD/MMM/YYYY" min="2016" [(ngModel)]="fechaInicio"></ion-datetime>
+          </ion-item> -->
+        </ion-col>
+        <ion-col>
+          <mat-form-field class="campoFiltro">
+            <input matInput [matDatepicker]="picke" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picke"></mat-datepicker-toggle>
+            <mat-datepicker #picke></mat-datepicker>
+          </mat-form-field>
+          <!-- <ion-item class="campoFiltro" col-12 col-sm>
+            <ion-label>Fecha Fin</ion-label>
+            <ion-datetime displayFormat="DD/MMM/YYYY" min="2016" [(ngModel)]="fechaFin"></ion-datetime>
+          </ion-item> -->
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button (click)="filtrar()" ion-button color="letra" style="width:75%;padding: 22px 0px;" outline>Filtrar</button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
   <div class="conteinerTable mat-elevation-z4">
     <mat-table #table [dataSource]="dataSource" matSort>
 
@@ -71,7 +106,8 @@
 
   </div>
 
-  <!-- <div class="soporte-mesa-header">
+  <!-- 
+    <div class="soporte-mesa-header">
     <div class="container-content">
       <h4>Filtra por fecha</h4>
       <ion-row class="input-icon-container">

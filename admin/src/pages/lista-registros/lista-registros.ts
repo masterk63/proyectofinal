@@ -10,6 +10,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule,MatSort} from '@angular/material/sort';
 import {SelectionModel} from '@angular/cdk/collections';
 
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @Component({
   selector: 'lista-registros',
