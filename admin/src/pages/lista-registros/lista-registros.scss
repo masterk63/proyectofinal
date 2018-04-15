@@ -70,26 +70,33 @@ lista-registros {
     .contenedor ion-card ion-avatar .icon {
         font-size: 3.2em;
     }
-    .example-container {
+    .conteinerTable {
         display: flex;
         flex-direction: column;
         min-width: 300px;
+        max-width: 850px;
+        margin: 0 auto;
     }
     .mat-table {
         overflow: auto;
         max-height: 500px;
     }
-
     .cdk-column-idRegistro {
-        flex: 0 0 3%;
+        flex: 0 0 5%;
     }
     .cdk-column-fecha {
-        flex: 0 0 7%;
+        flex: 0 0 9%;
     }
     .cdk-column-indice {
-        flex: 0 0 5%;
+        flex: 0 0 8%;
     }
     .cdk-column-acciones {
         flex: 0 0 7%;
+    }
+    .cdk-column-select {
+        flex: 0 0 4%;
+    }
+    .mat-column-select {
+        overflow: initial;
     }
 }

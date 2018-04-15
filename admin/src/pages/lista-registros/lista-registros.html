@@ -10,35 +10,48 @@
 </ion-header>
 
 <ion-content>
-  <div class="example-container mat-elevation-z4">
-    <mat-table #table [dataSource]="dataSource">
+  <div class="conteinerTable mat-elevation-z4">
+    <mat-table #table [dataSource]="dataSource" matSort>
 
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Other Column -->
       <ng-container matColumnDef="idRegistro">
-        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
         <mat-cell *matCellDef="let element">
           {{element.idRegistro}}
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="fecha">
-        <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
         <mat-cell *matCellDef="let element">
           {{element.fecha | date:'dd/MM/yy'}}
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="alumno">
-        <mat-header-cell *matHeaderCellDef> Alumno </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Alumno </mat-header-cell>
         <mat-cell *matCellDef="let element">
           {{element.apellido}}, {{element.nombre}}
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="ubicacion">
-        <mat-header-cell *matHeaderCellDef> Ubicacion </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Ubicacion </mat-header-cell>
         <mat-cell *matCellDef="let element">
           {{element.ciudad}}, {{element.provincia}}, {{element.pais}}
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="indice">
-        <mat-header-cell *matHeaderCellDef> Indice </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Indice </mat-header-cell>
         <mat-cell *matCellDef="let element">
           {{element.indice}}
         </mat-cell>
@@ -54,11 +67,8 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-    <mat-paginator #paginator
-        [pageSize]="1" 
-        [pageSizeOptions]="[1, 2, 3]"
-        [showFirstLastButtons]="true">
-    </mat-paginator>
+    <mat-paginator #paginator [pageSize]="1" [pageSizeOptions]="[1, 2, 3]" [showFirstLastButtons]="true"></mat-paginator>
+
   </div>
 
   <!-- <div class="soporte-mesa-header">

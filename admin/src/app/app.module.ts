@@ -7,8 +7,6 @@ import { HttpModule} from '@angular/http';
 import { MyApp } from './app.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
 
 //Pages
 import { DashboardPage } from '../pages/dashboard/dashboard';
@@ -20,8 +18,14 @@ import { Auth } from '../providers/auth';
 import { RegistrosService } from '../providers/registrosService';
 import { Ubicacion } from '../providers/ubicacion';
 import { UsuariosService } from '../providers/usuariosService';
+
+//Table Materialize
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { getSpanishPaginatorIntl } from '../providers/getSpanishPaginatorIntl';
-import {MatPaginatorIntl} from '@angular/material';
+import {MatPaginatorIntl, MatCheckboxModule} from '@angular/material';
+import {MatSortModule} from '@angular/material/sort';
+
 
 @NgModule({
   declarations: [
@@ -35,6 +39,8 @@ import {MatPaginatorIntl} from '@angular/material';
     NgxPaginationModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatSortModule,
+    MatCheckboxModule,
     MatPaginatorModule,
     HttpModule,
     IonicModule.forRoot(MyApp)
