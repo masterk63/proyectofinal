@@ -12,6 +12,8 @@ import {SelectionModel} from '@angular/cdk/collections';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'lista-registros',

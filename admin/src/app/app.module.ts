@@ -34,6 +34,11 @@ import {MatNativeDateModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material';
 
+//Tabs Material
+import {MatTabsModule} from '@angular/material/tabs';
+
+//Button 
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -51,9 +56,11 @@ import {MatInputModule} from '@angular/material';
     MatInputModule,
     MatSortModule,
     MatCheckboxModule,
+    MatTabsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatPaginatorModule,
+    MatButtonModule,
     HttpModule,
     IonicModule.forRoot(MyApp)
   ],
