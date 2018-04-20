@@ -1,102 +1,79 @@
 lista-registros {
-    .scroll-content {
-        background: #F1F1F1 !important;
-    }
-    .soporte-mesa-header {
-        background-color: #424551;
-        background-image: url(https://micuenta.donweb.com/img/bg_soporte.jpg);
-        text-align: center;
-    }
-    .soporte-mesa-header .container-content {
-        // padding: 75px 75px 90px;
-        padding: 5% 0% 8%;
-    }
-    .soporte-mesa-header h4 {
-        color: #FFF;
-        margin-bottom: 18px;
-        font-weight: 400;
-        font-size: 24px;
-    }
-    .soporte-mesa-header,
-    .soporte-mesa-header * {
-        transition: all .3s ease-in-out;
-    }
-    .input-icon-container {
-        position: relative;
-        width: 75%;
-        margin: 0 auto;
-    }
-    .soporte-mesa-header .campoFiltro {
-        border: 1px solid #B0BFC6;
-        color: #B0BFC6;
-        border-radius: 3px;
-        background-color: rgba(0, 0, 0, 0.15);
-        padding: 5px 10px;
-        font-size: 20px;
-        height: inherit;
-        box-sizing: border-box;
-        width: 100%;
-    }
-    .input-icon-container ion-icon {
-        position: absolute;
-        right: 25px;
-        top: 4px;
-        font-size: 48px;
-        cursor: pointer;
-        color: #B0BFC6;
-    }
-    h3 {
-        font-size: 32px;
-        line-height: 52px;
-        color: #5c5f69;
-        font-weight: 300;
-        margin-left: 8px;
-    }
-    .col ion-icon {
-        margin-right: 8px;
-    }
-    ion-card-content {
-        color: #868686 !important;
-    }
-    p {
-        margin-left: 8px;
-        word-break: break-word;
-        white-space: normal;
-    }
-    td {
-        word-break: break-all;
-        white-space: normal;
-    }
-    .contenedor ion-card ion-avatar .icon {
-        font-size: 3.2em;
-    }
-    .conteinerTable {
-        display: flex;
-        flex-direction: column;
-        min-width: 300px;
-        max-width: 850px;
-        margin: 10px auto;
-    }
-    .mat-table {
-        overflow: auto;
-        max-height: 500px;
-    }
-    .cdk-column-idRegistro {
-        flex: 0 0 5%;
-    }
-    .cdk-column-fecha {
-        flex: 0 0 9%;
-    }
-    .cdk-column-indice {
-        flex: 0 0 8%;
-    }
-    .cdk-column-acciones {
-        flex: 0 0 7%;
-    }
-    .cdk-column-select {
-        flex: 0 0 4%;
-    }
-    .mat-column-select {
-        overflow: initial;
-    }
+  .scroll-content {
+    background: #F1F1F1 !important;
+  }
+  .contenedorCentrado, .mat-tab-labels{
+    max-width: 1200px;
+    padding: 0px 40px;
+    margin: 0 auto;
+  }
+  .col ion-icon {
+    margin-right: 8px;
+  }
+  p {
+    margin-left: 8px;
+    word-break: break-word;
+    white-space: normal;
+  }
+  td {
+    word-break: break-all;
+    white-space: normal;
+  }
+  .conteinerTable {
+    display: flex;
+    flex-direction: column;
+    margin: 30px auto;
+  }
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
+  .cdk-column-idRegistro {
+    flex: 0 0 5%;
+  }
+  .cdk-column-fecha {
+    flex: 0 0 9%;
+  }
+  .cdk-column-indice {
+    flex: 0 0 8%;
+  }
+  .cdk-column-acciones {
+    flex: 0 0 7%;
+  }
+  .cdk-column-select {
+    flex: 0 0 4%;
+  }
+  .mat-column-select {
+    overflow: initial;
+  }
+  .barraDeBusqueda {
+    background: white;
+  }
+  .titleTable {
+    background: #708292;
+  }
+  .titleTable .grid .row .col:nth-child(2){
+    background: #657482;
+    text-align: center;
+    color: #C9D2DC;
+  }
+  .titleTable .grid .row .col{
+    padding: 25px 0px;
+    line-height: 14px;
+  }
+  .titleTable .grid {
+    padding: 0px !important;
+  }
+  .titleTable .grid .row .col:nth-child(1) span:nth-child(2){
+    color: #C9D2DC;
+    margin-left: 14px;
+  }
+  .titleTable .grid .row .col:nth-child(1) span:nth-child(1){
+    margin-left: 24px;
+    font-size: 20px;
+    color: white;
+  }
+  .mat-table .mat-row:nth-child(2n){
+    background: #F3F5F7;
+  }
 }

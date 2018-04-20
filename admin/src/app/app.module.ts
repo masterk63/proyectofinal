@@ -40,6 +40,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 //Button 
 import {MatButtonModule} from '@angular/material/button';
 
+//Icon
+import {MatIconModule} from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -54,6 +57,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
     MatSortModule,
     MatCheckboxModule,
     MatTabsModule,
