@@ -76,4 +76,11 @@ lista-registros {
   .mat-table .mat-row:nth-child(2n){
     background: #F3F5F7;
   }
+  .mat-drawer-container {
+    background-color: transparent;
+    height: 100%;
+  }
+  mat-sidenav {
+    width: 600px;
+  }
 }

@@ -1,0 +1,169 @@
+page-registro {
+    ion-content {
+        background-color: #f1f1f4 !important;
+    }
+    
+    .cardAcostada{
+        margin: 10px auto !important;
+        border-radius: 8px;
+        box-shadow: 0 9px 6px rgba(0,0,0,0.16), 0 6px 6px rgba(0,0,0,0.23);
+        width: calc(100% - 20px);
+    }
+
+    .cardAcostada ion-col{
+        height: 250px;
+    }
+
+    .cardAcostada ion-col:nth-child(1){
+        background-position: center;
+        position: relative;
+        border: none;
+        background-size: cover;
+    }
+
+    .cardAcostada ion-col:nth-child(2){
+        background: white;
+        color: #899194;
+        text-align: center;
+        display: table;
+        width: 100%;
+    }
+
+    .cardAcostada div{
+        display: table-cell;
+        vertical-align: middle;      
+    }
+
+    .cardAcostada .icon{
+        font-size: 2em !important;
+    }
+
+    .cardAcostada h2{
+        display: inline-block;
+    }
+    
+    .grid{
+        padding: 0px !important;
+    }
+
+    h2, p {
+        color: #899194 !important;
+        margin: 8px !important;
+    }
+
+    .center {
+        margin: 0 auto;
+    }
+    .contenedorImg {
+        position: relative;
+        overflow: auto;
+        background-color: white;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    }
+    .contenedorTab {
+        margin: 40px auto;
+        max-width: 600px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    }
+    .tabla th {
+        padding: 5px 5px 5px 10px;
+        border-radius: 0px;
+        background-color: #F5F4F5;
+        color: #899194;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+    .tabla td {
+        padding: 5px;
+        border-radius: 0px; // background-color: #ECF0F1;
+        background-color: white;
+        color: #899194;
+        text-align: center;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+    .tabla {
+        width: 100%;
+        display: block !important;
+        margin-left: -2px;
+    }
+
+    .tabla table{
+        margin: 0 auto;
+    }
+    .fotoPaisaje {
+        width: 100% !important;
+        height: 250px !important;
+        background-position: center;
+        position: relative;
+        border: none;
+        background-size: cover;
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-image: linear-gradient(to top,black,transparent,transparent);
+            opacity: .7; 
+          }
+    }
+    .titulo {
+        width: 100%;
+        padding: 9px;
+    }
+
+    .titulo h2{
+        font-size: 3em;
+        color:black !important;
+    }
+    .titulo h1{
+        font-size: 1.4em;
+        color:#899194;
+        margin-left: 8px;
+        margin: 0px 8px;
+    }
+
+    .titulo span{
+        float:right;
+    }
+
+    .titulo a{
+        color:#899194;
+    }
+
+    th {
+        font-size: 14px;
+        font-weight: normal;
+    }
+    td {
+        font-size: 14px;
+        font-weight: normal;
+    }
+    .botonValidar {
+        width: 100px;
+        border-radius: 15%;
+        font-size: 15px;
+    }
+
+    .card-md {
+        border-radius: 8px !important;
+    }
+
+    #cardAcostada1{
+        border-top-left-radius:8px;
+        border-bottom-left-radius:8px
+    } 
+    #cardAcostada2{
+        border-top-right-radius:8px;
+        border-bottom-right-radius:8px
+    }    
+    #cardAcostada3{
+        border-top-right-radius:8px;
+        border-bottom-right-radius:8px
+    }    
+    #cardAcostada4{
+        border-top-left-radius:8px;
+        border-bottom-left-radius:8px
+    }       
+
+}

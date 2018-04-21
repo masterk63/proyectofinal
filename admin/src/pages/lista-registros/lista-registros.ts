@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { RegistrosService } from '../../providers/registrosService';
 import Registro from '../../models/registro'
 import { ViewController } from 'ionic-angular';
-
+import {RegistroPage} from '../registro/registro'
 //Table
 import {MatTableModule, MatTableDataSource} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -62,6 +62,10 @@ export class ListaRegistrosPage {
 
   dameSeleccion(){
     console.log(this.selection);
+  }
+
+  verRegistro(id){
+    console.log(id)
   }
 
 }
