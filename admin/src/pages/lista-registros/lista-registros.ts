@@ -30,6 +30,8 @@ export class ListaRegistrosPage {
   selection = new SelectionModel<Registro>(true, []);
   @ViewChild('paginator') paginator: any;
   @ViewChild(MatSort) sort: MatSort;
+  idRegistro:number = -1;
+  opened:boolean = false;
 
   constructor(public navCtrl: NavController,
               public registroSrv:RegistrosService) {    
@@ -65,7 +67,10 @@ export class ListaRegistrosPage {
   }
 
   verRegistro(id){
-    console.log(id)
+    if(!this.opened){
+      this.opened = true;
+    }
+    this.idRegistro = id;
   }
 
 }

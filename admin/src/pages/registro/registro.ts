@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input, AnimationStyleMetadata } from '@angular/core';
 import { FabContainer, AlertController, NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RegistrosService } from '../../providers/registrosService';
@@ -12,18 +12,18 @@ export class RegistroPage {
   consultaArray: any;
   attachments: any;
   loading: any;
-  idRegistro: any;
   posicion: any;
   registro: any;
-  fotoMuestraURL = 'data:image/jpeg;base64,';
-  fotoMapaURL = 'data:image/jpeg;base64,';
-  fotoPaisajeURL = 'data:image/jpeg;base64,';
+  fotoMuestraURL:any;
+  fotoMapaURL:any;
+  fotoPaisajeURL:any;
   fotoMuestraURLSafe: any;
   fotoMapaURLSafe: any;
   fotoPaisajeURLSafe: any;
   valido: any;
   rol = null;
   _imageViewerCtrl: ImageViewerController;
+  @Input() idRegistro:any;
 
   constructor(public navCtrl: NavController,
     public params: NavParams,
@@ -36,11 +36,13 @@ export class RegistroPage {
   ) {
     // this.dameRol();
     this._imageViewerCtrl = imageViewerCtrl;
-    // this.idRegistro = this.params.get('idRegistro');
-    this.idRegistro = 2;
-    this.registroDame();
   }
 
+  ngOnChanges(){
+    if(this.idRegistro > 0){
+      this.registroDame();
+    }
+  }
   registroDame() {
     this.showLoader();
     this.regService.registroDame(this.idRegistro).then(data => {
@@ -51,9 +53,9 @@ export class RegistroPage {
       (this.registro.plecoptero == 1) ? this.registro.plecoptero = 'SI' : this.registro.plecoptero = 'NO';
       (this.registro.tricoptero == 1) ? this.registro.tricoptero = 'SI' : this.registro.tricoptero = 'NO';
       console.log(this.registro);
-      this.fotoPaisajeURL = this.fotoPaisajeURL + this.registro.fotoPaisaje;
-      this.fotoMuestraURL = this.fotoMuestraURL + this.registro.fotoMuestra;
-      this.fotoMapaURL = this.fotoMapaURL + this.registro.fotoMapa;
+      this.fotoPaisajeURL = 'data:image/jpeg;base64,' + this.registro.fotoPaisaje;
+      this.fotoMuestraURL = 'data:image/jpeg;base64,' + this.registro.fotoMuestra;
+      this.fotoMapaURL = 'data:image/jpeg;base64,' + this.registro.fotoMapa;
       this.fotoMuestraURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL);
       this.fotoMapaURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMapaURL);
       this.fotoPaisajeURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL);
