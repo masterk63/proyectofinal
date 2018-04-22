@@ -49,6 +49,12 @@ import { MatIconModule } from '@angular/material/icon';
 //SideNavBar
 import { MatSidenavModule } from '@angular/material/sidenav';
 
+//Chip
+import {MatChipsModule} from '@angular/material/chips';
+
+//ToolTip
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -65,8 +71,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatSidenavModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTooltipModule,
     MatIconModule,
     MatSortModule,
+    MatChipsModule,
     MatCheckboxModule,
     IonicImageViewerModule,
     MatTabsModule,

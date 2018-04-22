@@ -10,7 +10,9 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side" [(opened)]="opened" mode="side" position="end">
       <div class="contendorSidebar">
-        <button mat-icon-button (click)="sidenav.toggle()" id="closeButton"><mat-icon matSuffix>close</mat-icon></button>
+        <button mat-icon-button (click)="sidenav.toggle()" id="closeButton">
+          <mat-icon matSuffix>close</mat-icon>
+        </button>
         <page-registro [idRegistro]="idRegistro"></page-registro>
       </div>
     </mat-sidenav>
@@ -67,7 +69,7 @@
                       <span>de los ulitmos 7 dias (Mar 15,2018 - Mar 22, 2018)</span>
                     </ion-col>
                     <ion-col col-3>
-                      <span>Se Encontraron 25 Registros</span>
+                      <span>25 Registros</span>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
@@ -86,12 +88,6 @@
                 </ng-container>
 
                 <!-- Other Column -->
-                <ng-container matColumnDef="idRegistro">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-                  <mat-cell *matCellDef="let element">
-                    {{element.idRegistro}}
-                  </mat-cell>
-                </ng-container>
                 <ng-container matColumnDef="fecha">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
                   <mat-cell *matCellDef="let element">
@@ -101,13 +97,25 @@
                 <ng-container matColumnDef="alumno">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Alumno </mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    {{element.apellido}}, {{element.nombre}}
+                    <strong>{{element.apellido}},</strong>
+                    <br> {{element.nombre}}
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="ubicacion">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Ubicacion </mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    {{element.ciudad}}, {{element.provincia}}, {{element.pais}}
+                    <strong>{{element.ciudad}},</strong>
+                    <br> {{element.provincia}}, {{element.pais}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="estado">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <mat-chip-list [ngSwitch]="element.estado">
+                      <mat-chip selected="true" style="background-color: #139216;" *ngSwitchCase="'1'">Valido</mat-chip>
+                      <mat-chip selected="true" color="accent" *ngSwitchCase="'0'">Pendiente</mat-chip>
+                      <mat-chip selected="true" color="warn" *ngSwitchCase="'-1'">Invalido</mat-chip>
+                    </mat-chip-list>
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="indice">
@@ -119,7 +127,12 @@
                 <ng-container matColumnDef="acciones">
                   <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <button ion-button (click)="verRegistro(element.idRegistro)">Ver</button>
+                    <button style="color:#269ED9" mat-icon-button matTooltip="Ver" [matTooltipPosition]="'above'">
+                      <mat-icon (click)="verRegistro(element.idRegistro)">visibility</mat-icon>
+                    </button>
+                    <button *ngIf="element.estado == 0" style="color:#139216" mat-icon-button matTooltip="Validar" [matTooltipPosition]="'above'">
+                      <mat-icon (click)="verRegistro(element.idRegistro)">check_circle</mat-icon>
+                    </button>
                   </mat-cell>
                 </ng-container>
 
@@ -127,7 +140,7 @@
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
               </mat-table>
-              <mat-paginator #paginator [pageSize]="1" [pageSizeOptions]="[1, 2, 3]" [showFirstLastButtons]="true"></mat-paginator>
+              <mat-paginator #paginator [pageSize]="3" [pageSizeOptions]="[1, 2, 3]" [showFirstLastButtons]="true"></mat-paginator>
             </div>
           </div>
         </mat-tab>

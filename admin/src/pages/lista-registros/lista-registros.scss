@@ -29,20 +29,33 @@ lista-registros {
         overflow: auto;
         max-height: 500px;
     }
-    .cdk-column-idRegistro {
-        flex: 0 0 5%;
-    }
     .cdk-column-fecha {
-        flex: 0 0 9%;
+        flex: 0 0 8%;
+        min-width: 70px;
     }
     .cdk-column-indice {
-        flex: 0 0 8%;
+        flex: 0 0 7%;
+        min-width: 60px;
+    }
+    .cdk-column-alumno {
+        flex: 0 0 21%;
+        min-width: 130px;
+    }
+    .cdk-column-ubicacion {
+        flex: 0 0 28%;
+        min-width: 180px;
+    }
+    .cdk-column-estado {
+        flex: 0 0 15%;
+        min-width: 100px;
     }
     .cdk-column-acciones {
-        flex: 0 0 7%;
+        flex: 0 0 15%;
+        min-width: 100px;
     }
     .cdk-column-select {
-        flex: 0 0 4%;
+        flex: 0 0 7%;
+        min-width: 40px;
     }
     .mat-column-select {
         overflow: initial;
@@ -85,11 +98,12 @@ lista-registros {
         width: 400px;
     }
     #closeButton {
-        background: #ccb6b6;
+        background: #F1F1F1;
         position: absolute;
         z-index: 99;
-        right: 10px;
-        top: 3px;
+        right: 17px;
+        top: 14px;
+        color:#657482;
     }
     .contendorSidebar {
         display: block;

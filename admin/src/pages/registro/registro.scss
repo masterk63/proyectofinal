@@ -118,14 +118,16 @@ page-registro {
     }
 
     .titulo h2{
-        font-size: 3em;
+        font-size: 3em !important;
         color:black !important;
+        font-weight: 300;
     }
     .titulo h1{
-        font-size: 1.4em;
+        font-size: 1em;
         color:#899194;
         margin-left: 8px;
         margin: 0px 8px;
+        font-weight: 300;
     }
 
     .titulo span{
