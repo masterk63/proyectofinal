@@ -1,5 +1,24 @@
 <ion-header>
   <ion-navbar color="white">
+    <ion-grid class="headerMenu">
+      <ion-row>
+        <ion-col>
+          <div class="tituloPagina">
+            <span>
+              Registros
+            </span>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="user">
+            <img src="https://randomuser.me/api/portraits/men/31.jpg" alt="">
+            <span>
+              Registros
+            </span>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -32,8 +51,9 @@
               </ion-row>
               <ion-row class="filaCalendario">
                 <ion-col>
-                  <span>Mostrar Actividad</span>
-                  <button ion-button round outline>Primary Round</button>
+                  <span class="letrasFiltros">Mostrar Actividad</span>
+                  <button *ngFor="let c of filtrosTemporales" [class.chipActivo]="c.estado" ion-button round outline (click)="filtroTemporalChange(c)">{{c.nombre}}</button>
+                  <span class="letrasFiltros">o</span>
                   <button ion-button round outline>
                     <mat-form-field class="campoFiltro">
                       <input matInput disabled [matDatepicker]="picke" placeholder="Desde">
@@ -48,13 +68,15 @@
                       <mat-datepicker #picker disabled="false"></mat-datepicker>
                     </mat-form-field>
                   </button>
+                  <span class="letrasFiltros">
+                    <a href="#" style="color:#494F58">Filtrar</a>
+                  </span>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col>
-                  <span>Mostrar Actividad</span>
-                  <button ion-button round outline>Primary Round</button>
-                  
+                  <span class="letrasFiltros">Filtros</span>
+                  <button *ngFor="let c of filtrosEstado" [class.chipActivo]="c.estado" ion-button round outline (click)="filtroEstadoChange(c)">{{c.nombre}}</button>
                 </ion-col>
               </ion-row>
             </ion-grid>

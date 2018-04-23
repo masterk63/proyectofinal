@@ -122,4 +122,23 @@ lista-registros {
     .filaCalendario .mat-input-underline{
         height: 0px;
     }
+    .filaCalendario .mat-form-field-infix {
+        width: 70px;
+    }
+    .letrasFiltros{
+        color:#494F58;
+        vertical-align: sub;
+    }
+    .chipActivo{
+        background: #6F8294;
+        color:white !important;
+    }
+    .button-outline-md{
+        color:#9C9C9C;
+        border-color:#9C9C9C;
+        font-weight: 300;
+    }
+    ion-navbar{
+        padding: 0px !important;
+    }
 }

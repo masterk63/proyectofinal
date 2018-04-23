@@ -65,6 +65,34 @@ h3 {
     margin-left: 8px;
 }
 
+.tituloPagina{
+    background: #009CDF;
+    max-width: 300px;
+    height: 67px;
+    color: white;
+    font-weight: 300;
+    text-align: center;
+}
+.tituloPagina span{
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 65px;
+}
+.user{
+    max-width: 300px;
+    float: right;
+    background: red;
+    height: 67px;
+}
+
+.user img{
+    max-width: 60px;
+    border-radius: 50%;
+}
+.headerMenu,.headerMenu .row,.headerMenu .col{
+    padding: 0 !important;
+} 
+
 @media (min-width: 768px) { 
     ion-menu {
         max-width: 250px!important;

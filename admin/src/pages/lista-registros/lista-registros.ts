@@ -32,7 +32,8 @@ export class ListaRegistrosPage {
   @ViewChild(MatSort) sort: MatSort;
   idRegistro: number = -1;
   opened: boolean = false;
-
+  filtrosEstado = [{nombre:'Pendiente',estado:true},{nombre:'Valido',estado:false},{nombre:'Invalido',estado:false},{nombre:'Todos',estado:false}]
+  filtrosTemporales = [{nombre:'Ultima Semana',estado:true},{nombre:'Ultimo Mes',estado:false}]
   constructor(public navCtrl: NavController,
     public registroSrv: RegistrosService) {
   }
@@ -71,6 +72,20 @@ export class ListaRegistrosPage {
       this.opened = true;
     }
     this.idRegistro = id;
+  }
+
+  filtroEstadoChange(chip){
+    for(let c of this.filtrosEstado){
+      c.estado = false;
+    }
+    chip.estado = true;
+  }
+
+  filtroTemporalChange(chip){
+    for(let c of this.filtrosTemporales){
+      c.estado = false;
+    }
+    chip.estado = true;
   }
 
 }
