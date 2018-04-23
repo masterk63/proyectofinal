@@ -30,15 +30,22 @@
                   </mat-form-field>
                 </ion-col>
               </ion-row>
-              <ion-row>
+              <ion-row class="filaCalendario">
                 <ion-col>
                   <span>Mostrar Actividad</span>
                   <button ion-button round outline>Primary Round</button>
                   <button ion-button round outline>
                     <mat-form-field class="campoFiltro">
-                      <input matInput [matDatepicker]="picke" placeholder="Choose a date">
+                      <input matInput disabled [matDatepicker]="picke" placeholder="Desde">
                       <mat-datepicker-toggle matSuffix [for]="picke"></mat-datepicker-toggle>
-                      <mat-datepicker #picke></mat-datepicker>
+                      <mat-datepicker #picke disabled="false"></mat-datepicker>
+                    </mat-form-field>
+                  </button>
+                  <button ion-button round outline>
+                    <mat-form-field class="campoFiltro">
+                      <input matInput disabled [matDatepicker]="picker" placeholder="Hasta">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker disabled="false"></mat-datepicker>
                     </mat-form-field>
                   </button>
                 </ion-col>
@@ -47,13 +54,7 @@
                 <ion-col>
                   <span>Mostrar Actividad</span>
                   <button ion-button round outline>Primary Round</button>
-                  <button ion-button round outline>
-                    <mat-form-field class="campoFiltro">
-                      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                  </button>
+                  
                 </ion-col>
               </ion-row>
             </ion-grid>
