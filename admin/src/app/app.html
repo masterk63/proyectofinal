@@ -8,7 +8,12 @@
   
       <ion-content class="menuStyle">
         <ion-list *ngFor="let p of pages">
-          <ion-list-header (click)="mostrarElementos(p)" class="item list-header">
+            <button mat-icon-button><mat-icon>{{p.iconoPrincipal}}</mat-icon></button>
+            <div>
+              <span>{{p.tituloPrincipal}}</span>
+            </div>
+
+          <!-- <ion-list-header (click)="mostrarElementos(p)" class="item list-header">
             {{p.tituloPrincipal | uppercase}}
             <ion-icon name="{{p.iconoPrincipal}}" float-right></ion-icon>
           </ion-list-header>
@@ -17,14 +22,14 @@
               {{c.titulo}}
               <ion-icon name="{{c.icono}}" float-right></ion-icon>
             </button>
-          </div>
+          </div> -->
         </ion-list>
-        <ion-list>
+        <!-- <ion-list>
           <ion-list-header  (click)="logout()" class="item list-header">
             SALIR
             <ion-icon name="exit" float-right></ion-icon>
           </ion-list-header>
-        </ion-list>
+        </ion-list> -->
       </ion-content>
   
     </ion-menu>

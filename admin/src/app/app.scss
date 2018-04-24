@@ -1,10 +1,6 @@
-.split-pane-md.split-pane-visible > .split-pane-side {
-    border-right: none !important;
-}
-
 .menuStyle .scroll-content{
     // border-right: 1px solid #dedede;
-    background: rgb(75, 77, 86);
+    background:white;
     overflow: hidden;
 }
     
@@ -24,31 +20,22 @@
     height: auto !important;
 }
 
-.menuStyle ion-list-header{
-    font-size: 1em;
-    color: black !important;
-    font-weight: bold !important;
-    margin: 20px 0px !important;
-    cursor: pointer;
-    border-top: 0px solid !important;
-    background: rgb(75, 77, 86);
-    color: #F1F1F1 !important;
+.list-md {
+    text-align: center;
+    margin: 6px 0 !important;
 }
 
-.menuStyle ion-icon{
-    margin-right: 18px !important;
-    font-size: 26px;
+.menuStyle .mat-icon-button .mat-icon, .mat-icon-button i {
+    line-height: 40px;
 }
-
-.menuStyle button{
-    margin-left: 7px;
-    background: #52555f !important;
-    color: #F1F1F1 !important;
+.menuStyle{
+    color:#494F58;
 }
-
-.menuStyle button .item-inner{
-    border-bottom: 0px solid !important;
-} 
+.menuStyle .mat-icon {
+    height: 40px;
+    width: 40px;
+    font-size: 35px;
+}
 
 .contenedor{
     display: block;
@@ -79,32 +66,45 @@ h3 {
     line-height: 65px;
 }
 .user{
-    max-width: 300px;
+    width: 300px;
     float: right;
-    background: red;
+    height: 67px;
+}
+
+.user .row{
     height: 67px;
 }
 
 .user img{
-    max-width: 60px;
+    max-width: 50px;
     border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+    vertical-align: bottom;
+    margin-top: 8px;
 }
+
+.user .col:nth-child(1){
+    max-width:100px;
+}
+.user .col:nth-child(2){
+    color: #494F58;
+    font-size: 14px;
+    margin-top: 23px;
+}
+
 .headerMenu,.headerMenu .row,.headerMenu .col{
     padding: 0 !important;
 } 
 
 @media (min-width: 768px) { 
     ion-menu {
-        max-width: 250px!important;
-        margin-left: -198px;
+        max-width: 70px !important;
+        min-width: 20px !important;
     }
 
     ion-menu ion-title {
         display: none;
-    }
-
-    ion-menu:hover {
-        margin-left: 0px;
     }
 
     ion-menu:hover ion-title {

@@ -12,12 +12,12 @@ import { ListaUsuariosPage } from '../pages/lista-usuarios/lista-usuarios';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage:any = ListaRegistrosPage;
-  pages: Array<{tituloPrincipal: string,iconoPrincipal: string,mostrarComponentes: boolean, componenentes: Array<{titulo: string,icono: string, componente: any}>}>;
+  pages: Array<{tituloPrincipal: string,iconoPrincipal: string,activo: boolean, componenentes: any}>;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     this.pages = [
-      { tituloPrincipal: 'Usuarios',iconoPrincipal:'people',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListaUsuariosPage}] },
-      { tituloPrincipal: 'Registros',iconoPrincipal:'book',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListaRegistrosPage},{titulo:'Nuevo',icono:'person-add',componente:DashboardPage}] },
+      { tituloPrincipal: 'Usuarios',iconoPrincipal:'face',activo:false, componenentes:ListaUsuariosPage},
+      { tituloPrincipal: 'Registros',iconoPrincipal:'assignment',activo:true, componenentes: ListaRegistrosPage},
     ];
 
     platform.ready().then(() => {
