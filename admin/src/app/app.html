@@ -2,12 +2,12 @@
     <ion-menu [content]="content">
       <ion-header>
         <ion-toolbar color="white">
-          <!-- <ion-title><img class="titleMenu" src="http://clubhonorarios.com/img/logo/logo-max.png" /></ion-title> -->
+            <button mat-icon-button style="color:#009CDF;"><mat-icon style="font-size: 45px;">invert_colors</mat-icon></button>
         </ion-toolbar>
       </ion-header>
   
       <ion-content class="menuStyle">
-        <ion-list *ngFor="let p of pages">
+        <ion-list *ngFor="let p of pages" [class.menuActivo]="p.activo">
             <button mat-icon-button><mat-icon>{{p.iconoPrincipal}}</mat-icon></button>
             <div>
               <span>{{p.tituloPrincipal}}</span>
