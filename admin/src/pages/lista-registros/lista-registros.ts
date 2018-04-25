@@ -4,6 +4,9 @@ import { RegistrosService } from '../../providers/registrosService';
 import Registro from '../../models/registro'
 import { ViewController } from 'ionic-angular';
 import { RegistroPage } from '../registro/registro'
+import * as moment from 'moment';
+import 'moment/locale/es';
+
 //Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -34,12 +37,31 @@ export class ListaRegistrosPage {
   opened: boolean = false;
   filtrosEstado = [{nombre:'Pendiente',estado:true},{nombre:'Valido',estado:false},{nombre:'Invalido',estado:false},{nombre:'Todos',estado:false}]
   filtrosTemporales = [{nombre:'Ultima Semana',estado:true},{nombre:'Ultimo Mes',estado:false}]
+  fechaActual:any;
+  fechaHaceUnaSemana:any;
+  now:any;
+  lastWeek:any;
+
   constructor(public navCtrl: NavController,
     public registroSrv: RegistrosService) {
+    this.now = moment().toISOString().split("T")[0];
+    this.fechaActual = moment().format("DD, MMM YYYY");
+    this.lastWeek = moment().subtract(2,'week').toISOString().split("T")[0];
+    this.fechaHaceUnaSemana = moment().format("DD, MMM YYYY");
   }
 
   ngAfterViewInit() {
-    this.registroSrv.cargarRegistros().then(reg => {
+    this.cargarRegistrosUltimaSemana();
+  }
+
+  cargarRegistrosUltimaSemana(){
+    let filtro = {
+      now: this.now,
+      lastWeek: this.lastWeek,
+      estado: 0
+    }
+
+    this.registroSrv.cargarRegistros(filtro).then(reg => {
       console.log(reg);
       this.registros = reg;
       this.mostrarTarjetas = true;

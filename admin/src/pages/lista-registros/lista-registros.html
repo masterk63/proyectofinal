@@ -95,10 +95,10 @@
                   <ion-row>
                     <ion-col col-9>
                       <span>Registros</span>
-                      <span>de los ulitmos 7 dias (Mar 15,2018 - Mar 22, 2018)</span>
+                      <span>de los ulitmos 7 dias ({{fechaHaceUnaSemana}} - {{fechaActual}})</span>
                     </ion-col>
                     <ion-col col-3>
-                      <span>25 Registros</span>
+                      <span>{{registros?.length}} Registros</span>
                     </ion-col>
                   </ion-row>
                 </ion-grid>

@@ -6,7 +6,7 @@ var i2b = require("imageurl-base64");
 
 
 exports.registrosListar = function (req, res) {
-  Registro.listar(function (consulta) {
+  Registro.listar(req.body,function (consulta) {
     res.json(consulta);
   });
 }

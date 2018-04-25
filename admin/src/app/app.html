@@ -12,24 +12,13 @@
             <div>
               <span>{{p.tituloPrincipal}}</span>
             </div>
-
-          <!-- <ion-list-header (click)="mostrarElementos(p)" class="item list-header">
-            {{p.tituloPrincipal | uppercase}}
-            <ion-icon name="{{p.iconoPrincipal}}" float-right></ion-icon>
-          </ion-list-header>
-          <div *ngIf="p.mostrarComponentes">
-            <button  *ngFor="let c of p.componenentes" (click)="openPage(c.componente)" menuClose ion-item>
-              {{c.titulo}}
-              <ion-icon name="{{c.icono}}" float-right></ion-icon>
-            </button>
-          </div> -->
         </ion-list>
-        <!-- <ion-list>
-          <ion-list-header  (click)="logout()" class="item list-header">
-            SALIR
-            <ion-icon name="exit" float-right></ion-icon>
-          </ion-list-header>
-        </ion-list> -->
+        <ion-list (click)="logout()">
+            <button mat-icon-button ><mat-icon>exit_to_app</mat-icon></button>
+            <div>
+              <span>Salir</span>
+            </div>
+        </ion-list>
       </ion-content>
   
     </ion-menu>

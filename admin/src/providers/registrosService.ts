@@ -19,9 +19,13 @@ export class RegistrosService {
   }
 
 
-  cargarRegistros() {
+  cargarRegistros(filtro) {
     return new Promise<Array<Registro>>((resolve, reject) => {
-      this.http.get(configServer.data.urlServidor + '/api/registrosListar').timeout(5000)
+      
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(configServer.data.urlServidor + '/api/registrosListar',JSON.stringify(filtro), { headers: headers }).timeout(5000)
         .map(resultado => resultado.json())
         .subscribe(resultado => {
           resolve(resultado);

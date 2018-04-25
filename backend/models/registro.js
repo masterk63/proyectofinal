@@ -12,14 +12,20 @@ var connection = mysql.createConnection({
 var NodeGeocoder = require('node-geocoder');
 
 
-exports.listar = function (fn) {
-    connection.query('call registros_listar()', function (err, rows) {
+exports.listar = function (reg,fn) {
+    var now = '"' + reg.now + '"';
+    var lastWeek = '"' + reg.lastWeek + '"';
+    var estado = parseInt(reg.estado);
+
+    var query = 'call registros_listar(' + lastWeek + ',' + now + ',' + estado + ')';
+    console.log(query)
+    connection.query('call registros_listar(' + lastWeek + ',' + now + ',' + estado + ')', function (err, rows) {
         if (err) fn(err);
         fn(rows[0]);
     });
 }
 
-exports.listarUsuario = function (id,fn) {
+exports.listarUsuario = function (id, fn) {
     connection.query('call registros_listar_usuario(' + id + ')', function (err, rows) {
         if (err) fn(err);
         fn(rows[0]);

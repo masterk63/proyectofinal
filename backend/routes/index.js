@@ -45,7 +45,7 @@ module.exports = function(app){
     app.get('/reset/:token', UsuariosController.resetPassword);
     app.post('/reset/:token', UsuariosController.resetPasswordPOST);
     //API Registros
-    apiRegistros.get('/registrosListar',RegistrosController.registrosListar);
+    apiRegistros.post('/registrosListar',RegistrosController.registrosListar);
     apiRegistros.get('/registrosListarUsuario/:id',RegistrosController.registrosListarUsuario);
     apiRegistros.post('/registroNuevo',RegistrosController.registroNuevo);
     apiRegistros.get('/listarMarkers',RegistrosController.registrosListarMarkers);
