@@ -35,8 +35,8 @@ export class ListaRegistrosPage {
   @ViewChild(MatSort) sort: MatSort;
   idRegistro: number = -1;
   opened: boolean = false;
-  filtrosEstado = [{nombre:'Pendiente',estado:true},{nombre:'Valido',estado:false},{nombre:'Invalido',estado:false},{nombre:'Todos',estado:false}]
-  filtrosTemporales = [{nombre:'Ultima Semana',estado:true},{nombre:'Ultimo Mes',estado:false}]
+  filtrosEstado = [{nombre:'Pendiente',estado:true,valor:0},{nombre:'Valido',estado:false,valor:1},{nombre:'Invalido',estado:false,valor:-1},{nombre:'Todos',estado:false,valor:10}]
+  filtrosTemporales = [{nombre:'Ultima Semana',estado:true,valor:''},{nombre:'Ultimo Mes',estado:false,valor:''}]
   fechaActual:any;
   fechaHaceUnaSemana:any;
   now:any;
@@ -85,10 +85,6 @@ export class ListaRegistrosPage {
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  dameSeleccion() {
-    console.log(this.selection);
-  }
-
   verRegistro(id) {
     if (!this.opened) {
       this.opened = true;
@@ -101,6 +97,7 @@ export class ListaRegistrosPage {
       c.estado = false;
     }
     chip.estado = true;
+    this.filtrarRegistros();
   }
 
   filtroTemporalChange(chip){
@@ -108,6 +105,13 @@ export class ListaRegistrosPage {
       c.estado = false;
     }
     chip.estado = true;
+    this.filtrarRegistros();
+  }
+
+  filtrarRegistros(){
+    let estado = this.filtrosEstado.map( f => { if(f.estado == true) return f.valor});
+    let fecha = this.filtrosTemporales.map( f => { if(f.estado == true) return f.valor});
+    console.log(estado,fecha);
   }
 
 }
