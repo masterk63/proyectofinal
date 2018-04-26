@@ -62,19 +62,19 @@
                   <span class="letrasFiltros">o</span>
                   <button ion-button round outline>
                     <mat-form-field class="campoFiltro">
-                      <input matInput disabled [matDatepicker]="picke" placeholder="Desde">
-                      <mat-datepicker-toggle matSuffix [for]="picke"></mat-datepicker-toggle>
-                      <mat-datepicker #picke disabled="false"></mat-datepicker>
+                      <input matInput disabled [(ngModel)]="fechaInicio" [matDatepicker]="fInicio" placeholder="Desde">
+                      <mat-datepicker-toggle matSuffix [for]="fInicio"></mat-datepicker-toggle>
+                      <mat-datepicker #fInicio disabled="false"></mat-datepicker>
                     </mat-form-field>
                   </button>
                   <button ion-button round outline>
                     <mat-form-field class="campoFiltro">
-                      <input matInput disabled [matDatepicker]="picker" placeholder="Hasta">
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker disabled="false"></mat-datepicker>
+                      <input matInput disabled [(ngModel)]="fechaFin" [matDatepicker]="fFin" placeholder="Hasta">
+                      <mat-datepicker-toggle matSuffix [for]="fFin"></mat-datepicker-toggle>
+                      <mat-datepicker #fFin disabled="false"></mat-datepicker>
                     </mat-form-field>
                   </button>
-                  <span class="letrasFiltros">
+                  <span class="letrasFiltros" (click)="filtrarPorRangoFecha()">
                     <a href="#" style="color:#494F58">Filtrar</a>
                   </span>
                 </ion-col>

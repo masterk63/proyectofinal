@@ -42,6 +42,7 @@ export class ListaRegistrosPage {
   now:any;
   lastWeek:any;
   lastMonth:any;
+  fechaInicio:any;
 
   constructor(public navCtrl: NavController,
     public registroSrv: RegistrosService) {
@@ -120,6 +121,9 @@ export class ListaRegistrosPage {
       estado: estado.valor
     }
     this.cargarRegistros(filtro);
+  }
+  filtrarPorRangoFecha(){
+    console.log('fecha Incio',this.fechaInicio.toISOString())
   }
 
 }
