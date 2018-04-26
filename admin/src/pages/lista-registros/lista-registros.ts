@@ -43,6 +43,7 @@ export class ListaRegistrosPage {
   lastWeek:any;
   lastMonth:any;
   fechaInicio:any;
+  fechaFin:any;
 
   constructor(public navCtrl: NavController,
     public registroSrv: RegistrosService) {
@@ -123,7 +124,13 @@ export class ListaRegistrosPage {
     this.cargarRegistros(filtro);
   }
   filtrarPorRangoFecha(){
-    console.log('fecha Incio',this.fechaInicio.toISOString())
+    let estado = this.filtrosEstado.find(f => f.estado == true);
+    let filtro = {
+      now: moment(this.fechaFin).toISOString().split('T')[0],
+      lastWeek: moment(this.fechaInicio).toISOString().split('T')[0],
+      estado: estado.valor
+    }
+    this.cargarRegistros(filtro);
   }
 
 }
