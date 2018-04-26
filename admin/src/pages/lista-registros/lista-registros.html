@@ -58,16 +58,18 @@
               <ion-row class="filaCalendario">
                 <ion-col>
                   <span class="letrasFiltros">Mostrar Actividad</span>
-                  <button *ngFor="let c of filtrosTemporales" [class.chipActivo]="c.estado" ion-button round outline (click)="filtroTemporalChange(c)">{{c.nombre}}</button>
+                  <div *ngFor="let c of filtrosTemporales" style="display: inline-block;">
+                    <button *ngIf="c.nombre" [class.chipActivo]="c.estado" ion-button round outline (click)="filtroTemporalChange(c)">{{c.nombre}}</button>
+                  </div>
                   <span class="letrasFiltros">o</span>
-                  <button ion-button round outline>
+                  <button ion-button round outline [class.chipActivo]="filtrosTemporales[2]?.estado">
                     <mat-form-field class="campoFiltro">
                       <input matInput disabled [(ngModel)]="fechaInicio" [matDatepicker]="fInicio" placeholder="Desde">
                       <mat-datepicker-toggle matSuffix [for]="fInicio"></mat-datepicker-toggle>
                       <mat-datepicker #fInicio disabled="false"></mat-datepicker>
                     </mat-form-field>
                   </button>
-                  <button ion-button round outline>
+                  <button ion-button round outline [class.chipActivo]="filtrosTemporales[2]?.estado"> 
                     <mat-form-field class="campoFiltro">
                       <input matInput disabled [(ngModel)]="fechaFin" [matDatepicker]="fFin" placeholder="Hasta">
                       <mat-datepicker-toggle matSuffix [for]="fFin"></mat-datepicker-toggle>

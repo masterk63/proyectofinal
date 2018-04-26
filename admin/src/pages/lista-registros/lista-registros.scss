@@ -133,6 +133,11 @@ lista-registros {
         background: #6F8294;
         color:white !important;
     }
+
+    .chipActivo .mat-input-element:disabled {
+        color: #ffffff !important;
+    }
+
     .button-outline-md{
         color:#9C9C9C;
         border-color:#9C9C9C;
@@ -146,5 +151,4 @@ lista-registros {
         background-color: #009CDF;
         color: #009CDF;
     }
-
 }

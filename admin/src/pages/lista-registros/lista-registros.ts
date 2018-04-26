@@ -36,7 +36,7 @@ export class ListaRegistrosPage {
   idRegistro: number = -1;
   opened: boolean = false;
   filtrosEstado = [{nombre:'Pendiente',estado:true,valor:0},{nombre:'Valido',estado:false,valor:1},{nombre:'Invalido',estado:false,valor:-1},{nombre:'Todos',estado:false,valor:10}]
-  filtrosTemporales = [{nombre:'Ultima Semana',estado:true,valor:''},{nombre:'Ultimo Mes',estado:false,valor:''}]
+  filtrosTemporales = [{nombre:'Ultima Semana',estado:true,valor:''},{nombre:'Ultimo Mes',estado:false,valor:''},{nombre:'',estado:false,valor:''}]
   fechaActual:any;
   fechaHaceUnaSemana:any;
   now:any;
@@ -116,14 +116,28 @@ export class ListaRegistrosPage {
   filtrarRegistros(){
     let estado = this.filtrosEstado.find(f => f.estado == true);
     let fecha = this.filtrosTemporales.find(f => f.estado == true);
-    let filtro = {
-      now: this.now,
-      lastWeek: fecha.valor,
-      estado: estado.valor
+    let filtro;
+    if(fecha.nombre){
+      filtro = {
+        now: this.now,
+        lastWeek: fecha.valor,
+        estado: estado.valor
+      }
+    }else{
+      filtro = {
+        now: moment(this.fechaFin).toISOString().split('T')[0],
+        lastWeek: moment(this.fechaInicio).toISOString().split('T')[0],
+        estado: estado.valor
+      }
     }
     this.cargarRegistros(filtro);
   }
+  
   filtrarPorRangoFecha(){
+    for(let c of this.filtrosTemporales){
+      c.estado = false;
+    }
+    this.filtrosTemporales[2].estado = true;
     let estado = this.filtrosEstado.find(f => f.estado == true);
     let filtro = {
       now: moment(this.fechaFin).toISOString().split('T')[0],
