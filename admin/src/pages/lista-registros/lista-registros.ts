@@ -41,26 +41,29 @@ export class ListaRegistrosPage {
   fechaHaceUnaSemana:any;
   now:any;
   lastWeek:any;
+  lastMonth:any;
 
   constructor(public navCtrl: NavController,
     public registroSrv: RegistrosService) {
     this.now = moment().toISOString().split("T")[0];
+    this.lastWeek = moment().subtract(1,'week').toISOString().split("T")[0];
+    this.lastMonth = moment().subtract(1,'month').toISOString().split("T")[0];
+    this.filtrosTemporales[0].valor = this.lastWeek;
+    this.filtrosTemporales[1].valor = this.lastMonth;
     this.fechaActual = moment().format("DD, MMM YYYY");
-    this.lastWeek = moment().subtract(2,'week').toISOString().split("T")[0];
     this.fechaHaceUnaSemana = moment().format("DD, MMM YYYY");
   }
 
   ngAfterViewInit() {
-    this.cargarRegistrosUltimaSemana();
-  }
-
-  cargarRegistrosUltimaSemana(){
     let filtro = {
       now: this.now,
       lastWeek: this.lastWeek,
       estado: 0
     }
+    this.cargarRegistros(filtro);
+  }
 
+  cargarRegistros(filtro){
     this.registroSrv.cargarRegistros(filtro).then(reg => {
       console.log(reg);
       this.registros = reg;
@@ -109,9 +112,14 @@ export class ListaRegistrosPage {
   }
 
   filtrarRegistros(){
-    let estado = this.filtrosEstado.map( f => { if(f.estado == true) return f.valor});
-    let fecha = this.filtrosTemporales.map( f => { if(f.estado == true) return f.valor});
-    console.log(estado,fecha);
+    let estado = this.filtrosEstado.find(f => f.estado == true);
+    let fecha = this.filtrosTemporales.find(f => f.estado == true);
+    let filtro = {
+      now: this.now,
+      lastWeek: fecha.valor,
+      estado: estado.valor
+    }
+    this.cargarRegistros(filtro);
   }
 
 }
