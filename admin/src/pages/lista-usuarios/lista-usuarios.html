@@ -1,62 +1,187 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="white">
+    <ion-grid class="headerMenu">
+      <ion-row>
+        <ion-col>
+          <div class="tituloPagina">
+            <span>
+              Registros
+            </span>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="user">
+            <ion-row>
+              <ion-col>
+                <img src="https://randomuser.me/api/portraits/men/31.jpg" alt="">
+              </ion-col>
+              <ion-col>
+                <span>
+                  Dosantos, Daniel
+                </span>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-      <ion-title (click)="ir()"><img class="titleMenu ocultarMenu" src="http://clubhonorarios.com/img/logo/logo-max.png" /></ion-title>
   </ion-navbar>
-</ion-header> 
+</ion-header>
 
-<ion-content padding>
+<ion-content>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened" mode="side" position="end">
+      <div class="contendorSidebar">
+        <button mat-icon-button (click)="sidenav.toggle()" id="closeButton">
+          <mat-icon matSuffix>close</mat-icon>
+        </button>
+        <page-registro [idRegistro]="idRegistro"></page-registro>
+      </div>
+    </mat-sidenav>
 
-  <ion-row style="max-width: 1306px;margin: 0 auto;">
-    <ion-col col-lg-3 push-lg-9 col-md-12>
-        <div class="cardFilter">
-            <h4>Exportar por fecha</h4>
-            <ion-row class="input-icon-container">
-              <ion-col col-12 col-sm >
-                <ion-item class="campoFiltro" >
-                  <ion-label>Fecha Inicio</ion-label>
-                  <ion-datetime displayFormat="DD/MMM/YYYY" min="2016" [(ngModel)]="fechaInicio"></ion-datetime>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col col-12 col-sm>
-                <ion-item class="campoFiltro" >
-                  <ion-label>Fecha Fin</ion-label>
-                  <ion-datetime displayFormat="DD/MMM/YYYY" min="2016" [(ngModel)]="fechaFin"></ion-datetime>
-                </ion-item>
-              </ion-col>
+    <mat-sidenav-content>
+      <mat-tab-group>
+        <mat-tab label="Buscada Basica">
+          <div class="barraDeBusqueda">
+            <ion-grid class="contenedorCentrado">
+              <ion-row>
+                <ion-col>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email">
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </ion-col>
               </ion-row>
-            <ion-row>
-              <ion-col >
-                <button float-right (click)="exportar()" ion-button outline>Exportar</button>
-              </ion-col>
-            </ion-row>
-        </div>
-    </ion-col>
-    <ion-col col-lg-9 pull-lg-3 col-md-12 >
-        <div class="contenedor">
-            <ion-searchbar [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel" placeholder="APELLIDO + NOMBRE ó DNI/CUIT" (ionInput)="setFilteredItems()"></ion-searchbar>
-            <ion-list>
-                <ion-item *ngFor="let p of listaProfesionalesBusqueda | paginate: { itemsPerPage: 10, currentPage: p }">
-                  <ion-avatar item-start>
-                    <img src="https://cdn3.iconfinder.com/data/icons/internet-and-web-4/78/internt_web_technology-13-128.png">
-                  </ion-avatar>
-                  <h2>{{p.apellidoNombre}}</h2>
-                  <h3>DNI: {{p.dni}}, Fecha de Alta: {{p.fechaAlta  | date:'dd/MM/yyyy' }}</h3>
-                  <p>{{p.telefono}}</p>
-                  <p>{{p.mail}}</p>
-                  <p>{{p.domicilio}}, {{p.nombreCiudad}}, {{p.nombreProvincia}}</p>
-                  
-                  <button ion-button clear item-end (click)="irDetalles(p,'false')"><ion-icon name="eye"></ion-icon>Ver</button>
-                  <button ion-button clear item-end (click)="irDetalles(p,'true')"><ion-icon name="create"></ion-icon>Editar</button>
-                  <button ion-button clear item-end (click)="botonEliminar(p.idProfesional)"><ion-icon name="close-circle"></ion-icon>Eliminar</button>
-                </ion-item>
-              </ion-list>
-              <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-        </div>
-    </ion-col>
-  </ion-row>
+              <ion-row class="filaCalendario">
+                <ion-col>
+                  <span class="letrasFiltros">Mostrar Actividad</span>
+                  <div *ngFor="let c of filtrosTemporales" style="display: inline-block;">
+                    <button *ngIf="c.nombre" [class.chipActivo]="c.estado" ion-button round outline (click)="filtroTemporalChange(c)">{{c.nombre}}</button>
+                  </div>
+                  <span class="letrasFiltros">o</span>
+                  <button ion-button round outline [class.chipActivo]="filtrosTemporales[2]?.estado">
+                    <mat-form-field class="campoFiltro">
+                      <input matInput disabled [(ngModel)]="fechaInicio" [matDatepicker]="fInicio" placeholder="Desde">
+                      <mat-datepicker-toggle matSuffix [for]="fInicio"></mat-datepicker-toggle>
+                      <mat-datepicker #fInicio disabled="false"></mat-datepicker>
+                    </mat-form-field>
+                  </button>
+                  <button ion-button round outline [class.chipActivo]="filtrosTemporales[2]?.estado"> 
+                    <mat-form-field class="campoFiltro">
+                      <input matInput disabled [(ngModel)]="fechaFin" [matDatepicker]="fFin" placeholder="Hasta">
+                      <mat-datepicker-toggle matSuffix [for]="fFin"></mat-datepicker-toggle>
+                      <mat-datepicker #fFin disabled="false"></mat-datepicker>
+                    </mat-form-field>
+                  </button>
+                  <span class="letrasFiltros" (click)="filtrarPorRangoFecha()">
+                    <a href="#" style="color:#494F58">Filtrar</a>
+                  </span>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <span class="letrasFiltros">Filtros</span>
+                  <button *ngFor="let c of filtrosEstado" [class.chipActivo]="c.estado" ion-button round outline (click)="filtroEstadoChange(c)">{{c.nombre}}</button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+
+          <div class="conteinerTable contenedorCentrado">
+            <div class="mat-elevation-z4">
+              <div class="titleTable">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-9>
+                      <span>Registros</span>
+                      <span>de los ulitmos 7 dias ({{fechaHaceUnaSemana}} - {{fechaActual}})</span>
+                    </ion-col>
+                    <ion-col col-3>
+                      <span>{{registros?.length}} Registros</span>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+              <mat-table #table [dataSource]="dataSource" matSort>
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                  <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Other Column -->
+                <ng-container matColumnDef="fecha">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{element.fecha | date:'dd/MM/yy'}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="alumno">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Alumno </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <strong>{{element.apellido}},</strong>
+                    <br> {{element.nombre}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="ubicacion">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Ubicacion </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <strong>{{element.ciudad}},</strong>
+                    <br> {{element.provincia}}, {{element.pais}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="estado">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <mat-chip-list [ngSwitch]="element.estado">
+                      <mat-chip selected="true" style="background-color: #139216;" *ngSwitchCase="'1'">Valido</mat-chip>
+                      <mat-chip selected="true" color="accent" *ngSwitchCase="'0'">Pendiente</mat-chip>
+                      <mat-chip selected="true" color="warn" *ngSwitchCase="'-1'">Invalido</mat-chip>
+                    </mat-chip-list>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="indice">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Indice </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{element.indice}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                  <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <button style="color:#269ED9" mat-icon-button matTooltip="Ver" [matTooltipPosition]="'above'">
+                      <mat-icon (click)="verRegistro(element.idRegistro)">visibility</mat-icon>
+                    </button>
+                    <button *ngIf="element.estado == 0" style="color:#139216" mat-icon-button matTooltip="Validar" [matTooltipPosition]="'above'">
+                      <mat-icon (click)="verRegistro(element.idRegistro)">check_circle</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+              <mat-paginator #paginator [pageSize]="3" [pageSizeOptions]="[1, 2, 3]" [showFirstLastButtons]="true"></mat-paginator>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Exportar">
+          <h1>Exportar a Excel</h1>
+        </mat-tab>
+      </mat-tab-group>
+      <div *ngIf="!mostrarTarjetas">
+        <h3> No se encontraron Operaciones</h3>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </ion-content>

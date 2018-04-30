@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as configServer from './../server';
+import Usuario from '../models/usuario'
 
 @Injectable()
 export class UsuariosService {
@@ -31,7 +32,7 @@ export class UsuariosService {
         }
       });
     }
-    this.load().then(() => function () {
+    this.cargarUsuarios().then(() => function () {
       return this.usuarios.filter((atributo) => {
         switch (filtro) {
           case "nombre":
@@ -47,8 +48,8 @@ export class UsuariosService {
     });
   }
 
-  load() {
-    return new Promise((resolve, reject) => {
+  cargarUsuarios() {
+    return new Promise<Array<Usuario>>((resolve, reject) => {
       console.log("usuarios no cargados, comunicando provider");
       this.http.get(configServer.data.urlServidor + '/api/usuariosListar')
         .subscribe(resultado => {

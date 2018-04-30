@@ -27,13 +27,13 @@ export class MyApp {
       splashScreen.hide();
     });
   }
-
-  public mostrarElementos(aux){
-    aux.mostrarComponentes = !aux.mostrarComponentes;
-  }
-
+  
   openPage(page) {
-    this.nav.setRoot(page);
+    for(let p of this.pages){
+      p.activo = false;
+    }
+    page.activo = true;
+    this.nav.setRoot(page.componenentes);
   }
 
 }

@@ -7,7 +7,7 @@
       </ion-header>
   
       <ion-content class="menuStyle">
-        <ion-list *ngFor="let p of pages" [class.menuActivo]="p.activo">
+        <ion-list *ngFor="let p of pages" [class.menuActivo]="p.activo" (click)="openPage(p)">
             <button mat-icon-button><mat-icon>{{p.iconoPrincipal}}</mat-icon></button>
             <div>
               <span>{{p.tituloPrincipal}}</span>

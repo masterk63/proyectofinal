@@ -1,32 +1,152 @@
 lista-usuarios {
-    ion-icon {
-        margin-right: 4px;
-    }
-
     .scroll-content {
         background: #F1F1F1 !important;
     }
-
-    .cardFilter{
-        background: #2B5A84;
-        padding: 10px;
-        border-radius: 5px;
-        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        margin-top: 22px;
+    .contenedorCentrado,
+    .mat-tab-labels {
+        max-width: 1200px;
+        padding: 0px 40px;
+        margin: 0 auto;
     }
-
-    .cardFilter button, .cardFilter h4{
-        margin-left: 5px;
-        color:white
+    .col ion-icon {
+        margin-right: 8px;
     }
-    .cardFilter .button-outline-md{
-        border-color: white;
+    p {
+        margin-left: 8px;
+        word-break: break-word;
+        white-space: normal;
     }
-
-    .item-md{
-        border-radius: 5px;
+    td {
+        word-break: break-all;
+        white-space: normal;
     }
-
+    .conteinerTable {
+        display: flex;
+        flex-direction: column;
+        margin: 30px auto;
+    }
+    .mat-table {
+        overflow: auto;
+        max-height: 500px;
+    }
+    .cdk-column-fecha {
+        flex: 0 0 8%;
+        min-width: 70px;
+    }
+    .cdk-column-indice {
+        flex: 0 0 7%;
+        min-width: 60px;
+    }
+    .cdk-column-alumno {
+        flex: 0 0 21%;
+        min-width: 130px;
+    }
+    .cdk-column-ubicacion {
+        flex: 0 0 28%;
+        min-width: 180px;
+    }
+    .cdk-column-estado {
+        flex: 0 0 15%;
+        min-width: 100px;
+    }
+    .cdk-column-acciones {
+        flex: 0 0 15%;
+        min-width: 100px;
+    }
+    .cdk-column-select {
+        flex: 0 0 7%;
+        min-width: 40px;
+    }
+    .mat-column-select {
+        overflow: initial;
+    }
+    .barraDeBusqueda {
+        background: white;
+    }
+    .titleTable {
+        background: #708292;
+    }
+    .titleTable .grid .row .col:nth-child(2) {
+        background: #657482;
+        text-align: center;
+        color: #C9D2DC;
+    }
+    .titleTable .grid .row .col {
+        padding: 25px 0px;
+        line-height: 14px;
+    }
+    .titleTable .grid {
+        padding: 0px !important;
+    }
+    .titleTable .grid .row .col:nth-child(1) span:nth-child(2) {
+        color: #C9D2DC;
+        margin-left: 14px;
+    }
+    .titleTable .grid .row .col:nth-child(1) span:nth-child(1) {
+        margin-left: 24px;
+        font-size: 20px;
+        color: white;
+    }
+    .mat-table .mat-row:nth-child(2n) {
+        background: #F3F5F7;
+    }
+    .mat-drawer-container {
+        background-color: transparent;
+        height: 100%;
+    }
+    mat-sidenav {
+        width: 400px;
+    }
+    #closeButton {
+        background: #F1F1F1;
+        position: absolute;
+        z-index: 99;
+        right: 17px;
+        top: 14px;
+        color: #657482;
+    }
+    .contendorSidebar {
+        display: block;
+        height: 100%;
+        position: relative;
+    }
+    page-registro .content {
+        border-left: 1px solid #F1F1F1;
+    }
+    .button-round-md {
+        padding: 0 12px !important;
+    }
+    .button-md {
+        text-transform: none !important;
+    }
+    .filaCalendario .mat-input-underline {
+        height: 0px;
+    }
+    .filaCalendario .mat-form-field-infix {
+        width: 70px;
+    }
+    .letrasFiltros {
+        color: #494F58;
+        vertical-align: sub;
+    }
+    .chipActivo {
+        background: #6F8294;
+        color: white !important;
+    }
+    .chipActivo .mat-input-element:disabled {
+        color: #ffffff !important;
+    }
+    .button-outline-md {
+        color: #9C9C9C;
+        border-color: #9C9C9C;
+        font-weight: 300;
+    }
+    ion-navbar {
+        padding: 0px !important;
+    }
+    .mat-tab-group.mat-primary .mat-ink-bar,
+    .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+        background-color: #009CDF;
+        color: #009CDF;
+    }
 }

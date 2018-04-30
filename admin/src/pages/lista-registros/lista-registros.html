@@ -47,14 +47,6 @@
         <mat-tab label="Buscada Basica">
           <div class="barraDeBusqueda">
             <ion-grid class="contenedorCentrado">
-              <ion-row>
-                <ion-col>
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email">
-                    <mat-icon matSuffix>search</mat-icon>
-                  </mat-form-field>
-                </ion-col>
-              </ion-row>
               <ion-row class="filaCalendario">
                 <ion-col>
                   <span class="letrasFiltros">Mostrar Actividad</span>
@@ -85,6 +77,12 @@
                 <ion-col>
                   <span class="letrasFiltros">Filtros</span>
                   <button *ngFor="let c of filtrosEstado" [class.chipActivo]="c.estado" ion-button round outline (click)="filtroEstadoChange(c)">{{c.nombre}}</button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <span class="letrasFiltros">Acciones</span>
+                  <button ion-button round outline>Validar Seleccion</button>
                 </ion-col>
               </ion-row>
             </ion-grid>
