@@ -17,7 +17,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class ListaUsuariosPage {
   mostrarTarjetas: boolean = false;
-  displayedColumns = ['select', 'fecha', 'alumno', 'ubicacion', 'estado', 'indice', 'acciones'];
+  displayedColumns = ['alumno', 'usuario', 'institucion', 'estado', 'registros', 'acciones'];
   dataSource: any;
   selection = new SelectionModel<any>(true, []);
   @ViewChild('paginator') paginator: any;

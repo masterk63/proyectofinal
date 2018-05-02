@@ -106,25 +106,6 @@
                 </ion-grid>
               </div>
               <mat-table #table [dataSource]="dataSource" matSort>
-                <!-- Checkbox Column -->
-                <ng-container matColumnDef="select">
-                  <mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
-                    </mat-checkbox>
-                  </mat-header-cell>
-                  <mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
-                    </mat-checkbox>
-                  </mat-cell>
-                </ng-container>
-
-                <!-- Other Column -->
-                <ng-container matColumnDef="fecha">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
-                  <mat-cell *matCellDef="let element">
-                    {{element.fecha | date:'dd/MM/yy'}}
-                  </mat-cell>
-                </ng-container>
                 <ng-container matColumnDef="alumno">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Alumno </mat-header-cell>
                   <mat-cell *matCellDef="let element">
@@ -132,11 +113,17 @@
                     <br> {{element.nombre}}
                   </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="ubicacion">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Ubicacion </mat-header-cell>
+                <ng-container matColumnDef="usuario">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Alumno </mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <strong>{{element.ciudad}},</strong>
-                    <br> {{element.provincia}}, {{element.pais}}
+                    <strong>{{element.usuario}}</strong>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="institucion">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Institucion </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <strong>{{element.institucion}},</strong>
+                    <br> {{element.grado}}
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="estado">
@@ -149,10 +136,10 @@
                     </mat-chip-list>
                   </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="indice">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Indice </mat-header-cell>
+                <ng-container matColumnDef="registros">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Registros </mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    {{element.indice}}
+                    {{element.registros}}
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="acciones">
