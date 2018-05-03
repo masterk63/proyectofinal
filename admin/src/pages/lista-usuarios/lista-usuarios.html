@@ -5,7 +5,7 @@
         <ion-col>
           <div class="tituloPagina">
             <span>
-              Registros
+              Usuarios
             </span>
           </div>
         </ion-col>
@@ -50,35 +50,9 @@
               <ion-row>
                 <ion-col>
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email">
+                    <input (keyup)="filterItems($event,'apellido')" matInput placeholder="Apellido">
                     <mat-icon matSuffix>search</mat-icon>
                   </mat-form-field>
-                </ion-col>
-              </ion-row>
-              <ion-row class="filaCalendario">
-                <ion-col>
-                  <span class="letrasFiltros">Mostrar Actividad</span>
-                  <div *ngFor="let c of filtrosTemporales" style="display: inline-block;">
-                    <button *ngIf="c.nombre" [class.chipActivo]="c.estado" ion-button round outline (click)="filtroTemporalChange(c)">{{c.nombre}}</button>
-                  </div>
-                  <span class="letrasFiltros">o</span>
-                  <button ion-button round outline [class.chipActivo]="filtrosTemporales[2]?.estado">
-                    <mat-form-field class="campoFiltro">
-                      <input matInput disabled [(ngModel)]="fechaInicio" [matDatepicker]="fInicio" placeholder="Desde">
-                      <mat-datepicker-toggle matSuffix [for]="fInicio"></mat-datepicker-toggle>
-                      <mat-datepicker #fInicio disabled="false"></mat-datepicker>
-                    </mat-form-field>
-                  </button>
-                  <button ion-button round outline [class.chipActivo]="filtrosTemporales[2]?.estado"> 
-                    <mat-form-field class="campoFiltro">
-                      <input matInput disabled [(ngModel)]="fechaFin" [matDatepicker]="fFin" placeholder="Hasta">
-                      <mat-datepicker-toggle matSuffix [for]="fFin"></mat-datepicker-toggle>
-                      <mat-datepicker #fFin disabled="false"></mat-datepicker>
-                    </mat-form-field>
-                  </button>
-                  <span class="letrasFiltros" (click)="filtrarPorRangoFecha()">
-                    <a href="#" style="color:#494F58">Filtrar</a>
-                  </span>
                 </ion-col>
               </ion-row>
               <ion-row>
@@ -96,11 +70,10 @@
                 <ion-grid>
                   <ion-row>
                     <ion-col col-9>
-                      <span>Registros</span>
-                      <span>de los ulitmos 7 dias ({{fechaHaceUnaSemana}} - {{fechaActual}})</span>
+                      <span>Usuarios</span>
                     </ion-col>
                     <ion-col col-3>
-                      <span>{{registros?.length}} Registros</span>
+                      <span>{{usuarios?.length}} Usuarios</span>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
@@ -114,7 +87,7 @@
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="usuario">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Alumno </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
                   <mat-cell *matCellDef="let element">
                     <strong>{{element.usuario}}</strong>
                   </mat-cell>
@@ -130,9 +103,8 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
                   <mat-cell *matCellDef="let element">
                     <mat-chip-list [ngSwitch]="element.estado">
-                      <mat-chip selected="true" style="background-color: #139216;" *ngSwitchCase="'1'">Valido</mat-chip>
-                      <mat-chip selected="true" color="accent" *ngSwitchCase="'0'">Pendiente</mat-chip>
-                      <mat-chip selected="true" color="warn" *ngSwitchCase="'-1'">Invalido</mat-chip>
+                      <mat-chip selected="true" style="background-color: #139216;" *ngSwitchCase="'A'">Valido</mat-chip>
+                      <mat-chip selected="true" color="accent" *ngSwitchCase="'B'">Pendiente</mat-chip>
                     </mat-chip-list>
                   </mat-cell>
                 </ng-container>

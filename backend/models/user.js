@@ -42,8 +42,9 @@ exports.usuarioFaceBook = function (u, fn) {
     });
 }
 
-exports.listar = function (fn) {
-  connection.query('call usuarios_listar()', function (err, rows) {
+exports.listar = function (u,fn) {
+  var estado = '"' + u.estado  + '"';
+  connection.query('call usuarios_listar(' + estado + ')', function (err, rows) {
     if (err) fn(err);
     fn(rows[0]);
   });

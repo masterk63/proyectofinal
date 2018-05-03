@@ -17,7 +17,7 @@ exports.usuarioBaja = function (req, res) {
 }
 
 exports.listarUsuarios = function (req, res) {
-  User.listar(function (consulta) {
+  User.listar(req.body,function (consulta) {
     res.json(consulta);
   });
 }

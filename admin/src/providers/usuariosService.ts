@@ -15,43 +15,10 @@ export class UsuariosService {
 
   constructor(private http: Http) {}
 
-  filterItems(searchTerm, filtro) {
-
-    if (this.usuarios) {
-      console.log("ya estan los usuarios cargados");
-      return this.usuarios.filter((atributo) => {
-        switch (filtro) {
-          case "nombre":
-            return atributo.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-          case "apellido":
-            return atributo.apellido.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-          case "usuario":
-            return atributo.usuario.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-          case "mail":
-            return atributo.mail.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-        }
-      });
-    }
-    this.cargarUsuarios().then(() => function () {
-      return this.usuarios.filter((atributo) => {
-        switch (filtro) {
-          case "nombre":
-            return atributo.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-          case "apellido":
-            return atributo.apellido.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-          case "usuario":
-            return atributo.usuario.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-          case "mail":
-            return atributo.mail.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-        }
-      });
-    });
-  }
-
-  cargarUsuarios() {
+  cargarUsuarios(estado) {
     return new Promise<Array<Usuario>>((resolve, reject) => {
       console.log("usuarios no cargados, comunicando provider");
-      this.http.get(configServer.data.urlServidor + '/api/usuariosListar')
+      this.http.post(configServer.data.urlServidor + '/api/usuariosListar', estado)
         .subscribe(resultado => {
           this.usuarios = resultado;
           this.usuarios = JSON.parse(this.usuarios._body);

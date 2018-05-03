@@ -31,7 +31,7 @@ module.exports = function(app){
         res.send({ content: 'Success'});
     });
     //API usuarios
-    apiUsuarios.get('/usuariosListar',UsuariosController.listarUsuarios);
+    apiUsuarios.post('/usuariosListar',UsuariosController.listarUsuarios);
     apiUsuarios.get('/usuarioDame/:id',UsuariosController.dameUsuario);
     apiUsuarios.post('/usuarioModificar',UsuariosController.usuarioModificar);
     apiUsuarios.post('/usuarioActualizarFotoPerfil',UsuariosController.actualizarFotoPerfil);

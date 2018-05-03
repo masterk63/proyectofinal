@@ -1,7 +1,5 @@
-import { Component,ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import * as moment from 'moment';
-import 'moment/locale/es';
 import { UsuariosService } from '../../providers/usuariosService'
 import Usuario from '../../models/usuario'
 
@@ -22,32 +20,21 @@ export class ListaUsuariosPage {
   selection = new SelectionModel<any>(true, []);
   @ViewChild('paginator') paginator: any;
   @ViewChild(MatSort) sort: MatSort;
-  idRegistro: number = -1;
+  idUsuarios: number = -1;
   opened: boolean = false;
-  filtrosEstado = [{nombre:'Pendiente',estado:true,valor:0},{nombre:'Valido',estado:false,valor:1},{nombre:'Invalido',estado:false,valor:-1},{nombre:'Todos',estado:false,valor:10}]
-  filtrosTemporales = [{nombre:'Ultima Semana',estado:true,valor:''},{nombre:'Ultimo Mes',estado:false,valor:''},{nombre:'',estado:false,valor:''}]
-  fechaActual:any;
-  fechaHaceUnaSemana:any;
-  now:any;
-  lastWeek:any;
-  lastMonth:any;
-  fechaInicio:any;
-  fechaFin:any;
+  filtrosEstado = [{ nombre: 'Activos', estado: true, valor: 'A' }, { nombre: 'Inactivos', estado: false, valor: 'B' }]
   usuarios: Array<Usuario>;
 
   constructor(public navCtrl: NavController,
-              private userSrv:UsuariosService) {
-    this.lastWeek = moment().subtract(1,'week').toISOString().split("T")[0];
-    this.lastMonth = moment().subtract(1,'month').toISOString().split("T")[0];
-    this.filtrosTemporales[0].valor = this.lastWeek;
-    this.filtrosTemporales[1].valor = this.lastMonth;
-    this.fechaActual = moment().format("DD, MMM YYYY");
-    this.fechaHaceUnaSemana = moment().format("DD, MMM YYYY");
-    this.cargarRegistros();
+    private userSrv: UsuariosService) {
+    this.cargarRegistros('A');
   }
 
-  cargarRegistros(){
-    this.userSrv.cargarUsuarios().then(usr => {
+  cargarRegistros(estado) {
+    let request = {
+      estado
+    }
+    this.userSrv.cargarUsuarios(request).then(usr => {
       console.log(usr);
       this.usuarios = usr;
       this.mostrarTarjetas = true;
@@ -55,6 +42,22 @@ export class ListaUsuariosPage {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
+  }
+
+  filtroEstadoChange(c) {
+    this.cargarRegistros(c.valor);
+  }
+
+  // filterItems(searchTerm, filtro) {
+  filterItems(searchTerm, filtro) {
+    this.dataSource = new MatTableDataSource<Usuario>(this.usuarios.filter((atributo) => {
+      switch (filtro) {
+        case "apellido":
+          return atributo.apellido.toLowerCase().indexOf(searchTerm.target.value.toLowerCase()) > -1;
+        case "mail":
+          return atributo.mail.toLowerCase().indexOf(searchTerm.target.value.toLowerCase()) > -1;
+      }
+    }));
   }
 
 }
