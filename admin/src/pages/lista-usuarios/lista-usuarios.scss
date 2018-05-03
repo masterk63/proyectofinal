@@ -29,28 +29,28 @@ lista-usuarios {
         overflow: auto;
         max-height: 500px;
     }
-    .cdk-column-fecha {
-        flex: 0 0 8%;
-        min-width: 70px;
-    }
-    .cdk-column-indice {
-        flex: 0 0 7%;
-        min-width: 60px;
-    }
     .cdk-column-alumno {
-        flex: 0 0 21%;
-        min-width: 130px;
-    }
-    .cdk-column-ubicacion {
-        flex: 0 0 28%;
-        min-width: 180px;
-    }
-    .cdk-column-estado {
-        flex: 0 0 15%;
+        flex: 0 0 17%;
         min-width: 100px;
     }
+    .cdk-column-mail {
+        flex: 0 0 31%;
+        min-width: 180px;
+    }
+    .cdk-column-institucion {
+        flex: 0 0 10%;
+        min-width: 100px;
+    }
+    .cdk-column-estado {
+        flex: 0 0 13%;
+        min-width: 100px;
+    }
+    .cdk-column-registros {
+        flex: 0 0 10%;
+        min-width: 70px;
+    }
     .cdk-column-acciones {
-        flex: 0 0 15%;
+        flex: 0 0 13%;
         min-width: 100px;
     }
     .cdk-column-select {

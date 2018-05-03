@@ -38,7 +38,7 @@
         <button mat-icon-button (click)="sidenav.toggle()" id="closeButton">
           <mat-icon matSuffix>close</mat-icon>
         </button>
-        <page-registro [idRegistro]="idRegistro"></page-registro>
+        <!-- <page-registro [idRegistro]="idRegistro"></page-registro> -->
       </div>
     </mat-sidenav>
 
@@ -49,8 +49,12 @@
             <ion-grid class="contenedorCentrado">
               <ion-row>
                 <ion-col>
-                  <mat-form-field class="example-full-width">
+                  <mat-form-field class="example-full-width" style="margin-right: 20px;">
                     <input (keyup)="filterItems($event,'apellido')" matInput placeholder="Apellido">
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input (keyup)="filterItems($event,'mail')" matInput placeholder="Mail">
                     <mat-icon matSuffix>search</mat-icon>
                   </mat-form-field>
                 </ion-col>
@@ -86,10 +90,10 @@
                     <br> {{element.nombre}}
                   </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="usuario">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
+                <ng-container matColumnDef="mail">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Mail </mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <strong>{{element.usuario}}</strong>
+                    <strong>{{element.mail}}</strong>
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="institucion">
@@ -118,10 +122,10 @@
                   <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                   <mat-cell *matCellDef="let element">
                     <button style="color:#269ED9" mat-icon-button matTooltip="Ver" [matTooltipPosition]="'above'">
-                      <mat-icon (click)="verRegistro(element.idRegistro)">visibility</mat-icon>
+                      <mat-icon (click)="verUsuario(element.idUsuario)">visibility</mat-icon>
                     </button>
                     <button *ngIf="element.estado == 0" style="color:#139216" mat-icon-button matTooltip="Validar" [matTooltipPosition]="'above'">
-                      <mat-icon (click)="verRegistro(element.idRegistro)">check_circle</mat-icon>
+                      <mat-icon (click)="verRegistro(element.idUsuario)">check_circle</mat-icon>
                     </button>
                   </mat-cell>
                 </ng-container>

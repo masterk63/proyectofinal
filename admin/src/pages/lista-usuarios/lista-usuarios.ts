@@ -15,7 +15,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class ListaUsuariosPage {
   mostrarTarjetas: boolean = false;
-  displayedColumns = ['alumno', 'usuario', 'institucion', 'estado', 'registros', 'acciones'];
+  displayedColumns = ['alumno', 'mail', 'institucion', 'estado', 'registros', 'acciones'];
   dataSource: any;
   selection = new SelectionModel<any>(true, []);
   @ViewChild('paginator') paginator: any;
@@ -45,6 +45,10 @@ export class ListaUsuariosPage {
   }
 
   filtroEstadoChange(c) {
+    for(let f of this.filtrosEstado){
+      f.estado = false;
+    }
+    c.estado = true;
     this.cargarRegistros(c.valor);
   }
 
@@ -58,6 +62,13 @@ export class ListaUsuariosPage {
           return atributo.mail.toLowerCase().indexOf(searchTerm.target.value.toLowerCase()) > -1;
       }
     }));
+  }
+
+  verUsuario(id) {
+    if (!this.opened) {
+      this.opened = true;
+    }
+    console.log(id);
   }
 
 }
