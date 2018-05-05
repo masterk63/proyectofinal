@@ -1,6 +1,6 @@
 page-usuario {
-    ion-content {
-        background-color: #F2F2F2 !important;
+    .scroll-content {
+        background-color: white !important;
     }
     .contenedorImagen {
         background: $primary;
@@ -80,6 +80,7 @@ page-usuario {
     .segmento {
         background: white;
         box-shadow: 0 9px 6px rgba(0, 0, 0, 0.16), 0 6px 6px rgba(0, 0, 0, 0.23);
+        height: 100%;
     }
     .item-input-has-focus .label-md[stacked],
     .input-has-focus .label-md[stacked],

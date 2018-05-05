@@ -1,24 +1,7 @@
-<ion-header no-border>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>
-      Usuario
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-
 <ion-content>
-  <ion-grid>
-    <!-- <ion-row>
-      <div class="titulo">
-        <h2>Usuario</h2>
-      </div>
-    </ion-row> -->
-    <ion-row>
-      <ion-col col-12 col-md-6>
+  <ion-grid style="height: 100%;">
+    <ion-row style="height: 100%;">
+      <ion-col col-12 style="max-height: 326px;">
         <ion-row>
           <ion-col col-12 class="profile">
             <ion-row class="contenedorImagen">
@@ -66,7 +49,7 @@
         </ion-row>
       </ion-col>
 
-      <ion-col col-12 col-md-6>
+      <ion-col col-12 style="margin-top: -155px;">
         <div class="segmento">
           <ion-segment [(ngModel)]="infoUsuarios">
             <ion-segment-button value="info">

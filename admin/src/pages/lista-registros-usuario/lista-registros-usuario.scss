@@ -1,38 +1,38 @@
 lista-registros {
-  ion-content,
-  ion-list-header {
-      background-color: #f1f1f4 !important;
-  }
-  ion-list-header {
-      font-size: 2em !important;
-  }
-  .header {
-      font-size: 1.4em;
-      margin: 10px;
-      position: relative;
-  }
-  .header .icon {
-      color: #4184f3;
-      font-size: 2em;
-  }
-  .header span {
-      position: absolute;
-      bottom: 3px;
-      left: 45px;
-      font-size: 1.5em;
-  }
-  .titulo {
-      width: 100%;
-      padding: 9px;
-      background: color($colors, primary);
-      ;
-  }
-  .titulo h2 {
-      font-size: 3em;
-      color: white;
-  }
-  ion-fab[top]{
-    top:20px !important;
-    right:20px !important;
-  }
+    ion-content,
+    ion-list-header {
+        background-color: #f1f1f4 !important;
+    }
+    ion-list-header {
+        font-size: 2em !important;
+    }
+    .header {
+        font-size: 1.4em;
+        margin: 10px;
+        position: relative;
+    }
+    .header .icon {
+        color: #4184f3;
+        font-size: 2em;
+    }
+    .header span {
+        position: absolute;
+        bottom: 3px;
+        left: 45px;
+        font-size: 1.5em;
+    }
+    .titulo {
+        width: 100%;
+        padding: 9px;
+        background: color($colors, primary);
+        ;
+    }
+    .titulo h2 {
+        font-size: 3em;
+        color: white;
+    }
+    ion-fab[top] {
+        top: 20px !important;
+        right: 20px !important;
+    }
 }

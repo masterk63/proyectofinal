@@ -11,7 +11,7 @@
     </div>
     <ion-grid>
       <ion-row>
-        <ion-col col-12 col-sm-6 col-md-4 col-lg-3 *ngFor="let reg of registros">
+        <ion-col col-12 *ngFor="let reg of registros">
           <ion-card>
             <img [src]="'data:image/png;base64,'+reg.fotoPaisaje">
             <ion-fab right top>
@@ -48,7 +48,7 @@
     </div>
     <ion-grid>
       <ion-row>
-        <ion-col col-12 col-sm-6 col-md-4 col-lg-3 *ngFor="let reg of registrosOnline">
+        <ion-col col-12 *ngFor="let reg of registrosOnline">
           <ion-card>
             <img src="data:image/jpeg;base64,{{reg.fotoMapa}}">
             <ion-fab right top>
