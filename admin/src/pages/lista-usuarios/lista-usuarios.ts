@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { UsuariosService } from '../../providers/usuariosService'
 import Usuario from '../../models/usuario'
+import { UsuarioPage } from '../../pages/usuario/usuario'
 
 //Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -24,10 +25,12 @@ export class ListaUsuariosPage {
   opened: boolean = false;
   filtrosEstado = [{ nombre: 'Activos', estado: true, valor: 'A' }, { nombre: 'Inactivos', estado: false, valor: 'B' }]
   usuarios: Array<Usuario>;
+  idUsuario:any;
 
   constructor(public navCtrl: NavController,
     private userSrv: UsuariosService) {
     this.cargarRegistros('A');
+    this.idUsuario = -1;
   }
 
   cargarRegistros(estado) {

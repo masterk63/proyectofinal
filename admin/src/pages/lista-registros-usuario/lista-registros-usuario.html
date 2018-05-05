@@ -1,0 +1,85 @@
+<ion-content>
+  <ion-row>
+    <div class="titulo">
+      <h2>Registros</h2>
+    </div>
+  </ion-row>
+  <div *ngIf="registros" [@listAnimation]="registros.length">
+    <div class="header">
+      <ion-icon name="folder" item-left large></ion-icon>
+      <span>Local</span>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 col-sm-6 col-md-4 col-lg-3 *ngFor="let reg of registros">
+          <ion-card>
+            <img [src]="'data:image/png;base64,'+reg.fotoPaisaje">
+            <ion-fab right top>
+              <button ion-fab>
+                <ion-icon name="pin"></ion-icon>
+              </button>
+            </ion-fab>
+
+            <ion-item>
+              <ion-icon name="locate" item-start large></ion-icon>
+              <h2>Localizacion</h2>
+              <p>{{reg.latitud}}, {{reg.longitud}}</p>
+            </ion-item>
+
+            <ion-item>
+              <ion-icon name="ios-bug" item-left large></ion-icon>
+              <h2>Indice</h2>
+              <p>{{reg.indice}}</p>
+            </ion-item>
+
+            <ion-item>
+              <span item-left>Fecha</span>
+              <span item-left>{{reg.fecha | date:'dd/MM/yy'}}</span>
+            </ion-item>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div *ngIf="registrosOnline" [@listAnimation]="registrosOnline.length">
+    <div class="header">
+      <ion-icon name="globe" item-left large></ion-icon>
+      <span>Online</span>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 col-sm-6 col-md-4 col-lg-3 *ngFor="let reg of registrosOnline">
+          <ion-card>
+            <img src="data:image/jpeg;base64,{{reg.fotoMapa}}">
+            <ion-fab right top>
+              <button ion-fab>
+                <ion-icon name="pin"></ion-icon>
+              </button>
+            </ion-fab>
+
+            <ion-item>
+              <ion-icon name="locate" item-start large></ion-icon>
+              <h2>{{reg.pais}}</h2>
+              <p class="ajustarTexto">{{reg.ciudad}}, {{reg.provincia}}</p>
+            </ion-item>
+
+            <ion-item>
+              <ion-icon name="ios-bug" item-left large></ion-icon>
+              <h2>Indice</h2>
+              <p>{{reg.indice}}</p>
+            </ion-item>
+
+            <ion-item>
+              <span item-left>Fecha</span>
+              <span item-left>{{reg.fecha | date:'dd/MM/yy'}}</span>
+              <button ion-button icon-left clear item-end (click)="irAlRegistro(reg.idRegistro)">
+                <ion-icon name="ios-eye"></ion-icon>
+                Ver
+              </button>
+            </ion-item>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

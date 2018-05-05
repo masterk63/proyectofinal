@@ -1,0 +1,128 @@
+page-usuario {
+    ion-content {
+        background-color: #F2F2F2 !important;
+    }
+    .contenedorImagen {
+        background: $primary;
+        padding: 5%; // border-top-left-radius: 10px;
+        // border-top-right-radius: 10px;
+    }
+    .contenedorImagen img {
+        border-radius: 50%;
+        width: 130px;
+        min-height: 130px;
+    }
+    .contenedorImagen div {
+        margin: 0 auto;
+        position: relative;
+    }
+    .contenedorImagen #UploadButton {
+      position: absolute;
+      top: 90px;
+      left: 92px;
+      border-radius: 44px;
+      font-size: 19px;
+      background: #222;
+      color: white;
+      padding: 11px 12px;
+    }
+    .contenedorImagen h2 {
+        margin: 0 auto;
+        color: white;
+        text-align: center;
+    }
+    .tabla table {
+        margin: 0 auto;
+        text-align: center;
+    }
+    .tabla th,
+    .tabla td {
+        padding: 5px;
+    }
+    .tabla td {
+        color: color($colors, gris);
+        font-size: 1.5em;
+    }
+    .contenidoProfile div {
+        margin: 0 auto;
+        color: #B3BBC0;
+        background: white;
+        width: 100%;
+        margin-bottom: 10px 0px; // border-bottom-left-radius: 10px;
+        // border-bottom-right-radius: 10px;
+    }
+    .profile {
+        box-shadow: 0 9px 6px rgba(0, 0, 0, 0.16), 0 6px 6px rgba(0, 0, 0, 0.23);
+        padding: 0px !important;
+    }
+    .profileBottom {
+        text-align: center;
+        background: white;
+    }
+    .profileBottom .icon {
+        margin-right: 2px;
+    }
+    .titulo {
+        width: 100%;
+        padding: 9px;
+    }
+    .titulo h2 {
+        font-size: 3em;
+        color: black !important;
+        margin: 0rem;
+    }
+    .segment-button {
+        color: #4BA1E0 !important;
+    }
+    .segment-button.segment-activated {
+        border-color: #4BA1E0 !important;
+    }
+    .segmento {
+        background: white;
+        box-shadow: 0 9px 6px rgba(0, 0, 0, 0.16), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+    .item-input-has-focus .label-md[stacked],
+    .input-has-focus .label-md[stacked],
+    .item-input-has-focus .label-md[floating],
+    .input-has-focus .label-md[floating] {
+        color: color($colors, azul) !important;
+    }
+    .text-danger {
+        color: red;
+        padding-left: 16px;
+        margin: 0px !important;
+    }
+    ion-segment {
+        padding-top: 5px;
+    }
+    .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border-bottom-color: color($colors, azul) !important;
+        -webkit-box-shadow: inset 0 -1px 0 0 color($colors, azul) !important;
+        box-shadow: inset 0 -1px 0 0 color($colors, azul) !important;
+    }
+    .item-md.item-input.item-input-has-focus .item-inner,
+    .item-md.item-input.input-has-focus .item-inner {
+        border-bottom-color: color($colors, azul) !important;
+        -webkit-box-shadow: inset 0 -1px 0 0 color($colors, azul) !important;
+        box-shadow: inset 0 -1px 0 0 color($colors, azul) !important;
+    }
+    lista-registros .titulo {
+        display: none !important;
+    }
+    lista-registros [col-md-4] {
+        max-width: 100% !important;
+    }
+    lista-registros .scroll-content {
+        margin-bottom: 0px !important;
+    }
+    @media only screen and (max-width: 767px) {
+        .col,
+        .row,
+        .grid {
+            padding: 0 !important;
+        }
+        .contenedorImagen h2 {
+            margin-bottom: 10px;
+        }
+    }
+}

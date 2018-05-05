@@ -15,6 +15,8 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
 import { ListaRegistrosPage } from '../pages/lista-registros/lista-registros';
 import { ListaUsuariosPage } from '../pages/lista-usuarios/lista-usuarios';
 import { RegistroPage } from '../pages/registro/registro'
+import { UsuarioPage } from '../pages/usuario/usuario'
+import { ListaRegistrosPageUsuario } from '../pages/lista-registros-usuario/lista-registros-usuario';
 
 //Providers
 import { Auth } from '../providers/auth';
@@ -61,6 +63,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     DashboardPage,
     ListaRegistrosPage,
     RegistroPage,
+    UsuarioPage,
+    ListaRegistrosPageUsuario,
     ListaUsuariosPage
   ],
   imports: [
@@ -91,6 +95,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     DashboardPage,
     ListaRegistrosPage,
     RegistroPage,
+    UsuarioPage,
+    ListaRegistrosPageUsuario,
     ListaUsuariosPage
   ],
   providers: [
