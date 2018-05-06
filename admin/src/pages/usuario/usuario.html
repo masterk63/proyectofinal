@@ -1,7 +1,7 @@
 <ion-content>
-  <ion-grid style="height: 100%;">
-    <ion-row style="height: 100%;">
-      <ion-col col-12 style="max-height: 326px;">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
         <ion-row>
           <ion-col col-12 class="profile">
             <ion-row class="contenedorImagen">
@@ -49,7 +49,7 @@
         </ion-row>
       </ion-col>
 
-      <ion-col col-12 style="margin-top: -155px;">
+      <ion-col col-12>
         <div class="segmento">
           <ion-segment [(ngModel)]="infoUsuarios">
             <ion-segment-button value="info">
@@ -93,7 +93,7 @@
               </ion-item>
             </form>
 
-            <div style="height: 400px;" *ngSwitchCase="'registros'">
+            <div style="height: 500px;" *ngSwitchCase="'registros'">
               <lista-registros-usuario [idUsuario]="1"></lista-registros-usuario>
             </div>
           </div>

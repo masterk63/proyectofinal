@@ -71,7 +71,7 @@ export class ListaUsuariosPage {
     if (!this.opened) {
       this.opened = true;
     }
-    console.log(id);
+    this.idUsuario = id;
   }
 
 }

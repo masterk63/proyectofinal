@@ -35,7 +35,6 @@ export class UsuarioPage {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
   ) {
-    this.showLoader();
     this.infoUsuarios = 'info';
 
     this.formularioUsuario = formBuilder.group({
@@ -80,6 +79,7 @@ export class UsuarioPage {
   }
 
   dameId() {
+    this.showLoader();
     this.userService.usuarioDame(this.idUsuario)
       .then(data => {
         this.usuario = data;
