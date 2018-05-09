@@ -1,4 +1,4 @@
-import { Component, NgZone, Input } from '@angular/core';
+import { Component, NgZone, Input, Output, EventEmitter } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { RegistroPage } from '../registro/registro';
 import { MenuController, Platform } from 'ionic-angular';
@@ -45,7 +45,8 @@ export class ListaRegistrosPageUsuario {
   fotoMapaNoDisponible: any;
   @Input() idUsuario;
   @Input() leavePage;
-  
+  @Output() verRegistro: EventEmitter<any> = new EventEmitter();
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public registrosCtrl: RegistrosService,
@@ -62,18 +63,18 @@ export class ListaRegistrosPageUsuario {
 
   ngOnChanges() {
     if (this.idUsuario && this.idUsuario > 0) {
-        this.registrosCtrl.cargarRegistrosUsuario(this.idUsuario).then((registros) => {
-          console.log('registros en el servidor', registros);
-          this.registrosOnline = registros;
-          this.registrosOnline = this.registrosOnline.reverse();
-        }).catch(e => {
-          this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
-        })
+      this.registrosCtrl.cargarRegistrosUsuario(this.idUsuario).then((registros) => {
+        console.log('registros en el servidor', registros);
+        this.registrosOnline = registros;
+        this.registrosOnline = this.registrosOnline.reverse();
+      }).catch(e => {
+        this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
+      })
     }
   }
 
   irAlRegistro(id) {
-    this.navCtrl.push(RegistroPage, { idRegistro: id })
+    this.verRegistro.emit(id);
   }
 
   mostrarAlerta(titulo, mensaje) {

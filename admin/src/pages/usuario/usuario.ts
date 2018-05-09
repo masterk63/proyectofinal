@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { ListaRegistrosPageUsuario } from '../lista-registros-usuario/lista-registros-usuario';
 import { ListaRegistrosPage } from '../lista-registros/lista-registros';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RegistroPage } from '../registro/registro'
 
 @Component({
   selector: 'page-usuario',
@@ -26,6 +27,9 @@ export class UsuarioPage {
   submitAttempt: boolean = false;
   @ViewChild('fileInput') fileInput: ElementRef;
   @Input() idUsuario:any;
+  idUsuarioConsultaRegistros:any;
+  mostrandoUnRegistro:boolean = false;
+  idRegistro: number = -1;
 
   constructor(public navCtrl: NavController,
     public params: NavParams,
@@ -50,6 +54,7 @@ export class UsuarioPage {
   ngOnChanges(){
     if(this.idUsuario > 0){
       this.dameId();
+      this.idUsuarioConsultaRegistros = this.idUsuario;
     }
   }
 
@@ -219,6 +224,12 @@ export class UsuarioPage {
     } else {
       this.botonAceptar();
     }
+  }
+
+  verRegistro(id){
+    this.idRegistro = id;
+    this.mostrandoUnRegistro = true;
+    console.log('id del registro a mostrar',id)
   }
 
 }
