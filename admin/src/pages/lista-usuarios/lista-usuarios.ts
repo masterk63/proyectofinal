@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { UsuariosService } from '../../providers/usuariosService'
 import Usuario from '../../models/usuario'
 import { UsuarioPage } from '../../pages/usuario/usuario'
+import { RegistroPage } from '../registro/registro'
 
 //Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -26,6 +27,8 @@ export class ListaUsuariosPage {
   filtrosEstado = [{ nombre: 'Activos', estado: true, valor: 'A' }, { nombre: 'Inactivos', estado: false, valor: 'B' }]
   usuarios: Array<Usuario>;
   idUsuario:any;
+  mostrandoUnRegistro: boolean = false;
+  idRegistro:number = -1;
 
   constructor(public navCtrl: NavController,
     private userSrv: UsuariosService) {
@@ -71,7 +74,17 @@ export class ListaUsuariosPage {
     if (!this.opened) {
       this.opened = true;
     }
+    this.mostrandoUnRegistro = false;
     this.idUsuario = id;
+  }
+
+  mostrarRegistroPage(id){
+    this.idRegistro = id;
+    this.mostrandoUnRegistro = true;
+  }
+
+  volverAUsuario(){
+    this.mostrandoUnRegistro = false;
   }
 
 }

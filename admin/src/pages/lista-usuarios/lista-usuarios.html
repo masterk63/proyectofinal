@@ -35,10 +35,14 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side" [(opened)]="opened" mode="side" position="end">
       <div class="contendorSidebar">
-        <button mat-icon-button (click)="sidenav.toggle()" id="closeButton">
+        <button *ngIf="!mostrandoUnRegistro" mat-icon-button (click)="sidenav.toggle()" id="closeButton">
           <mat-icon matSuffix>close</mat-icon>
         </button>
-        <page-usuario [idUsuario]="this.idUsuario"></page-usuario>
+        <button *ngIf="mostrandoUnRegistro" mat-icon-button (click)="volverAUsuario()" id="closeButton">
+          <mat-icon matSuffix>keyboard_backspace</mat-icon>
+        </button>
+        <page-usuario *ngIf="!mostrandoUnRegistro" [idUsuario]="this.idUsuario" (idRegistro)="mostrarRegistroPage($event)"></page-usuario>
+        <page-registro *ngIf="mostrandoUnRegistro" [idRegistro]="idRegistro"></page-registro>
       </div>
     </mat-sidenav>
 

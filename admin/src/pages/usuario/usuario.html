@@ -94,8 +94,7 @@
             </form>
 
             <div style="height: 500px;" *ngSwitchCase="'registros'">
-              <lista-registros-usuario *ngIf="!mostrandoUnRegistro" [idUsuario]="idUsuarioConsultaRegistros" (verRegistro)="verRegistro($event)"></lista-registros-usuario>
-              <page-registro *ngIf="mostrandoUnRegistro" [idRegistro]="idRegistro"></page-registro>
+              <lista-registros-usuario [idUsuario]="idUsuarioConsultaRegistros" (verRegistro)="verRegistro($event)"></lista-registros-usuario>
             </div>
           </div>
         </div>

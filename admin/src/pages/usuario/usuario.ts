@@ -1,11 +1,11 @@
-import { Component, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { UsuariosService } from '../../providers/usuariosService';
 import { Storage } from '@ionic/storage';
 import { ListaRegistrosPageUsuario } from '../lista-registros-usuario/lista-registros-usuario';
 import { ListaRegistrosPage } from '../lista-registros/lista-registros';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistroPage } from '../registro/registro'
+
 
 @Component({
   selector: 'page-usuario',
@@ -26,10 +26,9 @@ export class UsuarioPage {
   formularioUsuario: any;
   submitAttempt: boolean = false;
   @ViewChild('fileInput') fileInput: ElementRef;
-  @Input() idUsuario:any;
-  idUsuarioConsultaRegistros:any;
-  mostrandoUnRegistro:boolean = false;
-  idRegistro: number = -1;
+  @Input() idUsuario: any;
+  idUsuarioConsultaRegistros: any;
+  @Output() idRegistro: EventEmitter<any> = new EventEmitter();
 
   constructor(public navCtrl: NavController,
     public params: NavParams,
@@ -51,8 +50,8 @@ export class UsuarioPage {
 
   }
 
-  ngOnChanges(){
-    if(this.idUsuario > 0){
+  ngOnChanges() {
+    if (this.idUsuario > 0) {
       this.dameId();
       this.idUsuarioConsultaRegistros = this.idUsuario;
     }
@@ -75,9 +74,9 @@ export class UsuarioPage {
             idUsuario: this.idUsuario,
             fotoPerfil
           }
-          this.userService.actilizarFotoPerfil(user).then( res => {
+          this.userService.actilizarFotoPerfil(user).then(res => {
             this.usuario.fotoPerfil = fotoPerfil;
-          }).catch( err => this.mostrarAlerta(err,'Error'))
+          }).catch(err => this.mostrarAlerta(err, 'Error'))
         });
       }
     }
@@ -98,7 +97,7 @@ export class UsuarioPage {
         this.loading.dismiss();
       }).catch((err) => {
         this.loading.dismiss(),
-        this.mostrarAlerta("No se puede conectar con el servidor", err);
+          this.mostrarAlerta("No se puede conectar con el servidor", err);
       });
   }
 
@@ -226,10 +225,8 @@ export class UsuarioPage {
     }
   }
 
-  verRegistro(id){
-    this.idRegistro = id;
-    this.mostrandoUnRegistro = true;
-    console.log('id del registro a mostrar',id)
+  verRegistro(id) {
+    this.idRegistro.emit(id);
   }
 
 }
