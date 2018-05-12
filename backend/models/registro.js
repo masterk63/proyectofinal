@@ -117,7 +117,12 @@ function obtenerDireccion(latitud, longitud, fn) {
         } else {
             res = res[0];
             if (res.city === undefined || res.city === '' || res.city === null) {
-                res.city = ' ';
+                console.log("no hay ciudad")
+                try {
+                    res.city = res.administrativeLevels.level2long;
+                } catch (error) {
+                    res.city = '';
+                }
             }
             if (res.administrativeLevels.level1long === undefined || res.administrativeLevels.level1long === '' || res.administrativeLevels.level1long === null) {
                 res.administrativeLevels.level1long = ' ';
