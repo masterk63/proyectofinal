@@ -4,7 +4,6 @@ import { Storage } from '@ionic/storage';
 import { Platform} from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import * as configServer from './../server'
-import { AuthService } from "angular4-social-login";
 
 @Injectable()
 export class Auth {
@@ -13,8 +12,7 @@ export class Auth {
 
   constructor(public http: Http,
     public storage: Storage,
-    public plt: Platform,
-    private authServiceFacebook: AuthService
+    public plt: Platform
   ) { }
 
   //verifica con el token si el usuario existe en la base de dato
@@ -57,29 +55,6 @@ export class Auth {
             this.storage.set('rol', data.user.rol);
           }
           resolve(data);
-        }, (err) => {
-          reject(err);
-        });
-    });
-  }
-
-  fbLogin(details) {
-    return new Promise((resolve, reject) => {
-
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-
-      this.http.post(configServer.data.urlServidor +'/api/auth/fb', JSON.stringify(details), { headers: headers })
-        .map(res => res.json())
-        .subscribe(res => {
-          if (res.codigo > 0) {
-            console.log(res.token);
-            this.token = res.token;
-            this.storage.set('token', res.token);
-            this.storage.set('idUsuario', res.user.idUsuario);
-            this.storage.set('rol', res.user.rol);
-          }
-          resolve(res);
         }, (err) => {
           reject(err);
         });
@@ -134,7 +109,6 @@ export class Auth {
       this.storage.set('token', '');
       this.storage.set('idUsuario', '');
       this.storage.set('rol', '');
-      this.authServiceFacebook.signOut().catch(e => { console.log('No soy facebook Web')});
       resolve(42)
     });
   }

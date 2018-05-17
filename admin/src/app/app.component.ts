@@ -5,13 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { ListaRegistrosPage } from '../pages/lista-registros/lista-registros';
 import { ListaUsuariosPage } from '../pages/lista-usuarios/lista-usuarios';
+import { LoginPage } from '../pages/login-page/login-page';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = ListaRegistrosPage;
+  rootPage:any = LoginPage;
   pages: Array<{tituloPrincipal: string,iconoPrincipal: string,activo: boolean, componenentes: any}>;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {

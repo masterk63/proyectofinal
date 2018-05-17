@@ -1,0 +1,61 @@
+<ion-content [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }">
+  <div class="overlay" style="overflow: scroll">
+    <ion-grid style="height: 100%;">
+      <ion-row style="height: 100%;">
+        <ion-col col-12 col-md-8 id="lado">
+          <div class="mesanjeBienvenida">
+            <p>
+              Bienvenido a <span>Aguita</span>
+            </p>
+          </div>
+        </ion-col>
+        <ion-col col-12 col-md-4 style="margin: 0 auto;" class="aguita">
+          <h1 class="titulo">{{titulo}}</h1>
+          <ion-row>
+            <ion-col col-6>
+              <a class="pIzq" (click)="forgotPassword()">
+                ¿Olvidaste tu contraseña?
+              </a>
+            </ion-col>
+            <ion-col col-6>
+              <a class="pDer" (click)="crearCuenta()">
+                Crear una cuenta
+              </a>
+            </ion-col>
+          </ion-row>
+          <form (ngSubmit)="login()" autocomplete="off">
+            <ion-list style="padding: 5%">
+              <ion-item>
+                <ion-input [(ngModel)]="username" type="text" name="username" placeholder="Usuario" autocomplete="off"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input [(ngModel)]="password" type="password" name="password" placeholder="Contraseña" autocomplete="off"></ion-input>
+              </ion-item>
+            </ion-list>
+            <button ion-button type="submit" class="boton" id="submit">Iniciar sesión</button>
+          </form>
+          <p class="entreLineas">
+            <span style="color: lightgray">o ingresa con</span>
+          </p> 
+          <button ion-button full (click)="loginFacebook()" class="logFace" style="font-family: 'Oswald', sans-serif;">
+            <i class="fa fa-facebook"></i>
+            &emsp;Facebook
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!-- <div style="max-width: 480px;    margin: 0 auto;">
+
+
+
+
+
+
+      <div style="width: 100%;float: left;display: block;">
+      </div>
+    </div> -->
+
+  </div>
+
+
+</ion-content>
