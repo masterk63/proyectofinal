@@ -1,10 +1,10 @@
-.menuStyle .scroll-content{
+.menuStyle .scroll-content {
     // border-right: 1px solid #dedede;
-    background:white;
+    background: white;
     overflow: hidden;
 }
-    
-.titleMenu{
+
+.titleMenu {
     margin: 5px auto;
     display: block;
     width: 136px;
@@ -25,29 +25,31 @@
     margin: 6px 0 !important;
 }
 
-.menuStyle .mat-icon-button .mat-icon, .mat-icon-button i {
+.menuStyle .mat-icon-button .mat-icon,
+.mat-icon-button i {
     line-height: 40px;
 }
-.menuStyle{
-    color:#494F58;
+
+.menuStyle {
+    color: #494F58;
 }
+
 .menuStyle .mat-icon {
     height: 40px;
     width: 40px;
     font-size: 35px;
 }
 
-.menuActivo{
+.menuActivo {
     background: #009CDF;
-    color:white !important;
+    color: white !important;
 }
 
-.contenedor{
+.contenedor {
     display: block;
     margin: 0 auto;
     max-width: 1006px;
 }
-
 
 h3 {
     font-size: 32px;
@@ -57,7 +59,7 @@ h3 {
     margin-left: 8px;
 }
 
-.tituloPagina{
+.tituloPagina {
     background: #009CDF;
     max-width: 300px;
     height: 67px;
@@ -65,22 +67,24 @@ h3 {
     font-weight: 300;
     text-align: center;
 }
-.tituloPagina span{
+
+.tituloPagina span {
     margin: 0 auto;
     font-size: 20px;
     line-height: 65px;
 }
-.user{
+
+.user {
     width: 300px;
     float: right;
     height: 67px;
 }
 
-.user .row{
+.user .row {
     height: 67px;
 }
 
-.user img{
+.user img {
     max-width: 50px;
     border-radius: 50%;
     margin: 0 auto;
@@ -89,40 +93,60 @@ h3 {
     margin-top: 8px;
 }
 
-.user .col:nth-child(1){
-    max-width:100px;
+.user .col:nth-child(1) {
+    max-width: 100px;
 }
-.user .col:nth-child(2){
+
+.user .col:nth-child(2) {
     color: #494F58;
     font-size: 14px;
     margin-top: 23px;
 }
 
-.headerMenu,.headerMenu .row,.headerMenu .col{
+.headerMenu,
+.headerMenu .row,
+.headerMenu .col {
     padding: 0 !important;
-} 
+}
 
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
     ion-menu {
         max-width: 70px !important;
         min-width: 20px !important;
     }
-
     ion-menu ion-title {
         display: none;
     }
-
     ion-menu:hover ion-title {
-      display: block;
+        display: block;
     }
-
-    .contenedor{
+    .contenedor {
         padding: 15px 20px;
     }
-
     h3 {
         font-size: 25px;
     }
+}
+
+@font-face {
+    font-family: 'Leckerli One';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Leckerli One'), local('LeckerliOne-Regular'), url(../assets/fonts/S2Y_iLrItTu8kIJTkS7DrOgdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 300;
+    src: local('Roboto'), local('Roboto'), url(../assets/fonts/Roboto-Light.woff);
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+body, span, button, h1, h2, h3, h4, h5, h6, p, a, i, ion-item, ion-title {
+    // font-family: 'Oswald', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
 }
 
 .mat-elevation-z1 {
@@ -1186,7 +1210,7 @@ input.mat-input-element {
 }
 
 .mat-checkbox-checkmark-path {
-    stroke: #fafafa!important
+    stroke: #fafafa !important
 }
 
 .mat-checkbox-mixedmark {

@@ -56,7 +56,7 @@ export class LoginPage {
     } else {
       this.urlImg = '../'
     }
-    this.fotoIntro = this.urlImg + "assets/img/cascadaRioNoque.jpg";
+    this.fotoIntro = this.urlImg + "assets/imgs/cascadaRioNoque.jpg";
   }
 
   shouldShow() {
