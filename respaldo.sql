@@ -866,12 +866,13 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_adm_ingresar`(uUsuario VARCHAR(50),uContrasenia VARCHAR(45))
 PROC: BEGIN
 
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
-		BEGIN
-			SELECT 0 as codigo, 'Error en la transaccion.' mensaje;
-            SHOW ERRORS;
-            ROLLBACK;
-        END;
+     DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+	 BEGIN
+		GET DIAGNOSTICS CONDITION 1
+        @c1 = RETURNED_SQLSTATE, @c2 = MESSAGE_TEXT;
+		SELECT 0 AS codigo, CONCAT('Error numero: ',@c1,'. Descripcion: ',@c2)AS mensaje;
+		ROLLBACK;
+	 END;
         
 	IF NOT EXISTS (SELECT idUsuario FROM usuarios WHERE usuario = uUsuario) THEN
 		SELECT 0 as codigo, 'El usuario no existe' mensaje;
@@ -883,19 +884,18 @@ PROC: BEGIN
         LEAVE PROC;
 	END IF;
     
+    IF NOT EXISTS (SELECT idUsuario FROM Usuarios WHERE usuario=uUsuario AND contrasenia=MD5(uContrasenia))
+    THEN
+		SELECT 0 as codigo, 'Nombre de Usuario y contraseña incorrectos' mensaje;
+        LEAVE PROC;
+	END IF;
+    
     IF (SELECT rol FROM usuarios WHERE usuario = uUsuario) = 'usuario' THEN
 		SELECT 0 codigo, "El usuario no tiene permiso de administrador" mensaje;
 		LEAVE PROC;
     END IF;
 	
-	IF NOT EXISTS (SELECT idUsuario FROM Usuarios WHERE usuario=uUsuario AND contrasenia=MD5(uContrasenia))
-    THEN
-		SELECT 0 as codigo, 'Nombre de Usuario y contraseña incorrectos' mensaje;
-        LEAVE PROC;
-	ELSE 
-	SELECT 1 as codigo, 'Ingreso Correcto' mensaje, idUsuario, usuario, nombre, apellido, rol, CONVERT(u.fotoPerfil USING utf8) as fotoPerfil FROM usuarios WHERE usuario=uUsuario;
-        LEAVE PROC;
-	END IF;
+	SELECT 1 as codigo, idUsuario, usuario, nombre, apellido, rol, CONVERT(fotoPerfil USING utf8) as fotoPerfil FROM usuarios WHERE usuario=uUsuario;
     
 END ;;
 DELIMITER ;
@@ -1331,4 +1331,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-28 18:59:29
+-- Dump completed on 2018-05-28 19:51:34
