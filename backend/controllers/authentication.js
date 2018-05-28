@@ -35,8 +35,7 @@ exports.login = function (req, res, next) {
 exports.loginAdministrador = function (req, res, next) {
   var user = '"' + req.body.username + '"';
   var pass = '"' + req.body.password + '"';
-  console.log(user,pass)
-  User.login(user, pass, function (username) {
+  User.loginAdministrador(user, pass, function (username) {
     if (username.codigo != 0) {
       var userInfo = setUserInfo(username);
       res.status(200).json({

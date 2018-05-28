@@ -92,6 +92,17 @@ exports.login = function (usuario, password, fn) {
   });
 }
 
+exports.loginAdministrador = function (usuario, password, fn) {
+  connection.query('call usuario_adm_ingresar(' + usuario + ',' + password + ')', function (err, rows) {
+    if (err){
+      err.codigo = 0;
+      fn(err);
+    }else{
+      fn(rows[0][0]);
+    }
+  });
+}
+
 exports.buscarPorMail = function (mail, fn) {
   var m = '"' + mail + '"';
   connection.query('call usuario_buscarPorMail(' + m + ')', function (err, rows) {
