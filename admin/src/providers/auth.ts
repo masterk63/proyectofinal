@@ -85,6 +85,30 @@ export class Auth {
 
   }
 
+  loginAdmin(credentials) {
+
+    return new Promise((resolve, reject) => {
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(configServer.data.urlServidor + '/api/auth/loginAdmin', JSON.stringify(credentials), { headers: headers })
+        .subscribe(res => {
+            let data = res.json();
+            console.log('datos de usuario',data)
+            this.token = data.token;
+            this.storage.set('token', data.token);
+            this.storage.set('idUsuario', data.user.idUsuario);
+            this.storage.set('rol', data.user.rol);
+            resolve(data);
+        }, (err) => {
+          reject(err);
+        });
+
+    });
+
+  }
+
   forgotPassword(credentials) {
 
     return new Promise((resolve, reject) => {

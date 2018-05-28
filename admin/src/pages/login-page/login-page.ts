@@ -76,7 +76,7 @@ export class LoginPage {
       password: this.password
     };
 
-    this.authService.login(credentials).then((result: any) => {
+    this.authService.loginAdmin(credentials).then((result: any) => {
       this.loading.dismiss();
       this.presentToast();
       this.navCtrl.setRoot(ListaRegistrosPage);

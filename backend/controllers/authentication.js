@@ -22,14 +22,31 @@ function setUserInfo(request) {
 exports.login = function (req, res, next) {
   var username = req.user;
   if (username.codigo != 0) {
+    var userInfo = setUserInfo(username);
+    res.status(200).json({
+      token: 'JWT ' + generateToken(userInfo),
+      user: userInfo
+    });
+  } else {
+    res.json(username);
+  }
+}
+
+exports.loginAdministrador = function (req, res, next) {
+  var user = '"' + req.body.username + '"';
+  var pass = '"' + req.body.password + '"';
+  console.log(user,pass)
+  User.login(user, pass, function (username) {
+    if (username.codigo != 0) {
       var userInfo = setUserInfo(username);
       res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
         user: userInfo
       });
-  } else {
-    res.json(username);
-  }
+    } else {
+      res.status(401).send(username.mensaje);
+    }
+  });
 }
 
 function convertirLaPrimeraLetraAMayuscula(str) {
