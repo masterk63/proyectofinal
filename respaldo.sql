@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `proyectofinal` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE  IF NOT EXISTS `proyectofinal` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `proyectofinal`;
--- MySQL dump 10.13  Distrib 5.7.12, for osx10.9 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: proyectofinal
 -- ------------------------------------------------------
--- Server version	5.7.20
+-- Server version	5.7.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -134,6 +134,31 @@ CREATE TABLE `reset_password` (
 LOCK TABLES `reset_password` WRITE;
 /*!40000 ALTER TABLE `reset_password` DISABLE KEYS */;
 /*!40000 ALTER TABLE `reset_password` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `test`
+--
+
+DROP TABLE IF EXISTS `test`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `test` (
+  `idTest` int(11) NOT NULL AUTO_INCREMENT,
+  `fotoPaisaje` mediumblob,
+  `fotoMuestra` mediumblob,
+  PRIMARY KEY (`idTest`)
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `test`
+--
+
+LOCK TABLES `test` WRITE;
+/*!40000 ALTER TABLE `test` DISABLE KEYS */;
+INSERT INTO `test` VALUES (1,NULL,NULL),(3,NULL,NULL),(25,NULL,NULL),(103,NULL,NULL);
+/*!40000 ALTER TABLE `test` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -828,6 +853,56 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `usuario_adm_ingresar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_adm_ingresar`(uUsuario VARCHAR(50),uContrasenia VARCHAR(45))
+PROC: BEGIN
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			SELECT 0 as codigo, 'Error en la transaccion.' mensaje;
+            SHOW ERRORS;
+            ROLLBACK;
+        END;
+        
+	IF NOT EXISTS (SELECT idUsuario FROM usuarios WHERE usuario = uUsuario) THEN
+		SELECT 0 as codigo, 'El usuario no existe' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+	IF ((SELECT estado FROM usuarios WHERE usuario = uUsuario) = 'B') THEN
+		SELECT 0 as codigo, 'El usuario esta dado de baja' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    IF (SELECT rol FROM usuarios WHERE usuario = uUsuario) = 'usuario' THEN
+		SELECT 0 codigo, "El usuario no tiene permiso de administrador" mensaje;
+		LEAVE PROC;
+    END IF;
+	
+	IF NOT EXISTS (SELECT idUsuario FROM Usuarios WHERE usuario=uUsuario AND contrasenia=MD5(uContrasenia))
+    THEN
+		SELECT 0 as codigo, 'Nombre de Usuario y contraseña incorrectos' mensaje;
+        LEAVE PROC;
+	ELSE 
+	SELECT 1 as codigo, 'Ingreso Correcto' mensaje, idUsuario, usuario, nombre, apellido, rol, CONVERT(u.fotoPerfil USING utf8) as fotoPerfil FROM usuarios WHERE usuario=uUsuario;
+        LEAVE PROC;
+	END IF;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `usuario_baja` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1080,11 +1155,11 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_ingresar`(uUsuario VARCHAR(50),uContrasenia VARCHAR(45))
 PROC: BEGIN
@@ -1111,7 +1186,7 @@ PROC: BEGIN
 		SELECT 0 as codigo, 'Nombre de Usuario y contraseña incorrectos' mensaje;
         LEAVE PROC;
 	ELSE 
-	SELECT 1 as codigo, 'Ingreso Correcto' mensaje,u.* FROM usuarios as  u WHERE usuario=uUsuario;
+	SELECT 1 as codigo, 'Ingreso Correcto' mensaje, idUsuario, usuario, nombre, apellido, rol, CONVERT(u.fotoPerfil USING utf8) as fotoPerfil FROM usuarios WHERE usuario=uUsuario;
         LEAVE PROC;
 	END IF;
     
@@ -1256,4 +1331,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-12 17:52:44
+-- Dump completed on 2018-05-28 18:59:29
