@@ -19,6 +19,10 @@ import { UsuarioPage } from '../pages/usuario/usuario'
 import { ListaRegistrosPageUsuario } from '../pages/lista-registros-usuario/lista-registros-usuario';
 import { LoginPage } from '../pages/login-page/login-page';
 
+
+//Components 
+import {HeaderComponent} from '../components/header/header';
+
 //Providers
 import { Auth } from '../providers/auth';
 import { RegistrosService } from '../providers/registrosService';
@@ -66,6 +70,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     RegistroPage,
     UsuarioPage,
     LoginPage,
+    HeaderComponent,
     ListaRegistrosPageUsuario,
     ListaUsuariosPage
   ],
@@ -98,6 +103,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ListaRegistrosPage,
     RegistroPage,
     UsuarioPage,
+    HeaderComponent,
     LoginPage,
     ListaRegistrosPageUsuario,
     ListaUsuariosPage

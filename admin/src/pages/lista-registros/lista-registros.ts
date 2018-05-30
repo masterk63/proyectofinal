@@ -6,6 +6,8 @@ import { ViewController } from 'ionic-angular';
 import { RegistroPage } from '../registro/registro'
 import * as moment from 'moment';
 import 'moment/locale/es';
+import { HeaderComponent } from '../../components/header/header';
+
 
 //Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -35,21 +37,21 @@ export class ListaRegistrosPage {
   @ViewChild(MatSort) sort: MatSort;
   idRegistro: number = -1;
   opened: boolean = false;
-  filtrosEstado = [{nombre:'Pendiente',estado:true,valor:0},{nombre:'Valido',estado:false,valor:1},{nombre:'Invalido',estado:false,valor:-1},{nombre:'Todos',estado:false,valor:10}]
-  filtrosTemporales = [{nombre:'Ultima Semana',estado:true,valor:''},{nombre:'Ultimo Mes',estado:false,valor:''},{nombre:'',estado:false,valor:''}]
-  fechaActual:any;
-  fechaHaceUnaSemana:any;
-  now:any;
-  lastWeek:any;
-  lastMonth:any;
-  fechaInicio:any;
-  fechaFin:any;
-
+  filtrosEstado = [{ nombre: 'Pendiente', estado: true, valor: 0 }, { nombre: 'Valido', estado: false, valor: 1 }, { nombre: 'Invalido', estado: false, valor: -1 }, { nombre: 'Todos', estado: false, valor: 10 }]
+  filtrosTemporales = [{ nombre: 'Ultima Semana', estado: true, valor: '' }, { nombre: 'Ultimo Mes', estado: false, valor: '' }, { nombre: '', estado: false, valor: '' }]
+  fechaActual: any;
+  fechaHaceUnaSemana: any;
+  now: any;
+  lastWeek: any;
+  lastMonth: any;
+  fechaInicio: any;
+  fechaFin: any;
+  
   constructor(public navCtrl: NavController,
     public registroSrv: RegistrosService) {
     this.now = moment().toISOString().split("T")[0];
-    this.lastWeek = moment().subtract(1,'week').toISOString().split("T")[0];
-    this.lastMonth = moment().subtract(1,'month').toISOString().split("T")[0];
+    this.lastWeek = moment().subtract(1, 'week').toISOString().split("T")[0];
+    this.lastMonth = moment().subtract(1, 'month').toISOString().split("T")[0];
     this.filtrosTemporales[0].valor = this.lastWeek;
     this.filtrosTemporales[1].valor = this.lastMonth;
     this.fechaActual = moment().format("DD, MMM YYYY");
@@ -65,7 +67,7 @@ export class ListaRegistrosPage {
     this.cargarRegistros(filtro);
   }
 
-  cargarRegistros(filtro){
+  cargarRegistros(filtro) {
     this.registroSrv.cargarRegistros(filtro).then(reg => {
       console.log(reg);
       this.registros = reg;
@@ -97,33 +99,33 @@ export class ListaRegistrosPage {
     this.idRegistro = id;
   }
 
-  filtroEstadoChange(chip){
-    for(let c of this.filtrosEstado){
+  filtroEstadoChange(chip) {
+    for (let c of this.filtrosEstado) {
       c.estado = false;
     }
     chip.estado = true;
     this.filtrarRegistros();
   }
 
-  filtroTemporalChange(chip){
-    for(let c of this.filtrosTemporales){
+  filtroTemporalChange(chip) {
+    for (let c of this.filtrosTemporales) {
       c.estado = false;
     }
     chip.estado = true;
     this.filtrarRegistros();
   }
 
-  filtrarRegistros(){
+  filtrarRegistros() {
     let estado = this.filtrosEstado.find(f => f.estado == true);
     let fecha = this.filtrosTemporales.find(f => f.estado == true);
     let filtro;
-    if(fecha.nombre){
+    if (fecha.nombre) {
       filtro = {
         now: this.now,
         lastWeek: fecha.valor,
         estado: estado.valor
       }
-    }else{
+    } else {
       filtro = {
         now: moment(this.fechaFin).toISOString().split('T')[0],
         lastWeek: moment(this.fechaInicio).toISOString().split('T')[0],
@@ -132,9 +134,9 @@ export class ListaRegistrosPage {
     }
     this.cargarRegistros(filtro);
   }
-  
-  filtrarPorRangoFecha(){
-    for(let c of this.filtrosTemporales){
+
+  filtrarPorRangoFecha() {
+    for (let c of this.filtrosTemporales) {
       c.estado = false;
     }
     this.filtrosTemporales[2].estado = true;

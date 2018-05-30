@@ -99,6 +99,7 @@ export class Auth {
             this.token = data.token;
             this.storage.set('token', data.token);
             this.storage.set('idUsuario', data.user.idUsuario);
+            this.storage.set('fotoPerfil', data.user.fotoPerfil);
             this.storage.set('rol', data.user.rol);
             resolve(data);
         }, (err) => {
