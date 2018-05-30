@@ -1,5 +1,5 @@
-<ion-tabs>
+<ion-tabs >
   <ion-tab [root]="tab2Root" tabTitle="Mis Registros" tabIcon="bug"></ion-tab>
-  <ion-tab [root]="tab1Root" tabTitle="Nuevo Registro" tabIcon="add"></ion-tab>
+  <ion-tab (ionSelect)="tapped()" tabTitle="Nuevo Registro" tabIcon="add"></ion-tab>
   <ion-tab [root]="tab3Root" tabTitle="Ajustes" tabIcon="settings"></ion-tab>
 </ion-tabs>

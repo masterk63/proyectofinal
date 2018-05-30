@@ -6,7 +6,7 @@ import { MapaGeneralPage } from '../mapa-general/mapa-general';
 import { HomePage } from '../home/home';
 import { MenuPage } from '../../pages/menu/menu';
 import { Keyboard } from '@ionic-native/keyboard';
-import { Events, Tabs } from 'ionic-angular';
+import { Events, Tabs, NavController, App } from 'ionic-angular';
 
 
 @Component({
@@ -17,9 +17,16 @@ export class TabsPage {
    tab1Root = HomePage;
    tab2Root = MisRegistrosPage;
    tab3Root = MenuPage;
-   valueforngif=true;
+   valueforngif = true;
 
-   constructor(private keyboard: Keyboard) {
+   constructor(private keyboard: Keyboard,
+      public navCtrl: NavController,
+      public app: App,
+      public events: Events) {
 
    }
+
+   public tapped() {
+      this.app.getRootNav().setRoot(HomePage);
+  }
 }

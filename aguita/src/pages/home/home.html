@@ -1,32 +1,20 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>
-      Nuevo Registro
-    </ion-title>
-    <!-- <ion-buttons start>
-      <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
-    </ion-buttons> -->
-  </ion-navbar>
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="registro">
-      <ion-segment-button value="mapa">
-        Mapa
-      </ion-segment-button>
-      <ion-segment-button value="fotos">
-        Fotos
-      </ion-segment-button>
-      <ion-segment-button value="obseravaciones">
-        Obseravaciones
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+    <ion-toolbar>
+      <ion-segment [(ngModel)]="registro">
+        <ion-segment-button value="mapa">
+          Mapa
+        </ion-segment-button>
+        <ion-segment-button value="fotos">
+          Fotos
+        </ion-segment-button>
+        <ion-segment-button value="obseravaciones">
+          Obseravaciones
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
-
-<ion-content style="margin-top: 111px;" class="scroll-content ionic-scroll  has-header">
+<ion-content padding>
   <div #micontenedor class="contenedorCenter">
 
     <div [ngSwitch]="registro">

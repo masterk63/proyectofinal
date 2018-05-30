@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 //ActionSheetController menu de opciones nativas.
 //ToastController modal nativo
-import { ModalController, ViewController, NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading, AlertController } from 'ionic-angular';
+import { ModalController, ViewController, NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading, AlertController, MenuController } from 'ionic-angular';
 import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -80,6 +80,7 @@ export class HomePage {
     private photoViewer: PhotoViewer,
     public loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
+    private menuCtrl: MenuController,
     public camaraCtrl: Camara,
     public authService: Auth,
     public app: App,
@@ -93,6 +94,7 @@ export class HomePage {
     public diagnosticProvider: DiagnosticProvider,
     public alertCtrl: AlertController
   ) {
+    this.menuCtrl.enable(false);
     //Detecta la ubicacion
     this.ubicacion();
 

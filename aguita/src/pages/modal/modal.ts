@@ -23,8 +23,6 @@ export class ModalPage {
    index: any;
    isActive = true;
 
-   @ViewChild(Slides) slides: Slides;
-
    constructor(public platform: Platform,
       public params: NavParams,
       public viewCtrl: ViewController) {
@@ -35,7 +33,7 @@ export class ModalPage {
    ionViewDidLoad() {
 
       if (this.nombre === "elmido") {
-         this.titulo = "EMILDOS!!!!";
+         this.titulo = "EMILDOS";
          this.descripcion = "Familia de coleópteros acuáticos. Larvas y adultos" +
             " coexisten en el mismo tipo de ambiente. Las larvas pueden" +
             " variar entre 1 y 10 mm de longitud, con una forma" +
@@ -51,7 +49,7 @@ export class ModalPage {
             " agua rica en oxígeno que la rodea.";
       }
       if (this.nombre === "patudo") {
-         this.titulo = "PATUDOS!!!! (MEGALOPTERA)";
+         this.titulo = "PATUDOS (MEGALOPTERA)";
          this.descripcion = "Las larvas son grandes y pueden alcanzar los 6 cm de longitud." +
             " Vulgarmente se los conoce como patudos debido a sus" +
             " proyecciones abdominales que el ojo profano confunde con" +
@@ -63,7 +61,7 @@ export class ModalPage {
             " una fase aérea tanto reproductiva como dispersiva.";
       }
       if (this.nombre === "plecoptero") {
-         this.titulo = "PLECOPTEROS!!!!";
+         this.titulo = "PLECOPTEROS";
          this.descripcion = "Las larvas acuáticas prefieren zonas turbulentas de" +
             " los cursos montañosos de agua. Son de tamaño mediano" +
             " con cuerpo aplanado y tienen la capacidad de desplazarse" +
@@ -76,7 +74,7 @@ export class ModalPage {
             " sobre rocas a título de llamadas sensuales que ejecuta el macho.";
       }
       if (this.nombre === "tricoptero") {
-         this.titulo = "TRICOPTEROS!!!!";
+         this.titulo = "TRICOPTEROS";
          this.descripcion = "Es uno de los órdenes de insectos de agua dulce más" +
             " diversificados. Sus larvas son acuáticas y viven en refugios" +
             " fijos o transportables elaborados con seda; mientras" +
@@ -90,17 +88,7 @@ export class ModalPage {
 
    }
 
-
-
-   dismiss() {
-      this.viewCtrl.dismiss();
-   }
-
-   onSwipeUp(e) {
-      this.viewCtrl.dismiss();
-   }
-
-   onSwipeDown(e) {
+   cerrar() {
       this.viewCtrl.dismiss();
    }
 
