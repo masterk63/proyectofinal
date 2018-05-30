@@ -38,12 +38,13 @@ exports.loginAdministrador = function (req, res, next) {
   User.loginAdministrador(user, pass, function (username) {
     if (username.codigo != 0) {
       var userInfo = setUserInfo(username);
+      userInfo.fotoPerfil = username.fotoPerfil;
       res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
         user: userInfo
       });
     } else {
-      res.status(401).send(username.mensaje);
+      res.status(403).send(username.mensaje);
     }
   });
 }

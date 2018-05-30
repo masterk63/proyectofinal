@@ -4,6 +4,7 @@ import { UsuariosService } from '../../providers/usuariosService'
 import Usuario from '../../models/usuario'
 import { UsuarioPage } from '../../pages/usuario/usuario'
 import { RegistroPage } from '../registro/registro'
+import { HeaderComponent } from '../../components/header/header'
 
 //Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';

@@ -83,8 +83,10 @@ export class LoginPage {
     }, (err) => {
       this.loading.dismiss();
       if (err.status === 0) {
-        this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
-      } else {
+        this.mostrarAlerta('Error', err._body)
+      } else if (err.status === 403){
+        this.mostrarAlerta('Error', err._body)
+      } else{
         this.mostrarAlerta('Error', 'Hay un error en el Usuario o Contraseña')
       }
       console.log(err);
