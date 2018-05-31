@@ -2,19 +2,18 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-          <button  ion-button clear no-padding float-right (click)="cerrar()"> <ion-icon style="font-size:30px;" name="close"></ion-icon></button>
-        <img [src]="foto">
-        
+        <button style="position: fixed;right: 0; margin-right: 20px;z-index: 1;" ion-button clear no-padding float-right (click)="cerrar()">
+          <ion-icon style="font-size:30px;" name="close"></ion-icon>
+        </button>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col padding>
-          <h2>{{titulo}}</h2>
-          <p>{{descripcion}}</p>
+        <h2>{{titulo}}</h2>
+        <img [src]="foto">
 
+        <p>{{descripcion}}</p>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
 </ion-content>
