@@ -53,7 +53,10 @@ export class MyApp {
 
   logout() {
     this.storage.set('token','');
-    this.rootPage = LoginPage;
+    this.storage.set('idUsuario', '');
+    this.storage.set('user', '');
+    this.storage.set('rol', '');
+    this.nav.setRoot(LoginPage);
   }
 
 }
