@@ -127,7 +127,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.altoMapa = (this.contenedor.nativeElement.offsetHeight) - 200;
+    this.altoMapa = (this.contenedor.nativeElement.offsetHeight) - 250;
   }
 
   openModal(pic, name) {

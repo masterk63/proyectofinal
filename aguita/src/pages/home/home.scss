@@ -1,26 +1,57 @@
-.ios, .md {
-
-
-    home-page{
+.ios,
+.md {
+    home-page {
         ion-scroll {
             white-space: nowrap;
             height: 150px;
         }
-
-        .contenedorCenter{
+        ion-content {
+            margin-top: 40px !important;
+        }
+        h3 {
+            color: #515E70;
+            font-weight: 500;
+            text-align: left;
+            margin-bottom: 2px;
+        }
+        p {
+            color: #899194;
+            text-align: left;
+            margin: 0px 0 5px 0;
+        }
+        .botonIcono {
+            position: relative;
+            display: inline-block;
+        }
+        .iconoGrande {
+            font-size: 11em;
+        }
+        .iconoMas {
+            position: absolute;
+            font-size: 3em;
+            bottom: 2px;
+            right: -15px;
+            background-color: #fafafa;
+        }
+        .iconoMas2 {
+            position: absolute;
+            font-size: 3em;
+            bottom: 6px;
+            right: -13px;
+            background-color: #fafafa;
+        }
+        .contenedorCenter {
             display: table !important;
             width: 100% !important;
             height: 100% !important;
             text-align: center;
             overflow-y: hidden;
         }
-
-        .contenedorCenter > div{
+        .contenedorCenter>div {
             display: table-cell;
             vertical-align: middle;
         }
-        
-        h2{
+        h2 {
             border-bottom: 1px solid #F0F3F7;
             line-height: 1.4em;
             margin: 2em 0 1em;
@@ -31,8 +62,7 @@
             margin-bottom: 0.5em;
             padding: 0 1em;
         }
-
-        .uploadPicture{
+        .uploadPicture {
             width: 100%;
             border: 1px;
             border-style: dashed;
@@ -44,17 +74,14 @@
             background-color: #FAFAFA;
             color: #757575;
         }
-
-        .uploadPicture > ion-icon{
+        .uploadPicture>ion-icon {
             font-size: 7em;
         }
-
-        .uploadPicture p{
+        .uploadPicture p {
             font-size: 18px;
             margin-top: 8px;
         }
-
-        .mapa{
+        .mapa {
             border-radius: 10px;
             border: 1px;
             text-align: center;
@@ -64,26 +91,18 @@
             background-color: white;
             color: #757575;
         }
-
-        .mapaConteiner{
-            //border-bottom: 1px solid #C1BFB8;
+        .mapaConteiner {
             margin: 0 auto;
-            width: 94%;
             max-width: 600px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
         }
-        
-        .bichos{
+        .bichos {
             max-height: 200px;
             margin: 0 auto;
         }
-
-
-        textarea{
+        textarea {
             height: 100px;
         }
-
-        .imagen{
+        .imagen {
             height: auto;
             background-size: 100%;
             max-height: 420px;
@@ -92,8 +111,7 @@
             background-position: center center;
             background-repeat: no-repeat;
         }
-
-        .delFoto{
+        .delFoto {
             position: absolute;
             margin-left: 1%;
             margin-top: 1%;
@@ -104,16 +122,15 @@
             color: #BABABA;
             border: 1px #BABABA solid;
         }
-
-        div.scroll-content{
+        div.scroll-content {
             margin-top: 0px !important;
         }
-
-        ion-card, ion-card ion-item{
+        ion-card,
+        ion-card ion-item {
             background: #FAFAFA !important;
         }
-        
-        #observaciones, #observaciones ion-item{
+        #observaciones,
+        #observaciones ion-item {
             background: #FAFAFA;
         }
     }

@@ -6,7 +6,9 @@
 
 
 .toolbar-md {
-  padding: 14px 4px 4px 4px !important;
+  // agregamos el paddin porq sino el texto de los tabs se solapa con la informacion del telefono (señal, bateria, hora)
+  padding: 20px 0px 0px 0px !important;
+  min-height: 0;
 }
 
 .contenedor {

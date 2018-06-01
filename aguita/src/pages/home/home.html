@@ -1,40 +1,44 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-segment [(ngModel)]="registro">
-        <ion-segment-button value="mapa">
-          Mapa
-        </ion-segment-button>
-        <ion-segment-button value="fotos">
-          Fotos
-        </ion-segment-button>
-        <ion-segment-button value="obseravaciones">
-          Obseravaciones
-        </ion-segment-button>
-      </ion-segment>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="registro">
+      <ion-segment-button value="mapa">
+        Mapa
+      </ion-segment-button>
+      <ion-segment-button value="fotos">
+        Fotos
+      </ion-segment-button>
+      <ion-segment-button value="obseravaciones">
+        Insectos
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <div #micontenedor class="contenedorCenter">
-
+  <div padding #micontenedor class="contenedorCenter">
     <div [ngSwitch]="registro">
       <div *ngSwitchCase="'mapa'" style="text-align: center;">
-        <p>GEOLOCALIZACION OBETENIDA, PULSE
-          <STRONG>SIGUIENTE</STRONG> PARA CONTINUAR</p>
         <div class="mapaConteiner" [style.height.px]="altoMapa">
           <page-mapasnativo [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="muestroMapaNativo"> </page-mapasnativo>
           <mapajshtml [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="!muestroMapaNativo"></mapajshtml>
         </div>
-        <span style="color:gray">Usted esta aqui!!!</span>
+        <h3>Ubicación encontrada:</h3>
+        <p>
+          Latitud: {{this.latitud}}
+          <br> Longitud: {{this.longitud}}
+        </p>
       </div>
 
       <div *ngSwitchCase="'fotos'">
         <div class="contenedor">
           <div class="padding" *ngIf="!fotoPaisaje">
             <button class="uploadPicture" style="height: 228px;" (click)="takefotoPaisaje()">
-              <ion-icon name="camera"></ion-icon>
-              <p>
-                <ion-icon name="md-add-circle"></ion-icon> Foto del Paisaje</p>
+              <div class="botonIcono">
+                <ion-icon class="iconoGrande" name="ios-image-outline"></ion-icon>
+                <ion-icon class="iconoMas" name="md-add-circle"></ion-icon>
+              </div>
+              <p style="text-align: center;">
+                Foto del Paisaje</p>
             </button>
           </div>
           <div class="padding" *ngIf="fotoPaisaje">
@@ -47,6 +51,16 @@
               </p>
             </div>
           </div>
+          <div class="padding" *ngIf="!fotoMuestra">
+            <button class="uploadPicture" style="height: 228px;" (click)="takefotoMuestra()">
+              <div class="botonIcono">
+                <ion-icon class="iconoGrande" name="ios-bug-outline"></ion-icon>
+                <ion-icon class="iconoMas2" name="md-add-circle"></ion-icon> 
+              </div>
+              <p style="text-align: center;">
+                Foto de la Muestra</p>
+            </button>
+          </div>
           <div class="padding" *ngIf="fotoMuestra">
             <div class="mapa">
               <img [src]="fotoMuestraURLSafe" (click)="mostrarFoto(fotoMuestra)" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
@@ -56,13 +70,6 @@
                 </button>
               </p>
             </div>
-          </div>
-          <div class="padding" *ngIf="!fotoMuestra">
-            <button class="uploadPicture" style="height: 228px;" (click)="takefotoMuestra()">
-              <ion-icon name="camera"></ion-icon>
-              <p>
-                <ion-icon name="md-add-circle"></ion-icon> Foto de la Muestra</p>
-            </button>
           </div>
         </div>
       </div>
