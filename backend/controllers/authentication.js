@@ -39,6 +39,8 @@ exports.loginAdministrador = function (req, res, next) {
     if (username.codigo != 0) {
       var userInfo = setUserInfo(username);
       userInfo.fotoPerfil = username.fotoPerfil;
+      userInfo.nombre = username.nombre;
+      userInfo.apellido = username.apellido;
       res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
         user: userInfo

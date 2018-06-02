@@ -55,7 +55,7 @@ export class ListaRegistrosPage {
     this.filtrosTemporales[0].valor = this.lastWeek;
     this.filtrosTemporales[1].valor = this.lastMonth;
     this.fechaActual = moment().format("DD, MMM YYYY");
-    this.fechaHaceUnaSemana = moment().format("DD, MMM YYYY");
+    this.fechaHaceUnaSemana = moment().subtract(1, 'week').format("DD, MMM YYYY");
   }
 
   ngAfterViewInit() {
