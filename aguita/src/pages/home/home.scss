@@ -1,9 +1,9 @@
 .ios,
 .md {
     home-page {
-        ion-scroll {
-            white-space: nowrap;
-            height: 150px;
+        .scroll-content {
+            margin-bottom: 85px !important;
+            margin-top: 15px !important;
         }
         ion-content {
             margin-top: 40px !important;
@@ -24,18 +24,18 @@
             display: inline-block;
         }
         .iconoGrande {
-            font-size: 11em;
+            font-size: 7em;
         }
         .iconoMas {
             position: absolute;
-            font-size: 3em;
+            font-size: 2.5em;
             bottom: 2px;
             right: -15px;
             background-color: #fafafa;
         }
         .iconoMas2 {
             position: absolute;
-            font-size: 3em;
+            font-size: 2.5em;
             bottom: 2px;
             right: -15px;
             // background-color: #fafafa;
@@ -67,7 +67,7 @@
             border: 1px;
             border-style: dashed;
             margin: 0 auto;
-            height: 150px;
+            height: 190px;
             border-radius: 10px;
             text-align: center;
             cursor: pointer;

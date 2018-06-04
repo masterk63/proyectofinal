@@ -32,7 +32,7 @@
       <div *ngSwitchCase="'fotos'">
         <div class="contenedor">
           <div class="padding" *ngIf="!fotoPaisaje">
-            <button class="uploadPicture" style="height: 228px;" (click)="takefotoPaisaje()">
+            <button class="uploadPicture" (click)="takefotoPaisaje()">
               <div class="botonIcono">
                 <ion-icon class="iconoGrande" name="ios-image-outline"></ion-icon>
                 <ion-icon class="iconoMas" name="md-add-circle"></ion-icon>
@@ -52,7 +52,7 @@
             </div>
           </div>
           <div class="padding" *ngIf="!fotoMuestra">
-            <button class="uploadPicture" style="height: 228px;" (click)="takefotoMuestra()">
+            <button class="uploadPicture" (click)="takefotoMuestra()">
               <div class="botonIcono">
                 <ion-icon class="iconoGrande" name="ios-bug-outline"></ion-icon>
                 <ion-icon class="iconoMas2" name="md-add-circle"></ion-icon> 

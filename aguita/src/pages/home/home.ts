@@ -37,6 +37,8 @@ import { App } from 'ionic-angular';
 export class HomePage {
   @ViewChild('micontenedor') contenedor: ElementRef;
   @ViewChild(Content) content: Content;
+
+  claseHeader: string;
   altoMapa: number;
   urlImg: string;
   registro: string = "mapa";
@@ -98,6 +100,10 @@ export class HomePage {
     //Detecta la ubicacion
     this.ubicacion();
 
+    // (this.platform.is('android')) ?  this.claseHeader = ""
+    // if(this.platform.is('ios')){
+
+    // }
     //Para usar mapa nativo o mapaHTML
     if (this.platform.is('cordova')) {
       this.muestroMapaNativo = true;
