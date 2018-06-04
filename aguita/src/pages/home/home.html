@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar [ngClass]="claseHeader">
     <ion-segment [(ngModel)]="registro">
       <ion-segment-button value="mapa">
         Mapa
@@ -30,7 +30,7 @@
       </div>
 
       <div *ngSwitchCase="'fotos'">
-        <div class="contenedor">
+        <div>
           <div class="padding" *ngIf="!fotoPaisaje">
             <button class="uploadPicture" (click)="takefotoPaisaje()">
               <div class="botonIcono">
@@ -55,7 +55,7 @@
             <button class="uploadPicture" (click)="takefotoMuestra()">
               <div class="botonIcono">
                 <ion-icon class="iconoGrande" name="ios-bug-outline"></ion-icon>
-                <ion-icon class="iconoMas2" name="md-add-circle"></ion-icon> 
+                <ion-icon class="iconoMas2" name="md-add-circle"></ion-icon>
               </div>
               <p style="text-align: center;">
                 Foto de la Muestra</p>
@@ -81,23 +81,30 @@
               <ion-card>
                 <!--Para llevar un string a una funcion solo poner '', como en openModal 'elmido'-->
                 <img class="bichos" [src]="fotoElmido" (click)="openModal(realElmido,'elmido')" />
-                <ion-card-content>
+                <ion-card-content style="padding: 0px;">
                   <ion-card-title>
                     Elmidos
                   </ion-card-title>
-                  <p>
+                  <p style="text-align: center;">
                     ¿Se encuentra este insecto?
-                    <ion-list radio-group formControlName="elmidos">
-                      <ion-item>
-                        <ion-label>Si</ion-label>
-                        <ion-radio (click)="move('patudo')" value="si"></ion-radio>
-                      </ion-item>
-                      <ion-item>
-                        <ion-label>No</ion-label>
-                        <ion-radio (click)="move('patudo')" value="no"></ion-radio>
-                      </ion-item>
-                    </ion-list>
                   </p>
+                  <!-- <ion-list radio-group formControlName="elmidos"> -->
+                  <ion-row style="font-size: 16px;">
+                    <ion-col style="padding: 10px 0;" col-6>
+                      <a>
+                        <span style="font-weight: 500;">SI</span>
+                      </a>
+                      <!-- <ion-radio (click)="move('patudo')" value="si"></ion-radio> -->
+                    </ion-col>
+                    <ion-col style="padding: 10px 0;" col-6>
+                      <a>
+                        <span style="font-weight: 500;">NO</span>
+                      </a>
+                      <!-- <ion-radio (click)="move('patudo')" value="no"></ion-radio> -->
+                    </ion-col>
+                  </ion-row>
+                  <!-- </ion-list> -->
+
                 </ion-card-content>
               </ion-card>
             </ion-col>
@@ -192,18 +199,18 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar color="secondary">
+  <ion-toolbar class="footerToolbar" color="secondary">
     <ion-buttons>
-      <button *ngIf="this.registro != 'obseravaciones'" ion-button block style="float: right" (click)="siguientePaso()">Siguiente
-        <ion-icon style="margin-left: 10%; font-size: 2em;" name="arrow-dropright-circle"></ion-icon>
+      <button *ngIf="this.registro != 'obseravaciones'" ion-button block style="float: right;" (click)="siguientePaso()">Siguiente
+        <ion-icon style="margin-left: 10%;" name="ios-arrow-forward"></ion-icon>
       </button>
-      <button *ngIf="this.registro === 'obseravaciones'" ion-button block style="float: right" (click)="siguientePaso()">Subir
-        <ion-icon style="margin-left: 10%; font-size: 2em;" name="cloud-upload"></ion-icon>
+      <button *ngIf="this.registro === 'obseravaciones'" ion-button block style="float: right;" (click)="siguientePaso()">Guardar
+        <ion-icon style="margin-left: 10%;" name="cloud-upload"></ion-icon>
       </button>
     </ion-buttons>
     <ion-buttons>
-      <button *ngIf="this.registro != 'mapa'" ion-button block style="float: left" (click)="pasoAnterior()">
-        <ion-icon style="margin-right: 10%; font-size: 2em;" name="arrow-dropleft-circle"></ion-icon> Atras</button>
+      <button *ngIf="this.registro != 'mapa'" ion-button block style="float: left;" (click)="pasoAnterior()">
+        <ion-icon style="margin-right: 10%;" name="ios-arrow-back"></ion-icon> Atras</button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

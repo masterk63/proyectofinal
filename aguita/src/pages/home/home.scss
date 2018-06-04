@@ -1,6 +1,22 @@
 .ios,
 .md {
     home-page {
+
+        .footerToolbar{
+            padding: 5px 0px 0px 0px !important;
+            font-size: 1.5em;
+        }
+
+        .androidHeader{
+            padding: 5px 0px 0px 0px !important;
+            min-height: 0;
+        }
+
+        .iosHeader{
+            padding: 20px 0px 0px 0px !important;
+            min-height: 0;
+        }
+
         .scroll-content {
             margin-bottom: 85px !important;
             margin-top: 15px !important;

@@ -39,6 +39,7 @@ export class HomePage {
   @ViewChild(Content) content: Content;
 
   claseHeader: string;
+
   altoMapa: number;
   urlImg: string;
   registro: string = "mapa";
@@ -100,10 +101,8 @@ export class HomePage {
     //Detecta la ubicacion
     this.ubicacion();
 
-    // (this.platform.is('android')) ?  this.claseHeader = ""
-    // if(this.platform.is('ios')){
-
-    // }
+    (this.platform.is('android')) ?  this.claseHeader = "androidHeader"  : false;
+    (this.platform.is('ios')) ? this.claseHeader = "iosHeader" : false;
     //Para usar mapa nativo o mapaHTML
     if (this.platform.is('cordova')) {
       this.muestroMapaNativo = true;

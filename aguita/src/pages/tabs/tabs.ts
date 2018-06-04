@@ -27,6 +27,6 @@ export class TabsPage {
    }
 
    public tapped() {
-      this.app.getRootNav().setRoot(HomePage);
+      this.app.getRootNav().push(HomePage,{},{duration: 700});
   }
 }
