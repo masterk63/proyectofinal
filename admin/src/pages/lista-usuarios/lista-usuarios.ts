@@ -11,6 +11,7 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ExcelServiceProvider } from '../../providers/excel-service/excel-service';
 
 @Component({
   selector: 'lista-usuarios',
@@ -32,6 +33,7 @@ export class ListaUsuariosPage {
   idRegistro:number = -1;
 
   constructor(public navCtrl: NavController,
+    public excelCtrl:ExcelServiceProvider,
     private userSrv: UsuariosService) {
     this.cargarRegistros('A');
     this.idUsuario = -1;
@@ -49,6 +51,12 @@ export class ListaUsuariosPage {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
+  }
+
+  exportarExcel(){
+    console.log('hola',this.usuarios)
+    this.dataSource.
+    this.excelCtrl.exportAsExcelFile(this.usuarios,'Lista de Usuarios')
   }
 
   filtroEstadoChange(c) {

@@ -61,6 +61,7 @@ import {MatChipsModule} from '@angular/material/chips';
 
 //ToolTip
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { ExcelServiceProvider } from '../providers/excel-service/excel-service';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     UsuariosService,
     Ubicacion,
     RegistrosService,
-    Auth
+    Auth,
+    ExcelServiceProvider
   ]
 })
 export class AppModule { }
