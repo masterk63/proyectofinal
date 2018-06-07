@@ -66,13 +66,10 @@ export class HomePage {
   fotoTricoptero;
   realTricoptero;
   observaciones;
+  insectos: any;
   respuesta;
   registroCompleto;
   coincidencia = new FormGroup({
-    "elmidos": new FormControl(),
-    "patudos": new FormControl(),
-    "plecopteros": new FormControl(),
-    "tricopteros": new FormControl(),
     "observaciones": new FormControl(),
   });
 
@@ -101,7 +98,7 @@ export class HomePage {
     //Detecta la ubicacion
     this.ubicacion();
 
-    (this.platform.is('android')) ?  this.claseHeader = "androidHeader"  : false;
+    (this.platform.is('android')) ? this.claseHeader = "androidHeader" : false;
     (this.platform.is('ios')) ? this.claseHeader = "iosHeader" : false;
     //Para usar mapa nativo o mapaHTML
     if (this.platform.is('cordova')) {
@@ -123,12 +120,19 @@ export class HomePage {
     this.realPatudo = this.urlImg + "assets/img/fPatudo.jpg";
     this.realPlecoptero = this.urlImg + "assets/img/fPlecoptero.jpg";
     this.realTricoptero = this.urlImg + "assets/img/fTricoptero.jpg";
+
+    this.insectos = {
+      elmido: null,
+      patudo: null,
+      plecoptero: null,
+      tricoptero: null
+    }
   }
 
 
   public move(bicho) {
     let yOffset = document.getElementById(bicho).offsetTop;
-    this.content.scrollTo(0, yOffset, 1000);
+    this.content.scrollTo(0, yOffset - 50, 1000);
   }
 
   ionViewDidLoad() {
@@ -193,17 +197,39 @@ export class HomePage {
     }
   }
 
+  insectosEncontrados(nombre, coincidencia) {
+    console.log("insecotsEcnotrados antes", this.insectos)
+    switch (nombre) {
+      case 'elmido':
+        (coincidencia == 'si') ? this.insectos.elmido = 'si' : this.insectos.elmido = 'no';
+        break;
+      case 'patudo':
+        (coincidencia == 'si') ? this.insectos.patudo = 'si' : this.insectos.patudo = 'no';
+        break;
+      case 'plecoptero':
+        (coincidencia == 'si') ? this.insectos.plecoptero = 'si' : this.insectos.plecoptero = 'no';
+        break;
+      case 'tricoptero':
+        (coincidencia == 'si') ? this.insectos.tricoptero = 'si' : this.insectos.tricoptero = 'no';
+        break;
+
+      default:
+        break;
+    }
+    console.log("insectos encontrados switch assign", this.insectos)
+  }
+
   controlDeDatos() {
 
-    let elmidos = this.coincidencia.value.elmidos;
-    let plecopteros = this.coincidencia.value.plecopteros;
-    let tricopteros = this.coincidencia.value.tricopteros;
-    let patudos = this.coincidencia.value.patudos;
+    let elmidos = this.insectos.elmido;
+    let plecopteros = this.insectos.plecoptero;
+    let tricopteros = this.insectos.tricoptero;
+    let patudos = this.insectos.patudo;
     let observaciones = (this.coincidencia.value.observaciones === null) ? this.coincidencia.value.observaciones = '' : this.coincidencia.value.observaciones;
     if (this.fotoPaisaje != null && this.fotoMuestra != null) {
       if (elmidos == null || plecopteros == null || tricopteros == null || patudos == null) {
         let titulo = "Encuesta";
-        let mensaje = "Debe seleccionar SI o NO en cada bicho."
+        let mensaje = "Debe seleccionar SI o NO para cada insecto."
         this.mostrarAlerta(titulo, mensaje);
       } else {
         this.crearRegistro(patudos, elmidos, plecopteros, tricopteros, observaciones);

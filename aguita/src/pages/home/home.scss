@@ -2,6 +2,20 @@
 .md {
     home-page {
 
+        .botonActivoBackground{
+            // box-shadow: inset 5px 5px 0px 0px rgb(139, 57, 46);
+            background-color: #c04232;
+        }
+        .botonDesactivoBackground{
+            background-color: white;
+        }
+        .botonActivoTexto{
+            color: white;
+        }
+        .botonDesactivoTexto{
+            color: #c04232;
+        }
+        
         .footerToolbar{
             padding: 5px 0px 0px 0px !important;
             font-size: 1.5em;
@@ -144,6 +158,9 @@
         ion-card,
         ion-card ion-item {
             background: #FAFAFA !important;
+        }
+        ion-card div{
+            color: #c04232;
         }
         #observaciones,
         #observaciones ion-item {
