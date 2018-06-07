@@ -132,7 +132,7 @@ export class HomePage {
 
   public move(bicho) {
     let yOffset = document.getElementById(bicho).offsetTop;
-    this.content.scrollTo(0, yOffset - 50, 1000);
+    this.content.scrollTo(0, yOffset - 50, 500);
   }
 
   ionViewDidLoad() {
