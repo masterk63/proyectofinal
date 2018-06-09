@@ -21,7 +21,7 @@ import { LoginPage } from '../pages/login-page/login-page';
 
 
 //Components 
-import {HeaderComponent} from '../components/header/header';
+import { HeaderComponent } from '../components/header/header';
 
 //Providers
 import { Auth } from '../providers/auth';
@@ -57,11 +57,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 //Chip
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 
 //ToolTip
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ExcelServiceProvider } from '../providers/excel-service/excel-service';
+
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -115,6 +117,7 @@ import { ExcelServiceProvider } from '../providers/excel-service/excel-service';
     Storage,
     { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() },
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
     UsuariosService,
     Ubicacion,
     RegistrosService,

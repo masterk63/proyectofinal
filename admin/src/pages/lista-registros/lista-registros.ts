@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { RegistrosService } from '../../providers/registrosService';
 import Registro from '../../models/registro'
 import { ViewController } from 'ionic-angular';
@@ -40,14 +40,16 @@ export class ListaRegistrosPage {
   filtrosEstado = [{ nombre: 'Pendiente', estado: true, valor: 0 }, { nombre: 'Valido', estado: false, valor: 1 }, { nombre: 'Invalido', estado: false, valor: -1 }, { nombre: 'Todos', estado: false, valor: 10 }]
   filtrosTemporales = [{ nombre: 'Ultima Semana', estado: true, valor: '' }, { nombre: 'Ultimo Mes', estado: false, valor: '' }, { nombre: '', estado: false, valor: '' }]
   fechaActual: any;
-  fechaHaceUnaSemana: any;
+  fechaVieja: any;
   now: any;
   lastWeek: any;
   lastMonth: any;
   fechaInicio: any;
   fechaFin: any;
-  
+  mensajeDeFechas: any;
+
   constructor(public navCtrl: NavController,
+    public alertCtrl: AlertController,
     public registroSrv: RegistrosService) {
     this.now = moment().toISOString().split("T")[0];
     this.lastWeek = moment().subtract(1, 'week').toISOString().split("T")[0];
@@ -55,7 +57,8 @@ export class ListaRegistrosPage {
     this.filtrosTemporales[0].valor = this.lastWeek;
     this.filtrosTemporales[1].valor = this.lastMonth;
     this.fechaActual = moment().format("DD, MMM YYYY");
-    this.fechaHaceUnaSemana = moment().subtract(1, 'week').format("DD, MMM YYYY");
+    this.fechaVieja = moment().subtract(1, 'week').format("DD, MMM YYYY");
+    this.mensajeDeFechas = 'de los ulitmos 7 dias ';
   }
 
   ngAfterViewInit() {
@@ -120,6 +123,14 @@ export class ListaRegistrosPage {
     let fecha = this.filtrosTemporales.find(f => f.estado == true);
     let filtro;
     if (fecha.nombre) {
+      if (fecha.nombre == 'Ultima Semana') {
+        this.mensajeDeFechas = 'de los ulitmos 7 dias ';
+        this.fechaVieja = moment().subtract(1, 'week').format("DD, MMM YYYY");
+      } else {
+        this.mensajeDeFechas = 'del ultimo mes ';
+        this.fechaVieja = moment().subtract(1, 'month').format("DD, MMM YYYY");
+
+      }
       filtro = {
         now: this.now,
         lastWeek: fecha.valor,
@@ -136,17 +147,40 @@ export class ListaRegistrosPage {
   }
 
   filtrarPorRangoFecha() {
+    this.mensajeDeFechas = 'del rango de fecha de ';
     for (let c of this.filtrosTemporales) {
       c.estado = false;
     }
     this.filtrosTemporales[2].estado = true;
     let estado = this.filtrosEstado.find(f => f.estado == true);
+    this.fechaActual = moment(this.fechaFin).format("DD, MMM YYYY");    
+    this.fechaVieja = moment(this.fechaInicio).format("DD, MMM YYYY");    
     let filtro = {
       now: moment(this.fechaFin).toISOString().split('T')[0],
       lastWeek: moment(this.fechaInicio).toISOString().split('T')[0],
       estado: estado.valor
     }
     this.cargarRegistros(filtro);
+  }
+
+  validarMultipleSeleccion(){
+    if(this.selection.selected.length){
+      if(this.selection.selected.find( r => r.estado == '0')){
+        let registrosAValidar = this.selection.selected.filter( r => r.estado == '0');
+        console.log('registros a validar',registrosAValidar)
+      }else{
+        this.mostrarAlerta('Error','Solo se puede validar registros en estado pendientes');
+      }
+    }
+  }
+
+  mostrarAlerta(titulo, mensaje) {
+    let alert = this.alertCtrl.create({
+      title: titulo,
+      subTitle: mensaje,
+      buttons: ['ACEPTAR']
+    });
+    alert.present();
   }
 
 }
