@@ -33,7 +33,7 @@ export class Camara {
             this.camera.getPicture({
                 destinationType: this.camera.DestinationType.DATA_URL,
                 targetWidth: 1920,
-                targetHeight: 1080,
+                targetHeight: 1200,
                 allowEdit: true,
                 correctOrientation: true,
             }).then((imageData) => {

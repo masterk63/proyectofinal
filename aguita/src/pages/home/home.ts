@@ -45,7 +45,7 @@ export class HomePage {
   registro: string = "mapa";
   fotoPaisajeURL = 'data:image/jpeg;base64,';
   fotoPaisaje: any;
-  fotoMuestra: any;
+  fotoMuestra: any = true;
   fotoMapa: any = '';
   fotoMuestraURL = 'data:image/jpeg;base64,';
   listaDBlocal: any;
@@ -96,7 +96,7 @@ export class HomePage {
   ) {
     this.menuCtrl.enable(false);
     //Detecta la ubicacion
-    this.ubicacion();
+    // this.ubicacion();
 
     (this.platform.is('android')) ? this.claseHeader = "androidHeader" : false;
     (this.platform.is('ios')) ? this.claseHeader = "iosHeader" : false;

@@ -84,31 +84,35 @@
     <allow-navigation href="http://192.168.1.7:8100" />
     <allow-navigation href="http://localhost:8100" />
     <allow-navigation href="http://192.168.1.90:8100" />
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <plugin name="cordova-plugin-console" spec="^1.1.0" />
-    <plugin name="cordova-plugin-statusbar" spec="^2.3.0" />
-    <plugin name="cordova-plugin-device" spec="^1.1.7" />
-    <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
-    <plugin name="cordova-plugin-camera" spec="^2.4.1" />
-    <plugin name="cordova-sqlite-storage" spec="^2.1.4" />
-    <plugin name="cordova-plugin-googlemaps" spec="^2.1.1">
-        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDgvGKPGqI8NHne4tdO4ZMIHE_QcCeEWbk" />
-        <variable name="API_KEY_FOR_IOS" value="AIzaSyDEVLTEbFcVgNm2anHlKEfiqvnJYUYa6No" />
-    </plugin>
-    <plugin name="cordova-plugin-network-information" spec="^1.3.4" />
     <allow-navigation href="http://192.168.1.10:8100" />
     <allow-navigation href="http://192.168.1.14:8100" />
     <allow-navigation href="http://192.168.1.91:8100" />
     <allow-navigation href="http://192.168.1.15:8100" />
-    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <allow-navigation href="http://192.168.1.11:8100" />
-    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
-        <variable name="APP_ID" value="164639320988358" />
-        <variable name="APP_NAME" value="Aguita" />
-    </plugin>
     <allow-navigation href="http://192.168.0.20:8100" />
     <allow-navigation href="http://192.168.1.19:8100" />
     <allow-navigation href="http://192.168.1.250:8100" />
-    <engine name="ios" spec="4.5.4" />
-    <engine name="android" spec="^6.3.0" />
+    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cordova-plugin-console" spec="^1.1.0" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
+    <plugin name="cordova-plugin-device" spec="^2.0.2" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-sqlite-storage" spec="^2.1.4">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDgvGKPGqI8NHne4tdO4ZMIHE_QcCeEWbk" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyDEVLTEbFcVgNm2anHlKEfiqvnJYUYa6No" />
+    </plugin>
+    <plugin name="cordova.plugins.diagnostic" spec="^3.9.2" />
+    <plugin name="cordova-plugin-googlemaps" spec="^2.3.6">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDgvGKPGqI8NHne4tdO4ZMIHE_QcCeEWbk" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyDEVLTEbFcVgNm2anHlKEfiqvnJYUYa6No" />
+    </plugin>
+    <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
+    <plugin name="cordova-plugin-facebook4" spec="^1.10.1">
+        <variable name="APP_ID" value="164639320988358" />
+        <variable name="APP_NAME" value="Aguita" />
+    </plugin>
+    <engine name="android" spec="~6.3.0" />
+    <allow-navigation href="http://192.168.1.12:8100" />
 </widget>

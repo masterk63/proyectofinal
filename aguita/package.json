@@ -87,7 +87,10 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-camera": {},
-      "cordova-sqlite-storage": {},
+      "cordova-sqlite-storage": {
+        "API_KEY_FOR_ANDROID": "AIzaSyDgvGKPGqI8NHne4tdO4ZMIHE_QcCeEWbk",
+        "API_KEY_FOR_IOS": "AIzaSyDEVLTEbFcVgNm2anHlKEfiqvnJYUYa6No"
+      },
       "cordova.plugins.diagnostic": {},
       "cordova-plugin-googlemaps": {
         "API_KEY_FOR_ANDROID": "AIzaSyDgvGKPGqI8NHne4tdO4ZMIHE_QcCeEWbk",
