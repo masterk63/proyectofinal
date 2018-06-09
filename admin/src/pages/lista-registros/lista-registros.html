@@ -51,7 +51,7 @@
               <ion-row>
                 <ion-col>
                   <span class="letrasFiltros">Acciones</span>
-                  <button ion-button round outline>Validar Seleccion</button>
+                  <button ion-button round outline [disabled]="!this.selection.selected.length" (click)="validarMultipleSeleccion()">Validar Seleccion</button>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -64,7 +64,7 @@
                   <ion-row>
                     <ion-col col-9>
                       <span>Registros</span>
-                      <span>de los ulitmos 7 dias ({{fechaHaceUnaSemana}} - {{fechaActual}})</span>
+                      <span>{{mensajeDeFechas}} ({{fechaVieja}} - {{fechaActual}})</span>
                       <span float-end margin-right class="excel">
                         <a href="">
                           Exportar a Excel
