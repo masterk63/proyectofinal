@@ -45,7 +45,7 @@ export class HomePage {
   registro: string = "mapa";
   fotoPaisajeURL = 'data:image/jpeg;base64,';
   fotoPaisaje: any;
-  fotoMuestra: any = true;
+  fotoMuestra: any;
   fotoMapa: any = '';
   fotoMuestraURL = 'data:image/jpeg;base64,';
   listaDBlocal: any;

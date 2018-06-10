@@ -113,6 +113,7 @@
         <variable name="APP_ID" value="164639320988358" />
         <variable name="APP_NAME" value="Aguita" />
     </plugin>
-    <engine name="android" spec="~6.3.0" />
     <allow-navigation href="http://192.168.1.12:8100" />
+    <engine name="ios" spec="4.5.4" />
+    <engine name="android" spec="6.3.0" />
 </widget>

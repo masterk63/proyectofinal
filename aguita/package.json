@@ -40,7 +40,7 @@
     "@types/pouchdb": "6.3.2",
     "angular4-social-login": "^1.1.1",
     "cordova": "8.0.0",
-    "cordova-android": "^6.3.0",
+    "cordova-android": "6.3.0",
     "cordova-ios": "4.5.4",
     "cordova-plugin-camera": "^4.0.0",
     "cordova-plugin-compat": "^1.2.0",
@@ -58,12 +58,14 @@
     "ionic-img-viewer": "^2.9.0",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
+    "minimist": "^1.2.0",
     "npm": "^5.5.1",
     "pouchdb": "^6.3.4",
     "rxjs": "5.5.6",
     "socket.io-client": "^2.0.4",
     "sw-toolbox": "3.6.0",
     "web-animations-js": "^2.3.1",
+    "xml2js": "^0.4.19",
     "zone.js": "0.8.18"
   },
   "devDependencies": {
