@@ -106,11 +106,6 @@ export class LoginPage {
       duration: 2000,
       position: 'top'
     });
-
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-
     toast.present();
   }
 

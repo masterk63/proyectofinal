@@ -31,8 +31,14 @@ exports.registrosListarMarkers = function (req, res) {
 }
 
 exports.registroValidar = function (req, res) {
-  Registro.validar(req.params.id, function (consulta) {
-    res.json(consulta);
+  Registro.validar(req.body.registros, function (consulta) {
+    console.log(consulta)
+    if(consulta[0].codigo == 0){
+      res.statusMessage = consulta[0].mensaje;
+      res.status(400).end();
+    }else{
+      res.status(200).json(consulta);
+    }
   });
 }
 

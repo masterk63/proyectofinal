@@ -51,8 +51,8 @@ module.exports = function(app){
     apiRegistros.post('/registroNuevo',RegistrosController.registroNuevo);
     apiRegistros.get('/listarMarkers',RegistrosController.registrosListarMarkers);
     apiRegistros.get('/registroDame/:id',RegistrosController.registroDame);
-    apiRegistros.get('/registroValidar/:id',RegistrosController.registroValidar);
-    apiRegistros.get('/registroInvalidar/:id',RegistrosController.registroInvalidar);
+    apiRegistros.post('/registroValidar/',RegistrosController.registroValidar);
+    apiRegistros.post('/registroInvalidar/:id',RegistrosController.registroInvalidar);
     
     // Set up routes
     //Esto es para que use la ruta! sino error

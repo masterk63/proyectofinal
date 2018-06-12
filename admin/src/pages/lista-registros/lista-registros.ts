@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ToastController } from 'ionic-angular';
 import { RegistrosService } from '../../providers/registrosService';
 import Registro from '../../models/registro'
 import { ViewController } from 'ionic-angular';
@@ -50,6 +50,7 @@ export class ListaRegistrosPage {
 
   constructor(public navCtrl: NavController,
     public alertCtrl: AlertController,
+    public toastCtrl: ToastController,
     public registroSrv: RegistrosService) {
     this.now = moment().toISOString().split("T")[0];
     this.lastWeek = moment().subtract(1, 'week').toISOString().split("T")[0];
@@ -119,6 +120,7 @@ export class ListaRegistrosPage {
   }
 
   filtrarRegistros() {
+    this.selection.clear();
     let estado = this.filtrosEstado.find(f => f.estado == true);
     let fecha = this.filtrosTemporales.find(f => f.estado == true);
     let filtro;
@@ -147,6 +149,7 @@ export class ListaRegistrosPage {
   }
 
   filtrarPorRangoFecha() {
+    this.selection.clear();
     this.mensajeDeFechas = 'del rango de fecha de ';
     for (let c of this.filtrosTemporales) {
       c.estado = false;
@@ -167,11 +170,23 @@ export class ListaRegistrosPage {
     if(this.selection.selected.length){
       if(this.selection.selected.find( r => r.estado == '0')){
         let registrosAValidar = this.selection.selected.filter( r => r.estado == '0');
-        console.log('registros a validar',registrosAValidar)
+        let reg = registrosAValidar.map( r => r.idRegistro).toString();
+        console.log(reg);
+        this.registroSrv.registroValidar(reg).then( res => {
+          this.presentToast('Registros Actulizados Correctamente');
+          this.filtrarRegistros();
+        }).catch( e => this.mostrarAlerta('Error',e));
       }else{
         this.mostrarAlerta('Error','Solo se puede validar registros en estado pendientes');
       }
     }
+  }
+
+  validarRegistro(idReg){
+    this.registroSrv.registroValidar(idReg).then( res => {
+      this.presentToast('Registro Actulizado Correctamente');
+      this.filtrarRegistros();
+    }).catch( e => this.mostrarAlerta('Error',e));
   }
 
   mostrarAlerta(titulo, mensaje) {
@@ -182,6 +197,17 @@ export class ListaRegistrosPage {
     });
     alert.present();
   }
+
+  presentToast(mensaje) {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 3000,
+      position: 'top'
+    });
+
+    toast.present();
+  }
+
 
 }
 

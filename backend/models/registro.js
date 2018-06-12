@@ -50,8 +50,9 @@ exports.dame = function (id, fn) {
     });
 }
 
-exports.validar = function (id, fn) {
-    connection.query('call registro_validar(' + id + ')', function (err, rows) {
+exports.validar = function (reg, fn) {
+    var registros = '"' + reg + '"';
+    connection.query('call registro_validar(' + registros + ')', function (err, rows) {
         if (err) fn(err);
         fn(rows[0]);
     });

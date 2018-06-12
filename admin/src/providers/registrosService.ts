@@ -58,14 +58,14 @@ export class RegistrosService {
     });
   }
 
-  registroValidar(idRegistro) {
+  registroValidar(r) {
     return new Promise((resolve, reject) => {
-      this.http.get(configServer.data.urlServidor + '/api/registroValidar/' + idRegistro)
+      this.http.post(configServer.data.urlServidor + '/api/registroValidar/',{ registros: r})
         .map(res => res.json())
         .subscribe(resultado => {
           this.mensajeValidar = resultado;
           resolve(this.mensajeValidar);
-        }, error => reject("Error de conexion")
+        }, error => reject(error)
         );
     });
   }
@@ -77,7 +77,7 @@ export class RegistrosService {
         .subscribe(resultado => {
           this.mensajeInvalidar = resultado;
           resolve(this.mensajeInvalidar);
-        }, error => reject("Error de conexion")
+        }, error => reject(error)
         );
     });
   }
