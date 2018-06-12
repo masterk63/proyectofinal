@@ -51,15 +51,17 @@ exports.dame = function (id, fn) {
 }
 
 exports.validar = function (reg, fn) {
-    var registros = '"' + reg + '"';
+    let registros = '"' + reg + '"';
     connection.query('call registro_validar(' + registros + ')', function (err, rows) {
         if (err) fn(err);
         fn(rows[0]);
     });
 }
 
-exports.invalidar = function (id, fn) {
-    connection.query('call registro_invalidar(' + id + ')', function (err, rows) {
+exports.invalidar = function (reg, fn) {
+    let registros = '"' + reg + '"';
+    console.log(registros)
+    connection.query('call registro_invalidar(' + registros + ')', function (err, rows) {
         if (err) fn(err);
         fn(rows[0]);
     });

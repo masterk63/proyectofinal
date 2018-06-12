@@ -168,8 +168,8 @@ export class ListaRegistrosPage {
 
   validarMultipleSeleccion(){
     if(this.selection.selected.length){
-      if(this.selection.selected.find( r => r.estado == '0')){
-        let registrosAValidar = this.selection.selected.filter( r => r.estado == '0');
+      if(!this.selection.selected.find( r => r.estado == '1')){
+        let registrosAValidar = this.selection.selected.filter( r => r.estado != '1');
         let reg = registrosAValidar.map( r => r.idRegistro).toString();
         console.log(reg);
         this.registroSrv.registroValidar(reg).then( res => {
@@ -177,13 +177,36 @@ export class ListaRegistrosPage {
           this.filtrarRegistros();
         }).catch( e => this.mostrarAlerta('Error',e));
       }else{
-        this.mostrarAlerta('Error','Solo se puede validar registros en estado pendientes');
+        this.mostrarAlerta('Error','Solo se puede validar registros que no se hallan valido previamente');
+      }
+    }
+  }
+
+  invalidarMultipleSeleccion(){
+    if(this.selection.selected.length){
+      if(!this.selection.selected.find( r => r.estado != '1')){
+        let registrosAValidar = this.selection.selected.filter( r => r.estado == '1');
+        let reg = registrosAValidar.map( r => r.idRegistro).toString();
+        console.log(reg);
+        this.registroSrv.registroInvalidar(reg).then( res => {
+          this.presentToast('Registros Actulizados Correctamente');
+          this.filtrarRegistros();
+        }).catch( e => this.mostrarAlerta('Error',e));
+      }else{
+        this.mostrarAlerta('Error','Solo se puede invalidar registros ya validados');
       }
     }
   }
 
   validarRegistro(idReg){
     this.registroSrv.registroValidar(idReg).then( res => {
+      this.presentToast('Registro Actulizado Correctamente');
+      this.filtrarRegistros();
+    }).catch( e => this.mostrarAlerta('Error',e));
+  }
+
+  invalidarRegistro(idReg){
+    this.registroSrv.registroInvalidar(idReg).then( res => {
       this.presentToast('Registro Actulizado Correctamente');
       this.filtrarRegistros();
     }).catch( e => this.mostrarAlerta('Error',e));

@@ -52,6 +52,7 @@
                 <ion-col>
                   <span class="letrasFiltros">Acciones</span>
                   <button ion-button round outline [disabled]="!this.selection.selected.length" (click)="validarMultipleSeleccion()">Validar Seleccion</button>
+                  <button ion-button round outline [disabled]="!this.selection.selected.length" (click)="invalidarMultipleSeleccion()">Invalidar Seleccion</button>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -134,8 +135,11 @@
                     <button style="color:#269ED9" mat-icon-button matTooltip="Ver" [matTooltipPosition]="'above'">
                       <mat-icon (click)="verRegistro(element.idRegistro)">visibility</mat-icon>
                     </button>
-                    <button *ngIf="element.estado == 0" style="color:#139216" mat-icon-button matTooltip="Validar" [matTooltipPosition]="'above'">
+                    <button *ngIf="element.estado != 1" style="color:#139216" mat-icon-button matTooltip="Validar" [matTooltipPosition]="'above'">
                       <mat-icon (click)="validarRegistro(element.idRegistro)">check_circle</mat-icon>
+                    </button>
+                    <button *ngIf="element.estado == 1" color="warn"  mat-icon-button matTooltip="Invalidar" [matTooltipPosition]="'above'">
+                      <mat-icon (click)="invalidarRegistro(element.idRegistro)">remove_circle</mat-icon>
                     </button>
                   </mat-cell>
                 </ng-container>

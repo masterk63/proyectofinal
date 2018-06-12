@@ -70,13 +70,13 @@ export class RegistrosService {
     });
   }
 
-  registroInvalidar(idRegistro) {
+  registroInvalidar(r) {
     return new Promise((resolve, reject) => {
-      this.http.get(configServer.data.urlServidor + '/api/registroInvalidar/' + idRegistro)
+      this.http.post(configServer.data.urlServidor + '/api/registroInvalidar/',{ registros: r})
         .map(res => res.json())
         .subscribe(resultado => {
-          this.mensajeInvalidar = resultado;
-          resolve(this.mensajeInvalidar);
+          this.mensajeValidar = resultado;
+          resolve(this.mensajeValidar);
         }, error => reject(error)
         );
     });
