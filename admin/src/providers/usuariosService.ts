@@ -19,9 +19,9 @@ export class UsuariosService {
     return new Promise<Array<Usuario>>((resolve, reject) => {
       console.log("usuarios no cargados, comunicando provider");
       this.http.post(configServer.data.urlServidor + '/api/usuariosListar', estado)
+        .map(res => res.json())
         .subscribe(resultado => {
-          this.usuarios = resultado;
-          this.usuarios = JSON.parse(this.usuarios._body);
+          this.usuarios = resultado.map( usr => new Usuario(usr));
           resolve(this.usuarios);
         }, error => reject("Error de conexion")
         );

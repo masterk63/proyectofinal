@@ -23,11 +23,7 @@
               <ion-row>
                 <ion-col>
                   <mat-form-field class="example-full-width" style="margin-right: 20px;">
-                    <input (keyup)="filterItems($event,'apellido')" matInput placeholder="Apellido">
-                    <mat-icon matSuffix>search</mat-icon>
-                  </mat-form-field>
-                  <mat-form-field class="example-full-width">
-                    <input (keyup)="filterItems($event,'mail')" matInput placeholder="Mail">
+                    <input (keyup)="filterItems($event)" matInput placeholder="Apellido o Nombre o Mail">
                     <mat-icon matSuffix>search</mat-icon>
                   </mat-form-field>
                 </ion-col>
