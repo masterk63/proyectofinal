@@ -47,7 +47,6 @@ export class ListaUsuariosPage {
       console.log(usr);
       this.usuarios = usr;
       this.mostrarTarjetas = true;
-      console.log(this.usuarios[0].filtro)
       this.dataSource = new MatTableDataSource<Usuario>(this.usuarios);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -71,7 +70,7 @@ export class ListaUsuariosPage {
 
   filterItems(searchTerm) {
     this.dataSource = new MatTableDataSource<Usuario>(this.usuarios.filter((atributo) => {
-      return atributo.apellido.toLowerCase().indexOf(searchTerm.target.value.toLowerCase()) > -1;
+      return atributo.filtro.toLowerCase().indexOf(searchTerm.target.value.toLowerCase()) > -1;
     }));
   }
 

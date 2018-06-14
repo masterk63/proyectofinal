@@ -1,63 +1,52 @@
-page-registro {    
-
+page-registro {
     .scroll-content {
         margin-bottom: 68px;
     }
-    .cardAcostada{
+    .cardAcostada {
         margin: 10px auto !important;
         border-radius: 8px;
-        box-shadow: 0 9px 6px rgba(0,0,0,0.16), 0 1px 0px rgba(0,0,0,0.23);
+        box-shadow: 0 9px 6px rgba(0, 0, 0, 0.16), 0 1px 0px rgba(0, 0, 0, 0.23);
         width: calc(100% - 20px);
         border: 1px solid #F1F1F1;
     }
-
-    .scroll-content{
+    .scroll-content {
         background-color: white !important;
     }
-
-    
-    .cardAcostada ion-col{
+    .cardAcostada ion-col {
         height: 250px;
     }
-
-    .cardAcostada ion-col:nth-child(1){
+    .cardAcostada ion-col:nth-child(1) {
         background-position: center;
         position: relative;
         border: none;
         background-size: cover;
     }
-
-    .cardAcostada ion-col:nth-child(2){
+    .cardAcostada ion-col:nth-child(2) {
         background: white;
         color: #899194;
         text-align: center;
         display: table;
         width: 100%;
     }
-
-    .cardAcostada div{
+    .cardAcostada div {
         display: table-cell;
-        vertical-align: middle;      
+        vertical-align: middle;
     }
-
-    .cardAcostada .icon{
+    .cardAcostada .icon {
         font-size: 2em !important;
     }
-
-    .cardAcostada h2{
+    .cardAcostada h2 {
         display: inline-block;
     }
-    
-    .grid{
+    .grid {
         padding: 0px !important;
     }
-
-    h2, p {
+    h2,
+    p {
         color: #899194 !important;
         margin: 8px !important;
         font-size: 1.4rem !important;
     }
-
     .center {
         margin: 0 auto;
     }
@@ -78,7 +67,7 @@ page-registro {
         background-color: #F5F4F5;
         color: #899194;
         min-width: 65px;
-        border: 1px solid rgba(0,0,0,0.1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
     }
     .tabla td {
         padding: 5px;
@@ -86,15 +75,14 @@ page-registro {
         background-color: white;
         color: #899194;
         text-align: center;
-        border: 1px solid rgba(0,0,0,0.1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
     }
     .tabla {
         width: 100%;
         display: block !important;
         margin-left: -2px;
     }
-
-    .tabla table{
+    .tabla table {
         margin: 0 auto;
         margin-bottom: 2px;
     }
@@ -112,37 +100,33 @@ page-registro {
             right: 0;
             bottom: 0;
             left: 0;
-            background-image: linear-gradient(to top,black,transparent,transparent);
-            opacity: .7; 
-          }
+            background-image: linear-gradient(to top, black, transparent, transparent);
+            opacity: .7;
+        }
     }
     .titulo {
         width: 100%;
         padding: 9px;
         background: transparent;
     }
-
-    .titulo h2{
+    .titulo h2 {
         font-size: 3em !important;
-        color:black !important;
+        color: black !important;
         font-weight: 300;
     }
-    .titulo h1{
+    .titulo h1 {
         font-size: 1em;
-        color:#899194;
+        color: #899194;
         margin-left: 8px;
         margin: 0px 8px;
         font-weight: 300;
     }
-
-    .titulo span{
-        float:right;
+    .titulo span {
+        float: right;
     }
-
-    .titulo a{
-        color:#899194;
+    .titulo a {
+        color: #899194;
     }
-
     th {
         font-size: 10px;
         font-weight: normal;
@@ -155,5 +139,18 @@ page-registro {
         width: 100px;
         border-radius: 15%;
         font-size: 15px;
+    }
+    .adminComments {
+        max-width: calc( 100% - 20px);
+        margin: 0 auto;
+        position: relative;
+        textarea {
+            height: 120px;
+        }
+        .actionsComments {
+            position: absolute;
+            top: 13px;
+            right: 13px;
+        }
     }
 }
