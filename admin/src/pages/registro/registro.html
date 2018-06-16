@@ -91,18 +91,15 @@
           <ion-list class="mat-elevation-z4">
             <ion-item>
               <ion-label color="primary" stacked>Observaciones</ion-label>
-              <ion-textarea></ion-textarea>
+              <ion-textarea placeholder="El administrador no hizo ningun comentario" [disabled]="!editComment" [(ngModel)]="comment"></ion-textarea>
             </ion-item>
           </ion-list>
           <div class="actionsComments">
-            <button ion-button icon-only clear small>
-              <ion-icon name="home"></ion-icon>
+            <button mat-icon-button *ngIf="editComment" (click)="addComment()">
+              <mat-icon style="color:#8cb52f" aria-label="Guardar" matTooltip="Guardar" [matTooltipPosition]="'above'">save</mat-icon>
             </button>
-            <button ion-button icon-only clear small>
-              <ion-icon name="home"></ion-icon>
-            </button>
-            <button ion-button icon-only clear small>
-              <ion-icon name="home"></ion-icon>
+            <button mat-icon-button *ngIf="!editComment" (click)="addComment()">
+              <mat-icon style="color:#ffa463" aria-label="Editar" matTooltip="Editar" [matTooltipPosition]="'above'">create</mat-icon>
             </button>
           </div>
         </ion-col>

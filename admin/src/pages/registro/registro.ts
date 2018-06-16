@@ -22,6 +22,8 @@ export class RegistroPage {
   fotoPaisajeURLSafe: any;
   valido: any;
   rol = null;
+  editComment:boolean = false;
+  comment:any;
   _imageViewerCtrl: ImageViewerController;
   @Input() idRegistro:any;
 
@@ -40,6 +42,7 @@ export class RegistroPage {
 
   ngOnChanges(){
     if(this.idRegistro > 0){
+      this.editComment = false;
       this.registroDame();
     }
   }
@@ -160,6 +163,13 @@ export class RegistroPage {
       ]
     });
     confirm.present();
+  }
+
+  addComment(){
+    if(this.editComment && this.comment){
+      console.log(this.comment)
+    }
+    this.editComment = !this.editComment;
   }
 
   mostrarAlerta(mensaje, titulo) {
