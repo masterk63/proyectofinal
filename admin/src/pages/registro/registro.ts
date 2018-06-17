@@ -1,5 +1,5 @@
 import { Component,Input, AnimationStyleMetadata } from '@angular/core';
-import { FabContainer, AlertController, NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
+import { FabContainer, AlertController, NavController, NavParams, LoadingController, Platform, ToastController } from 'ionic-angular';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RegistrosService } from '../../providers/registrosService';
 import { ImageViewerController } from 'ionic-img-viewer';
@@ -31,6 +31,7 @@ export class RegistroPage {
     public params: NavParams,
     public regService: RegistrosService,
     private sanitizer: DomSanitizer,
+    public toastCtrl:ToastController,
     public imageViewerCtrl: ImageViewerController,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
@@ -62,6 +63,7 @@ export class RegistroPage {
       this.fotoMuestraURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL);
       this.fotoMapaURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMapaURL);
       this.fotoPaisajeURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL);
+      (this.registro.comentAdmin) ? this.comment = this.registro.comentAdmin : this.comment = null;
       this.loading.dismiss();
     }).catch((err) => {
       this.loading.dismiss(),
@@ -154,7 +156,6 @@ export class RegistroPage {
           handler: () => {
             if (accion == 'validar') {
               this.validarRegistro(idRegistro);
-
             } else {
               this.invalidarRegistro(idRegistro);
             }
@@ -166,8 +167,14 @@ export class RegistroPage {
   }
 
   addComment(){
-    if(this.editComment && this.comment){
-      console.log(this.comment)
+    if(this.editComment){
+      let qurey = {
+        comentario: this.comment,
+        id: this.idRegistro
+      }
+      this.regService.addComment(qurey).then( res => {
+        this.presentToast(res.mensaje)
+      }).catch ( e => this.mostrarAlerta('Error',e))
     }
     this.editComment = !this.editComment;
   }
@@ -186,6 +193,16 @@ export class RegistroPage {
       content: "Cargando registro. Espere por favor..."
     });
     this.loading.present();
+  }
+
+  presentToast(mensaje) {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 3000,
+      position: 'top'
+    });
+
+    toast.present();
   }
 
 

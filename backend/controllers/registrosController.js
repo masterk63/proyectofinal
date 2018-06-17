@@ -54,6 +54,20 @@ exports.registroInvalidar = function (req, res) {
   });
 }
 
+exports.addComment = function (req, res) {
+  Registro.addComment(req.body, function (consulta) {
+    console.log(consulta)
+    if(consulta[0].codigo == 0){
+      res.statusMessage = consulta[0].mensaje;
+      res.status(400).end();
+    }else{
+      res.status(200).json(consulta);
+    }
+  });
+}
+
+
+
 exports.registroNuevo = function (req, res, next) {
   let registro = req.body.registro;
   obtenerFotoMapa(req.body.registro).then((foto) => {

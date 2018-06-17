@@ -67,6 +67,15 @@ exports.invalidar = function (reg, fn) {
     });
 }
 
+exports.addComment = function (reg, fn) {
+    let comentario = '"' + reg.comentario + '"';
+    let id = reg.id;
+    connection.query('call registro_actualizarComentarioAdmin(' + id + ',' + comentario + ')', function (err, rows) {
+        if (err) fn(err);
+        fn(rows[0]);
+    });
+}
+
 exports.nuevo = function (registro, fn) {
     console.log('en el modelo')
     obtenerDireccion(registro.latitud, registro.longitud, function (direccion) {

@@ -21,11 +21,11 @@ export class RegistrosService {
 
   cargarRegistros(filtro) {
     return new Promise<Array<Registro>>((resolve, reject) => {
-      
+
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      this.http.post(configServer.data.urlServidor + '/api/registrosListar',JSON.stringify(filtro), { headers: headers })
+      this.http.post(configServer.data.urlServidor + '/api/registrosListar', JSON.stringify(filtro), { headers: headers })
         .map(resultado => resultado.json())
         .subscribe(resultado => {
           resolve(resultado);
@@ -60,7 +60,7 @@ export class RegistrosService {
 
   registroValidar(r) {
     return new Promise((resolve, reject) => {
-      this.http.post(configServer.data.urlServidor + '/api/registroValidar/',{ registros: r})
+      this.http.post(configServer.data.urlServidor + '/api/registroValidar/', { registros: r })
         .map(res => res.json())
         .subscribe(resultado => {
           this.mensajeValidar = resultado;
@@ -72,11 +72,22 @@ export class RegistrosService {
 
   registroInvalidar(r) {
     return new Promise((resolve, reject) => {
-      this.http.post(configServer.data.urlServidor + '/api/registroInvalidar/',{ registros: r})
+      this.http.post(configServer.data.urlServidor + '/api/registroInvalidar/', { registros: r })
         .map(res => res.json())
         .subscribe(resultado => {
           this.mensajeValidar = resultado;
           resolve(this.mensajeValidar);
+        }, error => reject(error)
+        );
+    });
+  }
+
+  addComment(c) {
+    return new Promise<any>((resolve, reject) => {
+      this.http.post(configServer.data.urlServidor + '/api/registroAgregarComentarioAdmin/', c)
+        .map(res => res.json())
+        .subscribe(resultado => {
+          resolve(resultado[0]);
         }, error => reject(error)
         );
     });

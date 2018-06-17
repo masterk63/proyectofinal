@@ -53,6 +53,7 @@ module.exports = function(app){
     apiRegistros.get('/registroDame/:id',RegistrosController.registroDame);
     apiRegistros.post('/registroValidar/',RegistrosController.registroValidar);
     apiRegistros.post('/registroInvalidar/',RegistrosController.registroInvalidar);
+    apiRegistros.post('/registroAgregarComentarioAdmin/',RegistrosController.addComment);
     
     // Set up routes
     //Esto es para que use la ruta! sino error
