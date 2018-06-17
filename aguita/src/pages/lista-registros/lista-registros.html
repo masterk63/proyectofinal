@@ -51,9 +51,19 @@
         <ion-col col-12 col-sm-6 col-md-4 col-lg-3 *ngFor="let reg of registrosOnline">
           <ion-card>
             <img src="data:image/jpeg;base64,{{reg.fotoMapa}}">
-            <ion-fab right top>
-              <button ion-fab>
-                <ion-icon name="pin"></ion-icon>
+            <ion-fab right top *ngIf="reg.estado == '1' ">
+              <button ion-fab style="background-color:#148715">
+                <ion-icon name="done-all"></ion-icon>
+              </button>
+            </ion-fab>
+            <ion-fab right top *ngIf="reg.estado == '-1' ">
+              <button ion-fab style="background-color:#F33A30">
+                <ion-icon name="close"></ion-icon>
+              </button>
+            </ion-fab>
+            <ion-fab right top *ngIf="reg.estado == '0' ">
+              <button ion-fab style="background-color:#FF3776">
+                <ion-icon name="checkmark"></ion-icon>
               </button>
             </ion-fab>
 
