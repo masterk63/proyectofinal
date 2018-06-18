@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, LoadingController} from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Ubicacion } from '../../providers/ubicacion';
 import { ConnectivityService } from '../../providers/connectivityService';
 import { ArgumentType } from '@angular/core/src/view';
@@ -36,10 +36,10 @@ export class MapaGeneralPage {
   apiKey: any = 'AIzaSyA4h0qNqE_K6GuDT5-BH2g2Mx_XcwbLSys';
   public mostrarInfo: boolean = false;
   public imagenInfo: any;
-  public indice: any;
+  public usuario: any;
   public fecha: any;
   public idRegistro: any;
-  loading:any;
+  loading: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -48,22 +48,22 @@ export class MapaGeneralPage {
     private sanitizer: DomSanitizer,
     public connectivityService: ConnectivityService,
     public ubicacionCtrl: Ubicacion) {
-      let scripts = document.getElementsByTagName("script");  
-      console.log(scripts);
-      for (let i=0;i<scripts.length;i++){
-        if(scripts[i].id == "googleMaps"){
-          var googleMapsScript = scripts[i];
-        }if(scripts[i].id == "markerclusterer"){
-          var clusterMapsScript = scripts[i];
-        }
+    let scripts = document.getElementsByTagName("script");
+    console.log(scripts);
+    for (let i = 0; i < scripts.length; i++) {
+      if (scripts[i].id == "googleMaps") {
+        var googleMapsScript = scripts[i];
+      } if (scripts[i].id == "markerclusterer") {
+        var clusterMapsScript = scripts[i];
       }
-      if(googleMapsScript){
-        document.body.removeChild(googleMapsScript);
-      }
-      if(clusterMapsScript){ 
-        document.body.removeChild(clusterMapsScript);
-      }
-      console.log(scripts);
+    }
+    if (googleMapsScript) {
+      document.body.removeChild(googleMapsScript);
+    }
+    if (clusterMapsScript) {
+      document.body.removeChild(clusterMapsScript);
+    }
+    console.log(scripts);
   }
 
   ionViewDidLoad() {
@@ -207,7 +207,7 @@ export class MapaGeneralPage {
       console.log('mis marcadores', this.markers)
       //Declaro la variable map, de google, no defino Zoom, ni la poscion de centrado
       //ya que se auto calcula, mas adelante, con bounds
-      let map = new google.maps.Map(document.getElementById('map'), {      
+      let map = new google.maps.Map(document.getElementById('map'), {
         //zoom: 5,
         //center: { lat: -28.024, lng: 140.887 }
         scrollwheel: false,
@@ -234,8 +234,9 @@ export class MapaGeneralPage {
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(m.latitud, m.longitud),
           map: map,
+          label: '' + m.indice,
           idRegistro: m.idRegistro,
-          indice: m.indice,
+          usuario: m.usuario,
         });
 
         marcadores.push(marker);
@@ -250,7 +251,7 @@ export class MapaGeneralPage {
           return () => {
             // infowindow.setContent(content);
             // infowindow.open(map, marker);
-            this.indice = m.indice;
+            this.usuario = m.usuario;
             this.fecha = m.fecha;
             this.idRegistro = m.idRegistro;
             let fotoPaisaje = 'data:image/jpeg;base64,' + m.fotoPaisaje
