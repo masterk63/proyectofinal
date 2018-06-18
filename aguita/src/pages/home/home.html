@@ -166,7 +166,7 @@
                   <p style="text-align: center;">
                     ¿Se encuentra este insecto?
                   </p>
-                  <ion-row (click)="move('observaciones')" style="font-size: 16px;">
+                  <ion-row style="font-size: 16px;">
                     <ion-col [class.botonActivoBackground]="this.insectos?.tricoptero == 'si'" [class.botonDesactivoBackground]="this.insectos?.tricoptero == 'no'"
                       (click)="insectosEncontrados('tricoptero','si')" style="padding: 10px 0;" col-6>
                       <div [class.botonActivoTexto]="this.insectos?.tricoptero == 'si'" [class.botonDesactivoTexto]="this.insectos?.tricoptero == 'no'">
@@ -184,7 +184,7 @@
               </ion-card>
             </ion-col>
           </ion-row>
-          <ion-item formControlName="observaciones">
+          <ion-item id="observaciones" formControlName="observaciones">
             <ion-label color="primary" stacked>Observaciones</ion-label>
             <ion-textarea></ion-textarea>
           </ion-item>
@@ -198,14 +198,17 @@
 <ion-footer>
   <ion-toolbar class="footerToolbar" color="secondary">
     <ion-buttons>
-      <button *ngIf="this.registro != 'obseravaciones'" ion-button block style="float: right;" (click)="siguientePaso()">Siguiente
-        <ion-icon style="margin-left: 10%;" name="ios-arrow-forward"></ion-icon>
+      <button *ngIf="this.registro != 'obseravaciones'" ion-button block style="float: right;" (click)="siguientePaso()">
+        <ion-icon style="margin-left: 10%; font-size: 2em" name="ios-arrow-forward"></ion-icon>
+      </button>
+      <button ion-button block style="text-align: center" (click)="siguientePaso()">CANCELAR
       </button>
       <button *ngIf="this.registro === 'obseravaciones'" ion-button block style="float: right;" (click)="siguientePaso()">Guardar
-        <ion-icon style="margin-left: 10%;" name="cloud-upload"></ion-icon>
+        <ion-icon style="margin-left: 10%; font-size: 2em" name="cloud-upload"></ion-icon>
       </button>
       <button *ngIf="this.registro != 'mapa'" ion-button block style="float: left;" (click)="pasoAnterior()">
-        <ion-icon style="margin-right: 10%;" name="ios-arrow-back"></ion-icon> Atras</button>
+        <ion-icon style="margin-right: 10%; font-size: 2em" name="ios-arrow-back"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
