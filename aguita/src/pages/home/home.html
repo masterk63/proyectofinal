@@ -198,16 +198,10 @@
 <ion-footer>
   <ion-toolbar class="footerToolbar" color="secondary">
     <ion-buttons>
-      <button *ngIf="this.registro != 'obseravaciones'" ion-button block style="float: right;" (click)="siguientePaso()">
-        <ion-icon style="margin-left: 10%; font-size: 2em" name="ios-arrow-forward"></ion-icon>
+      <button ion-button block style="font-weight: 700; letter-spacing: 3px;" (click)="cancelarBoton()">CANCELAR
       </button>
-      <button ion-button block style="text-align: center" (click)="siguientePaso()">CANCELAR
-      </button>
-      <button *ngIf="this.registro === 'obseravaciones'" ion-button block style="float: right;" (click)="siguientePaso()">Guardar
+      <button *ngIf="this.registro === 'obseravaciones'" ion-button block style="float: right; letter-spacing: 3px;" (click)="siguientePaso()">GUARDAR
         <ion-icon style="margin-left: 10%; font-size: 2em" name="cloud-upload"></ion-icon>
-      </button>
-      <button *ngIf="this.registro != 'mapa'" ion-button block style="float: left;" (click)="pasoAnterior()">
-        <ion-icon style="margin-right: 10%; font-size: 2em" name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>

@@ -26,6 +26,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Content } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { App } from 'ionic-angular';
+import { TabsPage } from '../tabs/tabs';
 
 
 
@@ -129,6 +130,9 @@ export class HomePage {
     }
   }
 
+  cancelarBoton(){
+    this.navCtrl.setRoot(TabsPage);
+  }
 
   public move(bicho) {
     let yOffset = document.getElementById(bicho).offsetTop;

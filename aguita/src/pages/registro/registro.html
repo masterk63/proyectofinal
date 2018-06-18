@@ -10,7 +10,6 @@
 <ion-content>
   <div *ngIf="registro">
     <ion-grid class="contenedor">
-
       <ion-row>
         <div class="titulo">
           <h2>Registro N° {{idRegistro}}</h2>
@@ -20,7 +19,11 @@
           </h1>
         </div>
       </ion-row>
-
+      <ion-row *ngIf="registro.comentAdmin">
+        <ion-col>
+          <div class="alerta">Mensaje del administrador: {{registro.comentAdmin}}</div>
+        </ion-col>
+      </ion-row>
       <ion-row>
         <ion-col col-12 col-lg-6 class="center">
           <ion-card>

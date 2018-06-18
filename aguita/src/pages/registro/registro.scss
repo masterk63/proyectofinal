@@ -2,6 +2,13 @@ page-registro {
     ion-content {
         background-color: #f1f1f4 !important;
     }
+
+    .alerta{
+        background-color: #4a87ee;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+    }
     
     .cardAcostada{
         margin: 10px auto !important;
