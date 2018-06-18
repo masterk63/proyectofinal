@@ -69,7 +69,7 @@
       <div *ngSwitchCase="'obseravaciones'">
         <form [formGroup]="coincidencia">
           <ion-row>
-            
+
             <ion-col col-12 col-sm-6 col-xl-3>
               <ion-card>
                 <img class="bichos" [src]="fotoElmido" (click)="openModal(realElmido,'elmido')" />
@@ -81,12 +81,14 @@
                     ¿Se encuentra este insecto?
                   </p>
                   <ion-row (click)="move('patudo')" style="font-size: 16px;">
-                    <ion-col [class.botonActivoBackground]="this.insectos?.elmido == 'si'" [class.botonDesactivoBackground]="this.insectos?.elmido == 'no'" (click)="insectosEncontrados('elmido','si')" style="padding: 10px 0;" col-6>
+                    <ion-col [class.botonActivoBackground]="this.insectos?.elmido == 'si'" [class.botonDesactivoBackground]="this.insectos?.elmido == 'no'"
+                      (click)="insectosEncontrados('elmido','si')" style="padding: 10px 0;" col-6>
                       <div [class.botonActivoTexto]="this.insectos?.elmido == 'si'" [class.botonDesactivoTexto]="this.insectos?.elmido == 'no'">
                         <span style="font-weight: 500;">SI</span>
                       </div>
                     </ion-col>
-                    <ion-col [class.botonActivoBackground]="this.insectos?.elmido == 'no'" [class.botonDesactivoBackground]="this.insectos?.elmido == 'si'" (click)="insectosEncontrados('elmido','no')" style="padding: 10px 0;" col-6>
+                    <ion-col [class.botonActivoBackground]="this.insectos?.elmido == 'no'" [class.botonDesactivoBackground]="this.insectos?.elmido == 'si'"
+                      (click)="insectosEncontrados('elmido','no')" style="padding: 10px 0;" col-6>
                       <div [class.botonActivoTexto]="this.insectos?.elmido == 'no'" [class.botonDesactivoTexto]="this.insectos?.elmido == 'si'">
                         <span style="font-weight: 500;">NO</span>
                       </div>
@@ -107,12 +109,14 @@
                     ¿Se encuentra este insecto?
                   </p>
                   <ion-row (click)="move('plecoptero')" style="font-size: 16px;">
-                    <ion-col [class.botonActivoBackground]="this.insectos?.patudo == 'si'" [class.botonDesactivoBackground]="this.insectos?.patudo == 'no'" (click)="insectosEncontrados('patudo','si')" style="padding: 10px 0;" col-6>
+                    <ion-col [class.botonActivoBackground]="this.insectos?.patudo == 'si'" [class.botonDesactivoBackground]="this.insectos?.patudo == 'no'"
+                      (click)="insectosEncontrados('patudo','si')" style="padding: 10px 0;" col-6>
                       <div [class.botonActivoTexto]="this.insectos?.patudo == 'si'" [class.botonDesactivoTexto]="this.insectos?.patudo == 'no'">
                         <span style="font-weight: 500;">SI</span>
                       </div>
                     </ion-col>
-                    <ion-col [class.botonActivoBackground]="this.insectos?.patudo == 'no'" [class.botonDesactivoBackground]="this.insectos?.patudo == 'si'" (click)="insectosEncontrados('patudo','no')" style="padding: 10px 0;" col-6>
+                    <ion-col [class.botonActivoBackground]="this.insectos?.patudo == 'no'" [class.botonDesactivoBackground]="this.insectos?.patudo == 'si'"
+                      (click)="insectosEncontrados('patudo','no')" style="padding: 10px 0;" col-6>
                       <div [class.botonActivoTexto]="this.insectos?.patudo == 'no'" [class.botonDesactivoTexto]="this.insectos?.patudo == 'si'">
                         <span style="font-weight: 500;">NO</span>
                       </div>
@@ -128,18 +132,20 @@
                 <img class="bichos" [src]="fotoPlecoptero" (click)="openModal(realPlecoptero,'plecoptero')" />
                 <ion-card-content style="padding: 0px;">
                   <ion-card-title>
-                      Plecoptero
+                    Plecoptero
                   </ion-card-title>
                   <p style="text-align: center;">
                     ¿Se encuentra este insecto?
                   </p>
                   <ion-row (click)="move('tricoptero')" style="font-size: 16px;">
-                    <ion-col [class.botonActivoBackground]="this.insectos?.plecoptero == 'si'" [class.botonDesactivoBackground]="this.insectos?.plecoptero == 'no'" (click)="insectosEncontrados('plecoptero','si')" style="padding: 10px 0;" col-6>
+                    <ion-col [class.botonActivoBackground]="this.insectos?.plecoptero == 'si'" [class.botonDesactivoBackground]="this.insectos?.plecoptero == 'no'"
+                      (click)="insectosEncontrados('plecoptero','si')" style="padding: 10px 0;" col-6>
                       <div [class.botonActivoTexto]="this.insectos?.plecoptero == 'si'" [class.botonDesactivoTexto]="this.insectos?.plecoptero == 'no'">
                         <span style="font-weight: 500;">SI</span>
                       </div>
                     </ion-col>
-                    <ion-col [class.botonActivoBackground]="this.insectos?.plecoptero == 'no'" [class.botonDesactivoBackground]="this.insectos?.plecoptero == 'si'" (click)="insectosEncontrados('plecoptero','no')" style="padding: 10px 0;" col-6>
+                    <ion-col [class.botonActivoBackground]="this.insectos?.plecoptero == 'no'" [class.botonDesactivoBackground]="this.insectos?.plecoptero == 'si'"
+                      (click)="insectosEncontrados('plecoptero','no')" style="padding: 10px 0;" col-6>
                       <div [class.botonActivoTexto]="this.insectos?.plecoptero == 'no'" [class.botonDesactivoTexto]="this.insectos?.plecoptero == 'si'">
                         <span style="font-weight: 500;">NO</span>
                       </div>
@@ -155,18 +161,20 @@
                 <img class="bichos" [src]="fotoTricoptero" (click)="openModal(realTricoptero,'tricoptero')" />
                 <ion-card-content style="padding: 0px;">
                   <ion-card-title>
-                      Tricoptero
+                    Tricoptero
                   </ion-card-title>
                   <p style="text-align: center;">
                     ¿Se encuentra este insecto?
                   </p>
                   <ion-row (click)="move('observaciones')" style="font-size: 16px;">
-                    <ion-col [class.botonActivoBackground]="this.insectos?.tricoptero == 'si'" [class.botonDesactivoBackground]="this.insectos?.tricoptero == 'no'" (click)="insectosEncontrados('tricoptero','si')" style="padding: 10px 0;" col-6>
+                    <ion-col [class.botonActivoBackground]="this.insectos?.tricoptero == 'si'" [class.botonDesactivoBackground]="this.insectos?.tricoptero == 'no'"
+                      (click)="insectosEncontrados('tricoptero','si')" style="padding: 10px 0;" col-6>
                       <div [class.botonActivoTexto]="this.insectos?.tricoptero == 'si'" [class.botonDesactivoTexto]="this.insectos?.tricoptero == 'no'">
                         <span style="font-weight: 500;">SI</span>
                       </div>
                     </ion-col>
-                    <ion-col [class.botonActivoBackground]="this.insectos?.tricoptero == 'no'" [class.botonDesactivoBackground]="this.insectos?.tricoptero == 'si'" (click)="insectosEncontrados('tricoptero','no')" style="padding: 10px 0;" col-6>
+                    <ion-col [class.botonActivoBackground]="this.insectos?.tricoptero == 'no'" [class.botonDesactivoBackground]="this.insectos?.tricoptero == 'si'"
+                      (click)="insectosEncontrados('tricoptero','no')" style="padding: 10px 0;" col-6>
                       <div [class.botonActivoTexto]="this.insectos?.tricoptero == 'no'" [class.botonDesactivoTexto]="this.insectos?.tricoptero == 'si'">
                         <span style="font-weight: 500;">NO</span>
                       </div>
@@ -175,18 +183,11 @@
                 </ion-card-content>
               </ion-card>
             </ion-col>
-          </ion-row> 
-
-          <ion-row>
-            <ion-col id="observaciones" col-12>
-              <ion-list formControlName="observaciones">
-                <ion-item>
-                  <ion-label color="primary" stacked>Observaciones</ion-label>
-                  <ion-textarea></ion-textarea>
-                </ion-item>
-              </ion-list>
-            </ion-col>
           </ion-row>
+          <ion-item formControlName="observaciones">
+            <ion-label color="primary" stacked>Observaciones</ion-label>
+            <ion-textarea></ion-textarea>
+          </ion-item>
         </form>
 
       </div>
@@ -203,8 +204,6 @@
       <button *ngIf="this.registro === 'obseravaciones'" ion-button block style="float: right;" (click)="siguientePaso()">Guardar
         <ion-icon style="margin-left: 10%;" name="cloud-upload"></ion-icon>
       </button>
-    </ion-buttons>
-    <ion-buttons>
       <button *ngIf="this.registro != 'mapa'" ion-button block style="float: left;" (click)="pasoAnterior()">
         <ion-icon style="margin-right: 10%;" name="ios-arrow-back"></ion-icon> Atras</button>
     </ion-buttons>
