@@ -70,12 +70,20 @@ exports.addComment = function (req, res) {
 
 exports.registroNuevo = function (req, res, next) {
   let registro = req.body.registro;
-  console.log(registro)
-  let latlng = new geometry.LatLng(registro.latitud, registro.longitud);
-  // let latlngFoto = new geometry.LatLng(registro.latitudFoto, registro.longitudFoto);
-  let latlngFoto = new geometry.LatLng(registro.latitudMapa, registro.longitudMapa);
-  let diferencia = geometry.computeDistanceBetween(latlng,latlngFoto)
-  console.log('la diferencia es de',diferencia)
+  if(registro.latitud && registro.longitud && registro.latitudFoto && registro.longitudFoto){
+    let latlng = new geometry.LatLng(registro.latitud, registro.longitud);
+    let latlngFoto = new geometry.LatLng(registro.latitudFoto, registro.longitudFoto);
+    let diferencia = geometry.computeDistanceBetween(latlng,latlngFoto)
+    if(diferencia > 100){
+      registro.criterioCienMetros = 'N';
+    }else{
+      registro.criterioCienMetros = 'Y';
+    }
+  }else{
+    registro.latitudFoto = 0;
+    registro.longitudFoto = 0;
+    registro.criterioCienMetros = 'N';
+  }
   obtenerFotoMapa(req.body.registro).then((foto) => {
     registro.fotoMapa = foto;
     Registro.nuevo(registro, function (consulta) {
