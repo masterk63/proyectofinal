@@ -10,8 +10,8 @@ import { SocketProvider } from '../../providers/socket/socket';
 export class LocalSqlProvider {
   db: SQLiteObject = null;
 
-  constructor(public http: Http, 
-    public socketPrv: SocketProvider, 
+  constructor(public http: Http,
+    public socketPrv: SocketProvider,
     public events: Events,
     private sqlite: SQLite) {
   }
@@ -52,6 +52,8 @@ export class LocalSqlProvider {
     fecha timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     latitud float NOT NULL,
     longitud float NOT NULL,
+    latitudFoto float NOT NULL,
+    longitudFoto float NOT NULL,
     fotoPaisaje longblob NOT NULL,
     fotoMuestra longblob NOT NULL,
     fotoMapa longblob NOT NULL,
@@ -78,8 +80,8 @@ export class LocalSqlProvider {
   }
 
   create(task: any) {
-    let sql = 'INSERT INTO tasks(indice, fecha, latitud, longitud,fotoPaisaje,fotoMuestra,fotoMapa, observacion, elmido, patudo, plecoptero, tricoptero, idUsuario) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
-    return this.db.executeSql(sql, [task.indice, task.fecha, task.latitud, task.longitud, task.fotoPaisaje, task.fotoMuestra, task.fotoMapa, task.observacion, task.elmidos, task.patudos, task.plecopteros, task.tricopteros, task.idUsuario]).then(res => {
+    let sql = 'INSERT INTO tasks(indice, fecha, latitud, longitud, latitudFoto, longitudFoto, fotoPaisaje,fotoMuestra, fotoMapa, observacion, elmido, patudo, plecoptero, tricoptero, idUsuario) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    return this.db.executeSql(sql, [task.indice, task.fecha, task.latitud, task.longitud, task.latitudFoto, task.longitudFoto, task.fotoPaisaje, task.fotoMuestra, task.fotoMapa, task.observacion, task.elmidos, task.patudos, task.plecopteros, task.tricopteros, task.idUsuario]).then(res => {
       console.log('registro agregado con exito')
       return Promise.resolve(res);
     }).catch(error => Promise.reject(error));
@@ -92,7 +94,7 @@ export class LocalSqlProvider {
 
   delete(reg: any) {
     let sql = 'DELETE FROM tasks WHERE idRegistro=?';
-    this.db.executeSql(sql, [reg.idRegistro]).then((regEliminado)=>{
+    this.db.executeSql(sql, [reg.idRegistro]).then((regEliminado) => {
       console.log('Registro eliminado exitosamente.')
       this.events.publish('registro:eliminado', reg, Date.now());
       reg.idRegistro = reg.idRegistroOnline;
@@ -102,10 +104,10 @@ export class LocalSqlProvider {
         this.socketPrv.publicar(reg);
       }, 1000);
     });
-  } 
+  }
 
   dame(id) {
-    let sql = 'SELECT * FROM tasks WHERE idRegistro =='+id;
+    let sql = 'SELECT * FROM tasks WHERE idRegistro ==' + id;
     return this.db.executeSql(sql, [])
       .then(response => {
         let tasks = [];
@@ -123,13 +125,13 @@ export class LocalSqlProvider {
       let sql = 'INSERT INTO tasks(indice, fecha, latitud, longitud,fotoPaisaje,fotoMuestra,fotoMapa, observacion, elmido, patudo, plecoptero, tricoptero, idUsuario) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
       this.db.executeSql(sql, [3, '2017/12/25', -26.81, -65.25, 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'hola', 'si', 'si', 'si', 'si', 2]).then(res => {
         console.log('registro agregado con exito')
-        this.dame(res.insertId).then((reg)=>{
+        this.dame(res.insertId).then((reg) => {
           observer.next(reg);
         })
       }).catch(error => observer.next(error));
     });
   }
-  
+
 
 
 }

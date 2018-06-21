@@ -3,13 +3,13 @@ var async = require('async'),
   crypto = require('crypto');
 const nodemailer = require('nodemailer');
 var i2b = require("imageurl-base64");
-
+var geometry = require('spherical-geometry-js');
 
 exports.registrosListar = function (req, res) {
   Registro.listar(req.body,function (consulta) {
     res.json(consulta);
   });
-}
+} 
 
 exports.registrosListarUsuario = function (req, res) {
   Registro.listarUsuario(req.params.id,function (consulta) {
@@ -70,6 +70,12 @@ exports.addComment = function (req, res) {
 
 exports.registroNuevo = function (req, res, next) {
   let registro = req.body.registro;
+  console.log(registro)
+  let latlng = new geometry.LatLng(registro.latitud, registro.longitud);
+  // let latlngFoto = new geometry.LatLng(registro.latitudFoto, registro.longitudFoto);
+  let latlngFoto = new geometry.LatLng(registro.latitudMapa, registro.longitudMapa);
+  let diferencia = geometry.computeDistanceBetween(latlng,latlngFoto)
+  console.log('la diferencia es de',diferencia)
   obtenerFotoMapa(req.body.registro).then((foto) => {
     registro.fotoMapa = foto;
     Registro.nuevo(registro, function (consulta) {

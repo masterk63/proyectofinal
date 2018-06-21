@@ -52,6 +52,8 @@ export class HomePage {
   listaDBlocal: any;
   latitud: any;
   longitud: any;
+  latitudFoto: any;
+  logintudFoto: any;
   coordenadas: any;
   imagenenBase64 = '';
   fotoPaisajeURLSafe: any;
@@ -97,7 +99,7 @@ export class HomePage {
   ) {
     this.menuCtrl.enable(false);
     //Detecta la ubicacion
-    // this.ubicacion();
+    this.ubicacion();
 
     (this.platform.is('android')) ? this.claseHeader = "androidHeader" : false;
     (this.platform.is('ios')) ? this.claseHeader = "iosHeader" : false;
@@ -130,7 +132,7 @@ export class HomePage {
     }
   }
 
-  cancelarBoton(){
+  cancelarBoton() {
     this.navCtrl.setRoot(TabsPage);
   }
 
@@ -151,6 +153,8 @@ export class HomePage {
   takefotoPaisaje() {
     this.camaraCtrl.takePicture64().then((data) => {
       this.fotoPaisaje = data;
+      this.obtenerUbicacion(true);
+      console.log('se obtuvo las coordenadas del mapa')
       this.fotoPaisajeURL = this.fotoPaisajeURL + this.fotoPaisaje;
       this.fotoPaisajeURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL);
     });
@@ -283,6 +287,8 @@ export class HomePage {
       fecha: new Date().toISOString(),
       latitud: this.latitud,
       longitud: this.longitud,
+      latitudFoto: this.latitudFoto,
+      longitudFoto: this.logintudFoto,
       fotoPaisaje: this.fotoPaisaje,
       fotoMuestra: this.fotoMuestra,
       fotoMapa: '',
@@ -296,9 +302,9 @@ export class HomePage {
     let inicio = registro.fecha.split('T');
     registro.fecha = inicio[0];
     this.localSQL.create(registro).then((res) => {
-      //this.navCtrl.setRoot(ListaRegistrosPage);      
       this.app.getRootNav().setRoot(Wheel, { indice: i });
     }).catch((error) => {
+      console.log(error);
       this.mostrarAlerta('Error', 'No se pudo crear el registro local.');
       this.navCtrl.setRoot(MisRegistrosPage);
     });;
@@ -319,12 +325,17 @@ export class HomePage {
     this.obtenerUbicacion();
   }
 
-  public obtenerUbicacion() {
+  public obtenerUbicacion(coordenadasMapa?) {
     this.ubicacionCtrl.obtenerCoordenadas().then((data) => {
       if (data != -1) {
         this.coordenadas = data;
-        this.latitud = this.coordenadas.latitude;
-        this.longitud = this.coordenadas.longitude;
+        if (!coordenadasMapa) {
+          this.latitud = this.coordenadas.latitude;
+          this.longitud = this.coordenadas.longitude;
+        } else {
+          this.latitudFoto = this.coordenadas.latitude;
+          this.logintudFoto = this.coordenadas.longitude;
+        }
         this.loading.dismiss();
       } else {
         this.obtenerUbicacion();
