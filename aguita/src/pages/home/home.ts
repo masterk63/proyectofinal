@@ -165,8 +165,16 @@ export class HomePage {
   }
 
   mostrarFoto(pic) {
-    let picture = 'data:image/jpeg;base64,' + pic;
-    this.photoViewer.show(picture);
+    switch (pic) {
+      case "fotoPaisaje":
+        let picture = 'data:image/jpeg;base64,' + pic;
+        this.photoViewer.show(picture);
+        break;
+    
+      default:
+        break;
+    }
+    
   }
 
   deleteFoto(del) {
