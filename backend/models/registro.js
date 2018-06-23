@@ -87,6 +87,9 @@ exports.nuevo = function (registro, fn) {
             var fecha = '"' + registro.fecha + '"';
             var latitud = registro.latitud;
             var longitud = registro.longitud;
+            var latitudFoto = registro.latitudFoto;
+            var longitudFoto = registro.longitudFoto;
+            var criterioCienMetros = '"' + registro.criterioCienMetros + '"';
             var fotoPaisaje = '"' + registro.fotoPaisaje + '"';
             var fotoMuestra = '"' + registro.fotoMuestra + '"';
             var fotoMapa = '"' + registro.fotoMapa + '"';
@@ -99,10 +102,11 @@ exports.nuevo = function (registro, fn) {
             var patudos = '"' + registro.patudo + '"';
             var plecopteros = '"' + registro.plecoptero + '"';
             var tricopteros = '"' + registro.tricoptero + '"';
-
-            connection.query('CALL registro_nuevo_completo(' + indice + ',' + fecha + ',' + latitud + ',' + longitud + ',' + fotoPaisaje + ',' + fotoMuestra + ',' + fotoMapa + ',' + observaciones + ',' + idUsuario + ',' + ciudad + ',' + provincia + ',' + pais + ',' + elmidos + ',' + patudos + ',' + plecopteros + ',' + tricopteros + ')', function (err, rows) {
+            
+            connection.query('CALL registro_nuevo_completo(' + indice + ',' + fecha + ',' + latitud + ',' + longitud + ',' + latitudFoto + ',' + longitudFoto + ',' + criterioCienMetros + ',' + fotoPaisaje + ',' + fotoMuestra + ',' + fotoMapa + ',' + observaciones + ',' + idUsuario + ',' + ciudad + ',' + provincia + ',' + pais + ',' + elmidos + ',' + patudos + ',' + plecopteros + ',' + tricopteros + ')', function (err, rows) {
                 if (err) {
-                    consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
+                    console.log('mostrandoErr',err)
+                    consulta = [{ 'codigo': 0, 'mensaje': 'err' }]
                     fn(consulta);
                 } else fn(rows[0]);
             });
