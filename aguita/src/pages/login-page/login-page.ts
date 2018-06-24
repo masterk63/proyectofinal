@@ -85,11 +85,11 @@ export class LoginPage {
     console.log('Begin async operation', refresher);
     this.localSQL.sincronizarDB()
       .then(res => {
-        console.log("ok loginpage sincronizar",res)
         refresher.complete();
+        this.localSQL.listarUsuarios().then(res => console.log("usuarios", res))
       })
       .catch(err => {
-        console.log("error loginpage sincronizar",err)
+
       })
   }
 

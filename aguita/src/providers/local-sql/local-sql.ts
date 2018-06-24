@@ -122,47 +122,70 @@ export class LocalSqlProvider {
   }
 
   public sincronizarDB() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve: any, reject) => {
       this.http.get(configServer.data.urlServidor + '/api/sincronizarDB')
         .map(res => res.json())
         .subscribe(data => {
           console.log('respuesta sincronizacion', data)
-          // this.crearTablaUsuarios();
-          // this.token = data.token;
-          // this.storage.set('token', data.token);
-          // this.storage.set('idUsuario', data.user.idUsuario);
-          // this.storage.set('rol', data.user.rol);
-          resolve(data);
+          this.eliminarTablaUsuarios().then(() => {
+            this.crearTablaUsuarios()
+              .then(() => {
+                this.insertarUsuarios(data)
+                  .then(() => {
+                    resolve("ok");
+                  });
+              });
+          })
+            .catch((err) => reject(err))
         }, (err) => {
           reject(err);
         });
-
     });
   }
 
+  eliminarTablaUsuarios() {
+    console.log("eliminartabla")
+    return this.db.executeSql(`DROP TABLE IF EXISTS usuarios;`, [])
+      .then((res) => { console.log("res eliminar", res); return Promise.resolve() })
+  }
+
   crearTablaUsuarios() {
-    this.db.executeSql(`DROP TABLE IF EXISTS usuarios;`, [])
-      .then(res => {
-        console.log("eliminando tabla usuarios ok", res)
-        let sql = `CREATE TABLE usuarios
+    let sql = `CREATE TABLE usuarios
       (idUsuario INTEGER PRIMARY KEY, 
         usuario varchar(150),
-        contrasenia varchar(250)`;
-        return this.db.executeSql(sql, []);
+        contrasenia varchar(250))`;
+    return this.db.executeSql(sql, [])
+      .then(res => { console.log("res crear tabka", res); return Promise.resolve() })
+  }
+
+  insertarUsuarios(usuarios) {
+    let arrayUsuarios = new Array();
+    for (let usuario of usuarios) {
+      arrayUsuarios.push(['INSERT INTO usuarios (idUsuario,usuario,contrasenia) VALUES (?,?,?)', [usuario.idUsuario, usuario.usuario, usuario.contrasenia]])
+    }
+    return this.db.sqlBatch(arrayUsuarios)
+      .then(() => { return Promise.resolve() })
+  }
+
+  listarUsuarios() {
+    return this.db.executeSql('SELECT * FROM usuarios', [])
+      .then((res) => {
+        let usuarios = [];
+        for (let index = 0; index < res.rows.length; index++) {
+          usuarios.push(res.rows.item(index));
+        }
+        console.log("lista de usuarios", usuarios);
+        return Promise.resolve(usuarios);
       })
-      .catch(err => {
-        console.log("error al eliminar tabla usuarios", err)
-        let sql = `CREATE TABLE usuarios
-      (idUsuario INTEGER PRIMARY KEY, 
-        usuario varchar(150),
-        contrasenia varchar(250)`;
-        return this.db.executeSql(sql, []);
-      });
   }
 
   fakeRegistro() {
     return Observable.create(observer => {
+<<<<<<< HEAD
       let sql = 'INSERT INTO tasks(indice, fecha, latitud, longitud,latitudFoto,longitudFoto, fotoPaisaje,fotoMuestra,fotoMapa, observacion, elmido, patudo, plecoptero, tricoptero, idUsuario) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+=======
+      let sql = 'INSERT INTO tasks(indice, fecha, latitud, longitud,fotoPaisaje,fotoMuestra,fotoMapa, observacion, elmido, patudo, plecoptero, tricoptero, idUsuario) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+>>>>>>> 64c9affde3bfc6db25f0ea371ee74cc09ce39f6a
       this.db.executeSql(sql, [3, '2017/12/25', -26.81, -65.25, -26.81, -65.25, 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'hola', 'si', 'si', 'si', 'si', 2]).then(res => {
         console.log('registro agregado con exito')
         this.dame(res.insertId).then((reg) => {
