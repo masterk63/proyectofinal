@@ -86,7 +86,8 @@ export class LoginPage {
     this.localSQL.sincronizarDB()
       .then(res => {
         refresher.complete();
-        this.localSQL.listarUsuarios().then(res => console.log("usuarios", res))
+        // this.localSQL.listarUsuarios().then(res => console.log("usuarios", res))
+        this.presentToast('Usuarios sincronizados correctamente');
       })
       .catch(err => {
 
@@ -122,7 +123,7 @@ export class LoginPage {
       if (res.codigo === 0) {
         this.mostrarAlerta('Atencion', res.mensaje)
       } else {
-        this.presentToast();
+        this.presentToast('Ha iniciado sesion de manera correcta');
         this.socketPrv.init(res.user.idUsuario);
         this.navCtrl.setRoot(TabsPage);
       }
@@ -207,7 +208,7 @@ export class LoginPage {
 
     this.authService.login(credentials).then((result: any) => {
       this.loading.dismiss();
-      this.presentToast();
+      this.presentToast('Ha iniciado sesion de manera correcta');
       this.socketPrv.init(result.user.idUsuario);
       this.navCtrl.setRoot(TabsPage);
     }, (err) => {
@@ -252,9 +253,9 @@ export class LoginPage {
     this.loading.present();
   }
 
-  presentToast() {
+  presentToast(mensaje) {
     let toast = this.toastCtrl.create({
-      message: 'Ha iniciado sesion de manera correcta',
+      message: mensaje,
       duration: 2000,
       position: 'top'
     });
