@@ -9,7 +9,7 @@ import { RegistrosService } from './registrosService';
 export class ConnectivityService {
 
   constructor(private network: Network,
-    public regSrv: RegistrosService,   
+    public regSrv: RegistrosService,
     public localSQLPrv: LocalSqlProvider) {
 
     console.log('en el network provider');
@@ -41,32 +41,19 @@ export class ConnectivityService {
     return !navigator.onLine;
   }
 
-  public subir() {
-    this.localSQLPrv.getAll().then((registros) => {
-      console.log('pasando por el service y mostrando los registros',registros)
-      for (let r of registros) {
-        this.regSrv.crearRegistro(r).then((res) => {
-          let rOnline = res[0];
-          if(rOnline.codigo > 0){
-            r.idRegistroOnline = rOnline.codigo;
-            r.ciudad = rOnline.ciudad;
-            r.provincia = rOnline.provincia;
-            r.pais = rOnline.pais;
-            r.fotoMapa = rOnline.fotoMapa;
-            this.localSQLPrv.delete(r);
-          }else{
-          //   this.presentToast('No se detecto conexion a internet,los registros se subiran solos, al detectar internet');            
-          }
-        }).catch((error) => {
-          console.error(error);
-          // if (error.status === 0) {
-          //   this.presentToast('No se detecto conexion a internet,los registros se subiran solos, al detectar internet');
-          // }
-        });
+  async subir() {
+    let registros = await this.localSQLPrv.getAll();
+    console.log('pasando por el service y mostrando los registros', registros)
+    for (let r of registros) {
+      let rOnline = await this.regSrv.crearRegistro(r);
+      if (rOnline[0].codigo > 0) {
+        r.idRegistroOnline = rOnline[0].codigo;
+        r.ciudad = rOnline[0].ciudad;
+        r.provincia = rOnline[0].provincia;
+        r.pais = rOnline[0].pais;
+        r.fotoMapa = rOnline[0].fotoMapa;
+        this.localSQLPrv.delete(r);
       }
-    }).catch((error) => {
-      console.error(error);
-    });
+    }
   }
-
 }

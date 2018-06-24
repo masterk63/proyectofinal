@@ -78,7 +78,7 @@ export class RegistrosService {
     });
   }
 
-  crearRegistro(registroCompleto) {
+  async crearRegistro(registroCompleto) {
 
     return new Promise((resolve, reject) => {
 
@@ -88,8 +88,8 @@ export class RegistrosService {
       let reg = {
         registro: registroCompleto
       }
-
-      this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, JSON.stringify(reg), { headers: headers })
+      this.http.post
+      this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, JSON.stringify(reg), { headers: headers; reportProgress: true; })
         .map(res => res.json())
         .subscribe(res => {
           resolve(res);

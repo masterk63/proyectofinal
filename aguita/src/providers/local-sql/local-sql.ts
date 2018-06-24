@@ -66,7 +66,7 @@ export class LocalSqlProvider {
     return this.db.executeSql(sql, []);
   }
 
-  getAll() {
+  async getAll() {
     let sql = 'SELECT * FROM tasks';
     return this.db.executeSql(sql, [])
       .then(response => {
@@ -123,7 +123,7 @@ export class LocalSqlProvider {
   fakeRegistro() {
     return Observable.create(observer => {
       let sql = 'INSERT INTO tasks(indice, fecha, latitud, longitud,fotoPaisaje,fotoMuestra,fotoMapa, observacion, elmido, patudo, plecoptero, tricoptero, idUsuario) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
-      this.db.executeSql(sql, [3, '2017/12/25', -26.81, -65.25, 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'hola', 'si', 'si', 'si', 'si', 2]).then(res => {
+      this.db.executeSql(sql, [3, '2017/12/25', -26.81, -65.25,  -26.81, -65.25, 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'hola', 'si', 'si', 'si', 'si', 2]).then(res => {
         console.log('registro agregado con exito')
         this.dame(res.insertId).then((reg) => {
           observer.next(reg);
