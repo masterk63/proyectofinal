@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import * as configServer from './../server';
 
@@ -13,7 +13,7 @@ export class RegistrosService {
   mensajeValidar: any;
   mensajeInvalidar: any;
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
 
   }
 
@@ -45,7 +45,6 @@ export class RegistrosService {
   registroDame(idRegistro) {
     return new Promise((resolve, reject) => {
       this.http.get(configServer.data.urlServidor + '/api/registroDame/' + idRegistro)
-        .map(res => res.json())
         .subscribe(resultado => {
           this.registro = resultado;
           resolve(this.registro);
@@ -57,7 +56,6 @@ export class RegistrosService {
   registroValidar(idRegistro) {
     return new Promise((resolve, reject) => {
       this.http.get(configServer.data.urlServidor + '/api/registroValidar/' + idRegistro)
-        .map(res => res.json())
         .subscribe(resultado => {
           this.mensajeValidar = resultado;
           resolve(this.mensajeValidar);
@@ -69,7 +67,6 @@ export class RegistrosService {
   registroInvalidar(idRegistro) {
     return new Promise((resolve, reject) => {
       this.http.get(configServer.data.urlServidor + '/api/registroInvalidar/' + idRegistro)
-        .map(res => res.json())
         .subscribe(resultado => {
           this.mensajeInvalidar = resultado;
           resolve(this.mensajeInvalidar);
@@ -82,15 +79,14 @@ export class RegistrosService {
 
     return new Promise((resolve, reject) => {
 
-      let headers = new Headers();
+      let headers = new HttpHeaders();
       headers.append('Content-Type', 'application/json');
 
       let reg = {
         registro: registroCompleto
       }
       this.http.post
-      this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, JSON.stringify(reg), { headers: headers; reportProgress: true; })
-        .map(res => res.json())
+      this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, JSON.stringify(reg), { headers: headers, reportProgress: true })
         .subscribe(res => {
           resolve(res);
         }, (err) => {

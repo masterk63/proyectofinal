@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule} from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -102,6 +103,7 @@ let config = new AuthServiceConfig([
     IonicImageViewerModule,
     BrowserAnimationsModule,
     HttpModule,
+    HttpClientModule,
     SocialLoginModule.initialize(config),
     IonicModule.forRoot(MyApp, {
       autocomplete: 'off',

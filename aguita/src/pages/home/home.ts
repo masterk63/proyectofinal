@@ -367,4 +367,12 @@ export class HomePage {
     toast.present();
   }
 
+  fakeregistro(){
+    this.localSQL.fakeRegistro().subscribe(res => {
+      console.log(res)
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
 }
