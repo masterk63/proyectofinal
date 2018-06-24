@@ -23,7 +23,6 @@ export class RegistrosService {
       this.http.get(configServer.data.urlServidor + '/api/registrosListar').timeout(5000)
         .subscribe(resultado => {
           this.registros = resultado;
-          this.registros = JSON.parse(this.registros._body);
           resolve(this.registros);
         }, error => reject("Error de conexion")
         );
@@ -35,7 +34,6 @@ export class RegistrosService {
       this.http.get(configServer.data.urlServidor + '/api/registrosListarUsuario/' + idRegistro).timeout(5000)
         .subscribe(resultado => {
           this.registros = resultado;
-          this.registros = JSON.parse(this.registros._body);
           resolve(this.registros);
         }, error => reject("Error de conexion")
         );
@@ -85,8 +83,8 @@ export class RegistrosService {
       let reg = {
         registro: registroCompleto
       }
-      this.http.post
-      this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, JSON.stringify(reg), { headers: headers, reportProgress: true })
+      
+      this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, reg, { headers: headers, reportProgress: true })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
