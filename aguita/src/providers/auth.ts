@@ -136,7 +136,7 @@ export class Auth {
       this.storage.set('idUsuario', '');
       this.storage.set('rol', '');
       if (this.plt.is('cordova')) {
-        this.localSqlPrv.destruirDB();
+        // this.localSqlPrv.destruirDB();
       }else{
         this.authServiceFacebook.signOut().catch(e => { console.log('No soy facebook Web')});
       }

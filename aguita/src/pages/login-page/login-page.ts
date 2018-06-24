@@ -206,20 +206,20 @@ export class LoginPage {
       password: this.password
     };
 
-    this.authService.login(credentials).then((result: any) => {
-      this.loading.dismiss();
-      this.presentToast('Ha iniciado sesion de manera correcta');
-      this.socketPrv.init(result.user.idUsuario);
-      this.navCtrl.setRoot(TabsPage);
-    }, (err) => {
-      this.loading.dismiss();
-      if (err.status === 0) {
-        this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
-      } else {
-        this.mostrarAlerta('Error', 'Hay un error en el Usuario o Contraseña')
-      }
-      console.log(err);
-    });
+    this.localSQL.login(credentials)
+      .then((result: any) => {
+        console.log("debtro del then en login", result)
+        this.loading.dismiss();
+        this.presentToast('Ha iniciado sesion de manera correcta');
+        this.socketPrv.init(result.idUsuario);
+        this.navCtrl.setRoot(TabsPage);
+      })
+      .catch((err) => {
+        console.log("debtro del err en login")
+        this.loading.dismiss();
+        this.mostrarAlerta('Error', err.mensaje)
+        console.log(err);
+      });
   }
 
   crearCuenta() {

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Events } from 'ionic-angular';
 import { SocketProvider } from '../../providers/socket/socket';
 import * as configServer from '../../server'
+import * as md5 from '../../../node_modules/md5'
 
 @Injectable()
 export class LocalSqlProvider {
@@ -177,6 +178,29 @@ export class LocalSqlProvider {
         console.log("lista de usuarios", usuarios);
         return Promise.resolve(usuarios);
       })
+  }
+
+  login(credentials) {
+    return new Promise((resolve, reject) => {
+      this.db.executeSql('SELECT * FROM usuarios WHERE usuario =? AND contrasenia =?', [credentials.username, md5(credentials.password)])
+        .then((res) => {
+          if (res.rows.length > 0) {
+            let usuario = res.rows.item(0);
+            console.log("usuario de logeo", usuario);
+            resolve(usuario);
+          } else {
+            let err;
+            err.mensaje = "Nombre de usuario o contraseña incorrecto"
+            reject(err);
+          }
+        })
+        .catch(err => {
+          console.log("err login", err);
+          err.mensaje = "Problemas con la base de datos local"
+          reject(err);
+        })
+
+    });
   }
 
   fakeRegistro() {
