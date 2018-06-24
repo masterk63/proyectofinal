@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEventType, HttpRequest} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import * as configServer from './../server';
 
@@ -83,13 +83,44 @@ export class RegistrosService {
       let reg = {
         registro: registroCompleto
       }
-      
-      this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, reg, { headers: headers, reportProgress: true })
-        .subscribe(res => {
-          resolve(res);
-        }, (err) => {
-          reject(err);
-        });
+
+      const req = new HttpRequest('POST', 
+      `${configServer.data.urlServidor}/api/registroNuevo`, 
+      reg,
+      { headers: headers, reportProgress: true });
+
+      this.http.request(req)
+      .subscribe(
+          event => {
+
+              if (event.type === HttpEventType.DownloadProgress) {
+                  console.log("Download progress event", event);
+              }
+
+              if (event.type === HttpEventType.UploadProgress) {
+                  console.log("Upload progress event", event);
+              }
+
+              if (event.type === HttpEventType.Response) {
+                  console.log("response received...", event.body);
+              }
+
+          }
+      );
+
+      // this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, reg, )
+      //   .subscribe(res => {
+      //     if (res.type === HttpEventType.DownloadProgress) {
+      //       // {
+      //       // loaded:11, // Number of bytes uploaded or downloaded.
+      //       // total :11 // Total number of bytes to upload or download
+      //       // }
+      //     }
+      //     console.log('mostrando el progreso',res)
+      //     resolve(res);
+      //   }, (err) => {
+      //     reject(err);
+      //   });
     });
   }
 
