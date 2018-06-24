@@ -83,8 +83,8 @@ export class RegistrosService {
       let reg = {
         registro: registroCompleto
       }
-      this.http.post
-      this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, JSON.stringify(reg), { headers: headers, reportProgress: true })
+      
+      this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, reg, { headers: headers, reportProgress: true })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
