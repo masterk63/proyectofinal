@@ -99,7 +99,7 @@ export class HomePage {
   ) {
     this.menuCtrl.enable(false);
     //Detecta la ubicacion
-    this.ubicacion();
+    // this.ubicacion();
 
     (this.platform.is('android')) ? this.claseHeader = "androidHeader" : false;
     (this.platform.is('ios')) ? this.claseHeader = "iosHeader" : false;

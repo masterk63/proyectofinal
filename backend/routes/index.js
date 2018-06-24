@@ -38,6 +38,7 @@ module.exports = function(app){
     apiUsuarios.post('/usuarioActualizarFotoPerfil',UsuariosController.actualizarFotoPerfil);
     apiUsuarios.get('/usuarioBaja/:id',UsuariosController.usuarioBaja);
     apiUsuarios.post('/forgot',UsuariosController.forgotPassword);
+    apiUsuarios.get('/sincronizarDB',UsuariosController.sincronizarDB);
     // app.get('/forgot', function(req, res) {
     //     res.render('forgot', {
     //         user: req.user

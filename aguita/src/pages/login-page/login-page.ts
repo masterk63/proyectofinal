@@ -15,6 +15,7 @@ import { AuthService } from "angular4-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import UsuarioModelo from '../../modelos/usuario';
+import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
 
 @Component({
   selector: 'login-page',
@@ -44,7 +45,8 @@ export class LoginPage {
     public socketPrv: SocketProvider,
     private menu: MenuController,
     public storage: Storage,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private localSQL: LocalSqlProvider
   ) {
 
     this.sliderOptions = {
@@ -63,7 +65,7 @@ export class LoginPage {
       if (this.width > 768) {
         this.titulo = "Ingresá tus datos para operar";
       }
-    } 
+    }
 
     if (this.plt.is('cordova')) {
       this.urlImg = '../www/'
@@ -77,6 +79,18 @@ export class LoginPage {
 
   ngOnInit() {
 
+  }
+
+  sincronizar(refresher) {
+    console.log('Begin async operation', refresher);
+    this.localSQL.sincronizarDB()
+      .then(res => {
+        console.log("ok loginpage sincronizar",res)
+        refresher.complete();
+      })
+      .catch(err => {
+        console.log("error loginpage sincronizar",err)
+      })
   }
 
   loginFacebook() {
@@ -131,7 +145,7 @@ export class LoginPage {
 
         //Getting name and gender properties
         env.fb.api("/me?fields=name,email,last_name,first_name", params)
-          .then( (user) => {
+          .then((user) => {
             user.pic = "https://graph.facebook.com/" + userId + "/picture?type=normal";
             let usuario = {
               firstName: user.first_name,
@@ -140,18 +154,18 @@ export class LoginPage {
               photoUrl: user.pic,
               id: user.id
             }
-            if(user.email){
+            if (user.email) {
               this.fbLoginStore(usuario);
-            }else{
+            } else {
               throw "No se pudo obtner un mail de Facebook."
             }
-          }).catch( e =>{
-            this.mostrarAlerta('Error',e)
+          }).catch(e => {
+            this.mostrarAlerta('Error', e)
           })
       }, (error) => {
-        if(error.errorCode != 4201){
+        if (error.errorCode != 4201) {
           let e = JSON.stringify(error)
-          this.mostrarAlerta('Error',e)
+          this.mostrarAlerta('Error', e)
         }
       });
   }

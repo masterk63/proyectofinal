@@ -4,6 +4,17 @@ var async = require('async'),
 const nodemailer = require('nodemailer');
 var configServer = require('./../server.js');
 
+var mysql = require('mysql');
+var env = process.env.NODE_ENV || 'database',
+  databaseConfig = require('./../config/' + env + '.js');
+
+var connection = mysql.createConnection({
+  host: databaseConfig.host,
+  user: databaseConfig.user,
+  password: databaseConfig.password,
+  database: databaseConfig.database,
+});
+
 exports.dameUsuario = function (req, res) {
   User.dame(req.params.id, function (consulta) {
     res.json(consulta);
@@ -59,6 +70,16 @@ exports.resetPassword = function (req, res) {
         user: req.user
       });
     }
+  });
+}
+exports.sincronizarDB = function (req, res) {
+  connection.query('SELECT idUsuario,usuario,contrasenia FROM Usuarios', function (err, rows) {
+    if (err) {
+      console.log("err",err)
+      res.status(500).send(err);
+    }
+    console.log("ok",rows)
+    res.status(200).send(rows)
   });
 }
 

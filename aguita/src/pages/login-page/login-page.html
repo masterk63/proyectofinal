@@ -1,11 +1,20 @@
 <ion-content [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }">
+  <ion-refresher (ionRefresh)="sincronizar($event)">
+    <ion-refresher-content 
+    pullingIcon="arrow-dropdown"
+    pullingText="Arrastre hacia abajo para sincronizar"
+    refreshingSpinner="crescent"
+    refreshingText="Sincronizando...">
+  </ion-refresher-content>
+  </ion-refresher>
   <div class="overlay" style="overflow: scroll">
     <ion-grid style="height: 100%;">
       <ion-row style="height: 100%;">
         <ion-col col-12 col-md-8 id="lado">
           <div class="mesanjeBienvenida">
             <p>
-              Bienvenido a <span>Aguita</span>
+              Bienvenido a
+              <span>Aguita</span>
             </p>
           </div>
         </ion-col>
@@ -36,7 +45,7 @@
           </form>
           <p class="entreLineas">
             <span style="color: lightgray">o ingresa con</span>
-          </p> 
+          </p>
           <button ion-button full (click)="loginFacebook()" class="logFace" style="font-family: 'Oswald', sans-serif;">
             <i class="fa fa-facebook"></i>
             &emsp;Facebook
