@@ -5,6 +5,7 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Observable } from 'rxjs/Observable';
 import { Events } from 'ionic-angular';
 import { SocketProvider } from '../../providers/socket/socket';
+import * as configServer from '../../server'
 
 @Injectable()
 export class LocalSqlProvider {
@@ -15,6 +16,7 @@ export class LocalSqlProvider {
     public events: Events,
     private sqlite: SQLite) {
   }
+
 
   public createDatabase() {
     this.sqlite.create({
@@ -48,21 +50,21 @@ export class LocalSqlProvider {
   createTable() {
     let sql = `CREATE TABLE IF NOT EXISTS tasks
     (idRegistro INTEGER PRIMARY KEY AUTOINCREMENT, 
-    indice int(11) NOT NULL,
-    fecha timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    latitud float NOT NULL,
-    longitud float NOT NULL,
-    latitudFoto float NOT NULL,
-    longitudFoto float NOT NULL,
-    fotoPaisaje longblob NOT NULL,
-    fotoMuestra longblob NOT NULL,
-    fotoMapa longblob NOT NULL,
-    observacion text,
-    elmido varchar(2),
-    patudo varchar(2),
-    plecoptero varchar(2),
-    tricoptero varchar(2),
-    idUsuario int(11) NOT NULL)`;
+      indice int(11) NOT NULL,
+      fecha timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      latitud float NOT NULL,
+      longitud float NOT NULL,
+      latitudFoto float NOT NULL,
+      longitudFoto float NOT NULL,
+      fotoPaisaje longblob NOT NULL,
+      fotoMuestra longblob NOT NULL,
+      fotoMapa longblob NOT NULL,
+      observacion text,
+      elmido varchar(2),
+      patudo varchar(2),
+      plecoptero varchar(2),
+      tricoptero varchar(2),
+      idUsuario int(11) NOT NULL)`;
     return this.db.executeSql(sql, []);
   }
 
@@ -119,6 +121,44 @@ export class LocalSqlProvider {
       .catch(error => Promise.reject(error));
   }
 
+  public sincronizarDB() {
+    return new Promise((resolve, reject) => {
+      this.http.get(configServer.data.urlServidor + '/api/sincronizarDB')
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log('respuesta sincronizacion', data)
+          // this.crearTablaUsuarios();
+          // this.token = data.token;
+          // this.storage.set('token', data.token);
+          // this.storage.set('idUsuario', data.user.idUsuario);
+          // this.storage.set('rol', data.user.rol);
+          resolve(data);
+        }, (err) => {
+          reject(err);
+        });
+
+    });
+  }
+
+  crearTablaUsuarios() {
+    this.db.executeSql(`DROP TABLE IF EXISTS usuarios;`, [])
+      .then(res => {
+        console.log("eliminando tabla usuarios ok", res)
+        let sql = `CREATE TABLE usuarios
+      (idUsuario INTEGER PRIMARY KEY, 
+        usuario varchar(150),
+        contrasenia varchar(250)`;
+        return this.db.executeSql(sql, []);
+      })
+      .catch(err => {
+        console.log("error al eliminar tabla usuarios", err)
+        let sql = `CREATE TABLE usuarios
+      (idUsuario INTEGER PRIMARY KEY, 
+        usuario varchar(150),
+        contrasenia varchar(250)`;
+        return this.db.executeSql(sql, []);
+      });
+  }
 
   fakeRegistro() {
     return Observable.create(observer => {

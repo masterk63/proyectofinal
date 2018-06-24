@@ -139,11 +139,11 @@ let config = new AuthServiceConfig([
   ],
   providers: [
     File,
+    PhotoViewer,
     FileTransfer,
     Camera,
     FilePath,
     Network,
-    PhotoViewer,
     StatusBar,
     SplashScreen,
     SQLite,

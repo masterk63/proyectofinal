@@ -24,8 +24,8 @@
         </div>
         <h3>Ubicación encontrada:</h3>
         <p class="latLon">
-          Latitud: {{this.latitud}}21312312313
-          <br> Longitud: {{this.longitud}}23,23123123
+          Latitud: {{this.latitud}}
+          <br> Longitud: {{this.longitud}}
         </p>
       </div>
 
@@ -43,7 +43,7 @@
           </div>
           <div class="padding" *ngIf="fotoPaisaje">
             <div class="mapa">
-              <img [src]="fotoPaisajeURLSafe" (click)="mostrarFoto(fotoPaisaje)" style="border-radius: 10px; border: 1px solid #757575">
+              <img [src]="fotoPaisajeURLSafe" imageViewer style="border-radius: 10px; border: 1px solid #757575">
               <ion-icon class="botonBorrar" (click)="deleteFoto('paisaje')" name="ios-trash-outline"></ion-icon>
             </div>
           </div>
@@ -59,7 +59,7 @@
           </div>
           <div class="padding" *ngIf="fotoMuestra">
             <div class="mapa">
-              <img [src]="fotoMuestraURLSafe" (click)="mostrarFoto(fotoMuestra)" style="border-radius: 10px; border: 1px solid #757575">
+              <img [src]="fotoMuestraURLSafe" imageViewer style="border-radius: 10px; border: 1px solid #757575">
               <ion-icon class="botonBorrar" (click)="deleteFoto('muestra')" name="ios-trash-outline"></ion-icon>
             </div>
           </div>
