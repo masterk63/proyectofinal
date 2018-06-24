@@ -196,7 +196,7 @@ export class LocalSqlProvider {
         })
         .catch(err => {
           console.log("err login", err);
-          err.mensaje = "Problemas con la base de datos local"
+          err.mensaje = "Nombre de usuario o contraseña incorrecto"
           reject(err);
         })
 
