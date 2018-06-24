@@ -141,7 +141,7 @@ export class ListaRegistrosPage {
     this.localSQL.fakeRegistro().subscribe((res) => {
       res = res[0];
       this.registros.unshift(res);
-      this.socketPrv.publicar(res);
+      // this.socketPrv.publicar(res);
     });
   }
 
