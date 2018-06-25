@@ -5,6 +5,17 @@
     </div>
   </ion-row>
   <button ion-button (click)="fakeRegitro()">fakeregistro</button>
+  <ion-card *ngIf="uploadProcess">
+    <ion-list>
+      <ion-item>
+        <ion-avatar item-start>
+          <round-progress [current]="sizeIndex" [max]="sizeMax" [responsive]="true"></round-progress>
+        </ion-avatar>
+        <h2>Subiendo registros al servidor</h2>
+        <p>Quedan {{uploadIndex}} / {{uploadMax}} elementos</p>
+      </ion-item>
+    </ion-list>
+  </ion-card>
   <div *ngIf="registros" [@listAnimation]="registros.length">
     <div class="header">
       <ion-icon name="folder" item-left large></ion-icon>

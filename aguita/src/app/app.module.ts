@@ -68,6 +68,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DiagnosticProvider } from '../providers/diagnostic/diagnostic';
 import { SocketProvider } from '../providers/socket/socket';
 
+
+//Circular Progress
+import {RoundProgressModule} from 'angular-svg-round-progressbar';
+
 let config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
@@ -104,6 +108,7 @@ let config = new AuthServiceConfig([
     BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
+    RoundProgressModule,
     SocialLoginModule.initialize(config),
     IonicModule.forRoot(MyApp, {
       autocomplete: 'off',

@@ -54,7 +54,12 @@ export class ListaRegistrosPage {
   fotoMapaNoDisponible: any;
   @Input() idUsuario;
   @Input() leavePage;
-  
+  uploadIndex:any = '-';
+  uploadMax:any = '-';
+  sizeIndex:any = 0;
+  sizeMax:any = 100;
+  uploadProcess:boolean = false;
+
   constructor(public navCtrl: NavController,
     public authService: Auth,
     public navParams: NavParams,
@@ -99,6 +104,20 @@ export class ListaRegistrosPage {
           console.log('eliminar registro, evento disparado', reg);
           this.borrarRegistroDeLaVista(reg);
         });
+
+        this.events.subscribe('uploadProcess', (estado) => {
+          this.uploadProcess = true;
+          if(estado.indice == '-'){
+            this.uploadProcess = false;
+          }
+          this.uploadIndex = estado.indice;
+          this.uploadMax = estado.total;
+        });
+
+        this.events.subscribe('uploadProcessSize', (estado) => {
+          this.sizeIndex = estado.indice;
+          this.sizeMax = estado.total;
+        });
       }
 
       this.events.subscribe('registro:creado', (reg) => {
@@ -112,6 +131,8 @@ export class ListaRegistrosPage {
     console.log('yendome de la lista registros')
     if (this.platform.is('cordova')) {
       this.events.unsubscribe('registro:eliminado');
+      this.events.unsubscribe('uploadProcess');
+      this.events.unsubscribe('uploadProcessSize');
     }
     this.events.unsubscribe('registro:creado');
   }

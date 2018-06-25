@@ -3,13 +3,14 @@ import { Network } from '@ionic-native/network';
 import { Platform } from 'ionic-angular';
 import { LocalSqlProvider } from './local-sql/local-sql';
 import { RegistrosService } from './registrosService';
-
+import { Events } from 'ionic-angular';
 
 @Injectable()
 export class ConnectivityService {
 
   constructor(private network: Network,
     public regSrv: RegistrosService,
+    public events: Events,
     public localSQLPrv: LocalSqlProvider) {
 
     console.log('en el network provider');
@@ -44,7 +45,9 @@ export class ConnectivityService {
   async subir() {
     let registros = await this.localSQLPrv.getAll();
     console.log('pasando por el service y mostrando los registros', registros)
+    let index = 1;
     for (let r of registros) {
+      this.events.publish('uploadProcess', { indice: index, total: registros.length });
       let rOnline = await this.regSrv.crearRegistro(r);
       if (rOnline[0].codigo > 0) {
         r.idRegistroOnline = rOnline[0].codigo;
@@ -54,6 +57,9 @@ export class ConnectivityService {
         r.fotoMapa = rOnline[0].fotoMapa;
         this.localSQLPrv.delete(r);
       }
+      index++;
     }
+    this.events.publish('uploadProcess', { indice: '-', total: '-' });
+    this.events.publish('uploadProcessSize', { indice: 0, total: 100 });
   }
 }

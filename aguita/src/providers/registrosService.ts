@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpEventType, HttpRequest} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEventType, HttpRequest } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import * as configServer from './../server';
+import { Events } from 'ionic-angular';
 
 @Injectable()
 export class RegistrosService {
@@ -13,7 +14,7 @@ export class RegistrosService {
   mensajeValidar: any;
   mensajeInvalidar: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,public events: Events,) {
 
   }
 
@@ -74,7 +75,7 @@ export class RegistrosService {
   }
 
   async crearRegistro(registroCompleto) {
-
+    this.events.publish('uploadProcessSize', { indice: 0, total: 100 });    
     return new Promise((resolve, reject) => {
 
       let headers = new HttpHeaders();
@@ -84,43 +85,31 @@ export class RegistrosService {
         registro: registroCompleto
       }
 
-      const req = new HttpRequest('POST', 
-      `${configServer.data.urlServidor}/api/registroNuevo`, 
-      reg,
-      { headers: headers, reportProgress: true });
+      const req = new HttpRequest('POST',
+        `${configServer.data.urlServidor}/api/registroNuevo`,
+        reg,
+        { headers: headers, reportProgress: true });
 
       this.http.request(req)
-      .subscribe(
+        .subscribe(
           event => {
 
-              if (event.type === HttpEventType.DownloadProgress) {
-                  console.log("Download progress event", event);
-              }
+            if (event.type === HttpEventType.DownloadProgress) {
+              console.log("Download progress event", event);
+            }
 
-              if (event.type === HttpEventType.UploadProgress) {
-                  console.log("Upload progress event", event);
-              }
-
-              if (event.type === HttpEventType.Response) {
-                  console.log("response received...", event.body);
-              }
-
+            if (event.type === HttpEventType.UploadProgress) {
+              console.log("Upload progress event", event);
+              this.events.publish('uploadProcessSize', { indice: event.loaded, total: event.total });
+            }
+            
+            if (event.type === HttpEventType.Response) {
+              resolve(event.body);
+            }
           }
-      );
-
-      // this.http.post(`${configServer.data.urlServidor}/api/registroNuevo`, reg, )
-      //   .subscribe(res => {
-      //     if (res.type === HttpEventType.DownloadProgress) {
-      //       // {
-      //       // loaded:11, // Number of bytes uploaded or downloaded.
-      //       // total :11 // Total number of bytes to upload or download
-      //       // }
-      //     }
-      //     console.log('mostrando el progreso',res)
-      //     resolve(res);
-      //   }, (err) => {
-      //     reject(err);
-      //   });
+          , (err) => {
+            reject(err);
+          });
     });
   }
 
