@@ -1,6 +1,6 @@
 <ion-content [ngStyle]="{'background-size': tam , 'background-image':'url('+fotoIntro+')' }">
-  <ion-refresher (ionRefresh)="sincronizar($event)">
-    <ion-refresher-content 
+  <ion-refresher pullMin=180 (ionRefresh)="sincronizar($event)">
+    <ion-refresher-content
     pullingIcon="arrow-dropdown"
     pullingText="Arrastre hacia abajo para sincronizar"
     refreshingSpinner="crescent"

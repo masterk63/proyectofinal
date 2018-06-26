@@ -90,7 +90,8 @@ export class LoginPage {
         this.presentToast('Usuarios sincronizados correctamente');
       })
       .catch(err => {
-
+        console.log("erro refresher",err)
+        refresher.cancel();
       })
   }
 
