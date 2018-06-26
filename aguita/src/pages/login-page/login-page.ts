@@ -90,7 +90,7 @@ export class LoginPage {
         this.presentToast('Usuarios sincronizados correctamente');
       })
       .catch(err => {
-        console.log("erro refresher",err)
+        this.mostrarAlerta("Error","No se pudo sincronizar la lista de usuarios. Verifique su conexion a internet")
         refresher.cancel();
       })
   }

@@ -73,9 +73,9 @@ export class LocalSqlProvider {
 
   async getAll(id?) {
     let sql;
-    if(id){
-      sql = 'SELECT * FROM tasks where idUsuario='+id;
-    }else{
+    if (id) {
+      sql = 'SELECT * FROM tasks where idUsuario=' + id;
+    } else {
       sql = 'SELECT * FROM tasks';
     }
     return this.db.executeSql(sql, [])
@@ -132,6 +132,7 @@ export class LocalSqlProvider {
   public sincronizarDB() {
     return new Promise((resolve: any, reject) => {
       this.http.get(configServer.data.urlServidor + '/api/sincronizarDB')
+        .timeout(3000)
         .map(res => res.json())
         .subscribe(data => {
           console.log('respuesta sincronizacion', data)

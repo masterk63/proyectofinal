@@ -99,7 +99,7 @@ export class HomePage {
     public alertCtrl: AlertController,
     public storage: Storage
   ) {
-    this.storage.get('idUsuario').then(id => this.idUsuario=id);
+    this.storage.get('idUsuario').then(id => this.idUsuario = id);
     this.menuCtrl.enable(false);
     //Detecta la ubicacion
     this.ubicacion();
@@ -177,11 +177,11 @@ export class HomePage {
         let picture = 'data:image/jpeg;base64,' + pic;
         this.photoViewer.show(picture);
         break;
-    
+
       default:
         break;
     }
-    
+
   }
 
   deleteFoto(del) {
@@ -337,7 +337,9 @@ export class HomePage {
   }
 
   public obtenerUbicacion(coordenadasMapa?) {
+    console.log('​HomePage -> publicobtenerUbicacion -> coordenadasMapa', coordenadasMapa);
     this.ubicacionCtrl.obtenerCoordenadas().then((data) => {
+      console.log('​HomePage -> publicobtenerUbicacion -> data', data);
       if (data != -1) {
         this.coordenadas = data;
         if (!coordenadasMapa) {
@@ -351,7 +353,8 @@ export class HomePage {
       } else {
         this.obtenerUbicacion();
       }
-    });
+    }).catch(err => console.log('​HomePage -> publicobtenerUbicacion -> err', err));
+
   }
 
   showLoader(text) {
