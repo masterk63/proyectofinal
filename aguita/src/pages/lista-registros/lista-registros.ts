@@ -138,7 +138,7 @@ export class ListaRegistrosPage {
   }
 
   obtenerRegistrosDBLocal() {
-    this.localSQL.getAll().then((reg) => {
+    this.localSQL.getAll(this.idUsuario).then((reg) => {
       console.log('registros locales', reg);
       this.registros = reg;
       if (this.registros.length > 0) {

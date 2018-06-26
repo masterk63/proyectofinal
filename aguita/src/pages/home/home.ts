@@ -27,6 +27,7 @@ import { Content } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { App } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
+import { Storage } from '@ionic/storage';
 
 
 
@@ -40,7 +41,7 @@ export class HomePage {
   @ViewChild(Content) content: Content;
 
   claseHeader: string;
-
+  idUsuario: number;
   altoMapa: number;
   urlImg: string;
   registro: string = "mapa";
@@ -95,11 +96,13 @@ export class HomePage {
     public registroController: RegistrosService,
     public localSQL: LocalSqlProvider,
     public diagnosticProvider: DiagnosticProvider,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public storage: Storage
   ) {
+    this.storage.get('idUsuario').then(id => this.idUsuario=id);
     this.menuCtrl.enable(false);
     //Detecta la ubicacion
-    // this.ubicacion();
+    this.ubicacion();
 
     (this.platform.is('android')) ? this.claseHeader = "androidHeader" : false;
     (this.platform.is('ios')) ? this.claseHeader = "iosHeader" : false;
@@ -305,7 +308,7 @@ export class HomePage {
       patudos: patudos,
       plecopteros: plecopteros,
       tricopteros: tricopteros,
-      idUsuario: 2,
+      idUsuario: this.idUsuario,
     }
     let inicio = registro.fecha.split('T');
     registro.fecha = inicio[0];

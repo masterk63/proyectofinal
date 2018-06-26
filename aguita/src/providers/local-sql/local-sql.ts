@@ -7,6 +7,7 @@ import { Events } from 'ionic-angular';
 import { SocketProvider } from '../../providers/socket/socket';
 import * as configServer from '../../server'
 import * as md5 from '../../../node_modules/md5'
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class LocalSqlProvider {
@@ -15,6 +16,7 @@ export class LocalSqlProvider {
   constructor(public http: Http,
     public socketPrv: SocketProvider,
     public events: Events,
+    public storage: Storage,
     private sqlite: SQLite) {
   }
 
@@ -69,8 +71,13 @@ export class LocalSqlProvider {
     return this.db.executeSql(sql, []);
   }
 
-  async getAll() {
-    let sql = 'SELECT * FROM tasks';
+  async getAll(id?) {
+    let sql;
+    if(id){
+      sql = 'SELECT * FROM tasks where idUsuario='+id;
+    }else{
+      sql = 'SELECT * FROM tasks';
+    }
     return this.db.executeSql(sql, [])
       .then(response => {
         let tasks = [];
@@ -187,6 +194,8 @@ export class LocalSqlProvider {
           if (res.rows.length > 0) {
             let usuario = res.rows.item(0);
             console.log("usuario de logeo", usuario);
+            this.storage.set('token', usuario.contrasenia);
+            this.storage.set('idUsuario', usuario.idUsuario);
             resolve(usuario);
           } else {
             let err;
