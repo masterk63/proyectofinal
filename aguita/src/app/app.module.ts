@@ -68,6 +68,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DiagnosticProvider } from '../providers/diagnostic/diagnostic';
 import { SocketProvider } from '../providers/socket/socket';
 
+// Import angular-cropperjs
+import { AngularCropperjsModule } from 'angular-cropperjs';
 
 //Circular Progress
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
@@ -105,6 +107,7 @@ let config = new AuthServiceConfig([
   imports: [
     BrowserModule,
     IonicImageViewerModule,
+    AngularCropperjsModule,
     BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,

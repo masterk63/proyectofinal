@@ -8,6 +8,8 @@ import { MisRegistrosPage } from '../mis-registros/mis-registros';
 import { ListaRegistrosPage } from '../lista-registros/lista-registros';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camara } from '../../providers/camara';
+import { AngularCropperjsComponent } from 'angular-cropperjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'page-usuario',
@@ -29,12 +31,15 @@ export class UsuarioPage {
   formularioUsuario: any;
   submitAttempt: boolean = false;
   @ViewChild('fileInput') fileInput: ElementRef;
+  fotoCropped:any;
+  @ViewChild('angularCropper') public angularCropper: AngularCropperjsComponent;
 
   constructor(public navCtrl: NavController,
     public params: NavParams,
     public userService: UsuariosService,
     public storage: Storage,
     public authService: Auth,
+    public sanitizer:DomSanitizer,
     public actionSheetCtrl: ActionSheetController,
     public cameraSrv: Camara,
     public formBuilder: FormBuilder,
@@ -53,8 +58,7 @@ export class UsuarioPage {
       institucion: ['', Validators.compose([Validators.required])],
       grado: ['', Validators.compose([Validators.required])],
     });
-
-  }
+  } 
 
   presentActionSheet() {
     const actionSheet = this.actionSheetCtrl.create({
@@ -105,6 +109,12 @@ export class UsuarioPage {
         this.formularioUsuario.controls['residencia'].setValue(this.usuario.residencia);
         this.formularioUsuario.controls['institucion'].setValue(this.usuario.institucion);
         this.formularioUsuario.controls['grado'].setValue(this.usuario.grado);
+        this.fotoCropped = this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,'+this.usuario.fotoPerfil);
+        this.angularCropper.cropper.getCroppedCanvas().toBlob((blob) =>{
+          // blob is your base64..
+          console.log('​UsuarioPage -> dameId -> html', blob);
+        });
+        
         console.log(this.usuario)
         this.loading.dismiss();
       }).catch((err) => {

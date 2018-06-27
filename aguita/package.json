@@ -38,6 +38,7 @@
     "@ionic-native/status-bar": "4.5.2",
     "@ionic/storage": "1.1.6",
     "@types/pouchdb": "6.3.2",
+    "angular-cropperjs": "^0.1.5",
     "angular-svg-round-progressbar": "^2.0.0",
     "angular4-social-login": "^1.1.1",
     "com-sarriaroman-photoviewer": "^1.1.18",
