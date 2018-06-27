@@ -1,12 +1,119 @@
 .ios,
 .md {
     login-page {
+
+        .animacionP{
+            -webkit-animation: color-change 3s infinite;
+            -moz-animation: color-change 3s infinite;
+            -o-animation: color-change 3s infinite;
+            -ms-animation: color-change 3s infinite;
+            animation: color-change 3s infinite;
+        }
+    
+        @-webkit-keyframes color-change {
+            0% { color: white; }
+            50% { color: black; }
+            100% { color: white; }
+        }
+        @-moz-keyframes color-change {
+            0% { color: white; }
+            50% { color: black; }
+            100% { color: white; }
+        }
+        @-ms-keyframes color-change {
+            0% { color: white; }
+            50% { color: black; }
+            100% { color: white; }
+        }
+        @-o-keyframes color-change {
+            0% { color: white; }
+            50% { color: black; }
+            100% { color: white; }
+        }
+        @keyframes color-change {
+            0% { color: white; }
+            50% { color: black; }
+            100% { color: white; }
+        }
+
+        .downArrow{
+            text-align: center;
+            margin-top: -20px;
+        }
+
+        .bounce {
+            -moz-animation: bounce 3s infinite;
+            -webkit-animation: bounce 3s infinite;
+            animation: bounce 3s infinite;
+        }
+        @-moz-keyframes bounce {
+          0%, 20%, 50%, 80%, 100% {
+            -moz-transform: translateY(0);
+            transform: translateY(0);
+          }
+          40% {
+            -moz-transform: translateY(30px);
+            transform: translateY(30px);
+          }
+          60% {
+            -moz-transform: translateY(15px);
+            transform: translateY(15px);
+          }
+        }
+        @-webkit-keyframes bounce {
+          0%, 20%, 50%, 80%, 100% {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+          }
+          40% {
+            -webkit-transform: translateY(30px);
+            transform: translateY(30px);
+          }
+          60% {
+            -webkit-transform: translateY(15px);
+            transform: translateY(15px);
+          }
+        }
+        @keyframes bounce {
+          0%, 20%, 50%, 80%, 100% {
+            -moz-transform: translateY(0);
+            -ms-transform: translateY(0);
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+          }
+          40% {
+            -moz-transform: translateY(30px);
+            -ms-transform: translateY(30px);
+            -webkit-transform: translateY(30px);
+            transform: translateY(30px);
+          }
+          60% {
+            -moz-transform: translateY(15px);
+            -ms-transform: translateY(15px);
+            -webkit-transform: translateY(15px);
+            transform: translateY(15px);
+          }
+        }
+        /* Demo Purpose Only*/
+        .demo {
+          font-family: 'Raleway', sans-serif;
+            color:#fff;
+            display: block;
+            margin: 0 auto;
+            padding: 15px 0;
+            text-align: center;
+        }
+        .demo a{
+          font-family: 'Raleway', sans-serif;
+        color: #2ecc71;		
+        }
+
         .titulo {
             // font-family: 'Pacifico', cursive; 
             // font-family: 'Fascinate Inline', cursive;
             font-family: 'Leckerli One', cursive !important;
             text-align: center;
-            margin: 63px 0px;
+            margin: 40px 0px 55px 0px !important;
             font-size: 3em;
         }
         a {
