@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { AlertController, NavController, NavParams, LoadingController, ActionSheetController } from 'ionic-angular';
 import { UsuariosService } from '../../providers/usuariosService';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
 import { ListaRegistrosPage } from '../lista-registros/lista-registros';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Camara } from '../../providers/camara';
 
 @Component({
   selector: 'page-usuario',
@@ -34,6 +35,8 @@ export class UsuarioPage {
     public userService: UsuariosService,
     public storage: Storage,
     public authService: Auth,
+    public actionSheetCtrl: ActionSheetController,
+    public cameraSrv: Camara,
     public formBuilder: FormBuilder,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
@@ -53,29 +56,43 @@ export class UsuarioPage {
 
   }
 
-  llamarAlInput() {
-    this.fileInput.nativeElement.click()
+  presentActionSheet() {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Seleccione una opcion',
+      buttons: [
+        {
+          text: 'Tomar Foto',
+          handler: () => {
+            this.subirImagen(1);
+          }
+        },{
+          text: 'Galeria',
+          handler: () => {
+            this.subirImagen(0);
+          }
+        },{
+          text: 'Cancelar',
+          role: 'cancel',
+
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
-  subirImagen(fileInput) {
-    if (fileInput.target.files && fileInput.target.files[0]) {
-      const reader = new FileReader();
-      if ((fileInput.target.files[0].size / 1024) > 500) {
-        this.mostrarAlerta('La imagen debe ser menor a 500KB', 'Error')
-      } else {
-        reader.readAsDataURL(fileInput.target.files[0]);
-        reader.onload = ((e) => {
-          let fotoPerfil = e.target['result'].split(",")[1];
-          let user = {
-            idUsuario: this.idUsuario,
-            fotoPerfil
-          }
-          this.userService.actilizarFotoPerfil(user).then( res => {
-            this.usuario.fotoPerfil = fotoPerfil;
-          }).catch( err => this.mostrarAlerta(err,'Error'))
-        });
-      }
+
+  async subirImagen(source) {
+    let fotoPerfil = await this.cameraSrv.takePicture64(source);
+    let user = {
+      idUsuario: this.idUsuario,
+      fotoPerfil
     }
+    this.userService.actilizarFotoPerfil(user).then( res => {
+      this.usuario.fotoPerfil = fotoPerfil;
+    }).catch( err => this.mostrarAlerta(err,'Error'))
   }
 
   dameId() {

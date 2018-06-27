@@ -25,8 +25,8 @@
               <div>
                 <img [src]="'data:image/jpeg;base64,'+this.usuario?.fotoPerfil" />
                 <h2>{{usuario?.usuario}}</h2>
-                <input type="file" #fileInput id="imgFile" style="display:none" (change)="subirImagen($event)">
-                <button (click)="llamarAlInput()" color="dark" id="UploadButton">
+                <!-- <input type="file" #fileInput id="imgFile" style="display:none" (change)="subirImagen($event)"> -->
+                <button (click)="presentActionSheet()" color="dark" id="UploadButton">
                   <ion-icon name="camera"></ion-icon>
                 </button>
               </div>

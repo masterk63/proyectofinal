@@ -28,13 +28,13 @@ export class Camara {
     }
 
     //Esto Funciona de 10
-    takePicture64() {
+    takePicture64(sourceType = 1) {
         return new Promise((resolve, reject) => {
             this.camera.getPicture({
                 destinationType: this.camera.DestinationType.DATA_URL,
                 targetWidth: 1920,
                 targetHeight: 1200,
-                allowEdit: true,
+                sourceType: sourceType,
                 correctOrientation: true,
             }).then((imageData) => {
                 //console.log(imageData);
