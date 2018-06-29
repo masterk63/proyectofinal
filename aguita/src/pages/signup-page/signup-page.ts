@@ -52,7 +52,6 @@ export class SignupPage {
         Validators.maxLength(50)])],
       mail: ['', Validators.compose([
         Validators.maxLength(30),
-        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+.com+$'),
         Validators.required])],
       username: ['', Validators.compose([
         Validators.maxLength(30),
