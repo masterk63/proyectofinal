@@ -19,7 +19,7 @@
     <div [ngSwitch]="registro">
       <div *ngSwitchCase="'mapa'" style="text-align: center;">
         <div class="mapaConteiner" [style.height.px]="altoMapa">
-          <page-mapasnativo [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="muestroMapaNativo"> </page-mapasnativo>
+          <page-mapasnativo [latitud]="latitud" [longitud]="longitud" *ngIf="muestroMapaNativo"> </page-mapasnativo>
           <mapajshtml [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="!muestroMapaNativo"></mapajshtml>
         </div>
         <h3>Ubicación encontrada:</h3>

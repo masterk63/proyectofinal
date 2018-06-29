@@ -107,7 +107,12 @@ export class HomePage {
     this.ubicacion()
       .then(res => {
         this.latitud = res[0];
+        console.log('​HomePage -> latitud', this.latitud);
         this.longitud = res[1];
+        console.log('​HomePage -> longitud', this.longitud);
+        if (this.platform.is('cordova')) {
+          this.muestroMapaNativo = true;
+        }
       })
       .catch(() => {
         this.mostrarAlerta("ERROR", "No se pudo obtener la ubicacion")
@@ -116,9 +121,7 @@ export class HomePage {
     (this.platform.is('android')) ? this.claseHeader = "androidHeader" : false;
     (this.platform.is('ios')) ? this.claseHeader = "iosHeader" : false;
     //Para usar mapa nativo o mapaHTML
-    if (this.platform.is('cordova')) {
-      this.muestroMapaNativo = true;
-    }
+
 
     //FOTOS PARA PASO 2 RADIO BUTTON
     if (!this.platform.is('cordova')) {
