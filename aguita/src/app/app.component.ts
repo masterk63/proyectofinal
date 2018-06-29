@@ -19,6 +19,7 @@ import { CropperPage } from '../pages/cropper/cropper';
 })
 export class MyApp {
   rootPage: any;
+  sincronizado: boolean = false;
 
   constructor(
     public platform: Platform,
@@ -32,7 +33,7 @@ export class MyApp {
     splashScreen: SplashScreen) {
 
     platform.ready().then(() => {
-      
+
       // StyleLightContent setea el menu en blanco. para que el StatusBar
       // se pueda leer bien.. ya que nuestro menu es Rojo.
       statusBar.styleLightContent();
@@ -40,7 +41,6 @@ export class MyApp {
 
       if (this.platform.is('cordova')) {
         this.localSQL.createDatabase();
-
         // keyboard.onKeyboardShow().subscribe(() => {
         //   console.log('se abrio el teclado')
         //   document.body.classList.add('keyboard-is-open');

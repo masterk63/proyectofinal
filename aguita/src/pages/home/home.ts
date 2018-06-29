@@ -333,7 +333,15 @@ export class HomePage {
   ubicacion() {
     let text = 'Espere mientras cargamos la ubicacion';
     this.showLoader(text);
-    this.obtenerUbicacion();
+    this.diagnosticProvider.controlPermisos().then(res => {
+      console.log('​HomePage -> ubicacion -> res', res);
+      this.obtenerUbicacion();
+    })
+    .catch(err => {
+      console.log('​HomePage -> ubicacion -> err', err);
+      this.loading.dismiss();
+      this.navCtrl.setRoot(TabsPage);
+    })
   }
 
   public obtenerUbicacion(coordenadasMapa?) {
