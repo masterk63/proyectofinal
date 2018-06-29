@@ -1,0 +1,20 @@
+<ion-content padding>
+  <angular-cropper #angularCropper [cropperOptions]="cropperOptions" [imageUrl]="myImage"></angular-cropper>
+  <ion-row>
+    <ion-col col-4>
+      <button ion-button outline icon-left color="primary" (click)="zoom(true)">
+        <ion-icon name="add"></ion-icon> Zoom
+      </button>
+    </ion-col>
+    <ion-col col-4>
+      <button ion-button outline icon-left color="primary" (click)="zoom(false)">
+        <ion-icon name="add"></ion-icon> Zoom
+      </button>
+    </ion-col>
+    <ion-col col-4>
+      <button ion-button outline icon-left color="primary">
+        <ion-icon name="add"></ion-icon> Zoom
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-content>

@@ -73,6 +73,7 @@ import { AngularCropperjsModule } from 'angular-cropperjs';
 
 //Circular Progress
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
+import { CropperPage } from '../pages/cropper/cropper';
 
 let config = new AuthServiceConfig([
   {
@@ -85,6 +86,7 @@ let config = new AuthServiceConfig([
   declarations: [
     MyApp,
     HomePage,
+    CropperPage,
     TabsPage,
     IntroPage,
     UsuarioPage,
@@ -130,6 +132,7 @@ let config = new AuthServiceConfig([
     TabsPage,
     IntroPage,
     LoginPage,
+    CropperPage,
     UsuarioPage,
     MapaGeneralPage,
     Mapajshtml,
