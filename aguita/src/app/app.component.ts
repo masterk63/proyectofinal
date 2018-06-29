@@ -13,6 +13,10 @@ import { Events } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
 import { MapaGeneralPage } from '../pages/mapa-general/mapa-general';
 import { CropperPage } from '../pages/cropper/cropper';
+import { DiagnosticProvider } from '../providers/diagnostic/diagnostic';
+
+//diagnostic para location
+
 
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +34,8 @@ export class MyApp {
     public events: Events,
     private keyboard: Keyboard,
     public storage: Storage,
-    splashScreen: SplashScreen) {
+    splashScreen: SplashScreen,
+  private diagnosticProv: DiagnosticProvider) {
 
     platform.ready().then(() => {
 
@@ -38,6 +43,7 @@ export class MyApp {
       // se pueda leer bien.. ya que nuestro menu es Rojo.
       statusBar.styleLightContent();
       splashScreen.hide();
+      this.diagnosticProv.controlEnable();
 
       if (this.platform.is('cordova')) {
         this.localSQL.createDatabase();

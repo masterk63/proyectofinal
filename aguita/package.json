@@ -28,7 +28,7 @@
     "@ionic-native/file": "^4.1.0",
     "@ionic-native/file-path": "^4.1.0",
     "@ionic-native/file-transfer": "^4.1.0",
-    "@ionic-native/geolocation": "^4.5.2",
+    "@ionic-native/geolocation": "^4.9.0",
     "@ionic-native/google-maps": "^4.1.0",
     "@ionic-native/keyboard": "^4.5.2",
     "@ionic-native/network": "^4.5.2",
@@ -50,6 +50,7 @@
     "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-facebook4": "^1.10.1",
+    "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googlemaps": "^2.3.6",
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
@@ -110,7 +111,10 @@
         "APP_ID": "164639320988358",
         "APP_NAME": "Aguita"
       },
-      "com-sarriaroman-photoviewer": {}
+      "com-sarriaroman-photoviewer": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
+      }
     }
   }
 }

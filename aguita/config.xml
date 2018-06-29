@@ -122,4 +122,7 @@
     <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="6.3.0" />
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Para obtener tu ubicacion" />
+    </plugin>
 </widget>

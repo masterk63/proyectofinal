@@ -75,8 +75,6 @@ import { AngularCropperjsModule } from 'angular-cropperjs';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
 import { CropperPage } from '../pages/cropper/cropper';
 
-import { AndroidPermissions } from '@ionic-native/android-permissions';
-
 let config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
@@ -166,7 +164,6 @@ let config = new AuthServiceConfig([
     Geolocation,
     Diagnostic,
     Keyboard,
-    AndroidPermissions,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,ConnectivityService,RegistrosService,Storage,
     LocalSqlProvider,
