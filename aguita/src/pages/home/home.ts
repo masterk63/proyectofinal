@@ -28,6 +28,7 @@ import { Events } from 'ionic-angular';
 import { App } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { Storage } from '@ionic/storage';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 
@@ -92,6 +93,7 @@ export class HomePage {
     private sanitizer: DomSanitizer,
     public conexionProvider: ConnectivityService,
     public ubicacionCtrl: Ubicacion,
+    private geolocation: Geolocation,
     public localSaveCtrl: Localsave,
     public registroController: RegistrosService,
     public localSQL: LocalSqlProvider,
@@ -102,14 +104,24 @@ export class HomePage {
     this.storage.get('idUsuario').then(id => this.idUsuario = id);
     this.menuCtrl.enable(false);
     //Detecta la ubicacion
-    this.ubicacion();
+    this.ubicacion()
+      .then(res => {
+        this.latitud = res[0];
+        console.log('​HomePage -> latitud', this.latitud);
+        this.longitud = res[1];
+        console.log('​HomePage -> longitud', this.longitud);
+        if (this.platform.is('cordova')) {
+          this.muestroMapaNativo = true;
+        }
+      })
+      .catch(() => {
+        this.mostrarAlerta("ERROR", "No se pudo obtener la ubicacion")
+      });
 
     (this.platform.is('android')) ? this.claseHeader = "androidHeader" : false;
     (this.platform.is('ios')) ? this.claseHeader = "iosHeader" : false;
     //Para usar mapa nativo o mapaHTML
-    if (this.platform.is('cordova')) {
-      this.muestroMapaNativo = true;
-    }
+
 
     //FOTOS PARA PASO 2 RADIO BUTTON
     if (!this.platform.is('cordova')) {
@@ -156,8 +168,15 @@ export class HomePage {
   takefotoPaisaje() {
     this.camaraCtrl.takePicture64().then((data) => {
       this.fotoPaisaje = data;
-      this.obtenerUbicacion(true);
-      console.log('se obtuvo las coordenadas del mapa')
+      this.obtenerUbicacion()
+        .then(res => {
+          console.log(res)
+          this.latitudFoto = res[0];
+          this.logintudFoto = res[1];
+        })
+        .catch(err => {
+          console.log(err)
+        });
       this.fotoPaisajeURL = this.fotoPaisajeURL + this.fotoPaisaje;
       this.fotoPaisajeURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL);
     });
@@ -331,39 +350,35 @@ export class HomePage {
   }
 
   ubicacion() {
+    return new Promise((resolve, reject) => {
+      this.diagnosticProvider.controlEnable()
+        .then(() => {
+          this.obtenerUbicacion()
+            .then(res => {
+              resolve(res)
+            })
+            .catch(err => {
+              reject(err)
+            });
+        })
+        .catch(() => {
+          reject("err");
+        })
+    });
+  }
+
+  public obtenerUbicacion() {
     let text = 'Espere mientras cargamos la ubicacion';
     this.showLoader(text);
-    this.diagnosticProvider.controlPermisos().then(res => {
-      console.log('​HomePage -> ubicacion -> res', res);
-      this.obtenerUbicacion();
-    })
-    .catch(err => {
-      console.log('​HomePage -> ubicacion -> err', err);
+    return this.geolocation.getCurrentPosition().then((resp) => {
       this.loading.dismiss();
-      this.navCtrl.setRoot(TabsPage);
-    })
+      return Promise.resolve([resp.coords.latitude, resp.coords.longitude]);
+    }).catch((error) => {
+      this.loading.dismiss();
+      return Promise.reject("err")
+    });
   }
 
-  public obtenerUbicacion(coordenadasMapa?) {
-    console.log('​HomePage -> publicobtenerUbicacion -> coordenadasMapa', coordenadasMapa);
-    this.ubicacionCtrl.obtenerCoordenadas().then((data) => {
-      console.log('​HomePage -> publicobtenerUbicacion -> data', data);
-      if (data != -1) {
-        this.coordenadas = data;
-        if (!coordenadasMapa) {
-          this.latitud = this.coordenadas.latitude;
-          this.longitud = this.coordenadas.longitude;
-        } else {
-          this.latitudFoto = this.coordenadas.latitude;
-          this.logintudFoto = this.coordenadas.longitude;
-        }
-        this.loading.dismiss();
-      } else {
-        this.obtenerUbicacion();
-      }
-    }).catch(err => console.log('​HomePage -> publicobtenerUbicacion -> err', err));
-
-  }
 
   showLoader(text) {
     this.loading = this.loadingCtrl.create({
