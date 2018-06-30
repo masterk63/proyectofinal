@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularCropperjsComponent } from 'angular-cropperjs';
-
+import { ImageCropperComponent, CropperSettings, Bounds } from "ngx-img-cropper";
+import { Crop } from '@ionic-native/crop';
 
 @Component({
   selector: 'page-cropper',
@@ -9,49 +10,143 @@ import { AngularCropperjsComponent } from 'angular-cropperjs';
 })
 export class CropperPage {
 
-  @ViewChild('angularCropper') public angularCropper: AngularCropperjsComponent;
-  cropperOptions: any;
-  croppedImage: any;
-  myImage = null;
-  scaleValX = 1;
-  scaleValY = 1;
+  /**
+      * Access the image cropper DOM element
+      */
+  @ViewChild('cropper') ImageCropper: ImageCropperComponent;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.cropperOptions = {
-      dragMode: 'move',
-      aspectRatio: 1,
-      autoCrop: true,
-      movable: true,
-      zoomable: true,
-      viewMode:0,
-      // zoomOnTouch:false,
-      // zoomOnWheel:false,
-      scalable: true,
-      autoCropArea: 0.8,
-      cropBoxResizable: false,
-      // aspectRatio:16/9
-    }
-    this.myImage = fotoPerfil;
+
+
+
+  /**
+   * Object for storing - and eventually initialising - image cropper settings
+   */
+  public cropperSettings;
+
+
+
+
+  /**
+   * Will set the cropped width for the image
+   */
+  public croppedWidth: Number;
+
+
+
+
+  /**
+   * Will set the cropped height for the image
+   */
+  public croppedHeight: Number;
+
+
+
+
+  /**
+   * Object for storing image data
+   */
+  public data: any;
+
+
+
+
+  /**
+   * Determines whether the Save Image button is to be displayed or not
+   */
+  public canSave: boolean = false;
+
+
+
+
+  constructor(public navCtrl: NavController) {
+    // Here we set up the Image Cropper component settings
+    this.cropperSettings = new CropperSettings();
+
+    // Hide the default file input for image selection (we'll be
+    // using the Camera plugin instead)
+    this.cropperSettings.noFileInput = true;
+
+    // Create a new cropped image object when the cropping tool
+    // is resized
+    this.cropperSettings.cropOnResize = true;
+
+    // We want to convert the file type for a cropped image to a
+    // JPEG format
+    this.cropperSettings.fileType = 'image/jpeg';
+
+    // We want to be able to adjust the size of the cropping tool
+    // by dragging from any corner in any direction
+    this.cropperSettings.keepAspect = false;
+
+    // Create an object to store image related cropping data
+    this.data = {};
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CropperPage');
+
+
+
+  /**
+    *
+    * Determine the width & height for the cropped image (and enable the
+    * Save Image button)
+    *
+    * @public
+    * @method handleCropping
+    * @param bounds              {Bounds}      Capture the component's crop event
+                                               (and subsequent properties)
+    * @return none
+    */
+  handleCropping(bounds: Bounds) {
+    this.croppedHeight = bounds.bottom - bounds.top;
+    this.croppedWidth = bounds.right - bounds.left;
+    this.canSave = true;
   }
 
-  ionViewDidEnter() {
-    // setTimeout(() => {
-    //   let hola = this.angularCropper.cropper.getCanvasData();
-    //   // let hola = this.angularCropper.cropper.getCroppedCanvas().toDataURL('image/jpg', (100 / 100));
-    //   console.log('​UsuarioPage -> ionViewDidEnter -> hola', hola);
-    //   this.angularCropper.cropper.setCanvasData({'height':200});
-      
-    // }, 1000);
+
+
+
+  /**
+    *
+    * Select an image from the device Photo Library
+    *
+    * @public
+    * @method selectImage
+    * @return none
+    */
+  selectImage() {
+    this.canSave = false;
+
+    // Create an Image object, assign retrieved base64 image from
+    // the device photo library
+    let image: any = new Image();
+    image.src = fotoPerfil;
+
+
+    // Assign the Image object to the ImageCropper component
+    this.ImageCropper.setImage(image);
   }
 
-  zoom(zoomIn) {
-    let factor = zoomIn ? 0.1 : -0.1;
-    this.angularCropper.cropper.zoom(factor)
+
+  ionViewDidLoad(){
+    this.selectImage();
   }
+
+
+
+  /**
+    *
+    * Retrieve the cropped image value (base64 image data)
+    *
+    * @public
+    * @method saveImage
+    * @return none
+    */
+  saveImage() {
+    console.dir(this.data.image);
+  }
+
+
+
 
 }
 

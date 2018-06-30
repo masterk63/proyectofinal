@@ -3,15 +3,13 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { AlertController } from 'ionic-angular';
-import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 @Injectable()
 export class DiagnosticProvider {
 
   constructor(public http: Http,
     private diagnostic: Diagnostic,
-    private alertCtrl: AlertController,
-    private androidPermissions: AndroidPermissions) {
+    private alertCtrl: AlertController) {
   }
 
   presentConfirm(titulo, mensaje, botonIr) {

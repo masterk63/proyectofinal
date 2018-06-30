@@ -74,8 +74,8 @@ import { AngularCropperjsModule } from 'angular-cropperjs';
 //Circular Progress
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
 import { CropperPage } from '../pages/cropper/cropper';
-
-import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { Crop } from '@ionic-native/crop';
+import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
 
 let config = new AuthServiceConfig([
   {
@@ -89,6 +89,7 @@ let config = new AuthServiceConfig([
     MyApp,
     HomePage,
     CropperPage,
+    ImageCropperComponent,
     TabsPage,
     IntroPage,
     UsuarioPage,
@@ -157,6 +158,7 @@ let config = new AuthServiceConfig([
     PhotoViewer,
     FileTransfer,
     Camera,
+    Crop,
     FilePath,
     Network,
     StatusBar,
@@ -166,7 +168,6 @@ let config = new AuthServiceConfig([
     Geolocation,
     Diagnostic,
     Keyboard,
-    AndroidPermissions,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,ConnectivityService,RegistrosService,Storage,
     LocalSqlProvider,

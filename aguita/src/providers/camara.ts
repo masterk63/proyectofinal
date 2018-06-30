@@ -7,8 +7,10 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Platform, ToastController, LoadingController, Loading } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
+import { Crop } from '@ionic-native/crop';
 
 declare var cordova: any;
+declare var plugins: any;
 
 @Injectable()
 export class Camara {
@@ -22,6 +24,7 @@ export class Camara {
         public platform: Platform,
         private camera: Camera,
         private file: File,
+        private crop: Crop,
         private transfer: FileTransfer,
         private filePath: FilePath,
         public loadingCtrl: LoadingController) {
@@ -84,6 +87,7 @@ export class Camara {
         }, (err) => {
             this.presentToast('Error al seleccionar foto.');
         });
+
     }
 
 
@@ -189,6 +193,40 @@ export class Camara {
         this.toDataUrl('../assets/img/1.jpg', function (base64Img) {
             console.log(base64Img);
         });
+    }
+
+    // Return a promise to catch errors while loading image
+    getMedia() {
+        let options = {
+            allowEdit: false,
+            sourceType: this.camera.PictureSourceType.CAMERA,
+            mediaType: this.camera.MediaType.ALLMEDIA,
+            destinationType: this.camera.DestinationType.FILE_URI
+        }
+        return new Promise((resolve, reject) => {
+            // Get Image from ionic-native's built in camera plugin
+            this.camera.getPicture(options).then((fileUri) => {
+                // Crop Image, on android this returns something like, '/storage/emulated/0/Android/...'
+                // Only giving an android example as ionic-native camera has built in cropping ability
+                if (this.platform.is('android')) {
+                    // Modify fileUri format, may not always be necessary
+                    fileUri = 'file://' + fileUri;
+                    const options = { quality: 100 };
+                    /* Using cordova-plugin-icrop starts here */
+                    plugins.crop.promise(fileUri, options).then((path) => {
+                        // path looks like 'file:///storage/emulated/0/Android/data/com.foo.bar/cache/1477008080626-cropped.jpg?1477008106566'
+                        console.log('Cropped Image Path!: ' + path);
+                        // Do whatever you want with new path such as read in a file
+                        // Here we resolve the path to finish, but normally you would now want to read in the file
+                        resolve(path);
+                    }).catch((error) => {
+                        reject(error);
+                    });
+                }
+            }).catch((error) => {
+                reject(error);
+            });
+        })
     }
 
 
