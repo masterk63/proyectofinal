@@ -18,50 +18,8 @@
 
 
 <ion-content padding class="Aligner">
-  <!-- <angular-cropper class="Aligner-item" #angularCropper [cropperOptions]="cropperOptions" [imageUrl]="myImage"></angular-cropper> -->
-
-  <!-- Declare image cropper with following aspects:
-
-       1. Template reference variable to allow component
-          class to 'hook' into the cropper tool in DOM
-       2. Set image from the component class's data object
-       3. Apply settings from the component class's
-          cropperSettings object
-       4. Call the handleCropping method in the image
-          cropper's onCrop event
-   -->
-  <img-cropper #cropper [image]="data" [settings]="cropperSettings" (onCrop)="handleCropping($event)"></img-cropper>
-
-
-  <!-- Display the cropped image -->
-  <!-- <div *ngIf="data.image">
-
-    <img [src]="data.image" [width]="croppedWidth" [height]="croppedHeight">
-  </div> -->
+  <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
 </ion-content>
 
-<ion-footer color="lightDark">
-  <ion-toolbar color="lightDark" class="footerToolbar">
-    <ion-row>
-      <ion-col col-3>
-        <button ion-button clear block class="text-on-bottom">
-          <ion-icon name="call"></ion-icon>
-          <p>Call</p>
-        </button>
-      </ion-col>
-      <ion-col col-3>
-        <button ion-button clear block class="text-on-bottom">
-          <ion-icon name="call"></ion-icon>
-          <p>Call</p>
-        </button>
-      </ion-col>
-      <ion-col col-3>
-        <button ion-button clear block class="text-on-bottom">
-          <ion-icon name="call"></ion-icon>
-          <p>Call</p>
-        </button>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-footer>
+
 

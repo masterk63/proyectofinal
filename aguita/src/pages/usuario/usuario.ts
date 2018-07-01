@@ -65,8 +65,7 @@ export class UsuarioPage {
         {
           text: 'Tomar Foto',
           handler: () => {
-            this.cameraSrv.getMedia().then( res => console.log(res))
-            // this.subirImagen(1);
+            this.subirImagen(1);
           }
         }, {
           text: 'Galeria',

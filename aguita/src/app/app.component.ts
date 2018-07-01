@@ -43,18 +43,10 @@ export class MyApp {
       // se pueda leer bien.. ya que nuestro menu es Rojo.
       statusBar.styleLightContent();
       splashScreen.hide();
-      this.diagnosticProv.controlEnable();
-
+      
       if (this.platform.is('cordova')) {
+        this.diagnosticProv.controlEnable();
         this.localSQL.createDatabase();
-        // keyboard.onKeyboardShow().subscribe(() => {
-        //   console.log('se abrio el teclado')
-        //   document.body.classList.add('keyboard-is-open');
-        // });
-
-        // keyboard.onKeyboardHide().subscribe(() => {
-        //   document.body.classList.remove('keyboard-is-open');
-        // });
       }
 
       this.storage.get('token').then((token) => {
