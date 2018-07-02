@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { AlertController, NavController, NavParams, LoadingController, ActionSheetController } from 'ionic-angular';
+import { AlertController, NavController, NavParams, LoadingController, ActionSheetController, ModalController } from 'ionic-angular';
 import { UsuariosService } from '../../providers/usuariosService';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
@@ -9,6 +9,7 @@ import { ListaRegistrosPage } from '../lista-registros/lista-registros';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camara } from '../../providers/camara';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CropperPage } from '../cropper/cropper';
 
 @Component({
   selector: 'page-usuario',
@@ -31,11 +32,12 @@ export class UsuarioPage {
   submitAttempt: boolean = false;
   @ViewChild('fileInput') fileInput: ElementRef;
   fotoCropped: any;
-  
+
   constructor(public navCtrl: NavController,
     public params: NavParams,
     public userService: UsuariosService,
     public storage: Storage,
+    public modalCtrl: ModalController,
     public authService: Auth,
     public sanitizer: DomSanitizer,
     public actionSheetCtrl: ActionSheetController,
@@ -88,13 +90,24 @@ export class UsuarioPage {
 
   async subirImagen(source) {
     let fotoPerfil = await this.cameraSrv.takePicture64(source);
+    let cropped = await this.openModal(fotoPerfil);
     let user = {
       idUsuario: this.idUsuario,
-      fotoPerfil
+      fotoPerfil: cropped
     }
     this.userService.actilizarFotoPerfil(user).then(res => {
-      this.usuario.fotoPerfil = fotoPerfil;
+      this.usuario.fotoPerfil = cropped;
     }).catch(err => this.mostrarAlerta(err, 'Error'))
+  }
+
+  openModal(pic) {
+    return new Promise((resolve, reject) => {
+      let modal = this.modalCtrl.create(CropperPage, { imagen: pic, aspectRatio: 1 });
+      modal.onDidDismiss(data => {
+        return resolve(data);
+      });
+      modal.present();
+    })
   }
 
   dameId() {

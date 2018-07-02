@@ -29,6 +29,7 @@ import { App } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { Storage } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
+import { CropperPage } from '../cropper/cropper';
 
 
 
@@ -164,6 +165,17 @@ export class HomePage {
     let modal = this.modalCtrl.create(ModalPage, { foto: pic, nombre: name });
     modal.present();
   }
+
+  modalCropper(pic) {
+    return new Promise((resolve, reject) => {
+      let modal = this.modalCtrl.create(CropperPage, { imagen: pic, aspectRatio: 1 });
+      modal.onDidDismiss(data => {
+        return resolve(data);
+      });
+      modal.present();
+    })
+  }
+
 
   takefotoPaisaje() {
     this.camaraCtrl.takePicture64().then((data) => {

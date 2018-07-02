@@ -18,7 +18,7 @@
           <ion-col col-12 class="profile">
             <ion-row class="contenedorImagen">
               <div>
-                <img [src]="'data:image/jpeg;base64,'+this.usuario?.fotoPerfil" />
+                <img imageViewer [src]="'data:image/jpeg;base64,'+this.usuario?.fotoPerfil" />
                 <h2>{{usuario?.usuario}}</h2>
                 <!-- <input type="file" #fileInput id="imgFile" style="display:none" (change)="subirImagen($event)"> -->
                 <button (click)="presentActionSheet()" color="dark" id="UploadButton">
