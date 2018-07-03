@@ -168,7 +168,7 @@ export class HomePage {
 
   modalCropper(pic) {
     return new Promise((resolve, reject) => {
-      let modal = this.modalCtrl.create(CropperPage, { imagen: pic, aspectRatio: 1 });
+      let modal = this.modalCtrl.create(CropperPage, { imagen: pic, aspectRatio: 0 });
       modal.onDidDismiss(data => {
         return resolve(data);
       });
@@ -177,29 +177,29 @@ export class HomePage {
   }
 
 
-  takefotoPaisaje() {
-    this.camaraCtrl.takePicture64().then((data) => {
-      this.fotoPaisaje = data;
-      this.obtenerUbicacion()
-        .then(res => {
-          console.log(res)
-          this.latitudFoto = res[0];
-          this.logintudFoto = res[1];
-        })
-        .catch(err => {
-          console.log(err)
-        });
-      this.fotoPaisajeURL = this.fotoPaisajeURL + this.fotoPaisaje;
-      this.fotoPaisajeURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL);
-    });
+  async takefotoPaisaje() {
+    let data = await this.camaraCtrl.takePicture64();
+    let cropped = await this.modalCropper(data);
+    this.fotoPaisaje = cropped;
+    this.obtenerUbicacion()
+      .then(res => {
+        console.log(res)
+        this.latitudFoto = res[0];
+        this.logintudFoto = res[1];
+      })
+      .catch(err => {
+        console.log(err)
+      });
+    this.fotoPaisajeURL = this.fotoPaisajeURL + this.fotoPaisaje;
+    this.fotoPaisajeURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoPaisajeURL);
   }
 
-  takefotoMuestra() {
-    this.camaraCtrl.takePicture64().then((data) => {
-      this.fotoMuestra = data;
-      this.fotoMuestraURL = this.fotoMuestraURL + this.fotoMuestra;
-      this.fotoMuestraURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL);
-    });
+  async takefotoMuestra() {
+    let data = await this.camaraCtrl.takePicture64();
+    let cropped = await this.modalCropper(data);
+    this.fotoMuestra = cropped;
+    this.fotoMuestraURL = this.fotoMuestraURL + this.fotoMuestra;
+    this.fotoMuestraURLSafe = this.sanitizer.bypassSecurityTrustUrl(this.fotoMuestraURL);
   }
 
   mostrarFoto(pic) {
