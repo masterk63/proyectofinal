@@ -8,7 +8,8 @@ import { SocketProvider } from '../../providers/socket/socket';
 import * as configServer from '../../server'
 import * as md5 from '../../../node_modules/md5'
 import { Storage } from '@ionic/storage';
-
+import { Network } from '@ionic-native/network';
+declare var cordova;
 @Injectable()
 export class LocalSqlProvider {
   db: SQLiteObject = null;
@@ -17,7 +18,8 @@ export class LocalSqlProvider {
     public socketPrv: SocketProvider,
     public events: Events,
     public storage: Storage,
-    private sqlite: SQLite) {
+    private sqlite: SQLite,
+    private network: Network) {
   }
 
 
@@ -94,6 +96,24 @@ export class LocalSqlProvider {
     let sql = 'INSERT INTO tasks(indice, fecha, latitud, longitud, latitudFoto, longitudFoto, fotoPaisaje,fotoMuestra, fotoMapa, observacion, elmido, patudo, plecoptero, tricoptero, idUsuario) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
     return this.db.executeSql(sql, [task.indice, task.fecha, task.latitud, task.longitud, task.latitudFoto, task.longitudFoto, task.fotoPaisaje, task.fotoMuestra, task.fotoMapa, task.observacion, task.elmidos, task.patudos, task.plecopteros, task.tricopteros, task.idUsuario]).then(res => {
       console.log('registro agregado con exito')
+      // consultamos si tenemos internet para generar o no la notificacion
+      if (this.network.type === 'none') {
+        //consultamos q no hayamos generado antes la notificacion
+        cordova.plugins.notification.local.isScheduled(1, (scheduled) => {
+          if (!scheduled) {
+            cordova.plugins.notification.local.schedule({
+              id: 1,
+              title: 'Aguita',
+              text: "¡Abre la aplicacion para sincronizar tus registros!",
+              foreground: true,
+              trigger: { in: 1, unit: 'minute' }
+            });
+          }
+        });
+
+      }
+
+
       return Promise.resolve(res);
     }).catch(error => Promise.reject(error));
   }
