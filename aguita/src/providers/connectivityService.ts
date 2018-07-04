@@ -5,6 +5,8 @@ import { LocalSqlProvider } from './local-sql/local-sql';
 import { RegistrosService } from './registrosService';
 import { Events } from 'ionic-angular';
 
+declare var cordova;
+
 @Injectable()
 export class ConnectivityService {
 
@@ -24,12 +26,13 @@ export class ConnectivityService {
       // We just got a connection but we need to wait briefly
       // before we determine the connection type. Might need to wait.
       // prior to doing any api requests as well.
-      setTimeout(() => {
-        if (this.network.type === 'wifi') {
-          console.log('we got a wifi connection, woohoo!');
+      setTimeout(async () => {
+        let registros = await this.localSQLPrv.getAll();
+        if (registros.length != 0) {
+          this.enviarNotificacion();
           this.subir();
         }
-      }, 3000);
+      }, 10000);
     });
 
   }
@@ -43,6 +46,7 @@ export class ConnectivityService {
   }
 
   async subir() {
+    //hay registros para subir, implementamos una notificacion
     let registros = await this.localSQLPrv.getAll();
     console.log('pasando por el service y mostrando los registros', registros)
     let index = 1;
@@ -61,5 +65,13 @@ export class ConnectivityService {
     }
     this.events.publish('uploadProcess', { indice: '-', total: '-' });
     this.events.publish('uploadProcessSize', { indice: 0, total: 100 });
+  }
+
+  enviarNotificacion() {
+    cordova.plugins.notification.local.schedule({
+      title: 'Aguita',
+      text: "¡Ahora que tienes conexion, abre la aplicacion para subir los registros!",
+      foreground: true,
+    });
   }
 }
