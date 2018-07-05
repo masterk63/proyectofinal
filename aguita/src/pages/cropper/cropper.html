@@ -30,8 +30,8 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="background">
-  <div>
-    <img [src]="imageBase64" #image>
+<ion-content>
+  <div class="contenedorImagen">
+    <img [src]="imageBase64" (load)="cargarCropper()" #image>
   </div>
 </ion-content>

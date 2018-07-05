@@ -3,7 +3,7 @@
     <name>Aguita</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.0.26:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -122,9 +122,9 @@
     <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
     <allow-navigation href="http://192.168.1.21:8100" />
     <allow-navigation href="http://192.168.0.26:8100" />
-    <engine name="ios" spec="4.5.4" />
-    <engine name="android" spec="6.3.0" />
     <plugin name="cordova-plugin-local-notification" spec="^0.9.0-beta.2" />
     <allow-navigation href="http://192.168.0.2:8100" />
     <allow-navigation href="http://192.168.0.102:8100" />
+    <engine name="ios" spec="4.5.4" />
+    <engine name="android" spec="6.3.0" />
 </widget>
