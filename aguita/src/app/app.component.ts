@@ -35,7 +35,7 @@ export class MyApp {
     private keyboard: Keyboard,
     public storage: Storage,
     splashScreen: SplashScreen,
-  private diagnosticProv: DiagnosticProvider) {
+    private diagnosticProv: DiagnosticProvider) {
 
     platform.ready().then(() => {
 
@@ -43,7 +43,6 @@ export class MyApp {
       // se pueda leer bien.. ya que nuestro menu es Rojo.
       statusBar.styleLightContent();
       splashScreen.hide();
-      
       if (this.platform.is('cordova')) {
         this.diagnosticProv.controlEnable();
         this.localSQL.createDatabase();
