@@ -1,47 +1,8 @@
+
 page-cropper {
-    .cropper {
-        max-height: 400px;
-    }
-    .scroll-content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #101113;
-        margin: 0px !important;
-    }
-    .Aligner-item {
-        // max-width: 50%;
-    }
-    .headerToolbar {
-        padding: 8px !important;
-    }
-    .footerToolbar {
-        padding: 0px !important;
-        .icon {
-            font-size: 2em !important;
-        }
-        p {
-            font-size: 0.7em;
-            margin-top: 4px;
-        }
-    }
-    .text-on-bottom>.button-inner {
-        flex-direction: column;
-        margin-top: 3px;
-    }
-    ion-buttons[start] {
-        order: 2;
-    }
-    .toolbar-title {
-        text-align: center;
-    }
-    .button {
-        color: #E2E2E4 !important;
-        height: 50px;
-    }
-    @media only screen and (min-width: 767px) {
-        .cropper {
-            max-height: 700px;
-        }
+    /* Limit image width to avoid overflow the container */
+    img {
+        max-width: 100%;
+        /* This rule is very important, please do not ignore this! */
     }
 }
