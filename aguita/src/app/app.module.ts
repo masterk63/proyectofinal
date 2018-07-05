@@ -69,12 +69,11 @@ import { DiagnosticProvider } from '../providers/diagnostic/diagnostic';
 import { SocketProvider } from '../providers/socket/socket';
 
 // Import angular-cropperjs
-import { AngularCropperjsModule } from 'angular-cropperjs';
 
 //Circular Progress
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
 import { CropperPage } from '../pages/cropper/cropper';
-import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
+
 
 let config = new AuthServiceConfig([
   {
@@ -88,7 +87,6 @@ let config = new AuthServiceConfig([
     MyApp,
     HomePage,
     CropperPage,
-    ImageCropperComponent,
     TabsPage,
     IntroPage,
     UsuarioPage,
@@ -111,7 +109,6 @@ let config = new AuthServiceConfig([
   imports: [
     BrowserModule,
     IonicImageViewerModule,
-    AngularCropperjsModule,
     BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
