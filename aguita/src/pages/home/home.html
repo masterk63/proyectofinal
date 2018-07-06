@@ -4,7 +4,7 @@
       <ion-segment-button value="mapa">
         Mapa
       </ion-segment-button>
-      <ion-segment-button value="fotos">
+      <ion-segment-button  value="fotos">
         Fotos
       </ion-segment-button>
       <ion-segment-button value="obseravaciones">
@@ -211,7 +211,7 @@
           </button>
         </ion-col>
         <ion-col col-4>
-          <button class="botonFooter" *ngIf="this.registro != 'obseravaciones'" ion-button icon-end (click)="siguientePaso()">
+          <button class="botonFooter" *ngIf="this.registro != 'obseravaciones' && animacionMapaFin" ion-button icon-end (click)="siguientePaso()">
             Siguiente
             <ion-icon style="font-size: 1.5em;" name="ios-arrow-forward"></ion-icon>
           </button>

@@ -41,7 +41,7 @@ import { CropperPage } from '../cropper/cropper';
 export class HomePage {
   @ViewChild('micontenedor') contenedor: ElementRef;
   @ViewChild(Content) content: Content;
-
+  animacionMapaFin: boolean = false;
   claseHeader: string;
   idUsuario: number;
   altoMapa: number;
@@ -113,6 +113,10 @@ export class HomePage {
         console.log('​HomePage -> longitud', this.longitud);
         if (this.platform.is('cordova')) {
           this.muestroMapaNativo = true;
+          //espero a la animacion para habilitar el boton siguiente, porque sino el mapa nativo aparece de background en los otros tabs...
+          setTimeout(() => {
+            this.animacionMapaFin = true;
+          }, 3000);
         }
       })
       .catch(() => {
