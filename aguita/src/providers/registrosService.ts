@@ -31,7 +31,7 @@ export class RegistrosService {
   }
 
   cargarRegistrosUsuario(idRegistro) {
-    return new Promise((resolve, reject) => {
+    return new Promise<Array<any>>((resolve, reject) => {
       this.http.get(configServer.data.urlServidor + '/api/registrosListarUsuario/' + idRegistro).timeout(5000)
         .subscribe(resultado => {
           this.registros = resultado;

@@ -92,8 +92,10 @@ export class ListaRegistrosPage {
       if (this.conexionProvider.isOnline()) {
         this.registrosCtrl.cargarRegistrosUsuario(this.idUsuario).then((registros) => {
           console.log('registros en el servidor', registros);
-          this.registrosOnline = registros;
-          this.registrosOnline = this.registrosOnline.reverse();
+          if(registros.length > 0){
+            this.registrosOnline = registros;
+            this.registrosOnline = this.registrosOnline.reverse();
+          }
         }).catch(e => {
           this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
         })
@@ -140,8 +142,8 @@ export class ListaRegistrosPage {
   obtenerRegistrosDBLocal() {
     this.localSQL.getAll(this.idUsuario).then((reg) => {
       console.log('registros locales', reg);
-      this.registros = reg;
-      if (this.registros.length > 0) {
+      if(reg.length > 0){
+        this.registros = reg;
         this.conexionProvider.subir();
       }
     });
