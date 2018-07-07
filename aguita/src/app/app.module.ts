@@ -117,12 +117,12 @@ let config = new AuthServiceConfig([
     IonicModule.forRoot(MyApp, {
       autocomplete: 'off',
       backButtonText: '',
-      mode: "md",
-      iconMode: 'md',
-      modalEnter: 'modal-slide-in',
-      modalLeave: 'modal-slide-out',
-      tabsPlacement: 'bottom',
-      pageTransition: 'md-transition'
+      // mode: "md",
+      // iconMode: 'md',
+      // modalEnter: 'modal-slide-in',
+      // modalLeave: 'modal-slide-out',
+      // tabsPlacement: 'bottom',
+      // pageTransition: 'md-transition'
     })
   ],
   bootstrap: [IonicApp],

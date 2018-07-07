@@ -9,13 +9,15 @@
 -->
 <ion-header>
   <ion-toolbar color="dark">
-    <ion-title i18n>Crop</ion-title>
+    <ion-title i18n>Recortar</ion-title>
     <ion-buttons start>
-      <button ion-button (click)="cropperReset()">Reset</button>
+      <button ion-button icon-only (click)="cropperReset()">
+        <ion-icon name='refresh'></ion-icon>
+      </button>
     </ion-buttons>
     <ion-buttons padding-left padding-right end>
       <button ion-button icon-only (click)="imageRotate()">
-        <ion-icon name='refresh'></ion-icon>
+        <ion-icon name='redo'></ion-icon>
       </button>
     </ion-buttons>
     <ion-buttons padding-left padding-right end>

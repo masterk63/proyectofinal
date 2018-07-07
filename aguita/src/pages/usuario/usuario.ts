@@ -91,6 +91,7 @@ export class UsuarioPage {
   async subirImagen(source) {
     let fotoPerfil = await this.cameraSrv.takePicture64(source);
     let cropped = await this.openModal(fotoPerfil);
+    console.log('​UsuarioPage -> asyncsubirImagen -> cropped', cropped);
     let user = {
       idUsuario: this.idUsuario,
       fotoPerfil: cropped

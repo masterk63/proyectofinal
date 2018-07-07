@@ -39,7 +39,6 @@ export class Camara {
                 sourceType: sourceType,
                 correctOrientation: true,
             }).then((imageData) => {
-                console.log(imageData);
                 resolve(imageData);
             }, (err) => {
                 console.log(err);
