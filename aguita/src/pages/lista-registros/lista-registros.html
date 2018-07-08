@@ -4,7 +4,7 @@
       <h2>Registros</h2>
     </div>
   </ion-row>
-  <button ion-button (click)="fakeRegitro()">fakeregistro</button>
+  <!-- <button ion-button (click)="fakeRegitro()">fakeregistro</button> -->
   <ion-card *ngIf="uploadProcess">
     <ion-list>
       <ion-item>
@@ -16,6 +16,15 @@
       </ion-item>
     </ion-list>
   </ion-card>
+  <div *ngIf="!registros && !registrosOnline" class="empty">
+    <div>
+      <ion-icon name="book" style="font-size: 100px;"></ion-icon>
+      <p>No se encontraron registros, puedes empezar haciendo click en Nuevo Registro</p>
+      <div class="arrow bounce">
+        <ion-icon name="md-arrow-down" style="font-size: 40px;"></ion-icon>
+      </div>
+    </div>
+  </div>
   <div *ngIf="registros" [@listAnimation]="registros.length">
     <div class="header">
       <ion-icon name="folder" item-left large></ion-icon>

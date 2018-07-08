@@ -16,6 +16,7 @@ import { trigger, state, style, animate, transition, query, stagger, keyframes }
 import { ConnectivityService } from '../../providers/connectivityService';
 import 'web-animations-js/web-animations.min';
 import { Events } from 'ionic-angular';
+import { App } from 'ionic-angular/components/app/app';
 
 declare var Connection: any;
 
@@ -50,19 +51,20 @@ declare var Connection: any;
 export class ListaRegistrosPage {
 
   registros: any;
-  registrosOnline: any = [];
+  registrosOnline: any;
   fotoMapaNoDisponible: any;
   @Input() idUsuario;
   @Input() leavePage;
-  uploadIndex:any = '-';
-  uploadMax:any = '-';
-  sizeIndex:any = 0;
-  sizeMax:any = 100;
-  uploadProcess:boolean = false;
+  uploadIndex: any = '-';
+  uploadMax: any = '-';
+  sizeIndex: any = 0;
+  sizeMax: any = 100;
+  uploadProcess: boolean = false;
 
   constructor(public navCtrl: NavController,
     public authService: Auth,
     public navParams: NavParams,
+    public app: App,
     public registrosCtrl: RegistrosService,
     public socketPrv: SocketProvider,
     public alertCtrl: AlertController,
@@ -92,7 +94,7 @@ export class ListaRegistrosPage {
       if (this.conexionProvider.isOnline()) {
         this.registrosCtrl.cargarRegistrosUsuario(this.idUsuario).then((registros) => {
           console.log('registros en el servidor', registros);
-          if(registros.length > 0){
+          if (registros.length > 0) {
             this.registrosOnline = registros;
             this.registrosOnline = this.registrosOnline.reverse();
           }
@@ -109,7 +111,7 @@ export class ListaRegistrosPage {
 
         this.events.subscribe('uploadProcess', (estado) => {
           this.uploadProcess = true;
-          if(estado.indice == '-'){
+          if (estado.indice == '-') {
             this.uploadProcess = false;
           }
           this.uploadIndex = estado.indice;
@@ -142,7 +144,7 @@ export class ListaRegistrosPage {
   obtenerRegistrosDBLocal() {
     this.localSQL.getAll(this.idUsuario).then((reg) => {
       console.log('registros locales', reg);
-      if(reg.length > 0){
+      if (reg.length > 0) {
         this.registros = reg;
         this.conexionProvider.subir();
       }
@@ -169,7 +171,7 @@ export class ListaRegistrosPage {
   }
 
   irAlRegistro(id) {
-    this.navCtrl.push(RegistroPage, { idRegistro: id })
+    this.app.getRootNav().push(RegistroPage, { idRegistro: id });
   }
 
   mostrarAlerta(titulo, mensaje) {

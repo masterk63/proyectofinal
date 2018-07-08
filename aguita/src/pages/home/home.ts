@@ -108,9 +108,7 @@ export class HomePage {
     this.ubicacion()
       .then(res => {
         this.latitud = res[0];
-        console.log('​HomePage -> latitud', this.latitud);
         this.longitud = res[1];
-        console.log('​HomePage -> longitud', this.longitud);
         if (this.platform.is('cordova')) {
           this.muestroMapaNativo = true;
           //espero a la animacion para habilitar el boton siguiente, porque sino el mapa nativo aparece de background en los otros tabs...
