@@ -18,11 +18,12 @@
   </ion-card>
   <div *ngIf="!registros && !registrosOnline" class="empty">
     <div>
-      <ion-icon name="book" style="font-size: 100px;"></ion-icon>
+      <!-- <ion-icon name="book" style="font-size: 100px;"></ion-icon> -->
+      <div class="icono search"></div>
       <p>No se encontraron registros, puedes empezar haciendo click en Nuevo Registro</p>
-      <div class="arrow bounce">
-        <ion-icon name="md-arrow-down" style="font-size: 40px;"></ion-icon>
-      </div>
+    </div>
+    <div class="arrow bounce">
+      <ion-icon name="md-arrow-down" style="font-size: 40px;"></ion-icon>
     </div>
   </div>
   <div *ngIf="registros" [@listAnimation]="registros.length">

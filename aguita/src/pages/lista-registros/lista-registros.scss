@@ -50,7 +50,8 @@ lista-registros {
     }
     .arrow {
         text-align: center;
-        margin: 8% 0;
+        position: absolute;
+        bottom: 30px;
     }
     .bounce {
         -moz-animation: bounce 1.5s infinite;
@@ -70,6 +71,176 @@ lista-registros {
         }
         60% {
             transform: translateY(-15px);
+        }
+    }
+    @-webkit-keyframes icono-animate {
+        from {
+            background-position: center top;
+        }
+        to {
+            background-position: center -9400px;
+        }
+    }
+    @-moz-keyframes icono-animate {
+        from {
+            background-position: center top;
+        }
+        to {
+            background-position: center -9400px;
+        }
+    }
+    @keyframes icono-animate {
+        from {
+            background-position: center top;
+        }
+        to {
+            background-position: center -9400px;
+        }
+    }
+    .icono {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        display: inline-block;
+        background-size: 200px 9600px;
+        background-position: center top; 
+        background-repeat: no-repeat;
+        background-color: white;
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+        cursor: pointer;
+        -webkit-animation: icono-animate 1.7s steps(47) infinite;
+        -moz-animation: icono-animate 1.7s steps(47) infinite;
+        animation: icono-animate 1.7s steps(47) infinite;
+    }
+    .icono.bullseye {
+        background-image: url(../../assets/icon/images/bullseye.png);
+        background-color: #ef736f;
+    }
+    @media (min--moz-device-pixel-ratio: 1.3),
+    (-o-min-device-pixel-ratio: 2.6 / 2),
+    (-webkit-min-device-pixel-ratio: 1.3),
+    (min-device-pixel-ratio: 1.3),
+    (min-resolution: 1.3dppx) {
+        .icono.bullseye {
+            background-image: url("../../assets/icon/images/bullseye@2x.png");
+        }
+    }
+    .icono.cogs {
+        background-image: url(../../assets/icon/images/cogs.png);
+        background-color: white;
+    }
+    @media (min--moz-device-pixel-ratio: 1.3),
+    (-o-min-device-pixel-ratio: 2.6 / 2),
+    (-webkit-min-device-pixel-ratio: 1.3),
+    (min-device-pixel-ratio: 1.3),
+    (min-resolution: 1.3dppx) {
+        .icono.cogs {
+            background-image: url("../../assets/icon/images/cogs@2x.png");
+        }
+    }
+    .icono.lightbulb {
+        background-image: url(../../assets/icon/images/lightbulb.png);
+        background-color: #5daee9;
+    }
+    @media (min--moz-device-pixel-ratio: 1.3),
+    (-o-min-device-pixel-ratio: 2.6 / 2),
+    (-webkit-min-device-pixel-ratio: 1.3),
+    (min-device-pixel-ratio: 1.3),
+    (min-resolution: 1.3dppx) {
+        .icono.lightbulb {
+            background-image: url("../../assets/icon/images/lightbulb@2x.png");
+        }
+    }
+    .icono.chat {
+        background-image: url(../../assets/icon/images/chat.png);
+        background-color: #f8c665;
+    }
+    @media (min--moz-device-pixel-ratio: 1.3),
+    (-o-min-device-pixel-ratio: 2.6 / 2),
+    (-webkit-min-device-pixel-ratio: 1.3),
+    (min-device-pixel-ratio: 1.3),
+    (min-resolution: 1.3dppx) {
+        .icono.chat {
+            background-image: url("../../assets/icon/images/chat@2x.png");
+        }
+    }
+    .icono.phone {
+        background-image: url(../../assets/icon/images/phone.png);
+        background-color: #5daee9;
+    }
+    @media (min--moz-device-pixel-ratio: 1.3),
+    (-o-min-device-pixel-ratio: 2.6 / 2),
+    (-webkit-min-device-pixel-ratio: 1.3),
+    (min-device-pixel-ratio: 1.3),
+    (min-resolution: 1.3dppx) {
+        .icono.phone {
+            background-image: url("../../assets/icon/images/phone@2x.png");
+        }
+    }
+    .icono.trophy {
+        background-image: url(../../assets/icon/images/trophy.png);
+        background-color: #ef736f;
+    }
+    @media (min--moz-device-pixel-ratio: 1.3),
+    (-o-min-device-pixel-ratio: 2.6 / 2),
+    (-webkit-min-device-pixel-ratio: 1.3),
+    (min-device-pixel-ratio: 1.3),
+    (min-resolution: 1.3dppx) {
+        .icono.trophy {
+            background-image: url("../../assets/icon/images/trophy@2x.png");
+        }
+    }
+    .icono.search {
+        background-image: url(../../assets/icon/images/search.png);
+        background-color: #f8c665;
+    }
+    @media (min--moz-device-pixel-ratio: 1.3),
+    (-o-min-device-pixel-ratio: 2.6 / 2),
+    (-webkit-min-device-pixel-ratio: 1.3),
+    (min-device-pixel-ratio: 1.3),
+    (min-resolution: 1.3dppx) {
+        .icono.search {
+            background-image: url("../../assets/icon/images/search@2x.png");
+        }
+    }
+    .icono.love {
+        background-image: url(../../assets/icon/images/love.png);
+        background-color: #71d9bf;
+    }
+    @media (min--moz-device-pixel-ratio: 1.3),
+    (-o-min-device-pixel-ratio: 2.6 / 2),
+    (-webkit-min-device-pixel-ratio: 1.3),
+    (min-device-pixel-ratio: 1.3),
+    (min-resolution: 1.3dppx) {
+        .icono.love {
+            background-image: url("../../assets/icon/images/love@2x.png");
+        }
+    }
+    .icono.map {
+        background-image: url(../../assets/icon/images/map.png);
+        background-color: white;
+    }
+    @media (min--moz-device-pixel-ratio: 1.3),
+    (-o-min-device-pixel-ratio: 2.6 / 2),
+    (-webkit-min-device-pixel-ratio: 1.3),
+    (min-device-pixel-ratio: 1.3),
+    (min-resolution: 1.3dppx) {
+        .icono.map {
+            background-image: url("../../assets/icon/images/map@2x.png");
+        }
+    }
+    .icono.piggybank {
+        background-image: url(../../assets/icon/images/piggybank.png);
+        background-color: #71d9bf;
+    }
+    @media (min--moz-device-pixel-ratio: 1.3),
+    (-o-min-device-pixel-ratio: 2.6 / 2),
+    (-webkit-min-device-pixel-ratio: 1.3),
+    (min-device-pixel-ratio: 1.3),
+    (min-resolution: 1.3dppx) {
+        .icono.piggybank {
+            background-image: url("../../assets/icon/images/piggybank@2x.png");
         }
     }
 }
