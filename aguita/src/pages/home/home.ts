@@ -2,11 +2,6 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 //ActionSheetController menu de opciones nativas.
 //ToastController modal nativo
 import { ModalController, ViewController, NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading, AlertController, MenuController } from 'ionic-angular';
-import { FilePath } from '@ionic-native/file-path';
-import { File } from '@ionic-native/file';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import { Mapajshtml } from '../mapajshtml/mapajshtml';
-import { MapasnativoPage } from '../mapasnativo/mapasnativo';
 import { ModalPage } from '../modal/modal';
 import { Camara } from '../../providers/camara';
 import { Ubicacion } from '../../providers/ubicacion';
@@ -18,10 +13,8 @@ import { ConnectivityService } from '../../providers/connectivityService';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Wheel } from '../wheel/wheel';
 import { Auth } from '../../providers/auth';
-import { LoginPage } from '../login-page/login-page';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MisRegistrosPage } from '../mis-registros/mis-registros';
-import { ListaRegistrosPage } from '../lista-registros/lista-registros';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Content } from 'ionic-angular';
 import { Events } from 'ionic-angular';

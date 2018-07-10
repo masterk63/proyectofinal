@@ -6,6 +6,10 @@ lista-registros {
     ion-list-header {
         font-size: 2em !important;
     }
+    .mostrarContenido {
+        height: 100%;
+        display: block;
+    }
     .header {
         font-size: 1.4em;
         margin: 10px;
@@ -103,7 +107,7 @@ lista-registros {
         border-radius: 50%;
         display: inline-block;
         background-size: 200px 9600px;
-        background-position: center top; 
+        background-position: center top;
         background-repeat: no-repeat;
         background-color: white;
         transform: translate3d(0, 0, 0);

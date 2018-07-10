@@ -60,6 +60,7 @@ export class ListaRegistrosPage {
   sizeIndex: any = 0;
   sizeMax: any = 100;
   uploadProcess: boolean = false;
+  mostrarContenido: boolean = false;
 
   constructor(public navCtrl: NavController,
     public authService: Auth,
@@ -98,6 +99,7 @@ export class ListaRegistrosPage {
             this.registrosOnline = registros;
             this.registrosOnline = this.registrosOnline.reverse();
           }
+          this.mostrarContenido = true;
         }).catch(e => {
           this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
         })
