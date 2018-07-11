@@ -30,12 +30,32 @@
         </div>
       </ion-col>
       <ion-col col-6 col-md-6>
+        <div class="cardMenu" (click)="presentImage()">
+          <div>
+            <ion-icon name="list-box"></ion-icon>
+          </div>
+          <div>
+            <p>Protocolo de Muestreo</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6 col-md-6>
         <div class="cardMenu" (click)="tutorial()">
           <div>
             <ion-icon name="book"></ion-icon>
           </div>
           <div>
             <p>Tutorial</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6 col-md-6>
+        <div class="cardMenu" (click)="abrirModal()">
+          <div>
+            <ion-icon name="information-circle"></ion-icon>
+          </div>
+          <div>
+            <p>Acerca de</p>
           </div>
         </div>
       </ion-col>

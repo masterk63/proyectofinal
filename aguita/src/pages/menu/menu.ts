@@ -1,20 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, NavController, NavParams } from 'ionic-angular';
-import { MapasnativoPage } from '../../pages/mapasnativo/mapasnativo';
-import { HomePage } from '../../pages/home/home';
-import { Wheel } from '../../pages/wheel/wheel';
-import { Mapajshtml } from '../../pages/mapajshtml/mapajshtml';
-import { SignupPage } from '../../pages/signup-page/signup-page';
-import { MisRegistrosPage } from '../../pages/mis-registros/mis-registros';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { LoginPage } from '../../pages/login-page/login-page';
-import { IntroPage } from '../../pages/intro/intro';
 import { TutorialPage } from '../../pages/tutorial/tutorial';
 import { MapaGeneralPage } from '../../pages/mapa-general/mapa-general';
 import { Storage } from '@ionic/storage';
 import { Auth } from '../../providers/auth';
-import { MenuController } from 'ionic-angular';
 import { UsuarioPage } from '../../pages/usuario/usuario';
 import { App } from 'ionic-angular';
+import { ImageViewerController } from 'ionic-img-viewer';
+import { Information } from './information';
+
 
 @Component({
   selector: 'page-menu',
@@ -22,12 +17,15 @@ import { App } from 'ionic-angular';
 })
 export class MenuPage {
   pagesUser: Array<{ title: string, component: any }>;
+  protocoloDeMuestreo: any;
 
   constructor(public navCtrl: NavController,
     public authService: Auth,
     public app: App,
+    public imageViewerCtrl: ImageViewerController,
     public storage: Storage,
     public navParams: NavParams) {
+    this.protocoloDeMuestreo = '../../assets/img/protocoloDeMuestreo.jpg';
 
     this.pagesUser = [
       { title: 'Mapa General', component: MapaGeneralPage },
@@ -48,16 +46,28 @@ export class MenuPage {
     console.log('saliendo logout');
     this.authService.logout().then(() => {
       console.log('listo borrado, dirijiendo a registrar');
-      this.app.getRootNav().setRoot( LoginPage );
+      this.app.getRootNav().setRoot(LoginPage);
     });
   }
 
-  mapa(){
+  mapa() {
     this.navCtrl.setRoot(MapaGeneralPage);
   }
 
-  tutorial(){
+  tutorial() {
     this.navCtrl.setRoot(TutorialPage);
+  }
+
+  presentImage() {
+    let img = document.createElement("img");
+    img.src = this.protocoloDeMuestreo;
+    img.id = "picture";
+    const imageViewer = this.imageViewerCtrl.create(img);
+    imageViewer.present();
+  }
+
+  abrirModal() {
+    this.navCtrl.push(Information);
   }
 
   verUsuario() {
@@ -66,3 +76,5 @@ export class MenuPage {
     });
   }
 }
+
+

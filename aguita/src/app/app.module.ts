@@ -3,7 +3,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { HttpModule} from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -24,6 +24,7 @@ import { Wheel } from '../pages/wheel/wheel';
 import { RegistroPage } from '../pages/registro/registro';
 import { UsuarioPage } from '../pages/usuario/usuario';
 import { MenuPage } from '../pages/menu/menu';
+import { Information } from '../pages/menu/information';
 import { ListaRegistrosPage } from '../pages/lista-registros/lista-registros';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 
@@ -40,7 +41,7 @@ import { Auth } from '../providers/auth';
 import { LocalSqlProvider } from '../providers/local-sql/local-sql';
 import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
- 
+
 
 //Provaider NativeComponents
 import { Camera } from '@ionic-native/camera';
@@ -71,7 +72,7 @@ import { SocketProvider } from '../providers/socket/socket';
 // Import angular-cropperjs
 
 //Circular Progress
-import {RoundProgressModule} from 'angular-svg-round-progressbar';
+import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { CropperPage } from '../pages/cropper/cropper';
 
 
@@ -98,6 +99,7 @@ let config = new AuthServiceConfig([
     ModalPage,
     SignupPage,
     MenuPage,
+    Information,
     MapasnativoPage,
     MapasnativoPage,
     MisRegistrosPage,
@@ -137,6 +139,7 @@ let config = new AuthServiceConfig([
     Mapajshtml,
     ModalPage,
     MenuPage,
+    Information,
     ForgotPasswordPage,
     SignupPage,
     MapasnativoPage,
@@ -163,10 +166,10 @@ let config = new AuthServiceConfig([
     Geolocation,
     Diagnostic,
     Keyboard,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Todos,Camara,Localsave,Ubicacion,Auth,UsuariosService,ConnectivityService,RegistrosService,Storage,
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    Todos, Camara, Localsave, Ubicacion, Auth, UsuariosService, ConnectivityService, RegistrosService, Storage,
     LocalSqlProvider,
     DiagnosticProvider,
     SocketProvider]
 })
-export class AppModule {}
+export class AppModule { }
