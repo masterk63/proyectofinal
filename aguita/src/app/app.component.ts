@@ -14,6 +14,7 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { MapaGeneralPage } from '../pages/mapa-general/mapa-general';
 import { CropperPage } from '../pages/cropper/cropper';
 import { DiagnosticProvider } from '../providers/diagnostic/diagnostic';
+import { Wheel } from '../pages/wheel/wheel';
 
 //diagnostic para location
 
@@ -56,7 +57,7 @@ export class MyApp {
           this.storage.get('idUsuario').then((idUsuario) => {
             this.scoketPrv.init(idUsuario);
             this.rootPage = TabsPage;
-            // this.rootPage = CropperPage;
+            // this.rootPage = Wheel;
           })
         }
       }).catch((err) => {
