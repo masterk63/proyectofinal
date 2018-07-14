@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { Ubicacion } from '../../providers/ubicacion';
 import { ConnectivityService } from '../../providers/connectivityService';
 import { ArgumentType } from '@angular/core/src/view';
@@ -38,8 +38,10 @@ export class MapaGeneralPage {
   public imagenInfo: any;
   public usuario: any;
   public fecha: any;
+  public alertCtrl:AlertController;
   public idRegistro: any;
   loading: any;
+  public verMapa:boolean = true;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -49,7 +51,6 @@ export class MapaGeneralPage {
     public connectivityService: ConnectivityService,
     public ubicacionCtrl: Ubicacion) {
     let scripts = document.getElementsByTagName("script");
-    console.log(scripts);
     for (let i = 0; i < scripts.length; i++) {
       if (scripts[i].id == "googleMaps") {
         var googleMapsScript = scripts[i];
@@ -63,7 +64,6 @@ export class MapaGeneralPage {
     if (clusterMapsScript) {
       document.body.removeChild(clusterMapsScript);
     }
-    console.log(scripts);
   }
 
   ionViewDidLoad() {
@@ -205,156 +205,159 @@ export class MapaGeneralPage {
     this.ubicacionCtrl.obtenerTodasLasCoordenadas().then((resultado) => {
       this.markers = resultado;
       console.log('mis marcadores', this.markers)
-      //Declaro la variable map, de google, no defino Zoom, ni la poscion de centrado
-      //ya que se auto calcula, mas adelante, con bounds
-      let map = new google.maps.Map(document.getElementById('map'), {
-        //zoom: 5,
-        //center: { lat: -28.024, lng: 140.887 }
-        scrollwheel: false,
-        navigationControl: false,
-        mapTypeControl: false,
-        scaleControl: false,
-        draggable: true,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      });
-
-      // Clase que me permite agregar el PopUp para ver la informacion
-      let infowindow = new google.maps.InfoWindow();
-
-      //Me ayuda a que el mapa este siempre centrado, con respecto a todos los puntos 
-      // que tengo en mi mapa, osea que siempre tengo visible todos los puntos
-      // de mi mapa
-      let bounds = new google.maps.LatLngBounds();
-
-      let marcadores = [];
-      let arryPosiciones = [];
-      let i;
-
-      for (let m of this.markers) {
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(m.latitud, m.longitud),
-          map: map,
-          label: '' + m.indice,
-          idRegistro: m.idRegistro,
-          usuario: m.usuario,
+      if(this.markers.length > 0){
+        //Declaro la variable map, de google, no defino Zoom, ni la poscion de centrado
+        //ya que se auto calcula, mas adelante, con bounds
+        let map = new google.maps.Map(document.getElementById('map'), {
+          //zoom: 5,
+          //center: { lat: -28.024, lng: 140.887 }
+          scrollwheel: false,
+          navigationControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          draggable: true,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
-        marcadores.push(marker);
+        // Clase que me permite agregar el PopUp para ver la informacion
+        let infowindow = new google.maps.InfoWindow();
 
-        arryPosiciones.push(marker.position);
+        //Me ayuda a que el mapa este siempre centrado, con respecto a todos los puntos 
+        // que tengo en mi mapa, osea que siempre tengo visible todos los puntos
+        // de mi mapa
+        let bounds = new google.maps.LatLngBounds();
 
-        bounds.extend(marker.position);
+        let marcadores = [];
+        let arryPosiciones = [];
+        let i;
 
-        google.maps.event.addListener(marker, 'click', ((marker) => {
-
-          // var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
-          return () => {
-            // infowindow.setContent(content);
-            // infowindow.open(map, marker);
-            this.usuario = m.usuario;
-            this.fecha = m.fecha;
-            this.idRegistro = m.idRegistro;
-            let fotoPaisaje = 'data:image/jpeg;base64,' + m.fotoPaisaje
-            this.imagenInfo = this.sanitizer.bypassSecurityTrustUrl(fotoPaisaje);
-            this._zone.run(() => this.mostrarInfo = true);
-            console.log(this.mostrarInfo)
-          }
-        })(marker));
-      }
-
-
-      //definimos la línea
-      let linea = new google.maps.Polyline({
-        path: arryPosiciones,
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      });
-
-      //dibujamos la línea sobre el mapa
-      //linea.setMap(map);
-
-
-      // La opcion de cluster, lo que me hace es mediante IA, agrupar todos los puntos cercanos.
-      let clusterOptions = {
-        zoomOnClick: false,
-        averageCenter: true,
-        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-      }
-
-      let markerCluster = new MarkerClusterer(map, marcadores, clusterOptions);
-
-      //Agrego el evento click al cluster.
-      google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
-        let markers = cluster.getMarkers();
-        let array = [];
-        let radio = 0;
-        let prom = 0;
-        for (let m of markers) {
-          array.push(m.idRegistro + '<br>');
-          let radioTemp = google.maps.geometry.spherical.computeDistanceBetween(m.position, cluster.getCenter());
-          (radio < radioTemp) ? radio = radioTemp : '';
-          prom = prom + m.indice;
-        }
-        radio = Math.round(radio);
-        prom = Math.round(prom / markers.length);
-
-        let content = `Se encontraron ` + markers.length + ` registros. <br>
-                               En un radio de `+ radio + ` mts <br>
-                               Con un indice promedio de `+ prom;
-        infowindow.setContent(content);
-        infowindow.setPosition(cluster.getCenter());
-        infowindow.open(map);
-        let color;
-        switch (prom) {
-          case 0:
-            color = '#BD393C';
-            break;
-          case 1:
-            color = '#CF6D31';
-            break;
-          case 2:
-            color = '#F8F131';
-            break;
-          case 3:
-            color = '#31B353';
-            break;
-          case 4:
-            color = '#3F3470';
-            break;
-          default:
-            break;
-        }
-        let latlong = cluster.getCenter().lat() + '' + cluster.getCenter().lng();
-        let index = clusterPintados.map(c => c.id).indexOf(latlong);
-        if (index === -1) {
-          cityCircle = new google.maps.Circle({
-            strokeColor: color,
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: color,
-            fillOpacity: 0.35,
+        for (let m of this.markers) {
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(m.latitud, m.longitud),
             map: map,
-            center: cluster.getCenter(),
-            radius: radio
+            label: '' + m.indice,
+            idRegistro: m.idRegistro,
+            usuario: m.usuario,
           });
-          let cPintados = {
-            circulo: cityCircle,
-            id: latlong
-          }
-          clusterPintados.push(cPintados);
-        } else {
-          let clusterDelete = clusterPintados.splice(index, 1)[0];
-          clusterDelete.circulo.setMap(null);
+
+          marcadores.push(marker);
+
+          arryPosiciones.push(marker.position);
+
+          bounds.extend(marker.position);
+
+          google.maps.event.addListener(marker, 'click', ((marker) => {
+
+            // var content = '<div><img src="data:image/jpeg;base64,' + m.fotoPaisaje + '">' + m.idRegistro + '</div>';
+            return () => {
+              // infowindow.setContent(content);
+              // infowindow.open(map, marker);
+              this.usuario = m.usuario;
+              this.fecha = m.fecha;
+              this.idRegistro = m.idRegistro;
+              let fotoPaisaje = 'data:image/jpeg;base64,' + m.fotoPaisaje
+              this.imagenInfo = this.sanitizer.bypassSecurityTrustUrl(fotoPaisaje);
+              this._zone.run(() => this.mostrarInfo = true);
+              console.log(this.mostrarInfo)
+            }
+          })(marker));
         }
-      });
 
-      //Termino de centrar el mapa
-      map.fitBounds(bounds);
+
+        //definimos la línea
+        let linea = new google.maps.Polyline({
+          path: arryPosiciones,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        //dibujamos la línea sobre el mapa
+        //linea.setMap(map);
+
+
+        // La opcion de cluster, lo que me hace es mediante IA, agrupar todos los puntos cercanos.
+        let clusterOptions = {
+          zoomOnClick: false,
+          averageCenter: true,
+          imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+        }
+
+        let markerCluster = new MarkerClusterer(map, marcadores, clusterOptions);
+
+        //Agrego el evento click al cluster.
+        google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
+          let markers = cluster.getMarkers();
+          let array = [];
+          let radio = 0;
+          let prom = 0;
+          for (let m of markers) {
+            array.push(m.idRegistro + '<br>');
+            let radioTemp = google.maps.geometry.spherical.computeDistanceBetween(m.position, cluster.getCenter());
+            (radio < radioTemp) ? radio = radioTemp : '';
+            prom = prom + m.indice;
+          }
+          radio = Math.round(radio);
+          prom = Math.round(prom / markers.length);
+
+          let content = `Se encontraron ` + markers.length + ` registros. <br>
+                                En un radio de `+ radio + ` mts <br>
+                                Con un indice promedio de `+ prom;
+          infowindow.setContent(content);
+          infowindow.setPosition(cluster.getCenter());
+          infowindow.open(map);
+          let color;
+          switch (prom) {
+            case 0:
+              color = '#BD393C';
+              break;
+            case 1:
+              color = '#CF6D31';
+              break;
+            case 2:
+              color = '#F8F131';
+              break;
+            case 3:
+              color = '#31B353';
+              break;
+            case 4:
+              color = '#3F3470';
+              break;
+            default:
+              break;
+          }
+          let latlong = cluster.getCenter().lat() + '' + cluster.getCenter().lng();
+          let index = clusterPintados.map(c => c.id).indexOf(latlong);
+          if (index === -1) {
+            cityCircle = new google.maps.Circle({
+              strokeColor: color,
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: color,
+              fillOpacity: 0.35,
+              map: map,
+              center: cluster.getCenter(),
+              radius: radio
+            });
+            let cPintados = {
+              circulo: cityCircle,
+              id: latlong
+            }
+            clusterPintados.push(cPintados);
+          } else {
+            let clusterDelete = clusterPintados.splice(index, 1)[0];
+            clusterDelete.circulo.setMap(null);
+          }
+        });
+
+        //Termino de centrar el mapa
+        map.fitBounds(bounds);
+      }else{
+        this.verMapa = false;
+      }
+      this.loading.dismiss();
     });
-
-    this.loading.dismiss();
   }
 
   borrarCirculos() {
@@ -363,6 +366,15 @@ export class MapaGeneralPage {
 
   cerrar() {
     this.mostrarInfo = false;
+  }
+
+  mostrarAlerta(titulo, mensaje) {
+    let alert = this.alertCtrl.create({
+      title: titulo,
+      subTitle: mensaje,
+      buttons: ['ACEPTAR']
+    });
+    alert.present();
   }
 
   showLoader(text) {
