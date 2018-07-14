@@ -72,7 +72,7 @@ export class MenuPage {
 
   verUsuario() {
     this.storage.get('idUsuario').then((idUsuario) => {
-      this.navCtrl.push(UsuarioPage, { idUsuario });
+      this.app.getRootNav().push(UsuarioPage, { idUsuario });
     });
   }
 }
