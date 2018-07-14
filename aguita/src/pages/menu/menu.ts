@@ -39,7 +39,7 @@ export class MenuPage {
   }
 
   openPage(page) {
-    this.navCtrl.setRoot(page.component);
+    this.app.getRootNav().push(page.component);
   }
 
   logout() {
@@ -51,7 +51,7 @@ export class MenuPage {
   }
 
   mapa() {
-    this.navCtrl.setRoot(MapaGeneralPage);
+    this.app.getRootNav().push(MapaGeneralPage);
   }
 
   tutorial() {

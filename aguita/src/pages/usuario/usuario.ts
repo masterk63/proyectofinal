@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { AlertController, NavController, NavParams, LoadingController, ActionSheetController, ModalController } from 'ionic-angular';
+import { AlertController, NavController, NavParams, LoadingController, ActionSheetController, ModalController, Tab } from 'ionic-angular';
 import { UsuariosService } from '../../providers/usuariosService';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login-page/login-page';
@@ -127,7 +127,7 @@ export class UsuarioPage {
       }).catch((err) => {
         this.loading.dismiss(),
           this.mostrarAlerta("No se puede conectar con el servidor", err),
-          this.navCtrl.push(MisRegistrosPage);
+          this.navCtrl.pop();
       });
   }
 

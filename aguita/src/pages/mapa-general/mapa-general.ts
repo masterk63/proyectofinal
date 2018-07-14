@@ -38,10 +38,10 @@ export class MapaGeneralPage {
   public imagenInfo: any;
   public usuario: any;
   public fecha: any;
-  public alertCtrl:AlertController;
+  public alertCtrl: AlertController;
   public idRegistro: any;
   loading: any;
-  public verMapa:boolean = true;
+  public verMapa: boolean = true;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -76,8 +76,7 @@ export class MapaGeneralPage {
     if (typeof google == "undefined" || typeof google.maps == "undefined" || typeof MarkerClusterer == "undefined") {
 
       console.log("Google maps JavaScript necesita ser cargado.");
-      this.disableMap();
-
+      
       if (this.connectivityService.isOnline()) {
 
         if (typeof google == "undefined" || typeof google.maps == "undefined") {
@@ -119,10 +118,11 @@ export class MapaGeneralPage {
             this.loadGoogleMaps();
           }, 3000);
         }
+      } else{
+        console.log("disabling map");
+        this.disableMap();
       }
-    }
-    else {
-
+    } else {
       if (this.connectivityService.isOnline()) {
         console.log("showing map");
         this.initMap();
@@ -171,6 +171,8 @@ export class MapaGeneralPage {
 
   disableMap() {
     console.log("disable map");
+    this.loading.dismiss();
+    this.navCtrl.pop();
   }
 
   enableMap() {
@@ -205,7 +207,7 @@ export class MapaGeneralPage {
     this.ubicacionCtrl.obtenerTodasLasCoordenadas().then((resultado) => {
       this.markers = resultado;
       console.log('mis marcadores', this.markers)
-      if(this.markers.length > 0){
+      if (this.markers.length > 0) {
         //Declaro la variable map, de google, no defino Zoom, ni la poscion de centrado
         //ya que se auto calcula, mas adelante, con bounds
         let map = new google.maps.Map(document.getElementById('map'), {
@@ -353,10 +355,13 @@ export class MapaGeneralPage {
 
         //Termino de centrar el mapa
         map.fitBounds(bounds);
-      }else{
+      } else {
         this.verMapa = false;
       }
       this.loading.dismiss();
+    }).catch(err => {
+      this.loading.dismiss();
+      this.navCtrl.pop();
     });
   }
 

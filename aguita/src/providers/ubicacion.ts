@@ -64,13 +64,13 @@ export class Ubicacion {
   }
 
   public obtenerTodasLasCoordenadas() {
-    return new Promise(resolve => {
-      this.http.get(configServer.data.urlServidor +'/api/listarMarkers')
+    return new Promise((resolve, reject) => {
+      this.http.get(configServer.data.urlServidor + '/api/listarMarkers')
         .map(res => res.json())
         .subscribe(resultado => {
           this.markers = resultado;
           resolve(this.markers);
-        });
+        },error => reject(error));
     });
   }
 
