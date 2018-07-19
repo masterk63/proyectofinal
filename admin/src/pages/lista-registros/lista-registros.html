@@ -66,8 +66,8 @@
                     <ion-col col-9>
                       <span>Registros</span>
                       <span>{{mensajeDeFechas}} ({{fechaVieja}} - {{fechaActual}})</span>
-                      <span float-end margin-right class="excel">
-                        <a href="">
+                      <span float-end margin-right class="excel" (click)="exportarExcel()">
+                        <a>
                           Exportar a Excel
                           <ion-icon name="book"></ion-icon>
                         </a> 

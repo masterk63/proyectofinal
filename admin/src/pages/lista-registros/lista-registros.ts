@@ -20,6 +20,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ExcelServiceProvider } from '../../providers/excel-service/excel-service';
 
 @Component({
   selector: 'lista-registros',
@@ -51,6 +52,7 @@ export class ListaRegistrosPage {
   constructor(public navCtrl: NavController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
+    public excelCtrl: ExcelServiceProvider,
     public registroSrv: RegistrosService) {
     this.now = moment().toISOString().split("T")[0];
     this.lastWeek = moment().subtract(1, 'week').toISOString().split("T")[0];
@@ -156,8 +158,8 @@ export class ListaRegistrosPage {
     }
     this.filtrosTemporales[2].estado = true;
     let estado = this.filtrosEstado.find(f => f.estado == true);
-    this.fechaActual = moment(this.fechaFin).format("DD, MMM YYYY");    
-    this.fechaVieja = moment(this.fechaInicio).format("DD, MMM YYYY");    
+    this.fechaActual = moment(this.fechaFin).format("DD, MMM YYYY");
+    this.fechaVieja = moment(this.fechaInicio).format("DD, MMM YYYY");
     let filtro = {
       now: moment(this.fechaFin).toISOString().split('T')[0],
       lastWeek: moment(this.fechaInicio).toISOString().split('T')[0],
@@ -166,50 +168,74 @@ export class ListaRegistrosPage {
     this.cargarRegistros(filtro);
   }
 
-  validarMultipleSeleccion(){
-    if(this.selection.selected.length){
-      if(!this.selection.selected.find( r => r.estado == '1')){
-        let registrosAValidar = this.selection.selected.filter( r => r.estado != '1');
-        let reg = registrosAValidar.map( r => r.idRegistro).toString();
+  validarMultipleSeleccion() {
+    if (this.selection.selected.length) {
+      if (!this.selection.selected.find(r => r.estado == '1')) {
+        let registrosAValidar = this.selection.selected.filter(r => r.estado != '1');
+        let reg = registrosAValidar.map(r => r.idRegistro).toString();
         console.log(reg);
-        this.registroSrv.registroValidar(reg).then( res => {
+        this.registroSrv.registroValidar(reg).then(res => {
           this.presentToast('Registros Actulizados Correctamente');
           this.filtrarRegistros();
-        }).catch( e => this.mostrarAlerta('Error',e));
-      }else{
-        this.mostrarAlerta('Error','Solo se puede validar registros que no se hallan valido previamente');
+        }).catch(e => this.mostrarAlerta('Error', e));
+      } else {
+        this.mostrarAlerta('Error', 'Solo se puede validar registros que no se hallan valido previamente');
       }
     }
   }
 
-  invalidarMultipleSeleccion(){
-    if(this.selection.selected.length){
-      if(!this.selection.selected.find( r => r.estado != '1')){
-        let registrosAValidar = this.selection.selected.filter( r => r.estado == '1');
-        let reg = registrosAValidar.map( r => r.idRegistro).toString();
+  invalidarMultipleSeleccion() {
+    if (this.selection.selected.length) {
+      if (!this.selection.selected.find(r => r.estado != '1')) {
+        let registrosAValidar = this.selection.selected.filter(r => r.estado == '1');
+        let reg = registrosAValidar.map(r => r.idRegistro).toString();
         console.log(reg);
-        this.registroSrv.registroInvalidar(reg).then( res => {
+        this.registroSrv.registroInvalidar(reg).then(res => {
           this.presentToast('Registros Actulizados Correctamente');
           this.filtrarRegistros();
-        }).catch( e => this.mostrarAlerta('Error',e));
-      }else{
-        this.mostrarAlerta('Error','Solo se puede invalidar registros ya validados');
+        }).catch(e => this.mostrarAlerta('Error', e));
+      } else {
+        this.mostrarAlerta('Error', 'Solo se puede invalidar registros ya validados');
       }
     }
   }
 
-  validarRegistro(idReg){
-    this.registroSrv.registroValidar(idReg).then( res => {
+  validarRegistro(idReg) {
+    this.registroSrv.registroValidar(idReg).then(res => {
       this.presentToast('Registro Actulizado Correctamente');
       this.filtrarRegistros();
-    }).catch( e => this.mostrarAlerta('Error',e));
+    }).catch(e => this.mostrarAlerta('Error', e));
   }
 
-  invalidarRegistro(idReg){
-    this.registroSrv.registroInvalidar(idReg).then( res => {
+  invalidarRegistro(idReg) {
+    this.registroSrv.registroInvalidar(idReg).then(res => {
       this.presentToast('Registro Actulizado Correctamente');
       this.filtrarRegistros();
-    }).catch( e => this.mostrarAlerta('Error',e));
+    }).catch(e => this.mostrarAlerta('Error', e));
+  }
+
+  exportarExcel() {
+    console.log(this.registros)
+    let mappedArray = this.registros.map(r => {
+      return {
+        Evento_ID: r.idRegistro,
+        Usuario: r.usuario,
+        Apellido: r.apellido,
+        Nombres: r.nombre,
+        Hora: r.fecha,
+        Fecha: moment(r.fecha).format('DD/MM/YYYY'),
+        Latitud_localización: r.latitud,
+        Longitud_localización: r.longitud,
+        Latitud_foto: r.latitudFoto,
+        Longitud_foto: r.longitudFoto,
+        Criterio_100m: r.criterioCienMetros,
+        Indice: r.indice,
+        Observaciones_usuario: r.observacion,
+        Validado: r.estado
+      }
+    })
+    console.log(mappedArray)
+    this.excelCtrl.exportAsExcelFile(mappedArray, 'Registros desde ' + this.fechaVieja + ' a ' + this.fechaActual);
   }
 
   mostrarAlerta(titulo, mensaje) {

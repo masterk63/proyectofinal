@@ -5,6 +5,8 @@ export default class Registro {
     indice: number;
     latitud:number;
     longitud:number;
+    latitudFoto:number;
+    longitudFoto:number;
     ciudad:string;
     provincia:string;
     pais:string;
@@ -12,4 +14,9 @@ export default class Registro {
     patudo:string;
     plecoptero:string;
     tricoptero:string;
+    apellido:string;
+    nombre:string;
+    criterioCienMetros:string;
+    observacion:string;
+    usuario:string;
 }

@@ -55,8 +55,7 @@ export class ListaUsuariosPage {
 
   exportarExcel() {
     console.log('hola', this.usuarios)
-    this.dataSource.
-      this.excelCtrl.exportAsExcelFile(this.usuarios, 'Lista de Usuarios')
+    this.excelCtrl.exportAsExcelFile(this.usuarios, 'Lista de Usuarios')
   }
 
   filtroEstadoChange(c) {
