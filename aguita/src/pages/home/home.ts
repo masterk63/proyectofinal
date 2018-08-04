@@ -336,7 +336,7 @@ export class HomePage {
       tricopteros: tricopteros,
       idUsuario: this.idUsuario,
     }
-    let inicio = registro.fecha.split('T');
+    let inicio = registro.fecha.split('.');
     registro.fecha = inicio[0];
     this.localSQL.create(registro).then((res) => {
       this.app.getRootNav().setRoot(Wheel, { indice: i });

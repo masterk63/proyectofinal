@@ -222,7 +222,7 @@ export class ListaRegistrosPage {
         Usuario: r.usuario,
         Apellido: r.apellido,
         Nombres: r.nombre,
-        Hora: r.fecha,
+        Hora: moment(r.fecha).format('HH:mm'),
         Fecha: moment(r.fecha).format('DD/MM/YYYY'),
         Latitud_localización: r.latitud,
         Longitud_localización: r.longitud,
