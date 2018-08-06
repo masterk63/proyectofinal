@@ -72,13 +72,20 @@ exports.resetPassword = function (req, res) {
     }
   });
 }
+
+exports.setAdmin = function (req, res) {
+  User.setAdmin(req.body, function (consulta) {
+    res.json(consulta);
+  });
+}
+
 exports.sincronizarDB = function (req, res) {
   connection.query('SELECT idUsuario,usuario,contrasenia FROM Usuarios', function (err, rows) {
     if (err) {
-      console.log("err",err)
+      console.log("err", err)
       res.status(500).send(err);
     }
-    console.log("ok",rows)
+    console.log("ok", rows)
     res.status(200).send(rows)
   });
 }
