@@ -42,8 +42,8 @@ exports.usuarioFaceBook = function (u, fn) {
     });
 }
 
-exports.listar = function (u,fn) {
-  var estado = '"' + u.estado  + '"';
+exports.listar = function (u, fn) {
+  var estado = '"' + u.estado + '"';
   connection.query('call usuarios_listar(' + estado + ')', function (err, rows) {
     if (err) fn(err);
     fn(rows[0]);
@@ -66,27 +66,27 @@ exports.baja = function (id, fn) {
 
 exports.modificar = function (u, fn) {
   let query = 'call usuario_modificar('
-  + u.idUsuario +
-  ',' + u.nombre +
-  ',' + u.apellido +
-  ',' + u.residencia +
-  ',' + u.institucion +
-  ',' + u.grado + ')';
+    + u.idUsuario +
+    ',' + u.nombre +
+    ',' + u.apellido +
+    ',' + u.residencia +
+    ',' + u.institucion +
+    ',' + u.grado + ')';
 
   console.log(query);
-  
+
   connection.query(query, function (err, rows) {
-      if (err) fn(err);
-      fn(rows[0]);
-    });
+    if (err) fn(err);
+    fn(rows[0]);
+  });
 }
 
 exports.login = function (usuario, password, fn) {
   connection.query('call usuario_ingresar(' + usuario + ',' + password + ')', function (err, rows) {
-    if (err){
+    if (err) {
       err.codigo = 0;
       fn(err);
-    }else{
+    } else {
       fn(rows[0][0]);
     }
   });
@@ -94,10 +94,10 @@ exports.login = function (usuario, password, fn) {
 
 exports.loginAdministrador = function (usuario, password, fn) {
   connection.query('call usuario_adm_ingresar(' + usuario + ',' + password + ')', function (err, rows) {
-    if (err){
+    if (err) {
       err.codigo = 0;
       fn(err);
-    }else{
+    } else {
       fn(rows[0][0]);
     }
   });
@@ -145,6 +145,13 @@ exports.insertarTokenUsuario = function (token, idUsuario, fn) {
   var i = '"' + idUsuario + '"';
   connection.query('call token_nuevo(' + t + ',' + i + ')', function (err, rows) {
     fn(err, rows[0]);
+  });
+}
+
+exports.setAdmin = function (u, fn) {
+  connection.query('call usuario_set_admin(?,?)', [u.idAdmin, u.idUsuario], function (err, rows) {
+    if (err) fn(err);
+    fn(rows[0]);
   });
 }
 

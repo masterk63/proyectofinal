@@ -39,6 +39,7 @@ module.exports = function(app){
     apiUsuarios.get('/usuarioBaja/:id',UsuariosController.usuarioBaja);
     apiUsuarios.post('/forgot',UsuariosController.forgotPassword);
     apiUsuarios.get('/sincronizarDB',UsuariosController.sincronizarDB);
+    apiUsuarios.post('/usuarioSetAdmin',UsuariosController.setAdmin);
     // app.get('/forgot', function(req, res) {
     //     res.render('forgot', {
     //         user: req.user
