@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { AlertController, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { AlertController, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { UsuariosService } from '../../providers/usuariosService';
 import { Storage } from '@ionic/storage';
 import { ListaRegistrosPageUsuario } from '../lista-registros-usuario/lista-registros-usuario';
@@ -29,6 +29,7 @@ export class UsuarioPage {
   @Input() idUsuario: any;
   idUsuarioConsultaRegistros: any;
   @Output() idRegistro: EventEmitter<any> = new EventEmitter();
+  isAdmin:boolean = true;
 
   constructor(public navCtrl: NavController,
     public params: NavParams,
@@ -36,6 +37,7 @@ export class UsuarioPage {
     public storage: Storage,
     public formBuilder: FormBuilder,
     public alertCtrl: AlertController,
+    public toastCtrl:ToastController,
     public loadingCtrl: LoadingController,
   ) {
     this.infoUsuarios = 'info';
@@ -93,6 +95,7 @@ export class UsuarioPage {
         this.formularioUsuario.controls['residencia'].setValue(this.usuario.residencia);
         this.formularioUsuario.controls['institucion'].setValue(this.usuario.institucion);
         this.formularioUsuario.controls['grado'].setValue(this.usuario.grado);
+        this.isAdmin = (this.usuario.rol == 'administrador') ? true : false; 
         console.log(this.usuario)
         this.loading.dismiss();
       }).catch((err) => {
@@ -185,6 +188,27 @@ export class UsuarioPage {
         this.mostrarAlerta("No se puede conectar con el servidor", err)
       });
   }
+
+  async setearAdministrador(){
+    let idAdmin = await this.storage.get('idUsuario');
+    let ids = {
+      idAdmin,
+      idUsuario:this.idUsuario
+    } 
+    this.userService.setearAdmin(ids).then( (res) =>{
+      this.presentToast(res);
+    }) 
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 1500,
+      position: 'top'
+    });
+    toast.present();
+  }
+
 
   confirmarEliminar() {
     console.log("aleterConfirmar");

@@ -80,5 +80,16 @@ export class UsuariosService {
     });
   }
 
+  setearAdmin(ids) {
+    return new Promise((resolve, reject) => {
+      this.http.post(configServer.data.urlServidor + '/api/usuarioSetAdmin', ids)
+        .map(res => res.json())
+        .subscribe(resultado => {
+          resolve(resultado);
+        }, error => reject(error)
+        );
+    });
+  }
+
 
 }

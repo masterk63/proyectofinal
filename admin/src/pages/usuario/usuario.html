@@ -32,6 +32,12 @@
                 </table>
               </div>
             </ion-row>
+            <ion-list>
+              <ion-list-header style="background: #F4F4F4;">
+                <ion-label>Permisos de Administrador:</ion-label>
+                <ion-toggle [(ngModel)]="isAdmin" (ionChange)="setearAdministrador()"></ion-toggle>
+              </ion-list-header>
+            </ion-list>
             <ion-row class="profileBottom">
               <ion-col>
                 <button ion-button color="danger" round>
