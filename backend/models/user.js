@@ -149,6 +149,7 @@ exports.insertarTokenUsuario = function (token, idUsuario, fn) {
 }
 
 exports.setAdmin = function (u, fn) {
+  console.log('​exports.setAdmin -> u', u);
   connection.query('call usuario_set_admin(?,?)', [u.idAdmin, u.idUsuario], function (err, rows) {
     if (err) fn(err);
     fn(rows[0]);
