@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
 var NodeGeocoder = require('node-geocoder');
 
 
-exports.listar = function (reg,fn) {
+exports.listar = function (reg, fn) {
     var now = '"' + reg.now + '"';
     var lastWeek = '"' + reg.lastWeek + '"';
     var estado = parseInt(reg.estado);
@@ -51,17 +51,14 @@ exports.dame = function (id, fn) {
 }
 
 exports.validar = function (reg, fn) {
-    let registros = '"' + reg + '"';
-    connection.query('call registro_validar(' + registros + ')', function (err, rows) {
+    connection.query('call registro_validar(?,?)', [reg.registros, reg.idAdmin], function (err, rows) {
         if (err) fn(err);
         fn(rows[0]);
     });
 }
 
 exports.invalidar = function (reg, fn) {
-    let registros = '"' + reg + '"';
-    console.log(registros)
-    connection.query('call registro_invalidar(' + registros + ')', function (err, rows) {
+    connection.query('call registro_invalidar(?,?)', [reg.registros, reg.idAdmin], function (err, rows) {
         if (err) fn(err);
         fn(rows[0]);
     });
@@ -102,10 +99,10 @@ exports.nuevo = function (registro, fn) {
             var patudos = '"' + registro.patudo + '"';
             var plecopteros = '"' + registro.plecoptero + '"';
             var tricopteros = '"' + registro.tricoptero + '"';
-            
+
             connection.query('CALL registro_nuevo_completo(' + indice + ',' + fecha + ',' + latitud + ',' + longitud + ',' + latitudFoto + ',' + longitudFoto + ',' + criterioCienMetros + ',' + fotoPaisaje + ',' + fotoMuestra + ',' + fotoMapa + ',' + observaciones + ',' + idUsuario + ',' + ciudad + ',' + provincia + ',' + pais + ',' + elmidos + ',' + patudos + ',' + plecopteros + ',' + tricopteros + ')', function (err, rows) {
                 if (err) {
-                    console.log('mostrandoErr',err)
+                    console.log('mostrandoErr', err)
                     consulta = [{ 'codigo': 0, 'mensaje': 'err' }]
                     fn(consulta);
                 } else fn(rows[0]);

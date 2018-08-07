@@ -196,7 +196,7 @@ export class UsuarioPage {
       idUsuario:this.idUsuario
     } 
     this.userService.setearAdmin(ids).then( (res) =>{
-      this.presentToast(res);
+      this.presentToast(res[0].mensaje);
     }) 
   }
 

@@ -31,7 +31,7 @@ exports.registrosListarMarkers = function (req, res) {
 }
 
 exports.registroValidar = function (req, res) {
-  Registro.validar(req.body.registros, function (consulta) {
+  Registro.validar(req.body, function (consulta) {
     console.log(consulta)
     if(consulta[0].codigo == 0){
       res.statusMessage = consulta[0].mensaje;
@@ -43,7 +43,7 @@ exports.registroValidar = function (req, res) {
 }
 
 exports.registroInvalidar = function (req, res) {
-  Registro.invalidar(req.body.registros, function (consulta) {
+  Registro.invalidar(req.body, function (consulta) {
     console.log(consulta)
     if(consulta[0].codigo == 0){
       res.statusMessage = consulta[0].mensaje;

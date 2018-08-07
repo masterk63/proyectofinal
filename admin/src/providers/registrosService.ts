@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as configServer from './../server';
 import Registro from '../models/registro'
+import { Storage } from '../../node_modules/@ionic/storage';
 
 @Injectable()
 export class RegistrosService {
@@ -13,9 +14,11 @@ export class RegistrosService {
   mensajeModificar: any;
   mensajeValidar: any;
   mensajeInvalidar: any;
-
-  constructor(private http: Http) {
-
+  idAdmin: any;
+  constructor(private http: Http, public storage: Storage) {
+    this.storage.get('idUsuario').then(id => {
+      this.idAdmin = id;
+    });
   }
 
 
@@ -60,7 +63,7 @@ export class RegistrosService {
 
   registroValidar(r) {
     return new Promise((resolve, reject) => {
-      this.http.post(configServer.data.urlServidor + '/api/registroValidar/', { registros: r })
+      this.http.post(configServer.data.urlServidor + '/api/registroValidar/', { registros: r, idAdmin: this.idAdmin })
         .map(res => res.json())
         .subscribe(resultado => {
           this.mensajeValidar = resultado;
@@ -72,7 +75,7 @@ export class RegistrosService {
 
   registroInvalidar(r) {
     return new Promise((resolve, reject) => {
-      this.http.post(configServer.data.urlServidor + '/api/registroInvalidar/', { registros: r })
+      this.http.post(configServer.data.urlServidor + '/api/registroInvalidar/', { registros: r, idAdmin: this.idAdmin })
         .map(res => res.json())
         .subscribe(resultado => {
           this.mensajeValidar = resultado;
