@@ -19,4 +19,5 @@ export default class Registro {
     criterioCienMetros:string;
     observacion:string;
     usuario:string;
+    nombreAdmin:string;
 }

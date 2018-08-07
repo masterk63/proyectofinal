@@ -75,14 +75,14 @@ exports.registroNuevo = function (req, res, next) {
     let latlngFoto = new geometry.LatLng(registro.latitudFoto, registro.longitudFoto);
     let diferencia = geometry.computeDistanceBetween(latlng,latlngFoto)
     if(diferencia > 100){
-      registro.criterioCienMetros = 'N';
+      registro.criterioCienMetros = 'No';
     }else{
-      registro.criterioCienMetros = 'Y';
+      registro.criterioCienMetros = 'Si';
     }
   }else{
     registro.latitudFoto = 0;
     registro.longitudFoto = 0;
-    registro.criterioCienMetros = 'N';
+    registro.criterioCienMetros = 'No';
   }
   obtenerFotoMapa(req.body.registro).then((foto) => {
     registro.fotoMapa = foto;

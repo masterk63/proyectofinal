@@ -217,6 +217,18 @@ export class ListaRegistrosPage {
   exportarExcel() {
     console.log(this.registros)
     let mappedArray = this.registros.map(r => {
+      let Validado;
+      switch (r.estado) {
+        case '1':
+          Validado = 'Si'
+          break;
+        case '-1':
+          Validado = 'No'
+          break;
+        case '0':
+          Validado = 'Pendiente'
+          break;
+      }
       return {
         Evento_ID: r.idRegistro,
         Usuario: r.usuario,
@@ -231,7 +243,8 @@ export class ListaRegistrosPage {
         Criterio_100m: r.criterioCienMetros,
         Indice: r.indice,
         Observaciones_usuario: r.observacion,
-        Validado: r.estado
+        Validado,
+        Validador_Admin: r.nombreAdmin
       }
     })
     console.log(mappedArray)
