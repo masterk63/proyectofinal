@@ -17,7 +17,7 @@
         </ion-item>
       </ion-list>
     </ion-card>
-    <div *ngIf="!registros && !registrosOnline" class="empty">
+    <div *ngIf="!registros && (registrosOnline.length == 0)" class="empty">
       <div>
         <!-- <ion-icon name="book" style="font-size: 100px;"></ion-icon> -->
         <div class="icono search"></div>
@@ -64,7 +64,7 @@
         </ion-row>
       </ion-grid>
     </div>
-    <div *ngIf="registrosOnline" [@listAnimation]="registrosOnline.length">
+    <div *ngIf="registrosOnline.length > 0" [@listAnimation]="registrosOnline.length">
       <div class="header">
         <ion-icon name="globe" item-left large></ion-icon>
         <span>Guardados</span>

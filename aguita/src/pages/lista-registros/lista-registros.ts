@@ -51,7 +51,7 @@ declare var Connection: any;
 export class ListaRegistrosPage {
 
   registros: any;
-  registrosOnline: any;
+  registrosOnline: any = [];
   fotoMapaNoDisponible: any;
   @Input() idUsuario;
   @Input() leavePage;
@@ -103,6 +103,8 @@ export class ListaRegistrosPage {
         }).catch(e => {
           this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
         })
+      }else{
+        this.mostrarContenido = true;
       }
 
       if (this.platform.is('cordova')) {
@@ -128,7 +130,11 @@ export class ListaRegistrosPage {
 
       this.events.subscribe('registro:creado', (reg) => {
         console.log('pasando por el evento registro creado', reg)
-        this._zone.run(() => this.registrosOnline.unshift(reg.registro));
+        if(this.registrosOnline.length > 0){
+          this._zone.run(() => this.registrosOnline.unshift(reg.registro));
+        }else{
+          this._zone.run(() => this.registrosOnline.push(reg.registro));
+        }
       });
     }
   }
@@ -162,6 +168,9 @@ export class ListaRegistrosPage {
     let id = registro.idRegistro;
     let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
     this._zone.run(() => this.registros.splice(index, 1));
+    if(this.registros.length == 0){
+      this.registros = null;
+    }
   }
 
   fakeRegitro() {
