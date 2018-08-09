@@ -46,7 +46,7 @@ export class LoginPage {
     private menu: MenuController,
     public storage: Storage,
     private toastCtrl: ToastController,
-    private localSQL: LocalSqlProvider
+    private localSQL: LocalSqlProvider,
   ) {
 
     this.sliderOptions = {
@@ -90,7 +90,7 @@ export class LoginPage {
         this.presentToast('Usuarios sincronizados correctamente');
       })
       .catch(err => {
-        this.mostrarAlerta("Error","No se pudo sincronizar la lista de usuarios. Verifique su conexion a internet")
+        this.mostrarAlerta("Error", "No se pudo sincronizar la lista de usuarios. Verifique su conexion a internet")
         refresher.cancel();
       })
   }
@@ -119,18 +119,20 @@ export class LoginPage {
     usuario.mail = user.email;
     usuario.fotoPerfil = (await this.imgURLtoBase64(user.photoUrl)).toString().split(",")[1];
     usuario.password = user.id;
-    this.authService.fbLogin(usuario).then((res: any) => {
-      this.loading.dismiss();
-      if (res.codigo === 0) {
-        this.mostrarAlerta('Atencion', res.mensaje)
-      } else {
-        this.presentToast('Ha iniciado sesion de manera correcta');
+    this.authService.fbLogin(usuario)
+      .then((res: any) => {
+        return this.localSQL.sincronizarDB()
         this.socketPrv.init(res.user.idUsuario);
+      })
+      .then(() => {
+        this.loading.dismiss();
+        this.presentToast('Ha iniciado sesion de manera correcta');
         this.navCtrl.setRoot(TabsPage);
-      }
-    }).catch(e => {
-      this.mostrarAlerta('Error', e)
-    });
+      })
+      .catch(e => {
+        this.loading.dismiss();
+        this.mostrarAlerta('Error: ', e)
+      });
   }
 
   fbLoginNative() {
