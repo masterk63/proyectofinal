@@ -119,7 +119,15 @@ let config = new AuthServiceConfig([
     IonicModule.forRoot(MyApp, {
       autocomplete: 'off',
       backButtonText: '',
-      // mode: "md",
+      mode: "md",
+      scrollAssist: false,
+      autoFocusAssist: false
+      // platforms:{
+      //   ios:{
+      //     scrollAssist: false,
+      //     autoFocusAssist: false
+      //   }
+      // }
       // iconMode: 'md',
       // modalEnter: 'modal-slide-in',
       // modalLeave: 'modal-slide-out',

@@ -82,13 +82,13 @@
                   </p>
                   <ion-row (click)="move('patudo')" style="font-size: 16px;">
                     <ion-col [class.botonActivoBackground]="this.insectos?.elmido == 'si'" [class.botonDesactivoBackground]="this.insectos?.elmido == 'no'"
-                      (click)="insectosEncontrados('elmido','si')" style="padding: 10px 0;" col-6>
+                      (click)="insectosEncontrados('elmido','si')" style="padding: 10px 0;" col-6 tappable>
                       <div [class.botonActivoTexto]="this.insectos?.elmido == 'si'" [class.botonDesactivoTexto]="this.insectos?.elmido == 'no'">
                         <span style="font-weight: 500;">SI</span>
                       </div>
                     </ion-col>
                     <ion-col [class.botonActivoBackground]="this.insectos?.elmido == 'no'" [class.botonDesactivoBackground]="this.insectos?.elmido == 'si'"
-                      (click)="insectosEncontrados('elmido','no')" style="padding: 10px 0;" col-6>
+                      (click)="insectosEncontrados('elmido','no')" style="padding: 10px 0;" col-6 tappable>
                       <div [class.botonActivoTexto]="this.insectos?.elmido == 'no'" [class.botonDesactivoTexto]="this.insectos?.elmido == 'si'">
                         <span style="font-weight: 500;">NO</span>
                       </div>
@@ -110,13 +110,13 @@
                   </p>
                   <ion-row (click)="move('plecoptero')" style="font-size: 16px;">
                     <ion-col [class.botonActivoBackground]="this.insectos?.patudo == 'si'" [class.botonDesactivoBackground]="this.insectos?.patudo == 'no'"
-                      (click)="insectosEncontrados('patudo','si')" style="padding: 10px 0;" col-6>
+                      (click)="insectosEncontrados('patudo','si')" style="padding: 10px 0;" col-6 tappable>
                       <div [class.botonActivoTexto]="this.insectos?.patudo == 'si'" [class.botonDesactivoTexto]="this.insectos?.patudo == 'no'">
                         <span style="font-weight: 500;">SI</span>
                       </div>
                     </ion-col>
                     <ion-col [class.botonActivoBackground]="this.insectos?.patudo == 'no'" [class.botonDesactivoBackground]="this.insectos?.patudo == 'si'"
-                      (click)="insectosEncontrados('patudo','no')" style="padding: 10px 0;" col-6>
+                      (click)="insectosEncontrados('patudo','no')" style="padding: 10px 0;" col-6 tappable>
                       <div [class.botonActivoTexto]="this.insectos?.patudo == 'no'" [class.botonDesactivoTexto]="this.insectos?.patudo == 'si'">
                         <span style="font-weight: 500;">NO</span>
                       </div>
@@ -139,13 +139,13 @@
                   </p>
                   <ion-row (click)="move('tricoptero')" style="font-size: 16px;">
                     <ion-col [class.botonActivoBackground]="this.insectos?.plecoptero == 'si'" [class.botonDesactivoBackground]="this.insectos?.plecoptero == 'no'"
-                      (click)="insectosEncontrados('plecoptero','si')" style="padding: 10px 0;" col-6>
+                      (click)="insectosEncontrados('plecoptero','si')" style="padding: 10px 0;" col-6 tappable>
                       <div [class.botonActivoTexto]="this.insectos?.plecoptero == 'si'" [class.botonDesactivoTexto]="this.insectos?.plecoptero == 'no'">
                         <span style="font-weight: 500;">SI</span>
                       </div>
                     </ion-col>
                     <ion-col [class.botonActivoBackground]="this.insectos?.plecoptero == 'no'" [class.botonDesactivoBackground]="this.insectos?.plecoptero == 'si'"
-                      (click)="insectosEncontrados('plecoptero','no')" style="padding: 10px 0;" col-6>
+                      (click)="insectosEncontrados('plecoptero','no')" style="padding: 10px 0;" col-6 tappable>
                       <div [class.botonActivoTexto]="this.insectos?.plecoptero == 'no'" [class.botonDesactivoTexto]="this.insectos?.plecoptero == 'si'">
                         <span style="font-weight: 500;">NO</span>
                       </div>
@@ -168,13 +168,13 @@
                   </p>
                   <ion-row style="font-size: 16px;">
                     <ion-col [class.botonActivoBackground]="this.insectos?.tricoptero == 'si'" [class.botonDesactivoBackground]="this.insectos?.tricoptero == 'no'"
-                      (click)="insectosEncontrados('tricoptero','si')" style="padding: 10px 0;" col-6>
+                      (click)="insectosEncontrados('tricoptero','si')" style="padding: 10px 0;" col-6 tappable>
                       <div [class.botonActivoTexto]="this.insectos?.tricoptero == 'si'" [class.botonDesactivoTexto]="this.insectos?.tricoptero == 'no'">
                         <span style="font-weight: 500;">SI</span>
                       </div>
                     </ion-col>
                     <ion-col [class.botonActivoBackground]="this.insectos?.tricoptero == 'no'" [class.botonDesactivoBackground]="this.insectos?.tricoptero == 'si'"
-                      (click)="insectosEncontrados('tricoptero','no')" style="padding: 10px 0;" col-6>
+                      (click)="insectosEncontrados('tricoptero','no')" style="padding: 10px 0;" col-6 tappable>
                       <div [class.botonActivoTexto]="this.insectos?.tricoptero == 'no'" [class.botonDesactivoTexto]="this.insectos?.tricoptero == 'si'">
                         <span style="font-weight: 500;">NO</span>
                       </div>
