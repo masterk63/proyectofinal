@@ -84,7 +84,7 @@ export class Auth {
             return reject(res.mensaje)
           }
         }, (err) => {
-          reject(err);
+          reject('No se pudo comunicar con el servidor');
         });
     });
   }
