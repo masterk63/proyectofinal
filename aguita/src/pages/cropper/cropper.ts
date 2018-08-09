@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 import Cropper from 'cropperjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'crop-image',
@@ -14,8 +15,9 @@ export class CropperPage {
   cropper: Cropper;
   cropperOptions: any;
 
-  constructor(public viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(public viewCtrl: ViewController, public navParams: NavParams, public sanitizer: DomSanitizer) {
     this.imageBase64 = 'data:image/jpeg;base64,' + this.navParams.get('imagen');
+    this.imageBase64 = this.sanitizer.bypassSecurityTrustUrl(this.imageBase64);
     let aspectRatio = this.navParams.get('aspectRatio');
     if (aspectRatio) {
       this.width = 1000;
