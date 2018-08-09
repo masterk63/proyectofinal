@@ -168,7 +168,7 @@ export class LocalSqlProvider {
           })
             .catch((err) => reject(err))
         }, (err) => {
-          reject(err);
+          reject('No se pudo sincronizar los usuarios, por favor cierre la aplicacion y vuelva a abrirla');
         });
     });
   }

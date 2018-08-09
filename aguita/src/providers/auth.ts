@@ -59,7 +59,7 @@ export class Auth {
           }
           resolve(data);
         }, (err) => {
-          reject(err);
+          reject('No se establecido conexion con el servidor');
         });
     });
   }

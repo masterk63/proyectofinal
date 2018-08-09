@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { Platform, NavController, LoadingController, AlertController} from 'ionic-angular';
+import { Platform, NavController, LoadingController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Auth } from '../../providers/auth';
 import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
 import { Localsave } from '../../providers/localsave';
+import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
 
 @Component({
   selector: 'signup-page',
@@ -25,14 +26,16 @@ export class SignupPage {
   tituloBoton = "Mostrar contraseña";
   isActive = false;
   urlImg: string;
-  
+
   constructor(public navCtrl: NavController,
     public plt: Platform,
     public authService: Auth,
     public localSaveCtrl: Localsave,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    public formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder,
+    public localSqlProv: LocalSqlProvider
+  ) {
 
     //FORM BUILDER
 
@@ -74,7 +77,7 @@ export class SignupPage {
     } else if (this.width > 600) {
       this.tam = "100% 100%";
     }
-    
+
     if (this.plt.is('cordova')) {
       this.urlImg = '../www/'
     } else {
@@ -89,7 +92,7 @@ export class SignupPage {
     } else {
       console.log(this.registroForm.value.nombre);
       this.showLoader();
-      
+
       let details = {
         mail: this.registroForm.value.mail,
         username: this.registroForm.value.username,
@@ -100,14 +103,19 @@ export class SignupPage {
         grado: this.registroForm.value.grado,
         residencia: this.registroForm.value.residencia
       };
-      
-      this.authService.createAccount(details).then((result) => {
-        this.loading.dismiss();
-        this.navCtrl.setRoot(TabsPage);
-      }, (err) => {
-        this.loading.dismiss();
-        this.mostrarAlerta('Error','No se establecido conexion con el servidor')
-      });
+
+      this.authService.createAccount(details)
+        .then(result => {
+          return this.localSqlProv.sincronizarDB()
+        })
+        .then(() => {
+          this.loading.dismiss();
+          this.navCtrl.setRoot(TabsPage);
+        })
+        .catch(err => {
+          this.loading.dismiss();
+          this.mostrarAlerta('Error: ', err)
+        });
     }
   }
 
