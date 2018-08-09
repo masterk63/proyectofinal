@@ -121,8 +121,8 @@ export class LoginPage {
     usuario.password = user.id;
     this.authService.fbLogin(usuario)
       .then((res: any) => {
-        return this.localSQL.sincronizarDB()
         this.socketPrv.init(res.user.idUsuario);
+        return this.localSQL.sincronizarDB()
       })
       .then(() => {
         this.loading.dismiss();
