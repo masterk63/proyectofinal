@@ -49,22 +49,18 @@ export class ConnectivityService {
     let registros = await this.localSQLPrv.getAll();
     console.log('pasando por el service y mostrando los registros', registros)
     let index = 1;
-    let bandera = false; // bandera para ver si se subio algun registro para mostrar notificaion.
     if (registros.length != 0) {
+      this.enviarNotificacion();
       for (let r of registros) {
         this.events.publish('uploadProcess', { indice: index, total: registros.length });
         let rOnline = await this.regSrv.crearRegistro(r);
         if (rOnline[0].codigo > 0) {
-          bandera = true;
           r.idRegistroOnline = rOnline[0].codigo;
           r.ciudad = rOnline[0].ciudad;
           r.provincia = rOnline[0].provincia;
           r.pais = rOnline[0].pais;
           r.fotoMapa = rOnline[0].fotoMapa;
           this.localSQLPrv.delete(r);
-        }
-        if (bandera) {
-          this.enviarNotificacion();
         }
         index++;
       }
