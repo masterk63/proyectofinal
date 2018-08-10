@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, Platform } from 'ionic-angular';
 import { LoginPage } from '../../pages/login-page/login-page';
 import { TutorialPage } from '../../pages/tutorial/tutorial';
 import { MapaGeneralPage } from '../../pages/mapa-general/mapa-general';
@@ -18,14 +18,21 @@ import { Information } from './information';
 export class MenuPage {
   pagesUser: Array<{ title: string, component: any }>;
   protocoloDeMuestreo: any;
-
+  urlImg:any;
   constructor(public navCtrl: NavController,
     public authService: Auth,
     public app: App,
     public imageViewerCtrl: ImageViewerController,
     public storage: Storage,
+    public plt: Platform,
     public navParams: NavParams) {
-    this.protocoloDeMuestreo = '../../assets/img/protocoloDeMuestreo.jpg';
+     
+    if (this.plt.is('cordova')) {
+      this.urlImg = '../www/'
+    } else {
+      this.urlImg = '../'
+    }
+    this.protocoloDeMuestreo = this.urlImg + "assets/img/protocoloDeMuestreo.jpg";
 
     this.pagesUser = [
       { title: 'Mapa General', component: MapaGeneralPage },

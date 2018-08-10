@@ -1,54 +1,50 @@
-.ios,
-.md {
-    signup-page {
-        .overlay {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 20;
-            top: 0;
-            left: 0;
-        }
-        ion-content {
-            // background-image: url("../assets/img/cascadaRioNoque.jpg");
-            background-position: center;
-            color: white;
-        }
-        ion-icon {
-            font-size: 1.8em;
-            font-weight: bold;
-            margin-left: 1px;
-        }
-        .volver {
-            font-weight: bolder;
-            font-size: 1.2em;
-            color: white;
-            margin-top: 30px;
-        }
-        p {
-            font-size: 0.8em;
-            color: #ea6153;
-        }
-        .swiper-slide {
-            display: block;
-        }
-        .invalid {
-            border: 1px solid #ea6153;
-        }
-        ion-label {
-            margin: 0 !important;
-        }
-        #eye {
-            color: #999;
-            cursor: pointer;
-        }
-        #eye:hover {
-            color: #827878;
-        }
-
-        #registrar{
-          width: 100%
-        }
-    }
-}
+ signup-page {
+     .overlay {
+         position: fixed;
+         width: 100%;
+         height: 100%;
+         background: rgba(0, 0, 0, 0.7);
+         z-index: 20;
+         top: 0;
+         left: 0;
+     }
+     ion-content {
+         // background-image: url("../assets/img/cascadaRioNoque.jpg");
+         background-position: center;
+         color: white;
+     }
+     ion-icon {
+         font-size: 1.8em;
+         font-weight: bold;
+         margin-left: 1px;
+     }
+     .volver {
+         font-weight: bolder;
+         font-size: 1.2em;
+         color: white;
+         margin-top: 30px;
+     }
+     p {
+         font-size: 0.8em;
+         color: #ea6153;
+     }
+     .swiper-slide {
+         display: block;
+     }
+     .invalid {
+         border: 1px solid #ea6153;
+     }
+     ion-label {
+         margin: 0 !important;
+     }
+     #eye {
+         color: #999;
+         cursor: pointer;
+     }
+     #eye:hover {
+         color: #827878;
+     }
+     #registrar {
+         width: 100%
+     }
+ }

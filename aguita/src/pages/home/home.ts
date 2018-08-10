@@ -120,7 +120,7 @@ export class HomePage {
 
 
     //FOTOS PARA PASO 2 RADIO BUTTON
-    if (!this.platform.is('cordova')) {
+    if (this.platform.is('cordova')) {
       this.urlImg = '../www/'
     } else {
       this.urlImg = '../'
