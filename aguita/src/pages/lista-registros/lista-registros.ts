@@ -50,7 +50,7 @@ declare var Connection: any;
 })
 export class ListaRegistrosPage {
 
-  registros: any;
+  registros: any = [];
   registrosOnline: any = [];
   fotoMapaNoDisponible: any;
   @Input() idUsuario;
@@ -114,7 +114,7 @@ export class ListaRegistrosPage {
         });
 
         this.events.subscribe('uploadProcess', (estado) => {
-          this.uploadProcess = true;
+          this._zone.run(() => this.uploadProcess = true);
           if (estado.indice == '-') {
             this.uploadProcess = false;
           }
@@ -168,17 +168,22 @@ export class ListaRegistrosPage {
     let id = registro.idRegistro;
     let index = this.registros.map(function (reg) { return reg.idRegistro; }).indexOf(id);
     this._zone.run(() => this.registros.splice(index, 1));
-    if(this.registros.length == 0){
-      this.registros = null;
-    }
   }
 
   fakeRegitro() {
     this.localSQL.fakeRegistro().subscribe((res) => {
       res = res[0];
-      this.registros.unshift(res);
+      if(this.registros.length > 0){
+        this.registros.unshift(res);
+      }else{
+        this.registros.push(res);
+      }
       // this.socketPrv.publicar(res);
     });
+  }
+
+  subir(){
+    this.conexionProvider.subir();
   }
 
   irAlRegistro(id) {

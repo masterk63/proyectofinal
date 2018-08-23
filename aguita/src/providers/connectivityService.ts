@@ -76,10 +76,9 @@ export class ConnectivityService {
             });
           }
         });
-        this.events.publish('uploadProcess', { indice: '-', total: '-' });
-        this.events.publish('uploadProcessSize', { indice: 0, total: 100 });
+        this.setDefaultValueForProgressBar();
       }
-    }else{
+    } else {
       console.log("no hay internet.. no se pueden subir los registros")
     }
   }
@@ -90,5 +89,10 @@ export class ConnectivityService {
       text: "¡Detectamos internet, estamos sincronizando tus registros!",
       foreground: true,
     });
+  }
+
+  setDefaultValueForProgressBar() {
+    this.events.publish('uploadProcess', { indice: '-', total: '-' });
+    this.events.publish('uploadProcessSize', { indice: 0, total: 100 });
   }
 }

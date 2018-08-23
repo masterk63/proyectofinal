@@ -4,7 +4,8 @@
       <h2>Registros</h2>
     </div>
   </ion-row>
-  <!-- <button ion-button (click)="fakeRegitro()">fakeregistro</button> -->
+  <!-- <button ion-button (click)="fakeRegitro()">fakeregistro</button>
+  <button ion-button (click)="subir()">subir()</button> -->
   <div *ngIf="mostrarContenido" class="mostrarContenido">
     <ion-card *ngIf="uploadProcess">
       <ion-list>
@@ -27,7 +28,7 @@
         <ion-icon name="md-arrow-down" style="font-size: 40px;"></ion-icon>
       </div>
     </div>
-    <div *ngIf="registros" [@listAnimation]="registros.length">
+    <div *ngIf="registros.length > 0" [@listAnimation]="registros.length">
       <div class="header">
         <ion-icon name="folder" item-left large></ion-icon>
         <span>Sin Guardar</span>
