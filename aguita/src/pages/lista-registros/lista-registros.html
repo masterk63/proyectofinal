@@ -18,7 +18,7 @@
         </ion-item>
       </ion-list>
     </ion-card>
-    <div *ngIf="!registros && (registrosOnline.length == 0)" class="empty">
+    <div *ngIf="(registros.length == 0) && (registrosOnline.length == 0)" class="empty">
       <div>
         <!-- <ion-icon name="book" style="font-size: 100px;"></ion-icon> -->
         <div class="icono search"></div>

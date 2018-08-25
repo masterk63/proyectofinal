@@ -6,12 +6,14 @@
           <ion-col col-12 class="profile">
             <ion-row class="contenedorImagen">
               <div>
-                <img [src]="'data:image/jpeg;base64,'+this.usuario?.fotoPerfil" />
+                <div style="display: inline-block;">
+                  <img [src]="'data:image/jpeg;base64,'+this.usuario?.fotoPerfil" />
+                  <input type="file" #fileInput id="imgFile" style="display:none" (change)="subirImagen($event)">
+                  <button (click)="llamarAlInput()" color="dark" id="UploadButton">
+                    <ion-icon name="camera"></ion-icon>
+                  </button>
+                </div>
                 <h2>{{usuario?.usuario}}</h2>
-                <input type="file" #fileInput id="imgFile" style="display:none" (change)="subirImagen($event)">
-                <button (click)="llamarAlInput()" color="dark" id="UploadButton">
-                  <ion-icon name="camera"></ion-icon>
-                </button>
               </div>
             </ion-row>
             <ion-row class="contenidoProfile">
