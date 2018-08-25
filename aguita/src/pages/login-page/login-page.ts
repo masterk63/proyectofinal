@@ -126,7 +126,7 @@ export class LoginPage {
       })
       .then(() => {
         this.loading.dismiss();
-        this.presentToast('Ha iniciado sesion de manera correcta');
+        // this.presentToast('Ha iniciado sesion de manera correcta');
         this.navCtrl.setRoot(TabsPage);
       })
       .catch(e => {
@@ -213,7 +213,7 @@ export class LoginPage {
       .then((result: any) => {
         console.log("debtro del then en login", result)
         this.loading.dismiss();
-        this.presentToast('Ha iniciado sesion de manera correcta');
+        // this.presentToast('Ha iniciado sesion de manera correcta');
         this.socketPrv.init(result.idUsuario);
         this.navCtrl.setRoot(TabsPage);
       })
