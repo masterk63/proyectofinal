@@ -51,12 +51,7 @@ export class LoginPage {
       }
     }
 
-    if (this.plt.is('cordova')) {
-      this.urlImg = '../www/'
-    } else {
-      this.urlImg = '../'
-    }
-    this.fotoIntro = this.urlImg + "assets/imgs/cascadaRioNoque.jpg";
+    this.fotoIntro = "assets/imgs/cascadaRioNoque.jpg";
   }
 
   shouldShow() {
