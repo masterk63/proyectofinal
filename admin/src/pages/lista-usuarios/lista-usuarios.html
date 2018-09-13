@@ -82,8 +82,8 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
                   <mat-cell *matCellDef="let element">
                     <mat-chip-list [ngSwitch]="element.estado">
-                      <mat-chip selected="true" style="background-color: #139216;" *ngSwitchCase="'A'">Valido</mat-chip>
-                      <mat-chip selected="true" color="accent" *ngSwitchCase="'B'">Pendiente</mat-chip>
+                      <mat-chip selected="true" style="background-color: #139216;" *ngSwitchCase="'A'">Activo</mat-chip>
+                      <mat-chip selected="true" color="accent" *ngSwitchCase="'B'">Baja</mat-chip>
                     </mat-chip-list>
                   </mat-cell>
                 </ng-container>
