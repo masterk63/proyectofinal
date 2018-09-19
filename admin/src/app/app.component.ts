@@ -13,21 +13,24 @@ import { Storage } from '@ionic/storage';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any;
-  pages: Array<{tituloPrincipal: string,iconoPrincipal: string,activo: boolean, componenentes: any}>;
+  rootPage: any;
+  pages: Array<{ tituloPrincipal: string, iconoPrincipal: string, activo: boolean, componenentes: any }>;
 
   constructor(platform: Platform,
-              statusBar: StatusBar,
-              public storage: Storage, 
-              splashScreen: SplashScreen) {
+    statusBar: StatusBar,
+    public storage: Storage,
+    splashScreen: SplashScreen) {
+      
+    splashScreen.show();
     platform.ready().then(() => {
+      console.log("plataforma lista")
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
       this.pages = [
-        { tituloPrincipal: 'Usuarios',iconoPrincipal:'face',activo:false, componenentes:ListaUsuariosPage},
-        { tituloPrincipal: 'Registros',iconoPrincipal:'assignment',activo:true, componenentes: ListaRegistrosPage},
+        { tituloPrincipal: 'Usuarios', iconoPrincipal: 'face', activo: false, componenentes: ListaUsuariosPage },
+        { tituloPrincipal: 'Registros', iconoPrincipal: 'assignment', activo: true, componenentes: ListaRegistrosPage },
       ];
       this.storage.get('token').then((token) => {
         console.log('token is', token);
@@ -44,7 +47,7 @@ export class MyApp {
   }
 
   openPage(page) {
-    for(let p of this.pages){
+    for (let p of this.pages) {
       p.activo = false;
     }
     page.activo = true;
@@ -52,7 +55,7 @@ export class MyApp {
   }
 
   logout() {
-    this.storage.set('token','');
+    this.storage.set('token', '');
     this.storage.set('idUsuario', '');
     this.storage.set('user', '');
     this.storage.set('rol', '');
