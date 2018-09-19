@@ -30,7 +30,7 @@
                       <mat-datepicker #fInicio disabled="false"></mat-datepicker>
                     </mat-form-field>
                   </button>
-                  <button ion-button round outline [class.chipActivo]="filtrosTemporales[2]?.estado"> 
+                  <button ion-button round outline [class.chipActivo]="filtrosTemporales[2]?.estado">
                     <mat-form-field class="campoFiltro">
                       <input matInput disabled [(ngModel)]="fechaFin" [matDatepicker]="fFin" placeholder="Hasta">
                       <mat-datepicker-toggle matSuffix [for]="fFin"></mat-datepicker-toggle>
@@ -45,14 +45,17 @@
               <ion-row>
                 <ion-col>
                   <span class="letrasFiltros">Filtros</span>
-                  <button *ngFor="let c of filtrosEstado" [class.chipActivo]="c.estado" ion-button round outline (click)="filtroEstadoChange(c)">{{c.nombre}}</button>
+                  <button *ngFor="let c of filtrosEstado" [class.chipActivo]="c.estado" ion-button round outline
+                    (click)="filtroEstadoChange(c)">{{c.nombre}}</button>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col>
                   <span class="letrasFiltros">Acciones</span>
-                  <button ion-button round outline [disabled]="!this.selection.selected.length" (click)="validarMultipleSeleccion()">Validar Seleccion</button>
-                  <button ion-button round outline [disabled]="!this.selection.selected.length" (click)="invalidarMultipleSeleccion()">Invalidar Seleccion</button>
+                  <button ion-button round outline [disabled]="!this.selection.selected.length" (click)="validarMultipleSeleccion()">Validar
+                    Seleccion</button>
+                  <button ion-button round outline [disabled]="!this.selection.selected.length" (click)="invalidarMultipleSeleccion()">Invalidar
+                    Seleccion</button>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -66,11 +69,11 @@
                     <ion-col col-9>
                       <span>Registros</span>
                       <span>{{mensajeDeFechas}} ({{fechaVieja}} - {{fechaActual}})</span>
-                      <span float-end margin-right class="excel" (click)="exportarExcel()">
-                        <a href="#">
-                          Exportar a Excel
-                          <ion-icon name="book"></ion-icon>
-                        </a> 
+                      <span float-end margin-right class="excel">
+                        <button class="botonExcel" ion-button outline small (click)="exportarExcel()">
+                          <mat-icon>view_list</mat-icon>
+                          Exportar a excel
+                        </button>
                       </span>
                     </ion-col>
                     <ion-col col-3>
@@ -83,11 +86,13 @@
                 <!-- Checkbox Column -->
                 <ng-container matColumnDef="select">
                   <mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
                     </mat-checkbox>
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
                     </mat-checkbox>
                   </mat-cell>
                 </ng-container>
@@ -135,10 +140,12 @@
                     <button style="color:#269ED9" mat-icon-button matTooltip="Ver" [matTooltipPosition]="'above'">
                       <mat-icon (click)="verRegistro(element.idRegistro)">visibility</mat-icon>
                     </button>
-                    <button *ngIf="element.estado != 1" style="color:#139216" mat-icon-button matTooltip="Validar" [matTooltipPosition]="'above'">
+                    <button *ngIf="element.estado != 1" style="color:#139216" mat-icon-button matTooltip="Validar"
+                      [matTooltipPosition]="'above'">
                       <mat-icon (click)="validarRegistro(element.idRegistro)">check_circle</mat-icon>
                     </button>
-                    <button *ngIf="element.estado == 1" color="warn"  mat-icon-button matTooltip="Invalidar" [matTooltipPosition]="'above'">
+                    <button *ngIf="element.estado == 1" color="warn" mat-icon-button matTooltip="Invalidar"
+                      [matTooltipPosition]="'above'">
                       <mat-icon (click)="invalidarRegistro(element.idRegistro)">remove_circle</mat-icon>
                     </button>
                   </mat-cell>

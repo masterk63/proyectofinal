@@ -10,7 +10,8 @@
         <button *ngIf="mostrandoUnRegistro" mat-icon-button (click)="volverAUsuario()" id="closeButton">
           <mat-icon matSuffix>keyboard_backspace</mat-icon>
         </button>
-        <page-usuario *ngIf="!mostrandoUnRegistro" [idUsuario]="this.idUsuario"  (refresh)="refrescar($event)" (idRegistro)="mostrarRegistroPage($event)"></page-usuario>
+        <page-usuario *ngIf="!mostrandoUnRegistro" [idUsuario]="this.idUsuario" (refresh)="refrescar($event)"
+          (idRegistro)="mostrarRegistroPage($event)"></page-usuario>
         <page-registro *ngIf="mostrandoUnRegistro" [idRegistro]="idRegistro"></page-registro>
       </div>
     </mat-sidenav>
@@ -31,7 +32,8 @@
               <ion-row>
                 <ion-col>
                   <span class="letrasFiltros">Filtros</span>
-                  <button *ngFor="let c of filtrosEstado" [class.chipActivo]="c.estado" ion-button round outline (click)="filtroEstadoChange(c)">{{c.nombre}}</button>
+                  <button *ngFor="let c of filtrosEstado" [class.chipActivo]="c.estado" ion-button round outline
+                    (click)="filtroEstadoChange(c)">{{c.nombre}}</button>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -44,11 +46,11 @@
                   <ion-row>
                     <ion-col col-9>
                       <span>Usuarios</span>
-                      <span float-end margin-right class="excel" (click)="exportarExcel()">
-                        <a href="#">
-                          Exportar a Excel
-                          <ion-icon name="book"></ion-icon>
-                        </a>
+                      <span float-end margin-right class="excel">
+                        <button class="botonExcel" ion-button outline small (click)="exportarExcel()">
+                          <mat-icon>view_list</mat-icon>
+                          Exportar a excel
+                        </button>
                       </span>
                     </ion-col>
                     <ion-col col-3>
@@ -61,7 +63,7 @@
                 <ng-container matColumnDef="alumno">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Alumno </mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <strong>{{element.apellido}},</strong>
+                    <strong>{{element.apellido}}</strong>
                     <br> {{element.nombre}}
                   </mat-cell>
                 </ng-container>
@@ -74,8 +76,8 @@
                 <ng-container matColumnDef="institucion">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Institucion </mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <strong>{{element.institucion}},</strong>
-                    <br> {{element.grado}}
+                    <strong>{{element.institucion}}</strong>
+                    <br> {{element.grado}} Grado
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="estado">
@@ -99,7 +101,8 @@
                     <button style="color:#269ED9" mat-icon-button matTooltip="Ver" [matTooltipPosition]="'above'">
                       <mat-icon (click)="verUsuario(element.idUsuario)">visibility</mat-icon>
                     </button>
-                    <button *ngIf="element.estado == 0" style="color:#139216" mat-icon-button matTooltip="Validar" [matTooltipPosition]="'above'">
+                    <button *ngIf="element.estado == 0" style="color:#139216" mat-icon-button matTooltip="Validar"
+                      [matTooltipPosition]="'above'">
                       <mat-icon (click)="verRegistro(element.idUsuario)">check_circle</mat-icon>
                     </button>
                   </mat-cell>

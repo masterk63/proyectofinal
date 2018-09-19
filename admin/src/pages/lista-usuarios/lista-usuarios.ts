@@ -45,6 +45,9 @@ export class ListaUsuariosPage {
     let request = {
       estado
     }
+    this.mostrandoUnRegistro = false;
+    this.idUsuario = -1;
+    this.opened = false;
     this.showLoader('Cargando usuarios...');
     this.userSrv.cargarUsuarios(request).then(usr => {
       console.log(usr);
@@ -92,9 +95,6 @@ export class ListaUsuariosPage {
 
   refrescar(mensaje) {
     if (mensaje === 'ok') {
-      this.mostrandoUnRegistro = false;
-      this.idUsuario = -1;
-      this.opened = false;
       this.filtrosEstado[0].estado = true;
       this.filtrosEstado[1].estado = false;
       this.cargarRegistros('A');

@@ -45,13 +45,14 @@
               <ion-row class="profileBottom">
                 <ion-col>
                   <button ion-button color="danger" (click)="botonBaja()">
-                    <ion-icon name="close"></ion-icon>Baja
+                    <mat-icon>close</mat-icon>Baja
                   </button>
                   <button ion-button color="verde" (click)="botonEditar()" *ngIf="!editar">
-                    <ion-icon name="create"></ion-icon>Editar
+                    <mat-icon>create</mat-icon>
+                    Editar
                   </button>
                   <button ion-button color="verde" *ngIf="editar" (click)="botonCancelar()">
-                    <ion-icon name="close"></ion-icon>Cancelar
+                    <mat-icon>close</mat-icon>Cancelar
                   </button>
                 </ion-col>
               </ion-row>
@@ -75,7 +76,8 @@
               <ion-row class="profileBottom">
                 <ion-col>
                   <button ion-button color="verde" (click)="botonAlta()">
-                    <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>Dar de alta
+                    <mat-icon>check</mat-icon>
+                    Dar de alta
                   </button>
                 </ion-col>
               </ion-row>
@@ -83,7 +85,7 @@
           </ion-col>
         </ion-row>
       </ion-col>
-      
+
       <!-- Solo se muestra para usuarios activos! no para los dados de baja -->
       <ion-col *ngIf="usuario?.estado !== 'B'" col-12>
         <div class="segmento">
