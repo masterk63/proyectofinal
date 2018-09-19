@@ -1,0 +1,13 @@
+{
+  "sftp://ingeit.ddns.net:20022@rbruno": {
+    "home": {
+      "aguita": {},
+      "rbruno": {
+        "home": {
+          "aguita": {}
+        }
+      }
+    }
+  },
+  "$version": 1
+}
