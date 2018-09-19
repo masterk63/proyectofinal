@@ -11,9 +11,6 @@
     "ignore": [
         ".gitignore",
         "/.vscode",
-        "/admin",
-        "/backend/node_modules",
-        "/front",
-        "respaldo.sql"
+        "/node_modules"
     ]
 }

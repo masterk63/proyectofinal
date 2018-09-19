@@ -1,7 +1,10 @@
 {
   "sftp://ingeit.ddns.net:20022@rbruno": {
     "home": {
-      "aguita": {},
+      "aguita": {
+        ".git": {},
+        "backend": {}
+      },
       "rbruno": {
         "home": {
           "aguita": {}
