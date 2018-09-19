@@ -28,6 +28,7 @@
     "@ionic-native/status-bar": "4.6.0",
     "@ionic/storage": "1.1.6",
     "angular4-social-login": "^1.1.1",
+    "cordova-browser": "~5.0.4",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.1.2",
     "cordova-plugin-ionic-webview": "^2.1.3",
