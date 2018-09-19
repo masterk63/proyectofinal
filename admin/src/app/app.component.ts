@@ -18,9 +18,9 @@ export class MyApp {
 
   constructor(platform: Platform,
     statusBar: StatusBar,
-    public storage: Storage,
+    public storage: Storage, 
     splashScreen: SplashScreen) {
-      
+
     splashScreen.show();
     platform.ready().then(() => {
       console.log("plataforma lista")
