@@ -1,6 +1,6 @@
 var passport = require('passport');
 var User = require('./../models/user');
-var env = process.env.NODE_ENV || 'auth',
+var env = 'auth',
   config = require('./' + env + '.js');
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;

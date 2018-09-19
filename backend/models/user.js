@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var env = process.env.NODE_ENV || 'database',
+var env = 'database',
   databaseConfig = require('./../config/' + env + '.js');
 
 var connection = mysql.createConnection({
