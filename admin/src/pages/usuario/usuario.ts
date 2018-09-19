@@ -29,7 +29,8 @@ export class UsuarioPage {
   @Input() idUsuario: any;
   idUsuarioConsultaRegistros: any;
   @Output() idRegistro: EventEmitter<any> = new EventEmitter();
-  isAdmin:boolean = true;
+  @Output() refresh: EventEmitter<any> = new EventEmitter();
+  isAdmin: boolean = true;
 
   constructor(public navCtrl: NavController,
     public params: NavParams,
@@ -37,7 +38,7 @@ export class UsuarioPage {
     public storage: Storage,
     public formBuilder: FormBuilder,
     public alertCtrl: AlertController,
-    public toastCtrl:ToastController,
+    public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
   ) {
     this.infoUsuarios = 'info';
@@ -95,7 +96,7 @@ export class UsuarioPage {
         this.formularioUsuario.controls['residencia'].setValue(this.usuario.residencia);
         this.formularioUsuario.controls['institucion'].setValue(this.usuario.institucion);
         this.formularioUsuario.controls['grado'].setValue(this.usuario.grado);
-        this.isAdmin = (this.usuario.rol == 'administrador') ? true : false; 
+        this.isAdmin = (this.usuario.rol == 'administrador') ? true : false;
         console.log(this.usuario)
         this.loading.dismiss();
       }).catch((err) => {
@@ -151,6 +152,7 @@ export class UsuarioPage {
     this.editar = !this.editar;
   }
 
+
   mostrarAlerta(mensaje, titulo) {
     let alert = this.alertCtrl.create({
       title: titulo,
@@ -160,61 +162,46 @@ export class UsuarioPage {
     alert.present();
   }
 
-  eliminar() {
-    console.log("eliminar function");
-    console.log(this.idUsuario);
-    this.userService.usuarioBaja(this.usuario.idUsuario)
-      .then(data => {
-        let mensajeBaja = data;
-        if (mensajeBaja[0].codigo > 0) {
-          let titulo = "Correcto";
-          let mensaje = mensajeBaja[0].mensaje;
-          this.mostrarAlerta(mensaje, titulo);
-          //eliminamos del vector usuarios, el que acabamos de eliminar, por el TWO DATA BINDING en el componente GESTOR USUARIOS, para modificar el DOM
-          let bandera = 0;
-          for (let u of this.userService.usuarios) {
-            if (u.idUsuario == this.usuario.idUsuario) {
-              this.userService.usuarios.splice(bandera, 1); // el primera variable es el elemento del array (0-n indexado)
-            } else {
-              bandera++;
-            }
-          }
-        } else {
-          let titulo = "Error";
-          let mensaje = mensajeBaja[0].mensaje;
-          this.mostrarAlerta(mensaje, titulo);
-        }
-      }).catch((err) => {
-        this.mostrarAlerta("No se puede conectar con el servidor", err)
-      });
-  }
-
-  async setearAdministrador(){
+  async setearAdministrador() {
+    this.showLoader();
     let idAdmin = await this.storage.get('idUsuario');
     let ids = {
       idAdmin,
-      idUsuario:this.idUsuario
-    } 
-    this.userService.setearAdmin(ids).then( (res) =>{
+      idUsuario: this.idUsuario
+    }
+    this.userService.setearAdmin(ids).then((res) => {
+      this.loading.dismiss();
       this.presentToast(res[0].mensaje);
-    }) 
+    })
   }
 
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
-      duration: 1500,
+      duration: 4500,
       position: 'top'
     });
     toast.present();
   }
 
+  botonAlta() {
+    let titulo = 'Activar Usuario';
+    let mensaje = '¿Está seguro que desea activar al usuario ' + this.usuario.usuario.toUpperCase() + '?';
+    let accion = 'activar';
+    this.confirmarAlerta(titulo, mensaje, accion)
+  }
 
-  confirmarEliminar() {
-    console.log("aleterConfirmar");
+  botonBaja() {
+    let titulo = 'Desactivar Usuario';
+    let mensaje = '¿Está seguro que desea desactivar al usuario ' + this.usuario.usuario.toUpperCase() + '?';
+    this.confirmarAlerta(titulo, mensaje)
+  }
+
+
+  confirmarAlerta(titulo, mensaje, accion = '') {
     let confirm = this.alertCtrl.create({
-      title: 'Eliminar Usuario',
-      message: '¿Esta seguro que desea eliminar el usuario ' + this.usuario.usuario + '?',
+      title: titulo,
+      message: mensaje,
       buttons: [
         {
           text: 'Cancelar',
@@ -224,12 +211,45 @@ export class UsuarioPage {
         {
           text: 'Aceptar',
           handler: () => {
-            this.eliminar();
+            (accion === 'activar') ? this.activar() : this.eliminar();
           }
         }
       ]
     });
     confirm.present();
+  }
+
+  activar() {
+    console.log(this.idUsuario);
+    this.showLoader();
+    this.userService.usuarioActivar(this.usuario.idUsuario)
+      .then((res: any) => {
+        this.loading.dismiss();
+        if (res.codigo !== 0) {
+          this.presentToast(res.mensaje);
+          this.refresh.emit('ok');
+        }
+      }).catch((err) => {
+        this.loading.dismiss();
+        this.mostrarAlerta("No se puede conectar con el servidor", err)
+      });
+  }
+
+  eliminar() {
+    console.log(this.idUsuario);
+    this.showLoader();
+    this.userService.usuarioBaja(this.usuario.idUsuario)
+      .then((res: any) => {
+        console.log('TCL: UsuarioPage -> eliminar -> res', res);
+        this.loading.dismiss();
+        if (res.codigo !== 0) {
+          this.presentToast(res.mensaje);
+          this.refresh.emit('ok');
+        }
+      }).catch((err) => {
+        this.loading.dismiss();
+        this.mostrarAlerta("No se puede conectar con el servidor", err)
+      });
   }
 
   showLoader() {

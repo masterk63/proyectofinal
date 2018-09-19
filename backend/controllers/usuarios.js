@@ -27,6 +27,12 @@ exports.usuarioBaja = function (req, res) {
   });
 }
 
+exports.usuarioActivar = function (req, res) {
+  User.activar(req.params.id, function (consulta) {
+    res.json(consulta);
+  });
+}
+
 exports.listarUsuarios = function (req, res) {
   User.listar(req.body, function (consulta) {
     res.json(consulta);

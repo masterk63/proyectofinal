@@ -21,43 +21,71 @@
                 <table>
                   <thead>
                     <tr>
-                      <th scope="col">C. Registros</th>
+                      <th scope="col">Registros creados</th>
                       <th scope="col">Fecha Activo</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td data-label="">4</td>
-                      <td data-label="">20/12/1989</td>
+                      <td data-label="">{{usuario?.registros}}</td>
+                      <td data-label="">{{usuario?.fechaCreado | date:'dd/MM/yyyy' }}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </ion-row>
-            <ion-list>
-              <ion-list-header style="background: #F4F4F4;">
-                <ion-label>Permisos de Administrador:</ion-label>
-                <ion-toggle [(ngModel)]="isAdmin" (click)="setearAdministrador()"></ion-toggle>
-              </ion-list-header>
-            </ion-list>
-            <ion-row class="profileBottom">
-              <ion-col>
-                <button ion-button color="danger" round>
-                  <ion-icon name="close"></ion-icon>Baja
-                </button>
-                <button ion-button color="verde" round (click)="botonEditar()" *ngIf="!editar">
-                  <ion-icon ios="ios-create" md="md-create"></ion-icon>Editar
-                </button>
-                <button ion-button color="verde" round *ngIf="editar" (click)="botonCancelar()">
-                  <ion-icon ios="ios-create" md="md-create"></ion-icon>Cancelar
-                </button>
-              </ion-col>
-            </ion-row>
+            <!-- USUARIO ACTIVO -->
+            <div *ngIf="usuario?.estado !== 'B'">
+              <ion-list>
+                <ion-list-header style="background: #F4F4F4;">
+                  <ion-label>Permisos de Administrador:</ion-label>
+                  <ion-toggle [(ngModel)]="isAdmin" (click)="setearAdministrador()"></ion-toggle>
+                </ion-list-header>
+              </ion-list>
+              <ion-row class="profileBottom">
+                <ion-col>
+                  <button ion-button color="danger" (click)="botonBaja()">
+                    <ion-icon name="close"></ion-icon>Baja
+                  </button>
+                  <button ion-button color="verde" (click)="botonEditar()" *ngIf="!editar">
+                    <ion-icon ios="ios-create" md="md-create"></ion-icon>Editar
+                  </button>
+                  <button ion-button color="verde" *ngIf="editar" (click)="botonCancelar()">
+                    <ion-icon ios="ios-create" md="md-create"></ion-icon>Cancelar
+                  </button>
+                </ion-col>
+              </ion-row>
+            </div>
+            <!-- USUARIO Inactivo -->
+            <div *ngIf="usuario?.estado === 'B'">
+              <div class="tabla">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Fecha de baja</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td data-label="">{{usuario?.fechaActualizado | date:'dd/MM/yyyy' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <ion-row class="profileBottom">
+                <ion-col>
+                  <button ion-button color="verde" (click)="botonAlta()">
+                    <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>Dar de alta
+                  </button>
+                </ion-col>
+              </ion-row>
+            </div>
           </ion-col>
         </ion-row>
       </ion-col>
-
-      <ion-col col-12>
+      
+      <!-- Solo se muestra para usuarios activos! no para los dados de baja -->
+      <ion-col *ngIf="usuario?.estado !== 'B'" col-12>
         <div class="segmento">
           <ion-segment [(ngModel)]="infoUsuarios">
             <ion-segment-button value="info">
@@ -75,29 +103,35 @@
                 <ion-label stacked>Nombre</ion-label>
                 <ion-input type="text" formControlName="nombre" [disabled]="!editar"></ion-input>
               </ion-item>
-              <p class="text-danger" *ngIf="!formularioUsuario.controls.nombre.valid  && submitAttempt">Debe Ingresar un Nombre</p>
+              <p class="text-danger" *ngIf="!formularioUsuario.controls.nombre.valid  && submitAttempt">Debe Ingresar
+                un Nombre</p>
               <ion-item>
                 <ion-label stacked>Apellido</ion-label>
                 <ion-input type="text" formControlName="apellido" [disabled]="!editar"></ion-input>
               </ion-item>
-              <p class="text-danger" *ngIf="!formularioUsuario.controls.apellido.valid  && submitAttempt">Debe Ingresar un Apellido</p>
+              <p class="text-danger" *ngIf="!formularioUsuario.controls.apellido.valid  && submitAttempt">Debe Ingresar
+                un Apellido</p>
               <ion-item>
                 <ion-label stacked>Residencia</ion-label>
                 <ion-input type="text" formControlName="residencia" [disabled]="!editar"></ion-input>
               </ion-item>
-              <p class="text-danger" *ngIf="!formularioUsuario.controls.residencia.valid  && submitAttempt">Debe Ingresar una Residencia</p>
+              <p class="text-danger" *ngIf="!formularioUsuario.controls.residencia.valid  && submitAttempt">Debe
+                Ingresar una Residencia</p>
               <ion-item>
                 <ion-label stacked>Institucion</ion-label>
                 <ion-input type="text" formControlName="institucion" [disabled]="!editar"></ion-input>
               </ion-item>
-              <p class="text-danger" *ngIf="!formularioUsuario.controls.institucion.valid  && submitAttempt">Debe Ingresar una Institucion</p>
+              <p class="text-danger" *ngIf="!formularioUsuario.controls.institucion.valid  && submitAttempt">Debe
+                Ingresar una Institucion</p>
               <ion-item>
                 <ion-label stacked>Grado</ion-label>
                 <ion-input type="text" formControlName="grado" [disabled]="!editar"></ion-input>
               </ion-item>
-              <p class="text-danger" *ngIf="!formularioUsuario.controls.grado.valid  && submitAttempt">Debe Ingresar el Grado</p>
+              <p class="text-danger" *ngIf="!formularioUsuario.controls.grado.valid  && submitAttempt">Debe Ingresar el
+                Grado</p>
               <ion-item>
-                <button float-right color="azul" ion-button type="submit" (click)="actualizar()" style="padding: 15px;" *ngIf="editar">Actualizar</button>
+                <button float-right color="azul" ion-button type="submit" (click)="actualizar()" style="padding: 15px;"
+                  *ngIf="editar">Actualizar</button>
               </ion-item>
             </form>
 

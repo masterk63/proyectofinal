@@ -1,5 +1,5 @@
 import { Component, NgZone, Input, Output, EventEmitter } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { RegistroPage } from '../registro/registro';
 import { MenuController, Platform } from 'ionic-angular';
 import { RegistrosService } from '../../providers/registrosService';
@@ -43,6 +43,7 @@ export class ListaRegistrosPageUsuario {
   registros: any;
   registrosOnline: any = [];
   fotoMapaNoDisponible: any;
+  loading: any;
   @Input() idUsuario;
   @Input() leavePage;
   @Output() verRegistro: EventEmitter<any> = new EventEmitter();
@@ -52,6 +53,7 @@ export class ListaRegistrosPageUsuario {
     public registrosCtrl: RegistrosService,
     public alertCtrl: AlertController,
     public platform: Platform,
+    public loadingCtrl: LoadingController,
     private menu: MenuController,
     private _zone: NgZone) {
 
@@ -63,11 +65,14 @@ export class ListaRegistrosPageUsuario {
 
   ngOnChanges() {
     if (this.idUsuario && this.idUsuario > 0) {
+      this.showLoader('Cargando registros...');
       this.registrosCtrl.cargarRegistrosUsuario(this.idUsuario).then((registros) => {
         console.log('registros en el servidor', registros);
         this.registrosOnline = registros;
         this.registrosOnline = this.registrosOnline.reverse();
+        this.loading.dismiss();
       }).catch(e => {
+        this.loading.dismiss();
         this.mostrarAlerta('Error', 'No se puede comunicar con el servidor')
       })
     }
@@ -84,6 +89,14 @@ export class ListaRegistrosPageUsuario {
       buttons: ['ACEPTAR']
     });
     alert.present();
+  }
+
+  
+  showLoader(mensaje) {
+    this.loading = this.loadingCtrl.create({
+      content: mensaje
+    });
+    this.loading.present();
   }
 
 }

@@ -13,7 +13,7 @@ export class UsuariosService {
   mensajeModificar: any;
   mensajeBaja: any;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) { }
 
   cargarUsuarios(estado) {
     return new Promise<Array<Usuario>>((resolve, reject) => {
@@ -21,7 +21,7 @@ export class UsuariosService {
       this.http.post(configServer.data.urlServidor + '/api/usuariosListar', estado)
         .map(res => res.json())
         .subscribe(resultado => {
-          this.usuarios = resultado.map( usr => new Usuario(usr));
+          this.usuarios = resultado.map(usr => new Usuario(usr));
           resolve(this.usuarios);
         }, error => reject("Error de conexion")
         );
@@ -40,19 +40,19 @@ export class UsuariosService {
     });
   }
 
-  actilizarFotoPerfil(usuario){
-    return new Promise((resolve,reject)=>{
+  actilizarFotoPerfil(usuario) {
+    return new Promise((resolve, reject) => {
       this.http.post(configServer.data.urlServidor + '/api/usuarioActualizarFotoPerfil', usuario)
-      .map(res => res.json())
-      .subscribe(resultado => {
-        let res = resultado[0];
-        if(res.codigo > 0){
-          resolve(res);
-        }else{
-          reject("Se ah producido un error.");
-        }
-      }, error => reject("Error de conexion")
-      );
+        .map(res => res.json())
+        .subscribe(resultado => {
+          let res = resultado[0];
+          if (res.codigo > 0) {
+            resolve(res);
+          } else {
+            reject("Se ah producido un error.");
+          }
+        }, error => reject("Error de conexion")
+        );
     });
   }
 
@@ -73,8 +73,18 @@ export class UsuariosService {
       this.http.get(configServer.data.urlServidor + '/api/usuarioBaja/' + idUsuario)
         .map(res => res.json())
         .subscribe(resultado => {
-          this.mensajeBaja = resultado;
-          resolve(this.mensajeBaja);
+          resolve(resultado[0]);
+        }, error => reject("Error de conexion")
+        );
+    });
+  }
+
+  usuarioActivar(idUsuario) {
+    return new Promise((resolve, reject) => {
+      this.http.get(configServer.data.urlServidor + '/api/usuarioActivar/' + idUsuario)
+        .map(res => res.json())
+        .subscribe(resultado => {
+          resolve(resultado[0]);
         }, error => reject("Error de conexion")
         );
     });

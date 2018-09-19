@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { UsuariosService } from '../../providers/usuariosService'
 import Usuario from '../../models/usuario'
 import { UsuarioPage } from '../../pages/usuario/usuario'
@@ -31,9 +31,11 @@ export class ListaUsuariosPage {
   idUsuario: any;
   mostrandoUnRegistro: boolean = false;
   idRegistro: number = -1;
+  loading: any;
 
   constructor(public navCtrl: NavController,
     public excelCtrl: ExcelServiceProvider,
+    public loadingCtrl: LoadingController,
     private userSrv: UsuariosService) {
     this.cargarRegistros('A');
     this.idUsuario = -1;
@@ -43,6 +45,7 @@ export class ListaUsuariosPage {
     let request = {
       estado
     }
+    this.showLoader('Cargando usuarios...');
     this.userSrv.cargarUsuarios(request).then(usr => {
       console.log(usr);
       this.usuarios = usr;
@@ -50,6 +53,7 @@ export class ListaUsuariosPage {
       this.dataSource = new MatTableDataSource<Usuario>(this.usuarios);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.loading.dismiss();
     })
   }
 
@@ -86,8 +90,27 @@ export class ListaUsuariosPage {
     this.mostrandoUnRegistro = true;
   }
 
+  refrescar(mensaje) {
+    if (mensaje === 'ok') {
+      this.mostrandoUnRegistro = false;
+      this.idUsuario = -1;
+      this.opened = false;
+      this.filtrosEstado[0].estado = true;
+      this.filtrosEstado[1].estado = false;
+      this.cargarRegistros('A');
+    }
+
+  }
+
   volverAUsuario() {
     this.mostrandoUnRegistro = false;
+  }
+
+  showLoader(mensaje) {
+    this.loading = this.loadingCtrl.create({
+      content: mensaje
+    });
+    this.loading.present();
   }
 
 }

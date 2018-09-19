@@ -1,0 +1,18 @@
+{
+    "host": "ingeit.ddns.net",
+    "username": "rbruno",
+    "remotePath": "/home/aguita",
+    "protocol": "sftp",
+    "port": 20022,
+    "fileNameEncoding": "utf8",
+    "autoUpload": true,
+    "autoDelete": false,
+    "autoDownload": false,
+    "ignore": [
+        ".git",
+        "/.vscode",
+        "/admin",
+        "/backend/node_modules",
+        "/front"
+    ]
+}

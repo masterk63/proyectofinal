@@ -10,7 +10,7 @@
         <button *ngIf="mostrandoUnRegistro" mat-icon-button (click)="volverAUsuario()" id="closeButton">
           <mat-icon matSuffix>keyboard_backspace</mat-icon>
         </button>
-        <page-usuario *ngIf="!mostrandoUnRegistro" [idUsuario]="this.idUsuario" (idRegistro)="mostrarRegistroPage($event)"></page-usuario>
+        <page-usuario *ngIf="!mostrandoUnRegistro" [idUsuario]="this.idUsuario"  (refresh)="refrescar($event)" (idRegistro)="mostrarRegistroPage($event)"></page-usuario>
         <page-registro *ngIf="mostrandoUnRegistro" [idRegistro]="idRegistro"></page-registro>
       </div>
     </mat-sidenav>
@@ -83,7 +83,7 @@
                   <mat-cell *matCellDef="let element">
                     <mat-chip-list [ngSwitch]="element.estado">
                       <mat-chip selected="true" style="background-color: #139216;" *ngSwitchCase="'A'">Activo</mat-chip>
-                      <mat-chip selected="true" color="accent" *ngSwitchCase="'B'">Baja</mat-chip>
+                      <mat-chip selected="true" color="accent" *ngSwitchCase="'B'">Inactivo</mat-chip>
                     </mat-chip-list>
                   </mat-cell>
                 </ng-container>
@@ -109,7 +109,7 @@
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
               </mat-table>
-              <mat-paginator #paginator [pageSize]="3" [pageSizeOptions]="[1, 2, 3]" [showFirstLastButtons]="true"></mat-paginator>
+              <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[3,6,10]" [showFirstLastButtons]="true"></mat-paginator>
             </div>
           </div>
         </mat-tab>

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, AlertController, ToastController } from 'ionic-angular';
+import { NavController, AlertController, ToastController, LoadingController } from 'ionic-angular';
 import { RegistrosService } from '../../providers/registrosService';
 import Registro from '../../models/registro'
 import { ViewController } from 'ionic-angular';
@@ -48,11 +48,13 @@ export class ListaRegistrosPage {
   fechaInicio: any;
   fechaFin: any;
   mensajeDeFechas: any;
+  loading: any;
 
   constructor(public navCtrl: NavController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public excelCtrl: ExcelServiceProvider,
+    public loadingCtrl: LoadingController,
     public registroSrv: RegistrosService) {
     this.now = moment().toISOString().split("T")[0];
     this.lastWeek = moment().subtract(1, 'week').toISOString().split("T")[0];
@@ -74,6 +76,7 @@ export class ListaRegistrosPage {
   }
 
   cargarRegistros(filtro) {
+    this.showLoader('Cargando registros...');
     this.registroSrv.cargarRegistros(filtro).then(reg => {
       console.log(reg);
       this.registros = reg;
@@ -81,6 +84,7 @@ export class ListaRegistrosPage {
       this.dataSource = new MatTableDataSource<Registro>(this.registros);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.loading.dismiss();
     })
   }
 
@@ -268,6 +272,13 @@ export class ListaRegistrosPage {
     });
 
     toast.present();
+  }
+
+  showLoader(mensaje) {
+    this.loading = this.loadingCtrl.create({
+      content: mensaje
+    });
+    this.loading.present();
   }
 
 

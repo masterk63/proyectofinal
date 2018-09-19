@@ -63,6 +63,12 @@ exports.baja = function (id, fn) {
     fn(rows[0]);
   });
 }
+exports.activar = function (id, fn) {
+  connection.query('call usuario_activar(' + id + ')', function (err, rows) {
+    if (err) fn(err);
+    fn(rows[0]);
+  });
+}
 
 exports.modificar = function (u, fn) {
   let query = 'call usuario_modificar('

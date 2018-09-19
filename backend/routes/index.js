@@ -37,8 +37,9 @@ module.exports = function(app){
     apiUsuarios.post('/usuarioModificar',UsuariosController.usuarioModificar);
     apiUsuarios.post('/usuarioActualizarFotoPerfil',UsuariosController.actualizarFotoPerfil);
     apiUsuarios.get('/usuarioBaja/:id',UsuariosController.usuarioBaja);
+    apiUsuarios.get('/usuarioActivar/:id',UsuariosController.usuarioActivar);
     apiUsuarios.post('/forgot',UsuariosController.forgotPassword);
-    apiUsuarios.get('/sincronizarDB',UsuariosController.sincronizarDB);
+    apiUsuarios.get('/sincronizarDB',UsuariosController.sincronizarDB); 
     apiUsuarios.post('/usuarioSetAdmin',UsuariosController.setAdmin);
     // app.get('/forgot', function(req, res) {
     //     res.render('forgot', {
