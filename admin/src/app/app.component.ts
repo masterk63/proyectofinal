@@ -19,15 +19,14 @@ export class MyApp {
   constructor(platform: Platform,
     statusBar: StatusBar,
     public storage: Storage, 
-    splashScreen: SplashScreen) {
+    private splashScreen: SplashScreen) {
 
-    splashScreen.show();
     platform.ready().then(() => {
       console.log("plataforma lista")
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();
+      this.splashScreen.hide();
       this.pages = [
         { tituloPrincipal: 'Usuarios', iconoPrincipal: 'face', activo: false, componenentes: ListaUsuariosPage },
         { tituloPrincipal: 'Registros', iconoPrincipal: 'assignment', activo: true, componenentes: ListaRegistrosPage },
