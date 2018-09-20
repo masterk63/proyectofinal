@@ -20,7 +20,7 @@ export class MyApp {
     statusBar: StatusBar,
     public storage: Storage,
     splashScreen: SplashScreen) {
-    splashScreen.show();
+    splashScreen.show(); 
     platform.ready().then(() => {
       console.log("plataforma lista")
       // Okay, so the platform is ready and our plugins are available.
