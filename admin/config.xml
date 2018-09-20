@@ -24,6 +24,8 @@
     	<preference name="AutoHideSplashScreen" value="false" />
         <preference name="SplashScreenDelay" value="10000" />
         <preference name="FadeSplashScreenDuration" value="1000" />
+        <preference name="SplashScreenWidth" value="1380" />
+    	<preference name="SplashScreenHeight" value="858" />
         <preference name="ShowSplashScreen" value="true" />
         <preference name="ShowSplashScreenSpinner" value="false" />
         <preference name="SplashShowOnlyFirstTime" value="false" />
