@@ -1,7 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { ListaRegistrosPage } from '../pages/lista-registros/lista-registros';
 import { ListaUsuariosPage } from '../pages/lista-usuarios/lista-usuarios';
@@ -17,16 +15,11 @@ export class MyApp {
   pages: Array<{ tituloPrincipal: string, iconoPrincipal: string, activo: boolean, componenentes: any }>;
 
   constructor(platform: Platform,
-    statusBar: StatusBar,
-    public storage: Storage,
-    splashScreen: SplashScreen) {
-    splashScreen.show(); 
+    public storage: Storage,) {
     platform.ready().then(() => {
-      console.log("plataforma lista")
+
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
       this.pages = [
         { tituloPrincipal: 'Usuarios', iconoPrincipal: 'face', activo: false, componenentes: ListaUsuariosPage },
         { tituloPrincipal: 'Registros', iconoPrincipal: 'assignment', activo: true, componenentes: ListaRegistrosPage },
