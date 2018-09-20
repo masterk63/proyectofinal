@@ -26,8 +26,8 @@
         <preference name="FadeSplashScreenDuration" value="1000" />
         <preference name="SplashScreenWidth" value="1380" />
     	<preference name="SplashScreenHeight" value="858" />
-        <preference name="ShowSplashScreen" value="true" />
-        <preference name="ShowSplashScreenSpinner" value="false" />
+        <preference name="ShowSplashScreen" value="false" />
+        <preference name="ShowSplashScreenSpinner" value="true" />
         <preference name="SplashShowOnlyFirstTime" value="false" />
         <preference name="FadeSplashScreen" value="true" />
     </platform>
