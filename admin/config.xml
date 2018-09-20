@@ -20,14 +20,14 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <platform name="browser"> 
-    	<preference name="ShowSplashScreen" value="false" />
-    	<!-- <preference name="SplashScreenBackgroundColor" value="white" />
-    	<preference name="SplashScreenWidth" value="600" />
-    	<preference name="SplashScreenHeight" value="300" />
 	    <preference name="SplashScreen" value="assets/imgs/cascadaRioNoque.jpg" /> 
-    	<preference name="SplashShowOnlyFirstTime" value="false" />
-    	<preference name="FadeSplashScreenDuration" value="5000" />
-    	<preference name="SplashMaintainAspectRatio" value="true" /> -->
+    	<preference name="AutoHideSplashScreen" value="false" />
+        <preference name="SplashScreenDelay" value="10000" />
+        <preference name="FadeSplashScreenDuration" value="1000" />
+        <preference name="ShowSplashScreen" value="true" />
+        <preference name="ShowSplashScreenSpinner" value="false" />
+        <preference name="SplashShowOnlyFirstTime" value="false" />
+        <preference name="FadeSplashScreen" value="true" />
     </platform>
     <platform name="android">
         <allow-intent href="market:*" />
