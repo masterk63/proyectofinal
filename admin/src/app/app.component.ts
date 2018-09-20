@@ -17,7 +17,6 @@ export class MyApp {
   constructor(platform: Platform,
     public storage: Storage,) {
     platform.ready().then(() => {
-
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.pages = [
@@ -25,7 +24,6 @@ export class MyApp {
         { tituloPrincipal: 'Registros', iconoPrincipal: 'assignment', activo: true, componenentes: ListaRegistrosPage },
       ];
       this.storage.get('token').then((token) => {
-        console.log('token is', token);
         if (token === '' || token === null || token === undefined) {
           this.rootPage = LoginPage;
         } else {
