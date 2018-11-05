@@ -16,11 +16,11 @@ export class SocketProvider {
 
   public init(idUsuario) {
     this.idUsuario = idUsuario;
-
-    this.socket = io(configServer.data.urlServidor,{
-      path: '/aguita/socket.io'
-    });
-    // this.socket = io(configServer.data.urlServidor);
+    // IMPORTANTEEEEEEEEEEEEEEEEEEEEEEEEEEEEE para el servidor
+    // this.socket = io(configServer.data.urlServidor,{
+    //   path: '/aguita/socket.io'
+    // });
+    this.socket = io(configServer.data.urlServidor);
     this.socket.on('handShake', (msg) => {
       this.socket.emit('crearRoom', { user: idUsuario });
     });
