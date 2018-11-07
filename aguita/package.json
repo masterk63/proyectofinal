@@ -24,7 +24,6 @@
     "@ionic-native/camera": "^4.1.0",
     "@ionic-native/core": "4.5.2",
     "@ionic-native/diagnostic": "^4.5.2",
-    "@ionic-native/facebook": "^4.5.3",
     "@ionic-native/file": "^4.1.0",
     "@ionic-native/file-path": "^4.1.0",
     "@ionic-native/file-transfer": "^4.1.0",

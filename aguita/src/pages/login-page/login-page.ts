@@ -10,9 +10,7 @@ import { TabsPage } from '../tabs/tabs';
 import { Localsave } from '../../providers/localsave';
 import { SocketProvider } from '../../providers/socket/socket';
 import { MenuController } from 'ionic-angular';
-import { Facebook } from '@ionic-native/facebook';
 import { AuthService } from "angular4-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import UsuarioModelo from '../../modelos/usuario';
 import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
@@ -40,8 +38,6 @@ export class LoginPage {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public localSaveCtrl: Localsave,
-    public fb: Facebook,
-    private authServiceFacebook: AuthService,
     public socketPrv: SocketProvider,
     private menu: MenuController,
     public storage: Storage,
@@ -73,8 +69,6 @@ export class LoginPage {
       this.urlImg = '../'
     }
     this.fotoIntro = this.urlImg + "assets/img/cascadaRioNoque.jpg";
-
-    this.fb.browserInit(this.FB_APP_ID, "v2.8");
   }
 
   ngOnInit() {
@@ -93,85 +87,6 @@ export class LoginPage {
         this.mostrarAlerta("Error", "No se pudo sincronizar la lista de usuarios. Verifique su conexion a internet")
         refresher.cancel();
       })
-  }
-
-  loginFacebook() {
-    if (this.plt.is('cordova')) {
-      this.fbLoginNative();
-    } else {
-      this.fbLoginWeb();
-    }
-  }
-
-  fbLoginWeb(): void {
-    this.authServiceFacebook.signIn(FacebookLoginProvider.PROVIDER_ID).then(user => {
-      if (user) {
-        this.fbLoginStore(user);
-      }
-    });
-  }
-
-  async fbLoginStore(user) {
-    this.showLoader();
-    let usuario = new UsuarioModelo();
-    usuario.apellido = user.lastName;
-    usuario.nombre = user.firstName;
-    usuario.mail = user.email;
-    usuario.fotoPerfil = (await this.imgURLtoBase64(user.photoUrl)).toString().split(",")[1];
-    usuario.password = user.id;
-    this.authService.fbLogin(usuario)
-      .then((res: any) => {
-        this.socketPrv.init(res.user.idUsuario);
-        return this.localSQL.sincronizarDB()
-      })
-      .then(() => {
-        this.loading.dismiss();
-        // this.presentToast('Ha iniciado sesion de manera correcta');
-        this.navCtrl.setRoot(TabsPage);
-      })
-      .catch(e => {
-        this.loading.dismiss();
-        this.mostrarAlerta('Error: ', e)
-      });
-  }
-
-  fbLoginNative() {
-    let permissions = new Array<string>();
-    let nav = this.navCtrl;
-    let env = this;
-    //the permissions your facebook app needs from the user
-    permissions = ["public_profile"];
-
-    this.fb.login(permissions)
-      .then((response) => {
-        let userId = response.authResponse.userID;
-        let params = new Array<string>();
-
-        //Getting name and gender properties
-        env.fb.api("/me?fields=name,email,last_name,first_name", params)
-          .then((user) => {
-            user.pic = "https://graph.facebook.com/" + userId + "/picture?type=normal";
-            let usuario = {
-              firstName: user.first_name,
-              lastName: user.last_name,
-              email: user.email,
-              photoUrl: user.pic,
-              id: user.id
-            }
-            if (user.email) {
-              this.fbLoginStore(usuario);
-            } else {
-              throw "No se pudo obtner un mail de Facebook."
-            }
-          }).catch(e => {
-            this.mostrarAlerta('Error', e)
-          })
-      }, (error) => {
-        if (error.errorCode != 4201) {
-          let e = JSON.stringify(error)
-          this.mostrarAlerta('Error', e)
-        }
-      });
   }
 
   shouldShow() {

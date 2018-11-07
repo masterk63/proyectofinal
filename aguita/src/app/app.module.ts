@@ -54,7 +54,6 @@ import { SQLite } from '@ionic-native/sqlite';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Keyboard } from '@ionic-native/keyboard';
-import { Facebook } from '@ionic-native/facebook';
 
 
 //Importaciones
@@ -75,13 +74,6 @@ import { SocketProvider } from '../providers/socket/socket';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { CropperPage } from '../pages/cropper/cropper';
 
-
-let config = new AuthServiceConfig([
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider("164639320988358")
-  }
-]);
 
 @NgModule({
   declarations: [
@@ -115,7 +107,6 @@ let config = new AuthServiceConfig([
     HttpModule,
     HttpClientModule,
     RoundProgressModule,
-    SocialLoginModule.initialize(config),
     IonicModule.forRoot(MyApp, {
       autocomplete: 'off',
       backButtonText: '',
@@ -170,7 +161,6 @@ let config = new AuthServiceConfig([
     StatusBar,
     SplashScreen,
     SQLite,
-    Facebook,
     Geolocation,
     Diagnostic,
     Keyboard,

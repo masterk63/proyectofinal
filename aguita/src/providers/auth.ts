@@ -64,31 +64,6 @@ export class Auth {
     });
   }
 
-  fbLogin(details) {
-    return new Promise((resolve, reject) => {
-
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-
-      this.http.post(configServer.data.urlServidor + '/api/auth/fb', JSON.stringify(details), { headers: headers })
-        .map(res => res.json())
-        .subscribe(res => {
-          if (res.codigo > 0) {
-            console.log(res.token);
-            this.token = res.token;
-            this.storage.set('token', res.token);
-            this.storage.set('idUsuario', res.user.idUsuario);
-            this.storage.set('rol', res.user.rol);
-            return resolve(res);
-          } else {
-            return reject(res.mensaje)
-          }
-        }, (err) => {
-          reject('No se pudo comunicar con el servidor');
-        });
-    });
-  }
-
   login(credentials) {
 
     return new Promise((resolve, reject) => {
@@ -137,11 +112,6 @@ export class Auth {
       this.storage.set('token', '');
       this.storage.set('idUsuario', '');
       this.storage.set('rol', '');
-      if (this.plt.is('cordova')) {
-        // this.localSqlPrv.destruirDB();
-      } else {
-        this.authServiceFacebook.signOut().catch(e => { console.log('No soy facebook Web') });
-      }
       resolve(42)
     });
   }
