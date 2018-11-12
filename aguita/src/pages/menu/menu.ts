@@ -62,7 +62,7 @@ export class MenuPage {
   }
 
   tutorial() {
-    this.navCtrl.setRoot(TutorialPage);
+    this.app.getRootNav().push(TutorialPage);
   }
 
   presentImage() {
