@@ -108,7 +108,7 @@ exports.register = function (req, res, next) {
   }
 
   var details = {
-    mail: (req.body.mail) ? '"' + req.body.mail.toLowerCase() + '"' : "''",
+    mail: (req.body.mail) ? '"' + req.body.mail.toLowerCase() + '"' : null,
     username: '"' + req.body.username.toLowerCase() + '"',
     password: '"' + req.body.password + '"',
     nombre: '"' + convertirLaPrimeraLetraAMayuscula(req.body.nombre) + '"',
