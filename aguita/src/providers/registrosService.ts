@@ -21,7 +21,7 @@ export class RegistrosService {
 
   cargarRegistros() {
     return new Promise((resolve, reject) => {
-      this.http.get(configServer.data.urlServidor + '/api/registrosListar').timeout(5000)
+      this.http.get(configServer.data.urlServidor + '/api/registrosListar')
         .subscribe(resultado => {
           this.registros = resultado;
           resolve(this.registros);
@@ -32,7 +32,7 @@ export class RegistrosService {
 
   cargarRegistrosUsuario(idRegistro) {
     return new Promise<Array<any>>((resolve, reject) => {
-      this.http.get(configServer.data.urlServidor + '/api/registrosListarUsuario/' + idRegistro).timeout(5000)
+      this.http.get(configServer.data.urlServidor + '/api/registrosListarUsuario/' + idRegistro)
         .subscribe(resultado => {
           this.registros = resultado;
           resolve(this.registros);

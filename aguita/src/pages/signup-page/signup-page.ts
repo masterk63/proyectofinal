@@ -54,8 +54,7 @@ export class SignupPage {
       grado: ['', Validators.compose([
         Validators.maxLength(50)])],
       mail: ['', Validators.compose([
-        Validators.maxLength(30),
-        Validators.required])],
+        Validators.maxLength(30)])],
       username: ['', Validators.compose([
         Validators.maxLength(30),
         Validators.minLength(5),
