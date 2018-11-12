@@ -10,7 +10,6 @@ import { TabsPage } from '../tabs/tabs';
 import { Localsave } from '../../providers/localsave';
 import { SocketProvider } from '../../providers/socket/socket';
 import { MenuController } from 'ionic-angular';
-import { AuthService } from "angular4-social-login";
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import UsuarioModelo from '../../modelos/usuario';
 import { LocalSqlProvider } from '../../providers/local-sql/local-sql';
@@ -34,7 +33,6 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController,
     public plt: Platform,
-    public authService: Auth,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public localSaveCtrl: Localsave,
