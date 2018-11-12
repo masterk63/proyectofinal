@@ -5,7 +5,6 @@ import { Platform } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import { LocalSqlProvider } from '../providers/local-sql/local-sql';
 import * as configServer from './../server'
-import { AuthService } from "angular4-social-login";
 
 @Injectable()
 export class Auth {
@@ -15,7 +14,6 @@ export class Auth {
   constructor(public http: Http,
     public storage: Storage,
     public plt: Platform,
-    private authServiceFacebook: AuthService,
     public localSqlPrv: LocalSqlProvider) { }
 
   //verifica con el token si el usuario existe en la base de dato

@@ -39,7 +39,6 @@ import { UsuariosService } from '../providers/usuariosService';
 import { RegistrosService } from '../providers/registrosService';
 import { Auth } from '../providers/auth';
 import { LocalSqlProvider } from '../providers/local-sql/local-sql';
-import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 
 
