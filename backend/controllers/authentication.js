@@ -100,7 +100,7 @@ exports.fb = function (req, res, next) {
 
 // creacion de usuarios 
 exports.register = function (req, res, next) {
-  if (!req.body.username || !req.body.mail) {
+  if (!req.body.username) {
     res.status(500).json({
       mensaje: "ERROR!!! Controlar los Campos Ingresados",
       codigo: 0
@@ -108,7 +108,7 @@ exports.register = function (req, res, next) {
   }
 
   var details = {
-    mail: '"' + req.body.mail.toLowerCase() + '"',
+    mail: (req.body.mail) ? '"' + req.body.mail.toLowerCase() + '"' : "''",
     username: '"' + req.body.username.toLowerCase() + '"',
     password: '"' + req.body.password + '"',
     nombre: '"' + convertirLaPrimeraLetraAMayuscula(req.body.nombre) + '"',
@@ -119,6 +119,7 @@ exports.register = function (req, res, next) {
   };
 
   User.crearUsuario(details, function (respuesta) {
+		console.log("​exports.register -> respuesta", respuesta)
     if (respuesta[0][0].codigo != 0) {
       var id = '"' + respuesta[0][0].codigo + '"';
       User.dame(id, function (data) {
