@@ -1,10 +1,12 @@
-var socket = require('socket.io');
+var socket;
 
 module.exports = function (server) {
 
-    socket = socket.listen(server);
+    socket = require('socket.io')(server).listen(server);
 
-    socket.on('connection', function (connection) {
+    var nsp = socket.of('/aguita');
+
+    nsp.on('connection', function (connection) {
         console.log('Se conecto un nuevo usuario');
         connection.emit('handShake', { hello: 'Bienvenido' });
         connection.on('crearRoom', function (data) {
@@ -14,7 +16,7 @@ module.exports = function (server) {
         })
 
         connection.on('enviarInfo', function (data) {
-            socket.to(data.user).emit('mensaje', { registro: data.registro });
+            nsp.to(data.user).emit('mensaje', { registro: data.registro });
         });
 
 
