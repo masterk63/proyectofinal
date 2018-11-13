@@ -7,6 +7,7 @@ var connection = mysql.createConnection({
   user: databaseConfig.user,
   password: databaseConfig.password,
   database: databaseConfig.database,
+  timezone: 'utc'
 });
 
 exports.crearUsuario = function (u, fn) {
