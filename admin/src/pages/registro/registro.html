@@ -31,10 +31,10 @@
             <ion-col id="cardAcostada1" col-12 col-sm-5 (click)="presentImage(fotoMapaURL)" [ngStyle]="{'background-image': 'url(' + fotoMapaURL + ')'}"></ion-col>
             <ion-col id="cardAcostada2" col-12 col-sm-7>
               <div>
-                <ion-icon name="map" item-left large></ion-icon>
+                <mat-icon>place</mat-icon>
                 <h2>Ubicacion</h2>
                 <p>{{registro.ciudad}}, {{registro.provincia}}, {{registro.pais}}</p>
-                <ion-icon name="pin" item-left large></ion-icon>
+                <mat-icon>gps_fixed</mat-icon>
                 <h2>Coordenadas</h2>
                 <p>Latitud: {{registro.latitud}}</p>
                 <p>Longitud: {{registro.longitud}}</p>
@@ -46,10 +46,10 @@
             <ion-col id="cardAcostada3" col-12 col-sm-5 push-sm-7 (click)="presentImage(fotoMuestraURL)" [ngStyle]="{'background-image': 'url(' + fotoMuestraURL + ')'}"></ion-col>
             <ion-col id="cardAcostada4" col-12 col-sm-7 pull-sm-5>
               <div>
-                <ion-icon name="clipboard" item-left large></ion-icon>
+                <mat-icon>assignment</mat-icon>
                 <h2>Indice</h2>
                 <p>{{registro.indice}}</p>
-                <ion-icon name="bug" item-left large></ion-icon>
+                <mat-icon>bug_report</mat-icon>
                 <h2>Insectos encontrados:</h2>
                 <div class="tabla">
                   <table>
