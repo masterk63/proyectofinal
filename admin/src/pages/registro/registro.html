@@ -31,10 +31,10 @@
             <ion-col id="cardAcostada1" col-12 col-sm-5 (click)="presentImage(fotoMapaURL)" [ngStyle]="{'background-image': 'url(' + fotoMapaURL + ')'}"></ion-col>
             <ion-col id="cardAcostada2" col-12 col-sm-7>
               <div>
-                <ion-icon name="map" item-left large></ion-icon>
+                <mat-icon>place</mat-icon>
                 <h2>Ubicacion</h2>
                 <p>{{registro.ciudad}}, {{registro.provincia}}, {{registro.pais}}</p>
-                <ion-icon name="pin" item-left large></ion-icon>
+                <mat-icon>gps_fixed</mat-icon>
                 <h2>Coordenadas</h2>
                 <p>Latitud: {{registro.latitud}}</p>
                 <p>Longitud: {{registro.longitud}}</p>

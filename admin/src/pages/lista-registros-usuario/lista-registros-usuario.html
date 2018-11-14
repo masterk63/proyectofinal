@@ -7,18 +7,18 @@
             <img src="data:image/jpeg;base64,{{reg.fotoMapa}}">
             <ion-fab right top>
               <button ion-fab>
-                <ion-icon name="pin"></ion-icon>
+                <mat-icon>place</mat-icon>
               </button>
             </ion-fab>
 
             <ion-item>
-              <ion-icon name="locate" item-start large></ion-icon>
+              <mat-icon>gps_fixed</mat-icon>
               <h2>{{reg.pais}}</h2>
               <p class="ajustarTexto">{{reg.ciudad}}, {{reg.provincia}}</p>
             </ion-item>
 
             <ion-item>
-              <ion-icon name="ios-bug" item-left large></ion-icon>
+              <mat-icon>bug_report</mat-icon>
               <h2>Indice</h2>
               <p>{{reg.indice}}</p>
             </ion-item>
@@ -27,7 +27,7 @@
               <span item-left>Fecha</span>
               <span item-left>{{reg.fecha | date:'dd/MM/yy'}}</span>
               <button ion-button icon-left clear item-end (click)="irAlRegistro(reg.idRegistro)">
-                <ion-icon name="ios-eye"></ion-icon>
+                <mat-icon>visibility</mat-icon>
                 Ver
               </button>
             </ion-item>
