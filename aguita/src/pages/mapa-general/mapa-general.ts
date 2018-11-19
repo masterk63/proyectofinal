@@ -238,6 +238,7 @@ export class MapaGeneralPage {
             position: new google.maps.LatLng(m.latitud, m.longitud),
             map: map,
             label: '' + m.indice,
+            indice: m.indice,
             idRegistro: m.idRegistro,
             usuario: m.usuario,
           });
