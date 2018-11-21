@@ -69,6 +69,7 @@ import { SocketProvider } from '../providers/socket/socket';
 //Circular Progress
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { CropperPage } from '../pages/cropper/cropper';
+import { ConnectivityService } from '../providers/connectivityService';
 
 
 @NgModule({
@@ -155,6 +156,7 @@ import { CropperPage } from '../pages/cropper/cropper';
     Geolocation,
     Diagnostic,
     Keyboard,
+    ConnectivityService,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     Todos, Camara, Localsave, Ubicacion, Auth, UsuariosService, RegistrosService, Storage,
     LocalSqlProvider,
