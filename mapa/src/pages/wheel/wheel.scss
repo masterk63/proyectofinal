@@ -1,0 +1,116 @@
+page-wheel {
+    text-align:center;
+
+
+}
+
+    #wheel{
+        display:inline-block;
+        position:relative;
+        overflow:hidden;
+        transform: rotate(90deg);
+    }
+    #wheel:after{
+        content:"";
+        background:red;
+        border:2px solid white;
+        position:absolute;
+        top:-7px;
+        left:50%;
+        width:10px;
+        height:10px;
+        margin-left:-7px;
+        transform: rotate(45deg)
+    }
+
+    .caja{
+        width: 350px;
+        height: 302px;
+        position: absolute;
+        top: 1px;
+        left: -12px;
+    }
+
+    .fondocaja{
+        background: #ab5822;
+        width: 313px;
+        height: 302px;
+        position: absolute;
+        top: 1px;
+        left: -12px;
+        z-index: -1;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .contenedorRueda{
+        margin: 0 auto;
+        position: relative;
+        width: 317px;
+        left: 3%;
+        z-index: 99;
+    }
+
+    .contenedorCenterRueda{
+            display: table !important;
+            width: 100% !important;
+            height: 100% !important;
+            text-align: center;
+            overflow-y: hidden;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-position: center center;
+        }
+
+        .contenedorCenterRueda > div{
+            display: table-cell;
+            vertical-align: middle;
+            background-color: rgba(0,0,0,0.2);
+        }
+        
+        #pIndice{
+            font-family: 'Amatic','Oswald', sans-serif !important;
+            font-size: 3.5em;
+            color: white;
+            font-weight: 700;
+            margin: 2%;
+            position: absolute;
+            left: -14px;
+        }
+
+        #pInformacion{
+            position: absolute;
+            bottom: 13px;
+            right: 17px;
+        }
+
+        #pNivelDeContaminacion{
+            position: absolute;
+            top: 108px;
+            left: 43px;
+        }
+
+        #pNivelDeContaminacion i{
+            font-size: 4em;
+        }
+
+        #pNivelDeContaminacion span{
+            font-family: 'Amatic','Oswald', sans-serif !important;
+            font-size: 2em;
+            left: 10px;
+            top: -19px;
+            position: absolute;
+            width: 190px;
+            font-weight: 700;
+        }
+
+        #siguiente{
+            position: fixed;
+            bottom: 6px;
+            right: 3px;
+        }
+
+        #siguiente button{
+            color: white;
+            font-size: 1.5em;
+            background-color: transparent;
+        }

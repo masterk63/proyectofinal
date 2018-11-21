@@ -1,0 +1,7 @@
+{
+  "name": "aguita",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

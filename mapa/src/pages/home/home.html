@@ -1,0 +1,243 @@
+<ion-header>
+  <ion-toolbar [ngClass]="claseHeader">
+    <ion-segment [(ngModel)]="registro">
+      <ion-segment-button value="mapa">
+        Mapa
+      </ion-segment-button>
+      <ion-segment-button  value="fotos">
+        Fotos
+      </ion-segment-button>
+      <ion-segment-button value="obseravaciones">
+        Insectos
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div padding #micontenedor class="contenedorCenter">
+    <div [ngSwitch]="registro">
+      <div *ngSwitchCase="'mapa'" style="text-align: center;">
+        <div class="mapaConteiner" [style.height.px]="altoMapa">
+          <page-mapasnativo [latitud]="latitud" [longitud]="longitud" *ngIf="muestroMapaNativo"> </page-mapasnativo>
+          <mapajshtml [latitud]="this.latitud" [longitud]="this.longitud" *ngIf="!muestroMapaNativo"></mapajshtml>
+        </div>
+        <h3>Ubicación encontrada:</h3>
+        <p class="latLon">
+          Latitud: {{this.latitud}}
+          <br> Longitud: {{this.longitud}}
+        </p>
+      </div>
+
+      <div *ngSwitchCase="'fotos'">
+        <div>
+          <div class="padding" *ngIf="!fotoPaisaje">
+            <button class="uploadPicture" (click)="takefotoPaisaje()">
+              <div class="botonIcono">
+                <ion-icon class="iconoGrande" name="ios-image-outline"></ion-icon>
+                <ion-icon class="iconoMas" name="md-add-circle"></ion-icon>
+              </div>
+              <p style="text-align: center;">
+                Foto del Paisaje</p>
+            </button>
+          </div>
+          <div class="padding" *ngIf="fotoPaisaje">
+            <div class="mapa">
+              <img [src]="fotoPaisajeURLSafe" imageViewer style="border-radius: 10px; border: 1px solid #757575">
+              <ion-icon class="botonBorrar" (click)="deleteFoto('paisaje')" name="ios-trash-outline"></ion-icon>
+            </div>
+          </div>
+          <div class="padding" *ngIf="!fotoMuestra">
+            <button class="uploadPicture" (click)="takefotoMuestra()">
+              <div class="botonIcono">
+                <ion-icon class="iconoGrande" name="ios-bug-outline"></ion-icon>
+                <ion-icon class="iconoMas2" name="md-add-circle"></ion-icon>
+              </div>
+              <p style="text-align: center;">
+                Foto de la Muestra</p>
+            </button>
+          </div>
+          <div class="padding" *ngIf="fotoMuestra">
+            <div class="mapa">
+              <img [src]="fotoMuestraURLSafe" imageViewer style="border-radius: 10px; border: 1px solid #757575">
+              <ion-icon class="botonBorrar" (click)="deleteFoto('muestra')" name="ios-trash-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="'obseravaciones'">
+        <form [formGroup]="coincidencia">
+          <ion-row>
+
+            <ion-col col-12 col-sm-6 col-xl-3>
+              <ion-card>
+                <img class="bichos" [src]="fotoElmido" (click)="openModal(realElmido,'elmido')" />
+                <ion-card-content style="padding: 0px;">
+                  <ion-card-title>
+                    Elmidos
+                  </ion-card-title>
+                  <p style="text-align: center;">
+                    ¿Se encuentra este insecto?
+                  </p>
+                  <ion-row (click)="move('patudo')" style="font-size: 16px;">
+                    <ion-col [class.botonActivoBackground]="this.insectos?.elmido == 'si'" [class.botonDesactivoBackground]="this.insectos?.elmido == 'no'"
+                      (click)="insectosEncontrados('elmido','si')" style="padding: 10px 0;" col-6 tappable>
+                      <div [class.botonActivoTexto]="this.insectos?.elmido == 'si'" [class.botonDesactivoTexto]="this.insectos?.elmido == 'no'">
+                        <span style="font-weight: 500;">SI</span>
+                      </div>
+                    </ion-col>
+                    <ion-col [class.botonActivoBackground]="this.insectos?.elmido == 'no'" [class.botonDesactivoBackground]="this.insectos?.elmido == 'si'"
+                      (click)="insectosEncontrados('elmido','no')" style="padding: 10px 0;" col-6 tappable>
+                      <div [class.botonActivoTexto]="this.insectos?.elmido == 'no'" [class.botonDesactivoTexto]="this.insectos?.elmido == 'si'">
+                        <span style="font-weight: 500;">NO</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+
+            <ion-col id="patudo" col-12 col-sm-6 col-xl-3>
+              <ion-card>
+                <img class="bichos" [src]="fotoPatudo" (click)="openModal(realPatudo,'patudo')" />
+                <ion-card-content style="padding: 0px;">
+                  <ion-card-title>
+                    Patudo
+                  </ion-card-title>
+                  <p style="text-align: center;">
+                    ¿Se encuentra este insecto?
+                  </p>
+                  <ion-row (click)="move('plecoptero')" style="font-size: 16px;">
+                    <ion-col [class.botonActivoBackground]="this.insectos?.patudo == 'si'" [class.botonDesactivoBackground]="this.insectos?.patudo == 'no'"
+                      (click)="insectosEncontrados('patudo','si')" style="padding: 10px 0;" col-6 tappable>
+                      <div [class.botonActivoTexto]="this.insectos?.patudo == 'si'" [class.botonDesactivoTexto]="this.insectos?.patudo == 'no'">
+                        <span style="font-weight: 500;">SI</span>
+                      </div>
+                    </ion-col>
+                    <ion-col [class.botonActivoBackground]="this.insectos?.patudo == 'no'" [class.botonDesactivoBackground]="this.insectos?.patudo == 'si'"
+                      (click)="insectosEncontrados('patudo','no')" style="padding: 10px 0;" col-6 tappable>
+                      <div [class.botonActivoTexto]="this.insectos?.patudo == 'no'" [class.botonDesactivoTexto]="this.insectos?.patudo == 'si'">
+                        <span style="font-weight: 500;">NO</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+
+
+            <ion-col id="plecoptero" col-12 col-sm-6 col-xl-3>
+              <ion-card>
+                <img class="bichos" [src]="fotoPlecoptero" (click)="openModal(realPlecoptero,'plecoptero')" />
+                <ion-card-content style="padding: 0px;">
+                  <ion-card-title>
+                    Plecoptero
+                  </ion-card-title>
+                  <p style="text-align: center;">
+                    ¿Se encuentra este insecto?
+                  </p>
+                  <ion-row (click)="move('tricoptero')" style="font-size: 16px;">
+                    <ion-col [class.botonActivoBackground]="this.insectos?.plecoptero == 'si'" [class.botonDesactivoBackground]="this.insectos?.plecoptero == 'no'"
+                      (click)="insectosEncontrados('plecoptero','si')" style="padding: 10px 0;" col-6 tappable>
+                      <div [class.botonActivoTexto]="this.insectos?.plecoptero == 'si'" [class.botonDesactivoTexto]="this.insectos?.plecoptero == 'no'">
+                        <span style="font-weight: 500;">SI</span>
+                      </div>
+                    </ion-col>
+                    <ion-col [class.botonActivoBackground]="this.insectos?.plecoptero == 'no'" [class.botonDesactivoBackground]="this.insectos?.plecoptero == 'si'"
+                      (click)="insectosEncontrados('plecoptero','no')" style="padding: 10px 0;" col-6 tappable>
+                      <div [class.botonActivoTexto]="this.insectos?.plecoptero == 'no'" [class.botonDesactivoTexto]="this.insectos?.plecoptero == 'si'">
+                        <span style="font-weight: 500;">NO</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+
+
+            <ion-col id="tricoptero" col-12 col-sm-6 col-xl-3>
+              <ion-card>
+                <img class="bichos" [src]="fotoTricoptero" (click)="openModal(realTricoptero,'tricoptero')" />
+                <ion-card-content style="padding: 0px;">
+                  <ion-card-title>
+                    Tricoptero
+                  </ion-card-title>
+                  <p style="text-align: center;">
+                    ¿Se encuentra este insecto?
+                  </p>
+                  <ion-row style="font-size: 16px;">
+                    <ion-col [class.botonActivoBackground]="this.insectos?.tricoptero == 'si'" [class.botonDesactivoBackground]="this.insectos?.tricoptero == 'no'"
+                      (click)="insectosEncontrados('tricoptero','si')" style="padding: 10px 0;" col-6 tappable>
+                      <div [class.botonActivoTexto]="this.insectos?.tricoptero == 'si'" [class.botonDesactivoTexto]="this.insectos?.tricoptero == 'no'">
+                        <span style="font-weight: 500;">SI</span>
+                      </div>
+                    </ion-col>
+                    <ion-col [class.botonActivoBackground]="this.insectos?.tricoptero == 'no'" [class.botonDesactivoBackground]="this.insectos?.tricoptero == 'si'"
+                      (click)="insectosEncontrados('tricoptero','no')" style="padding: 10px 0;" col-6 tappable>
+                      <div [class.botonActivoTexto]="this.insectos?.tricoptero == 'no'" [class.botonDesactivoTexto]="this.insectos?.tricoptero == 'si'">
+                        <span style="font-weight: 500;">NO</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+          <ion-item id="observaciones" formControlName="observaciones">
+            <ion-label color="primary" stacked>Observaciones</ion-label>
+            <ion-textarea></ion-textarea>
+          </ion-item>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="footerToolbar" color="secondary">
+    <ion-buttons>
+      <ion-row>
+        <ion-col col-4>
+          <button class="botonFooter" *ngIf="this.registro != 'mapa'" ion-button icon-start (click)="pasoAnterior()">
+            <ion-icon style="font-size: 1.5em;" name="ios-arrow-back"></ion-icon>
+            Atras
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <button class="botonFooter" ion-button (click)="cancelarBoton()">
+            <p style="font-weight: 700; letter-spacing: 1px; color:white;">CANCELAR</p>
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <button class="botonFooter" *ngIf="this.registro != 'obseravaciones' && animacionMapaFin" ion-button icon-end (click)="siguientePaso()">
+            Siguiente
+            <ion-icon style="font-size: 1.5em;" name="ios-arrow-forward"></ion-icon>
+          </button>
+          <button class="botonFooter" *ngIf="this.registro === 'obseravaciones'" ion-button icon-end (click)="siguientePaso()">
+            GUARDAR
+            <ion-icon style="font-size: 1.5em;" name="cloud-upload"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
+<!-- <ion-footer>
+  <ion-toolbar class="footerToolbar" color="secondary">
+    <ion-buttons>
+      <button *ngIf="this.registro != 'obseravaciones'" ion-button block style="float: right;" (click)="siguientePaso()">Siguiente
+        <ion-icon style="margin-left: 10%;" name="ios-arrow-forward"></ion-icon>
+      </button>
+      <button *ngIf="this.registro === 'obseravaciones'" ion-button block style="float: right;" (click)="siguientePaso()">Guardar
+        <ion-icon style="margin-left: 10%;" name="cloud-upload"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons>
+      <button *ngIf="this.registro != 'mapa'" ion-button block style="float: left;" (click)="pasoAnterior()">
+        <ion-icon style="margin-right: 10%;" name="ios-arrow-back"></ion-icon> Atras</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer> -->

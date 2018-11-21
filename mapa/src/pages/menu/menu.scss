@@ -1,0 +1,51 @@
+page-menu {
+    .centrado {
+        max-width: 960px;
+    }
+    .cardMenu {
+        background: #eee;
+        border-radius: 5px;
+        text-align: center;
+    }
+    .cardMenu:hover {
+        background: #a08d8d;
+        p, .icon{
+            color:white !important;
+        }
+    }
+    .cardMenu .icon {
+        font-size: 4em;
+    }
+    ion-row ion-col:nth-child(1) .cardMenu .icon {
+        color: #4d9ee1;
+    }
+    ion-row ion-col:nth-child(2) .cardMenu .icon {
+        color: #c28a63;
+    }
+    ion-row ion-col:nth-child(3) .cardMenu .icon {
+        color: #c56c6c;
+    }
+    ion-row ion-col:nth-child(4) .cardMenu .icon {
+        color: #9575aa;
+    } //c28a63 c56c6c 9575aa 04c4a5
+    ion-row ion-col:nth-child(5) .cardMenu .icon {
+        color: #74c56c;
+    }
+    ion-row ion-col:nth-child(6) .cardMenu .icon {
+        color: #F44336;
+    }
+    .cardMenu p {
+        color: #886e6e;
+        font-weight: bold;
+        margin: 0px;
+        padding-bottom: 5px;
+    }
+    @media only screen and (min-width: 720px) {
+        .cardMenu .icon {
+            font-size: 6em;
+        }
+        .cardMenu {
+            padding: 25px 0px;
+        }
+    }
+}

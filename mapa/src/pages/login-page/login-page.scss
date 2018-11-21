@@ -1,0 +1,271 @@
+.ios,
+.md {
+    login-page {
+        .animacionP {
+            -webkit-animation: color-change 3s infinite;
+            -moz-animation: color-change 3s infinite;
+            -o-animation: color-change 3s infinite;
+            -ms-animation: color-change 3s infinite;
+            animation: color-change 3s infinite;
+        }
+        @-webkit-keyframes color-change {
+            0% {
+                color: white;
+            }
+            50% {
+                color: black;
+            }
+            100% {
+                color: white;
+            }
+        }
+        @-moz-keyframes color-change {
+            0% {
+                color: white;
+            }
+            50% {
+                color: black;
+            }
+            100% {
+                color: white;
+            }
+        }
+        @-ms-keyframes color-change {
+            0% {
+                color: white;
+            }
+            50% {
+                color: black;
+            }
+            100% {
+                color: white;
+            }
+        }
+        @-o-keyframes color-change {
+            0% {
+                color: white;
+            }
+            50% {
+                color: black;
+            }
+            100% {
+                color: white;
+            }
+        }
+        @keyframes color-change {
+            0% {
+                color: white;
+            }
+            50% {
+                color: black;
+            }
+            100% {
+                color: white;
+            }
+        }
+        .downArrow {
+            text-align: center;
+            margin-top: -20px;
+        }
+        .bounce {
+            -moz-animation: bounce 3s infinite;
+            -webkit-animation: bounce 3s infinite;
+            animation: bounce 3s infinite;
+        }
+        @-moz-keyframes bounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                -moz-transform: translateY(0);
+                transform: translateY(0);
+            }
+            40% {
+                -moz-transform: translateY(30px);
+                transform: translateY(30px);
+            }
+            60% {
+                -moz-transform: translateY(15px);
+                transform: translateY(15px);
+            }
+        }
+        @-webkit-keyframes bounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+            40% {
+                -webkit-transform: translateY(30px);
+                transform: translateY(30px);
+            }
+            60% {
+                -webkit-transform: translateY(15px);
+                transform: translateY(15px);
+            }
+        }
+        @keyframes bounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                -moz-transform: translateY(0);
+                -ms-transform: translateY(0);
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+            40% {
+                -moz-transform: translateY(30px);
+                -ms-transform: translateY(30px);
+                -webkit-transform: translateY(30px);
+                transform: translateY(30px);
+            }
+            60% {
+                -moz-transform: translateY(15px);
+                -ms-transform: translateY(15px);
+                -webkit-transform: translateY(15px);
+                transform: translateY(15px);
+            }
+        }
+        /* Demo Purpose Only*/
+        .demo {
+            font-family: 'Raleway', sans-serif;
+            color: #fff;
+            display: block;
+            margin: 0 auto;
+            padding: 15px 0;
+            text-align: center;
+        }
+        .demo a {
+            font-family: 'Raleway', sans-serif;
+            color: #2ecc71;
+        }
+        .titulo {
+            // font-family: 'Pacifico', cursive; 
+            // font-family: 'Fascinate Inline', cursive;
+            font-family: 'Leckerli One', cursive !important;
+            text-align: center;
+            margin: 40px 0px 55px 0px !important;
+            font-size: 3em;
+        }
+        a {
+            font-weight: bold;
+            color: lightgray;
+            text-decoration: underline;
+            font-size: 12px;
+            font-family: 'Roboto';
+        }
+        .input {
+            font-family: 'Roboto';
+        }
+        .pIzq {
+            float: left;
+            margin-left: 10%;
+        }
+        .pDer {
+            float: right;
+            margin-right: 10%;
+        }
+        .overlay {
+            position: relative;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        ion-content {
+            // background-image: url("../assets/img/cascadaRioNoque.jpg");
+            background-position: center;
+            color: white;
+        }
+        .content-md {
+            background-color: transparent !important;
+        }
+        .entreLineas {
+            line-height: 0.5;
+            text-align: center;
+        }
+        .entreLineas span {
+            display: inline-block;
+            position: relative;
+            width: 25%;
+            color: lightgray;
+        }
+        .entreLineas span:before,
+        .entreLineas span:after {
+            content: "";
+            position: absolute;
+            height: 3px;
+            border-bottom: 1px solid grey; // border-top: 1px solid grey;
+            top: 0;
+            width: 100%;
+        }
+        .entreLineas span:before {
+            right: 100%;
+            margin-right: 15px;
+        }
+        .entreLineas span:after {
+            left: 100%;
+            margin-left: 15px;
+        }
+        .logFace {
+            background-color: #1b4d7f;
+            width: 90%;
+            margin: 0 auto;
+        }
+        .logFace:hover {
+            background-color: #062e56;
+        }
+        .boton {
+            display: block;
+            width: 90%;
+            margin: 0 auto;
+            font-family: 'Oswald', sans-serif;
+        }
+        .mesanjeBienvenida {
+            font-family: 'Roboto' !important;
+        }
+        .mesanjeBienvenida p {
+            font-family: 'Roboto' !important;
+            font-size: 4em;
+            font-weight: 300;
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+        }
+        .mesanjeBienvenida span {
+            font-family: 'Leckerli One' !important;
+        }
+        @media (min-width: 768px) {
+            .aguita {
+                background: white;
+            }
+            .grid {
+                padding: 0px !important;
+            }
+            .titulo {
+                font-family: 'Roboto' !important;
+                margin: 63px auto;
+                font-size: 3em;
+                font-weight: 300;
+                text-align: left;
+                color: black;
+                width: 90%;
+            }
+            .entreLineas span {
+                color: #6f6b6b !important;
+            }
+            a {
+                color: #6f6b6b;
+            }
+        }
+        @media (max-width: 767px) {
+            #lado {
+                display: none;
+            }
+        }
+    }
+}

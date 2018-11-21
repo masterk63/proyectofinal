@@ -1,0 +1,61 @@
+page-mapa-general {
+    //   #map {
+    //     width: 100%;
+    //     height: 100%;
+    //     z-index:1;
+    //     border-radius: 10px;
+    //   }
+    //   img{
+    //     max-width: 150px !important;
+    //   }
+    .grid,
+    .row {
+        height: 100%;
+        padding: 0;
+    }
+    .col {
+        padding: 0;
+    }
+    .list {
+        position: relative;
+        margin: -3px 0px 0px 0px !important;
+    }
+    .barraLateral {
+        position: absolute !important;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        width: 350px;
+    }
+    .sombra {
+        -moz-box-shadow: 3px 6px 2px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: 3px 6px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 3px 6px 2px rgba(0, 0, 0, 0.3);
+    }
+    .mapIconLabel {
+        font-size: 15px;
+        font-weight: bold;
+        color: #FFFFFF;
+        font-family: 'DINNextRoundedLTProMediumRegular';
+    }
+    .mensajeEmpty {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        height: calc(100% - 56px);
+        .card {
+            background: #FBBC3F;
+            color: #FFFFFF;
+            max-width: 300px;
+        }
+        .card-header {
+            color: #FFFFFF;
+            background: #FBB53D;
+            font-weight: 500;
+        }
+        .card-content {
+            font-size: 20px;
+            margin-top: 16px;
+        }
+    }
+}

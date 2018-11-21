@@ -1,0 +1,39 @@
+<!--
+ * Demo of Cropper.js v1.3.1 with Ionic v3
+ * https://github.com/itsru/Ionic3-Camera-with-CropperJS
+ *
+ * Copyright (c) 2018 Ru Selvadurai
+ * Released under the MIT license
+ *
+ * Date: 2018-02-28
+-->
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title i18n>Recortar</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="cropperReset()">
+        <ion-icon name='refresh'></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons padding-left padding-right end>
+      <button ion-button icon-only (click)="imageRotate()">
+        <ion-icon name='redo'></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons padding-left padding-right end>
+      <button ion-button icon-only (click)="cancel()">
+        <ion-icon name='close'></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons padding-left padding-right end>
+      <button ion-button icon-only (click)="finish()">
+        <ion-icon name='checkmark'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="contenedorImagen">
+    <img [src]="imageBase64" (load)="cargarCropper()" #image>
+  </div>
+</ion-content>

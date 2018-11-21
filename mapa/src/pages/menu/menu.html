@@ -1,0 +1,74 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>MENU</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding class="card-background-page">
+  <ion-grid class="centrado">
+    <ion-row>
+      <ion-col col-6 col-md-6>
+        <div class="cardMenu" (click)="mapa()" tappable>
+          <div>
+            <ion-icon ios="ios-map" md="md-map"></ion-icon>
+          </div>
+          <div>
+            <p>Mapa</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6 col-md-6>
+        <div class="cardMenu" (click)="verUsuario()" tappable>
+          <div>
+            <ion-icon name="contact"></ion-icon>
+          </div>
+          <div>
+            <p>Mi Perfil</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6 col-md-6>
+        <div class="cardMenu" (click)="presentImage()" tappable>
+          <div>
+            <ion-icon name="list-box"></ion-icon>
+          </div>
+          <div>
+            <p>Protocolo de Muestreo</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6 col-md-6>
+        <div class="cardMenu" (click)="tutorial()" tappable>
+          <div>
+            <ion-icon name="book"></ion-icon>
+          </div>
+          <div>
+            <p>Tutorial</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6 col-md-6>
+        <div class="cardMenu" (click)="abrirModal()" tappable>
+          <div>
+            <ion-icon name="information-circle"></ion-icon>
+          </div>
+          <div>
+            <p>Acerca de</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6 col-md-6>
+        <div class="cardMenu" (click)="logout()" tappable>
+          <div>
+            <ion-icon name="exit"></ion-icon>
+          </div>
+          <div>
+            <p>Salir</p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

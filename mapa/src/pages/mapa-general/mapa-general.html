@@ -1,0 +1,49 @@
+<ion-content>
+  <ion-grid>
+    <ion-row *ngIf="!verMapa">
+      <ion-col class="mensajeEmpty">
+        <ion-card>
+          <ion-card-header>
+            Advertencia
+          </ion-card-header>
+
+          <ion-card-content>
+            No se encontraron registros validados
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="verMapa">
+      <ion-col class="barraLateral" *ngIf="this.mostrarInfo" [@photosAnimation]="mostrarInfo">
+        <ion-fab right top>
+          <button ion-fab mini color="dark" (click)="cerrar()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </ion-fab>
+        <ion-row>
+          <ion-col col-12 class="sombra">
+            <img [src]="imagenInfo" alt="">
+            <ion-list>
+              <ion-fab edge right top>
+                <button ion-fab color="primary" (click)="irAlRegistro()">
+                  <ion-icon name="arrow-forward"></ion-icon>
+                </button>
+              </ion-fab>
+              <ion-item>
+                <ion-icon name="person" item-left large></ion-icon> {{usuario}}
+              </ion-item>
+              <ion-item>
+                <ion-icon name="calendar" item-left large></ion-icon> {{fecha | date:'dd/MM/yy'}}
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col col-12>
+        <div #map id="map"></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>
