@@ -307,9 +307,9 @@ export class MapaGeneralPage {
           let content = `Se encontraron ` + markers.length + ` registros <br>
                                 en un radio de `+ radio + ` metros. <br>
                                 Indice promedio: `+ prom;
-          infowindow.setContent(content);
-          infowindow.setPosition(cluster.getCenter());
-          infowindow.open(map);
+                                infowindow.setContent(content);
+                                infowindow.setPosition(cluster.getCenter());
+                                infowindow.open(map);
           let color;
           switch (prom) {
             case 0:
@@ -318,7 +318,7 @@ export class MapaGeneralPage {
             case 1:
               color = '#CF6D31';
               break;
-            case 2:
+              case 2:
               color = '#F8F131';
               break;
             case 3:

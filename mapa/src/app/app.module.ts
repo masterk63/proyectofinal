@@ -70,6 +70,8 @@ import { SocketProvider } from '../providers/socket/socket';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { CropperPage } from '../pages/cropper/cropper';
 import { ConnectivityService } from '../providers/connectivityService';
+import { TabsPage } from '../pages/tabs/tabs';
+import { LoginPage } from '../pages/login-page/login-page';
 
 
 @NgModule({
@@ -92,6 +94,8 @@ import { ConnectivityService } from '../providers/connectivityService';
     MisRegistrosPage,
     TutorialPage,
     Wheel,
+    LoginPage,
+    TabsPage,
     RegistroPage,
     ListaRegistrosPage
   ],
@@ -134,10 +138,12 @@ import { ConnectivityService } from '../providers/connectivityService';
     Information,
     ForgotPasswordPage,
     SignupPage,
+    LoginPage,
     MapasnativoPage,
     MapasnativoPage,
     MisRegistrosPage,
     TutorialPage,
+    TabsPage,
     Wheel,
     RegistroPage,
     HomePage,
