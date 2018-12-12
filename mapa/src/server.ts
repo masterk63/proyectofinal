@@ -1,6 +1,6 @@
 
 export let data = {
-    "urlServidor": 'https://ingeit.ddns.net/aguita', 
+    "urlServidor": 'http://ingeit.ddns.net:3000', 
     // "urlServidor": `http://localhost:3000`, 
     "password": "false" 
 };
