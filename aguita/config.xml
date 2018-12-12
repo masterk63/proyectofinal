@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="lillo.aguita.registros" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="lillo.aguita.registros" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Aguita</name>
     <description>Sistema de gestion de contaminacion del agua</description>
     <author email="soporte@ingeit.com.ar" href="http://ingeit.com.ar/">Ingeit Team</author>
