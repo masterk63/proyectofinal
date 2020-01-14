@@ -67,7 +67,7 @@
     "md5": "^2.2.1",
     "minimist": "^1.2.0",
     "ngx-img-cropper": "^0.10.4",
-    "npm": "^5.5.1",
+    "npm": "^6.13.4",
     "pouchdb": "^6.3.4",
     "rxjs": "5.5.6",
     "socket.io-client": "^2.0.4",
