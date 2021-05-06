@@ -36,7 +36,7 @@
     "socket.io": "^2.0.4",
     "spherical-geometry-js": "^1.0.1",
     "static-favicon": "~1.0.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.12.1"
   },
   "devDependencies": {
     "nodemon": "^1.17.3"
