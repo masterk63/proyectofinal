@@ -47,7 +47,7 @@
     "ngx-pagination": "^3.1.0",
     "rxjs": "5.5.8",
     "sw-toolbox": "3.6.0",
-    "xlsx": "^0.13.0",
+    "xlsx": "^0.17.0",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
