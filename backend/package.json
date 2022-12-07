@@ -17,7 +17,7 @@
     "ejs": "~0.8.5",
     "ejs-locals": "^1.0.2",
     "excel-export": "^0.5.1",
-    "express": "^4.14.0",
+    "express": "^4.17.3",
     "express-flash": "0.0.2",
     "express-session": "^1.15.2",
     "express-validator": "^3.1.3",
